@@ -99,10 +99,10 @@ public class MainApplication extends Application implements ReactApplication {
 import ReactNativeLanguages from 'react-native-languages';
 
 // Current device language
-console.log('langague', ReactNativeLanguages.language);
+console.log('language', ReactNativeLanguages.language);
 
 // User preferred languages (in order)
-console.log('langagues', ReactNativeLanguages.languages);
+console.log('languages', ReactNativeLanguages.languages);
 ```
 
 ### Add project's supported localizations (iOS)

@@ -10,10 +10,10 @@ export default class ReactNativeLanguagesExample extends Component {
       <View style={styles.container}>
         <Text style={styles.title}>react-native-languages demo</Text>
         <Text style={styles.line}>
-          langague: {ReactNativeLanguages.language}
+          language: {ReactNativeLanguages.language}
         </Text>
         <Text style={styles.line}>
-          langagues: {JSON.stringify(ReactNativeLanguages.languages)}
+          languages: {JSON.stringify(ReactNativeLanguages.languages)}
         </Text>
       </View>
     );
