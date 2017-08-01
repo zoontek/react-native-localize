@@ -1,0 +1,12 @@
+[ignore]
+.*/node_modules
+
+[include]
+
+[libs]
+
+[options]
+munge_underscores=true
+
+[version]
+^0.50.0

@@ -1,0 +1,25 @@
+{
+  "name": "react-native-languages",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "React Native properties and methods related to the language of the device",
+  "repository": "https://github.com/react-community/react-native-languages",
+  "author": "Mathieu Acthernoene <zoontek@gmail.com>",
+  "main": "index.js",
+  "scripts": {
+    "precommit": "lint-staged",
+    "prettier": "prettier --single-quote --write '{,!(node_modules)/**/}*.js'"
+  },
+  "lint-staged": {
+    "{,!(node_modules)/**/}*.js": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "flow-bin": "^0.50.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.0.2",
+    "prettier": "^1.5.3"
+  }
+}
