@@ -50,7 +50,7 @@ $ pod install
 #### On iOS
 
 1. In the XCode's "Project navigator", right click on your project's Libraries folder ➜ `Add Files to <...>`
-2. Go to `node_modules` ➜ `react-native-image-picker` ➜ `ios` ➜ select `ReactNativeLanguages.xcodeproj`
+2. Go to `node_modules` ➜ `react-native-languages` ➜ `ios` ➜ select `ReactNativeLanguages.xcodeproj`
 3. Add `ReactNativeLanguages.a` to `Build Phases -> Link Binary With Libraries`
 
 #### On Android
