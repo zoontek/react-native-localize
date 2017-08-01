@@ -107,7 +107,7 @@ console.log('langagues', ReactNativeLanguages.languages);
 
 ### Add project's supported localizations (iOS)
 
-![](https://github.com/react-community/react-native-languages/blob/master/docs/xcode-adding-locales?raw=true)
+![](https://github.com/react-community/react-native-languages/blob/master/docs/xcode-adding-locales.png?raw=true)
 
 ### Listening for languages changes (Android)
 
