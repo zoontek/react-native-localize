@@ -8,11 +8,11 @@
   "main": "index.js",
   "scripts": {
     "precommit": "lint-staged",
-    "prettier": "prettier --single-quote --write '{,!(node_modules)/**/}*.js'"
+    "prettier": "prettier --write '**/*.js'"
   },
   "lint-staged": {
-    "{,!(node_modules)/**/}*.js": [
-      "prettier --single-quote --write",
+    "**/*.js": [
+      "prettier --write",
       "git add"
     ]
   },
