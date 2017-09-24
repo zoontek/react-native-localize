@@ -1,6 +1,6 @@
 {
   "name": "react-native-languages",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "description": "React Native properties and methods related to the language of the device",
   "repository": "https://github.com/react-community/react-native-languages",
