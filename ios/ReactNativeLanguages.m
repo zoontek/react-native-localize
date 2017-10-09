@@ -5,7 +5,10 @@
 
 RCT_EXPORT_MODULE();
 
-#pragma mark - Private API
++ (BOOL)requiresMainQueueSetup
+{
+  return YES;
+}
 
 - (NSMutableArray *)ensureLanguageTags:(NSArray *)languages
 {
@@ -17,8 +20,6 @@ RCT_EXPORT_MODULE();
 
   return sanitizedLanguages;
 }
-
-#pragma mark - Public API
 
 - (NSDictionary *)constantsToExport
 {
