@@ -1,8 +1,9 @@
 {
   "name": "react-native-languages",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "license": "MIT",
-  "description": "React Native properties and methods related to the language of the device",
+  "description":
+    "React Native properties and methods related to the language of the device",
   "repository": "https://github.com/react-community/react-native-languages",
   "author": "Mathieu Acthernoene <zoontek@gmail.com>",
   "main": "index.js",
@@ -11,10 +12,7 @@
     "prettier": "prettier --write '**/*.js'"
   },
   "lint-staged": {
-    "**/*.js": [
-      "prettier --write",
-      "git add"
-    ]
+    "**/*.js": ["prettier --write", "git add"]
   },
   "devDependencies": {
     "flow-bin": "^0.55.0",
