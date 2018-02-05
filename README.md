@@ -1,6 +1,6 @@
-# 🌐 react-native-languages
+# 🌍 react-native-languages
 
-React Native properties and methods related to the language of the device.
+Get the user preferred languages and use the library of your choice to translate your app !
 
 [![npm version](https://badge.fury.io/js/react-native-languages.svg)](https://badge.fury.io/js/react-native-languages) [![npm](https://img.shields.io/npm/dt/react-native-languages.svg)](https://www.npmjs.org/package/react-native-languages) ![Platform - Android and iOS](https://img.shields.io/badge/platform-Android%20%7C%20iOS-yellow.svg) ![MIT](https://img.shields.io/dub/l/vibe-d.svg) [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
@@ -10,17 +10,15 @@ React Native properties and methods related to the language of the device.
 
 - Android SDK Build-tools 25.0.3
 
-![](https://github.com/react-community/react-native-languages/blob/master/docs/android-build-tools.png?raw=true)
-
 ## Installation
 
 #### Using yarn
-```
+```bash
 $ yarn add react-native-languages
 ```
 
 #### Using npm
-```
+```bash
 $ npm i react-native-languages --save
 ```
 
@@ -30,7 +28,7 @@ $ npm i react-native-languages --save
 
 #### Using react-native link (react-native >= 0.29)
 
-```
+```bash
 $ react-native link react-native-languages
 ```
 
@@ -41,7 +39,7 @@ $ react-native link react-native-languages
 pod 'ReactNativeLanguages', :path => '../node_modules/react-native-languages'
 ```
 
-```
+```bash
 $ pod install
 ```
 
@@ -105,10 +103,6 @@ console.log('language', ReactNativeLanguages.language);
 console.log('languages', ReactNativeLanguages.languages);
 ```
 
-### Add project's supported localizations (iOS)
-
-![](https://github.com/react-community/react-native-languages/blob/master/docs/xcode-adding-locales.png?raw=true)
-
 ### Listening for languages changes (Android)
 
 ```javascript
@@ -120,6 +114,6 @@ ReactNativeLanguages.addEventListener('change', ({ language, languages }) => {
 });
 ```
 
-#### ⚠️ Note
+### Add project's supported localizations (iOS)
 
-As iOS reloads your application on languages change, there is no need to perform this step on this platform.
+![](https://github.com/react-community/react-native-languages/blob/master/docs/xcode-adding-locales.png?raw=true)
