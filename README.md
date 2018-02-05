@@ -12,27 +12,17 @@ Get the user preferred languages and use the library of your choice to translate
 
 ## Installation
 
-#### Using yarn
 ```bash
 $ yarn add react-native-languages
-```
-
-#### Using npm
-```bash
-$ npm i react-native-languages --save
-```
-
-## Setup
-
-### Automatic setup
-
-#### Using react-native link (react-native >= 0.29)
-
-```bash
+# -- OR --
+npm i react-native-languages --save
+# - THEN -
 $ react-native link react-native-languages
 ```
 
-#### Using Cocoapods (iOS only)
+## Setup using Cocoapods (iOS only)
+
+Instead of using `react-native link`, you can use Cocoapods to manage your dependencies.
 
 ```ruby
 # Add this line in your Podfile
@@ -101,13 +91,8 @@ console.log('language', ReactNativeLanguages.language);
 
 // User preferred languages (in order)
 console.log('languages', ReactNativeLanguages.languages);
-```
 
-### Listening for languages changes (Android)
-
-```javascript
-import ReactNativeLanguages from 'react-native-languages';
-
+// Listening for languages changes (on Android)
 ReactNativeLanguages.addEventListener('change', ({ language, languages }) => {
   // Do languages related things…
   // ReactNativeLanguages.language and ReactNativeLanguages.languages will be correct too !
