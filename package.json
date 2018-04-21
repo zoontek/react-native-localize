@@ -1,6 +1,6 @@
 {
   "name": "react-native-languages",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "MIT",
   "description":
     "React Native properties and methods related to the language of the device",
@@ -9,15 +9,15 @@
   "main": "index.js",
   "scripts": {
     "precommit": "lint-staged",
-    "prettier": "prettier --write '**/*.js'"
+    "format": "prettier --write '**/*.js'"
   },
   "lint-staged": {
     "**/*.js": ["prettier --write", "git add"]
   },
   "devDependencies": {
-    "flow-bin": "^0.55.0",
+    "flow-bin": "^0.70.0",
     "husky": "^0.14.3",
-    "lint-staged": "^4.2.2",
-    "prettier": "^1.7.0"
+    "lint-staged": "^7.0.4",
+    "prettier": "^1.12.1"
   }
 }

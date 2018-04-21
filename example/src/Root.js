@@ -9,6 +9,7 @@ class Root extends PureComponent {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{this.props.t('title')}</Text>
+
         <Text style={styles.line}>
           {this.props.t('current', {
             language: this.props.i18n.language
