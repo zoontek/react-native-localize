@@ -10,22 +10,34 @@ Get the user preferred languages and use the library of your choice to translate
 
 * Android SDK Build-tools 25.0.3
 
+![](https://github.com/react-community/react-native-languages/blob/master/docs/android-build-tools.png?raw=true)
+
 ## Installation
+
+#### Using yarn
 
 ```bash
 $ yarn add react-native-languages
-# -- OR --
-npm i react-native-languages --save
-# - THEN -
+```
+
+#### Using npm
+
+```bash
+$ npm i -S react-native-languages
+```
+
+## Linking
+
+#### Using react-native-cli
+
+```bash
 $ react-native link react-native-languages
 ```
 
-## Setup using Cocoapods (iOS only)
-
-Instead of using `react-native link`, you can use Cocoapods to manage your dependencies.
+#### Using CocoaPods (iOS)
 
 ```ruby
-# Add this line in your Podfile
+# add this line in your Podfile
 pod 'RNLanguages', :path => '../node_modules/react-native-languages'
 ```
 
@@ -33,15 +45,13 @@ pod 'RNLanguages', :path => '../node_modules/react-native-languages'
 $ pod install
 ```
 
-### Manual setup
-
-#### On iOS
+#### Manual (iOS)
 
 1.  In the XCode's "Project navigator", right click on your project's Libraries folder ➜ `Add Files to <...>`
 2.  Go to `node_modules` ➜ `react-native-languages` ➜ `ios` ➜ select `RNLanguages.xcodeproj`
 3.  Add `RNLanguages.a` to `Build Phases -> Link Binary With Libraries`
 
-#### On Android
+#### Manual (Android)
 
 1.  Add the following lines to `android/settings.gradle`:
 
@@ -81,7 +91,7 @@ public class MainApplication extends Application implements ReactApplication {
 }
 ```
 
-## Usage
+## Basic usage
 
 ```javascript
 import RNLanguages from 'react-native-languages';
@@ -98,6 +108,10 @@ RNLanguages.addEventListener('change', ({ language, languages }) => {
 });
 ```
 
-### Add project's supported localizations (iOS)
+## Add project's supported localizations (iOS)
 
 ![](https://github.com/react-community/react-native-languages/blob/master/docs/xcode-adding-locales.png?raw=true)
+
+## Example with i18next
+
+Browse the files in the [/example](https://github.com/react-community/react-native-languages/tree/master/example) directory.
