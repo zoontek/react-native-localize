@@ -7,22 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		66EEFEBE1F217A9E0021D48A /* ReactNativeLanguages.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EEFEBD1F217A9E0021D48A /* ReactNativeLanguages.m */; };
-		66EEFEBF1F217A9E0021D48A /* ReactNativeLanguages.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EEFEBD1F217A9E0021D48A /* ReactNativeLanguages.m */; };
+		66EEFEBE1F217A9E0021D48A /* RNLanguages.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EEFEBD1F217A9E0021D48A /* RNLanguages.m */; };
+		66EEFEBF1F217A9E0021D48A /* RNLanguages.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EEFEBD1F217A9E0021D48A /* RNLanguages.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		134814201AA4EA6300B7C361 /* libReactNativeLanguages.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReactNativeLanguages.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D2A28471D9B043800D4039D /* libReactNativeLanguages-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libReactNativeLanguages-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		66EEFEBC1F217A9E0021D48A /* ReactNativeLanguages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReactNativeLanguages.h; sourceTree = "<group>"; };
-		66EEFEBD1F217A9E0021D48A /* ReactNativeLanguages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReactNativeLanguages.m; sourceTree = "<group>"; };
+		134814201AA4EA6300B7C361 /* libRNLanguages.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNLanguages.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D2A28471D9B043800D4039D /* libRNLanguages-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRNLanguages-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		66EEFEBC1F217A9E0021D48A /* RNLanguages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNLanguages.h; sourceTree = "<group>"; };
+		66EEFEBD1F217A9E0021D48A /* RNLanguages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNLanguages.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		134814211AA4EA7D00B7C361 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				134814201AA4EA6300B7C361 /* libReactNativeLanguages.a */,
+				134814201AA4EA6300B7C361 /* libRNLanguages.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -30,19 +30,19 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				66EEFEBC1F217A9E0021D48A /* ReactNativeLanguages.h */,
-				66EEFEBD1F217A9E0021D48A /* ReactNativeLanguages.m */,
+				66EEFEBC1F217A9E0021D48A /* RNLanguages.h */,
+				66EEFEBD1F217A9E0021D48A /* RNLanguages.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
-				2D2A28471D9B043800D4039D /* libReactNativeLanguages-tvOS.a */,
+				2D2A28471D9B043800D4039D /* libRNLanguages-tvOS.a */,
 			);
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2D2A28461D9B043800D4039D /* ReactNativeLanguages-tvOS */ = {
+		2D2A28461D9B043800D4039D /* RNLanguages-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D2A284F1D9B043800D4039D /* Build configuration list for PBXNativeTarget "ReactNativeLanguages-tvOS" */;
+			buildConfigurationList = 2D2A284F1D9B043800D4039D /* Build configuration list for PBXNativeTarget "RNLanguages-tvOS" */;
 			buildPhases = (
 				2D2A28431D9B043800D4039D /* Sources */,
 			);
@@ -50,14 +50,14 @@
 			);
 			dependencies = (
 			);
-			name = "ReactNativeLanguages-tvOS";
-			productName = "ReactNativeLanguages-tvOS";
-			productReference = 2D2A28471D9B043800D4039D /* libReactNativeLanguages-tvOS.a */;
+			name = "RNLanguages-tvOS";
+			productName = "RNLanguages-tvOS";
+			productReference = 2D2A28471D9B043800D4039D /* libRNLanguages-tvOS.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		58B511DA1A9E6C8500147676 /* ReactNativeLanguages */ = {
+		58B511DA1A9E6C8500147676 /* RNLanguages */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "ReactNativeLanguages" */;
+			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "RNLanguages" */;
 			buildPhases = (
 				58B511D71A9E6C8500147676 /* Sources */,
 			);
@@ -65,9 +65,9 @@
 			);
 			dependencies = (
 			);
-			name = ReactNativeLanguages;
+			name = RNLanguages;
 			productName = RCTDataManager;
-			productReference = 134814201AA4EA6300B7C361 /* libReactNativeLanguages.a */;
+			productReference = 134814201AA4EA6300B7C361 /* libRNLanguages.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -88,7 +88,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "ReactNativeLanguages" */;
+			buildConfigurationList = 58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "RNLanguages" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -100,8 +100,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				58B511DA1A9E6C8500147676 /* ReactNativeLanguages */,
-				2D2A28461D9B043800D4039D /* ReactNativeLanguages-tvOS */,
+				58B511DA1A9E6C8500147676 /* RNLanguages */,
+				2D2A28461D9B043800D4039D /* RNLanguages-tvOS */,
 			);
 		};
 /* End PBXProject section */
@@ -111,7 +111,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66EEFEBF1F217A9E0021D48A /* ReactNativeLanguages.m in Sources */,
+				66EEFEBF1F217A9E0021D48A /* RNLanguages.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,7 +119,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66EEFEBE1F217A9E0021D48A /* ReactNativeLanguages.m in Sources */,
+				66EEFEBE1F217A9E0021D48A /* RNLanguages.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,7 +269,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2D2A284F1D9B043800D4039D /* Build configuration list for PBXNativeTarget "ReactNativeLanguages-tvOS" */ = {
+		2D2A284F1D9B043800D4039D /* Build configuration list for PBXNativeTarget "RNLanguages-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D2A284D1D9B043800D4039D /* Debug */,
@@ -278,7 +278,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "ReactNativeLanguages" */ = {
+		58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "RNLanguages" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				58B511ED1A9E6C8500147676 /* Debug */,
@@ -287,7 +287,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "ReactNativeLanguages" */ = {
+		58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "RNLanguages" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				58B511F01A9E6C8500147676 /* Debug */,

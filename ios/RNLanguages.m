@@ -1,13 +1,13 @@
-#import "ReactNativeLanguages.h"
+#import "RNLanguages.h"
 #import <UIKit/UIKit.h>
 
-@implementation ReactNativeLanguages
+@implementation RNLanguages
 
 RCT_EXPORT_MODULE();
 
 + (BOOL)requiresMainQueueSetup
 {
-  return YES;
+  return NO;
 }
 
 - (NSMutableArray *)ensureLanguageTags:(NSArray *)languages

@@ -3,7 +3,7 @@
 'use strict';
 
 import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
-const { ReactNativeLanguages } = NativeModules;
+const { RNLanguages } = NativeModules;
 
 type EventType = 'change';
 
@@ -14,7 +14,7 @@ type EventData = {
 
 type EventHandler = (eventData: EventData) => any;
 
-type ReactNativeLanguagesModule = {
+type RNLanguagesModule = {
   _eventHandlers?: Set<EventHandler>,
   _eventEmitter?: NativeEventEmitter,
   language: string,
@@ -23,9 +23,12 @@ type ReactNativeLanguagesModule = {
   removeEventListener: (type: EventType, handler: EventHandler) => void
 };
 
-let Module: ReactNativeLanguagesModule = {
-  language: ReactNativeLanguages.language,
-  languages: ReactNativeLanguages.languages,
+export const language: string = RNLanguages.language;
+export const languages: string[] = RNLanguages.languages;
+
+let Module: RNLanguagesModule = {
+  language: RNLanguages.language,
+  languages: RNLanguages.languages,
 
   addEventListener(type, handler) {
     if (type !== 'change') {
@@ -46,7 +49,7 @@ let Module: ReactNativeLanguagesModule = {
 
 if (Platform.OS === 'android') {
   Module._eventHandlers = new Set();
-  Module._eventEmitter = new NativeEventEmitter(ReactNativeLanguages);
+  Module._eventEmitter = new NativeEventEmitter(RNLanguages);
 
   const onLanguagesChange = (eventData: EventData) => {
     Module.language = eventData.language;

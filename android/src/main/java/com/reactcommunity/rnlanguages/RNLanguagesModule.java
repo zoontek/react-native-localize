@@ -1,4 +1,4 @@
-package com.reactcommunity.reactnativelanguages;
+package com.reactcommunity.rnlanguages;
 
 import android.os.Build;
 import android.os.LocaleList;
@@ -20,11 +20,11 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-public class ReactNativeLanguagesModule extends ReactContextBaseJavaModule {
+public class RNLanguagesModule extends ReactContextBaseJavaModule {
 
   private final LanguagesBroadcastReceiver mLanguagesBroadcastReceiver;
 
-  public ReactNativeLanguagesModule(ReactApplicationContext reactContext) {
+  public RNLanguagesModule(ReactApplicationContext reactContext) {
     super(reactContext);
     mLanguagesBroadcastReceiver = new LanguagesBroadcastReceiver();
     registerReceiver();
@@ -32,7 +32,7 @@ public class ReactNativeLanguagesModule extends ReactContextBaseJavaModule {
 
   @Override
   public String getName() {
-    return "ReactNativeLanguages";
+    return "RNLanguages";
   }
 
   @Override

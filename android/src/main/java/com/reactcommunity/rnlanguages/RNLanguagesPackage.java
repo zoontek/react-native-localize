@@ -1,4 +1,4 @@
-package com.reactcommunity.reactnativelanguages;
+package com.reactcommunity.rnlanguages;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;
@@ -10,11 +10,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ReactNativeLanguagesPackage implements ReactPackage {
+public class RNLanguagesPackage implements ReactPackage {
 
   @Override
   public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-    return Arrays.<NativeModule>asList(new ReactNativeLanguagesModule(reactContext));
+    return Arrays.<NativeModule>asList(new RNLanguagesModule(reactContext));
   }
 
   // Deprecated in React Native 0.47

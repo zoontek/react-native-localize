@@ -3,7 +3,7 @@ require 'json'
 package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
 
 Pod::Spec.new do |spec|
-  spec.name         = "ReactNativeLanguages"
+  spec.name         = "RNLanguages"
   spec.summary      = "React Native properties and methods related to the language of the device"
   spec.version      = package['version']
 

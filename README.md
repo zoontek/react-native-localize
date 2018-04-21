@@ -8,7 +8,7 @@ Get the user preferred languages and use the library of your choice to translate
 
 #### On Android
 
-- Android SDK Build-tools 25.0.3
+* Android SDK Build-tools 25.0.3
 
 ## Installation
 
@@ -26,7 +26,7 @@ Instead of using `react-native link`, you can use Cocoapods to manage your depen
 
 ```ruby
 # Add this line in your Podfile
-pod 'ReactNativeLanguages', :path => '../node_modules/react-native-languages'
+pod 'RNLanguages', :path => '../node_modules/react-native-languages'
 ```
 
 ```bash
@@ -37,20 +37,20 @@ $ pod install
 
 #### On iOS
 
-1. In the XCode's "Project navigator", right click on your project's Libraries folder ➜ `Add Files to <...>`
-2. Go to `node_modules` ➜ `react-native-languages` ➜ `ios` ➜ select `ReactNativeLanguages.xcodeproj`
-3. Add `ReactNativeLanguages.a` to `Build Phases -> Link Binary With Libraries`
+1.  In the XCode's "Project navigator", right click on your project's Libraries folder ➜ `Add Files to <...>`
+2.  Go to `node_modules` ➜ `react-native-languages` ➜ `ios` ➜ select `RNLanguages.xcodeproj`
+3.  Add `RNLanguages.a` to `Build Phases -> Link Binary With Libraries`
 
 #### On Android
 
-1. Add the following lines to `android/settings.gradle`:
+1.  Add the following lines to `android/settings.gradle`:
 
 ```gradle
 include ':react-native-languages'
 project(':react-native-languages').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-languages/android')
 ```
 
-2. Add the compile line to the dependencies in `android/app/build.gradle`:
+2.  Add the compile line to the dependencies in `android/app/build.gradle`:
 
 ```gradle
 dependencies {
@@ -59,10 +59,10 @@ dependencies {
 }
 ```
 
-3. Add the import and link the package in `MainApplication.java`:
+3.  Add the import and link the package in `MainApplication.java`:
 
 ```java
-import com.reactcommunity.reactnativelanguages.ReactNativeLanguagesPackage; // <-- Add the ReactNativeLanguages import
+import com.reactcommunity.rnlanguages.RNLanguagesPackage; // <-- Add the RNLanguages import
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -73,7 +73,7 @@ public class MainApplication extends Application implements ReactApplication {
     return Arrays.<ReactPackage>asList(
       new MainReactPackage(),
       // ...
-      new ReactNativeLanguagesPackage() // <-- Add it to the packages list
+      new RNLanguagesPackage() // <-- Add it to the packages list
     );
   }
 
@@ -84,18 +84,17 @@ public class MainApplication extends Application implements ReactApplication {
 ## Usage
 
 ```javascript
-import Languages from 'react-native-languages';
+import RNLanguages from 'react-native-languages';
 
 // Current device language
-console.log('language', Languages.language);
+console.log('language', RNLanguages.language);
 
 // User preferred languages (in order)
-console.log('languages', Languages.languages);
+console.log('languages', RNLanguages.languages);
 
 // Listening for languages changes (on Android)
-Languages.addEventListener('change', ({ language, languages }) => {
+RNLanguages.addEventListener('change', ({ language, languages }) => {
   // Do languages related things…
-  // Languages.language and Languages.languages will be correct too !
 });
 ```
 

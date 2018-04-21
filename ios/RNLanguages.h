@@ -4,6 +4,6 @@
 #import "RCTBridgeModule.h"
 #endif
 
-@interface ReactNativeLanguages : NSObject <RCTBridgeModule>
+@interface RNLanguages : NSObject <RCTBridgeModule>
 
 @end
