@@ -1,17 +1,15 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { translate } from 'react-i18next';
+import i18n from './i18n';
 
-class Root extends PureComponent {
+class Root extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{this.props.t('title')}</Text>
+        <Text style={styles.title}>{i18n.t('title')}</Text>
 
         <Text style={styles.line}>
-          {this.props.t('current', {
-            language: this.props.i18n.language
-          })}
+          {i18n.t('current', { language: i18n.currentLocale() })}
         </Text>
       </View>
     );
@@ -35,4 +33,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default translate('common')(Root);
+export default Root;

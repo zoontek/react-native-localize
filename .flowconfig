@@ -1,5 +1,5 @@
 [ignore]
-.*/node_modules
+<PROJECT_ROOT>/example/
 
 [include]
 
@@ -7,6 +7,7 @@
 
 [options]
 munge_underscores=true
+suppress_type=$FlowFixMe
 
 [version]
-^0.70.0
+^0.80.0

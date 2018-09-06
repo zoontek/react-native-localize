@@ -6,10 +6,12 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
-    "i18next": "11.2.3",
-    "react": "16.3.1",
-    "react-i18next": "7.6.0",
-    "react-native": "0.55.3",
+    "i18n-js": "^3.0.11",
+    "react": "16.4.1",
+    "react-native": "0.56.0",
     "react-native-languages": "file:../"
+  },
+  "devDependencies": {
+    "babel-preset-react-native": "^5"
   }
 }

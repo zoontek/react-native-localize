@@ -4,26 +4,21 @@ Get the user preferred languages and use the library of your choice to translate
 
 [![npm version](https://badge.fury.io/js/react-native-languages.svg)](https://badge.fury.io/js/react-native-languages) [![npm](https://img.shields.io/npm/dt/react-native-languages.svg)](https://www.npmjs.org/package/react-native-languages) ![Platform - Android and iOS](https://img.shields.io/badge/platform-Android%20%7C%20iOS-yellow.svg) ![MIT](https://img.shields.io/dub/l/vibe-d.svg) [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-## Requirements
+## Support
 
-#### On Android
-
-* Android SDK Build-tools 25.0.3
-
-![](https://github.com/react-community/react-native-languages/blob/master/docs/android-build-tools.png?raw=true)
+| Version | React Native Support |
+| ------- | -------------------- |
+| 3.0.0   | 0.56.0+              |
+| 2.0.1   | 0.48.0 - 0.55.0      |
 
 ## Installation
 
 #### Using yarn
 
 ```bash
+$ npm install --save react-native-languages
+# --- or ---
 $ yarn add react-native-languages
-```
-
-#### Using npm
-
-```bash
-$ npm i -S react-native-languages
 ```
 
 ## Linking
@@ -33,6 +28,8 @@ $ npm i -S react-native-languages
 ```bash
 $ react-native link react-native-languages
 ```
+
+_NB: If you use a Cocoapods and have a `Podfile`, `react-native link` will only add this library as a dependency, and you'll need to run `pod install`._
 
 #### Using CocoaPods (iOS)
 
@@ -112,6 +109,6 @@ RNLanguages.addEventListener('change', ({ language, languages }) => {
 
 ![](https://github.com/react-community/react-native-languages/blob/master/docs/xcode-adding-locales.png?raw=true)
 
-## Example with i18next
+## Example with [i18n-js](https://github.com/fnando/i18n-js)
 
 Browse the files in the [/example](https://github.com/react-community/react-native-languages/tree/master/example) directory.

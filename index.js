@@ -2,6 +2,7 @@
 
 'use strict';
 
+// $FlowFixMe
 import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
 const { RNLanguages } = NativeModules;
 

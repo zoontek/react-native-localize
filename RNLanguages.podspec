@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
   spec.authors      = { "Mathieu Acthernoene" => "zoontek@gmail.com" }
   spec.homepage     = "https://github.com/react-community/react-native-languages"
   spec.license      = "MIT"
-  spec.platform     = :ios, "8.0"
+  spec.platform     = :ios, "9.0"
 
   spec.source       = { :git => "https://github.com/react-community/react-native-languages.git" }
   spec.source_files = "ios/**/*.{h,m}"
