@@ -15,5 +15,4 @@ Pod::Spec.new do |spec|
   spec.source       = { :git => "https://github.com/react-community/react-native-languages.git" }
   spec.source_files = "ios/**/*.{h,m}"
 
-  spec.dependency   "React"
 end
