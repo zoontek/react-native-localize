@@ -21,6 +21,16 @@ $ npm install --save react-native-languages
 $ yarn add react-native-languages
 ```
 
+####
+If you are using this lib as shown in `example` folder, you have to install `i18n-js` lib:
+
+```bash
+$ npm install --save i18n-js
+# --- or ---
+$ yarn add i18n-js
+```
+
+
 ## Linking
 
 #### Using react-native-cli
