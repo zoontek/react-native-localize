@@ -9,7 +9,7 @@ class Root extends Component {
         <Text style={styles.title}>{i18n.t('title')}</Text>
 
         <Text style={styles.line}>
-          {i18n.t('current', { language: i18n.currentLocale() })}
+          {i18n.t('current', { locale: i18n.currentLocale() })}
         </Text>
       </View>
     );
