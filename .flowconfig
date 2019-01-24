@@ -10,4 +10,4 @@ munge_underscores=true
 suppress_type=$FlowFixMe
 
 [version]
-^0.80.0
+^0.91.0

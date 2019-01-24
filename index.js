@@ -1,16 +1,14 @@
 // @flow
 
-'use strict';
-
 // $FlowFixMe
-import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
+import { NativeModules, NativeEventEmitter, Platform } from "react-native";
 const { RNLanguages } = NativeModules;
 
-type EventType = 'change';
+type EventType = "change";
 
 type EventData = {
   language: string,
-  languages: Array<string>
+  languages: Array<string>,
 };
 
 type EventHandler = (eventData: EventData) => any;
@@ -21,7 +19,7 @@ type RNLanguagesModule = {
   language: string,
   languages: Array<string>,
   addEventListener: (type: EventType, handler: EventHandler) => void,
-  removeEventListener: (type: EventType, handler: EventHandler) => void
+  removeEventListener: (type: EventType, handler: EventHandler) => void,
 };
 
 export const language: string = RNLanguages.language;
@@ -32,7 +30,7 @@ let Module: RNLanguagesModule = {
   languages: RNLanguages.languages,
 
   addEventListener(type, handler) {
-    if (type !== 'change') {
+    if (type !== "change") {
       console.error(`Trying to subscribe to unknown event: "${type}"`);
     } else if (this._eventHandlers && !this._eventHandlers.has(handler)) {
       this._eventHandlers.add(handler);
@@ -40,15 +38,15 @@ let Module: RNLanguagesModule = {
   },
 
   removeEventListener(type, handler) {
-    if (type !== 'change') {
+    if (type !== "change") {
       console.error(`Trying to remove listener for unknown event: "${type}"`);
     } else if (this._eventHandlers && this._eventHandlers.has(handler)) {
       this._eventHandlers.delete(handler);
     }
-  }
+  },
 };
 
-if (Platform.OS === 'android') {
+if (Platform.OS === "android") {
   Module._eventHandlers = new Set();
   Module._eventEmitter = new NativeEventEmitter(RNLanguages);
 
@@ -61,7 +59,7 @@ if (Platform.OS === 'android') {
     }
   };
 
-  Module._eventEmitter.addListener('languagesDidChange', onLanguagesChange);
+  Module._eventEmitter.addListener("languagesDidChange", onLanguagesChange);
 }
 
 export default Module;

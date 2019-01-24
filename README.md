@@ -91,16 +91,16 @@ public class MainApplication extends Application implements ReactApplication {
 ## Basic usage
 
 ```javascript
-import RNLanguages from 'react-native-languages';
+import RNLanguages from "react-native-languages";
 
 // Current device language
-console.log('language', RNLanguages.language);
+console.log("language", RNLanguages.language);
 
 // User preferred languages (in order)
-console.log('languages', RNLanguages.languages);
+console.log("languages", RNLanguages.languages);
 
 // Listening for languages changes (on Android)
-RNLanguages.addEventListener('change', ({ language, languages }) => {
+RNLanguages.addEventListener("change", ({ language, languages }) => {
   // Do languages related things…
 });
 ```
