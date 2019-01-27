@@ -36,7 +36,7 @@ const setI18nConfig = async () => {
     Object.keys(paths).includes(t.code),
   );
 
-  // fallback of no available translation fit well
+  // fallback of no available translation fits well
   const languageCode = language ? language.code : "en";
   const isRTL = language ? language.isRTL : false;
 
