@@ -1,8 +1,10 @@
-## 🌍  react-native-languages
+# 🌍  react-native-languages
 
-A toolbox for your app localization
+A toolbox for your app localization.
 
 [![npm version](https://badge.fury.io/js/react-native-languages.svg)](https://badge.fury.io/js/react-native-languages) [![npm](https://img.shields.io/npm/dt/react-native-languages.svg)](https://www.npmjs.org/package/react-native-languages) ![Platform - Android and iOS](https://img.shields.io/badge/platform-Android%20%7C%20iOS-yellow.svg) ![MIT](https://img.shields.io/dub/l/vibe-d.svg) [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
+<img width="400" height="auto" src="https://github.com/react-community/react-native-languages/blob/4.0.0/docs/simulator-screenshot.png?raw=true" />
 
 ## Support
 
