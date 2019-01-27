@@ -8,10 +8,10 @@ A toolbox for your app localization.
 
 ## Support
 
-| Version | React Native Support |
-| ------- | -------------------- |
-| 4.+     | 0.56.0+              |
-| 2.0.1   | 0.48.0 - 0.55.4      |
+| Version | Supported react-native version |
+| ------- | ------------------------------ |
+| 4.+     | 0.56.0+                        |
+| 2.0.1   | 0.48.0 - 0.55.4                |
 
 ## Installation
 
@@ -103,16 +103,16 @@ console.log("currencies", RNLanguages.currencies);
 
 // Listening for languages changes (on Android)
 RNLanguages.addListener("configDidChange", () => {
-  // RNLanguages exported constants changed !
-  // Do languages related things.
+  // RNLanguages exported constants changed
+  // Do languages related things
 });
 ```
 
-## Complete API
+## API
 
-| Constant | Type | Since |
-| -------- | ---- | :---: |
-| languages | `Array<{`<br>` code: string,`<br>` isRTL: boolean,`<br>` isFallback: boolean`<br>`}>` | 4.0.0 |
+|   | Type | Since |
+| - | ---- | :---: |
+| languages | `Array<{ code: string, isRTL: boolean, isFallback: boolean }>` | 4.0.0 |
 | currencies | `Array<string>` | 4.0.0 |
 | calendar | `"gregorian" \| "japanese" \| "buddhist"` | 4.0.0 |
 | country | `string` | 4.0.0 |
@@ -120,6 +120,7 @@ RNLanguages.addListener("configDidChange", () => {
 | timeZone | `string` | 4.0.0 |
 | uses24HourClock | `boolean` | 4.0.0 |
 | usesMetricSystem | `boolean` | 4.0.0 |
+| addListener() | `("configDidChange", LanguagesEventHandler) => ({ remove: () => void })` | 4.0.0 |
 
 ## Add project's supported localizations (iOS)
 
