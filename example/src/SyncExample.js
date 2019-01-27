@@ -31,7 +31,7 @@ const setI18nConfig = () => {
     Object.keys(translationGetters).includes(t.code),
   );
 
-  // fallback of no available translation fit well
+  // fallback of no available translation fits well
   const languageCode = language ? language.code : "en";
   const isRTL = language ? language.isRTL : false;
   const translation = translationGetters[languageCode]();
