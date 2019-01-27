@@ -36,8 +36,6 @@ const setI18nConfig = () => {
   const isRTL = language ? language.isRTL : false;
   const translation = translationGetters[languageCode]();
 
-  console.log(translation);
-
   // clear translation cache
   translate.cache = new memoize.Cache();
 
