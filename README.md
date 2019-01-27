@@ -1,6 +1,6 @@
-# 🌍 react-native-languages
+## 🌍  react-native-languages
 
-Get the user preferred languages and use the library of your choice to translate your app !
+A toolbox for your app localization
 
 [![npm version](https://badge.fury.io/js/react-native-languages.svg)](https://badge.fury.io/js/react-native-languages) [![npm](https://img.shields.io/npm/dt/react-native-languages.svg)](https://www.npmjs.org/package/react-native-languages) ![Platform - Android and iOS](https://img.shields.io/badge/platform-Android%20%7C%20iOS-yellow.svg) ![MIT](https://img.shields.io/dub/l/vibe-d.svg) [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
@@ -8,8 +8,8 @@ Get the user preferred languages and use the library of your choice to translate
 
 | Version | React Native Support |
 | ------- | -------------------- |
-| 3.0.0   | 0.56.0+              |
-| 2.0.1   | 0.48.0 - 0.55.0      |
+| 4.+     | 0.56.0+              |
+| 2.0.1   | 0.48.0 - 0.55.4      |
 
 ## Installation
 
@@ -23,7 +23,7 @@ $ yarn add react-native-languages
 
 ## Linking
 
-#### Using react-native-cli
+#### Using react-native-cli (recommended)
 
 ```bash
 $ react-native link react-native-languages
@@ -35,7 +35,7 @@ _NB: If you use a Cocoapods and have a `Podfile`, `react-native link` will only 
 
 ```ruby
 # add this line in your Podfile
-pod 'RNLanguages', :path => '../node_modules/react-native-languages'
+pod 'RNLanguages', :path => '../node_modules/react-native-languages/ios'
 ```
 
 ```bash
@@ -93,22 +93,36 @@ public class MainApplication extends Application implements ReactApplication {
 ```javascript
 import RNLanguages from "react-native-languages";
 
-// Current device language
-console.log("language", RNLanguages.language);
-
-// User preferred languages (in order)
+// User preferred languages list (in order)
 console.log("languages", RNLanguages.languages);
 
+// User preferred currencies (in order)
+console.log("currencies", RNLanguages.currencies);
+
 // Listening for languages changes (on Android)
-RNLanguages.addEventListener("change", ({ language, languages }) => {
-  // Do languages related things…
+RNLanguages.addListener("configDidChange", () => {
+  // RNLanguages exported constants changed !
+  // Do languages related things.
 });
 ```
+
+## Complete API
+
+| Constant | Type | Since |
+| -------- | ---- | :---: |
+| languages | `Array<{`<br>` code: string,`<br>` isRTL: boolean,`<br>` isFallback: boolean`<br>`}>` | 4.0.0 |
+| currencies | `Array<string>` | 4.0.0 |
+| calendar | `"gregorian" \| "japanese" \| "buddhist"` | 4.0.0 |
+| country | `string` | 4.0.0 |
+| temperatureUnit | `"°C" \| "°F"` | 4.0.0 |
+| timeZone | `string` | 4.0.0 |
+| uses24HourClock | `boolean` | 4.0.0 |
+| usesMetricSystem | `boolean` | 4.0.0 |
 
 ## Add project's supported localizations (iOS)
 
 ![](https://github.com/react-community/react-native-languages/blob/master/docs/xcode-adding-locales.png?raw=true)
 
-## Example with [i18n-js](https://github.com/fnando/i18n-js)
+## Examples with [i18n-js](https://github.com/fnando/i18n-js)
 
 Browse the files in the [/example](https://github.com/react-community/react-native-languages/tree/master/example) directory.
