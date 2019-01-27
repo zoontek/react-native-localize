@@ -27,8 +27,8 @@ const translate = memoize(
 
 const setI18nConfig = () => {
   // most suited language
-  const language = RNLanguages.languages.find(t =>
-    Object.keys(translationGetters).includes(t.code),
+  const language = RNLanguages.languages.find(l =>
+    Object.keys(translationGetters).includes(l.code),
   );
 
   // fallback of no available translation fits well

@@ -32,8 +32,8 @@ const setI18nConfig = async () => {
     );
 
   // most suited language
-  const language = RNLanguages.languages.find(t =>
-    Object.keys(paths).includes(t.code),
+  const language = RNLanguages.languages.find(l =>
+    Object.keys(paths).includes(l.code),
   );
 
   // fallback of no available translation fits well
