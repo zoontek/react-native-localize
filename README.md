@@ -110,17 +110,17 @@ RNLanguages.addListener("configDidChange", () => {
 
 ## API
 
-|   | Type | Since |
-| - | ---- | :---: |
-| languages | `Array<{ code: string, isRTL: boolean, isFallback: boolean }>` | 4.0.0 |
-| currencies | `Array<string>` | 4.0.0 |
-| calendar | `"gregorian" \| "japanese" \| "buddhist"` | 4.0.0 |
-| country | `string` | 4.0.0 |
-| temperatureUnit | `"°C" \| "°F"` | 4.0.0 |
-| timeZone | `string` | 4.0.0 |
-| uses24HourClock | `boolean` | 4.0.0 |
-| usesMetricSystem | `boolean` | 4.0.0 |
-| addListener() | `("configDidChange", LanguagesEventHandler) => ({ remove: () => void })` | 4.0.0 |
+|                  | Type                                                                     | Since |
+| ---------------- | ------------------------------------------------------------------------ | :---: |
+| languages        | `Array<{ code: string, isRTL: boolean, isFallback: boolean }>`           | 4.0.0 |
+| currencies       | `Array<string>`                                                          | 4.0.0 |
+| calendar         | `"gregorian" \| "japanese" \| "buddhist"`                                | 4.0.0 |
+| country          | `string`                                                                 | 4.0.0 |
+| temperatureUnit  | `"celsius" \| "fahrenheit"`                                              | 4.0.0 |
+| timeZone         | `string`                                                                 | 4.0.0 |
+| uses24HourClock  | `boolean`                                                                | 4.0.0 |
+| usesMetricSystem | `boolean`                                                                | 4.0.0 |
+| addListener()    | `("configDidChange", LanguagesEventHandler) => ({ remove: () => void })` | 4.0.0 |
 
 ## Add project's supported localizations (iOS)
 

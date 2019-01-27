@@ -57,8 +57,8 @@ static NSString *getTemperatureUnit(NSLocale *locale, NSString *countryCode) {
     usesFahrenheit = @[@"BS", @"BZ", @"KY", @"PR", @"PW", @"US"];
 
     temperatureUnits = @{
-                         @"C": @"°C",
-                         @"F": @"°F",
+                         @"C": @"celsius",
+                         @"F": @"fahrenheit",
                          };
   });
 

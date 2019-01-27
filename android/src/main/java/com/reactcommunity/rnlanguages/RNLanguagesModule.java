@@ -166,7 +166,7 @@ public class RNLanguagesModule extends ReactContextBaseJavaModule implements Lif
   }
 
   private String getTemperatureUnit(Locale locale) {
-    return USES_FAHRENHEIT_UNIT.contains(getCountryCode(locale, "US")) ? "°F" : "°C";
+    return USES_FAHRENHEIT_UNIT.contains(getCountryCode(locale, "US")) ? "fahrenheit" : "celsius";
   }
 
   private boolean getUses24HourClock() {
@@ -221,8 +221,8 @@ public class RNLanguagesModule extends ReactContextBaseJavaModule implements Lif
 
       WritableMap language = Arguments.createMap();
       language.putString("code", (String) extracted.get("fullCode"));
-      language.putBoolean("isFallback", false);
       language.putBoolean("isRTL", isRTL);
+      language.putBoolean("isFallback", false);
 
       languages.pushMap(language);
 

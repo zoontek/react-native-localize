@@ -5,7 +5,7 @@ import { NativeModules, NativeEventEmitter } from "react-native";
 const { RNLanguages } = NativeModules;
 
 export type Calendar = "gregorian" | "japanese" | "buddhist";
-export type TemperatureUnit = "°C" | "°F";
+export type TemperatureUnit = "celsius" | "fahrenheit";
 
 export type LanguagesConfig = {|
   +languages: string[],

@@ -1,6 +1,6 @@
 declare module "react-native-languages" {
   export type Calendar = "gregorian" | "japanese" | "buddhist";
-  export type TemperatureUnit = "°C" | "°F";
+  export type TemperatureUnit = "celsius" | "fahrenheit";
 
   export interface LanguagesConfig {
     readonly languages: string[];
