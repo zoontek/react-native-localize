@@ -1,65 +1,67 @@
 // @flow
 
 // $FlowFixMe
-import { NativeModules, NativeEventEmitter, Platform } from "react-native";
+import { NativeModules, NativeEventEmitter } from "react-native";
 const { RNLanguages } = NativeModules;
 
-type EventType = "change";
+export type Calendar = "gregorian" | "japanese" | "buddhist";
+export type TemperatureUnit = "°C" | "°F";
 
-type EventData = {
-  language: string,
-  languages: Array<string>,
-};
+export type LanguagesConfig = {|
+  +languages: string[],
+  +currencies: string[],
+  +calendar: Calendar,
+  +country: string,
+  +temperatureUnit: TemperatureUnit,
+  +timeZone: string,
+  +uses24HourClock: boolean,
+  +usesMetricSystem: boolean,
+|};
 
-type EventHandler = (eventData: EventData) => any;
+export type LanguagesEmitterSubscription = {|
+  remove: () => void,
+|};
+export type LanguagesEvent = "configDidChange";
+export type LanguagesEventHandler = (config: LanguagesConfig) => any;
 
-type RNLanguagesModule = {
-  _eventHandlers?: Set<EventHandler>,
-  _eventEmitter?: NativeEventEmitter,
-  language: string,
-  languages: Array<string>,
-  addEventListener: (type: EventType, handler: EventHandler) => void,
-  removeEventListener: (type: EventType, handler: EventHandler) => void,
-};
+type RNLanguagesModule = {|
+  ...LanguagesConfig,
+  addListener: (
+    type: LanguagesEvent,
+    handler: LanguagesEventHandler,
+  ) => LanguagesEmitterSubscription,
+|};
 
-export const language: string = RNLanguages.language;
-export const languages: string[] = RNLanguages.languages;
+const emitter = new NativeEventEmitter(RNLanguages);
+const handlers: Set<LanguagesEventHandler> = new Set();
 
 let Module: RNLanguagesModule = {
-  language: RNLanguages.language,
-  languages: RNLanguages.languages,
+  ...RNLanguages.config,
 
-  addEventListener(type, handler) {
-    if (type !== "change") {
+  addListener(
+    type: LanguagesEvent,
+    handler: LanguagesEventHandler,
+  ): LanguagesEmitterSubscription {
+    let remove = () => {};
+
+    if (type !== "configDidChange") {
       console.error(`Trying to subscribe to unknown event: "${type}"`);
-    } else if (this._eventHandlers && !this._eventHandlers.has(handler)) {
-      this._eventHandlers.add(handler);
+    } else {
+      if (!handlers.has(handler)) {
+        handlers.add(handler);
+      }
+      remove = () => {
+        handlers.delete(handler);
+      };
     }
-  },
 
-  removeEventListener(type, handler) {
-    if (type !== "change") {
-      console.error(`Trying to remove listener for unknown event: "${type}"`);
-    } else if (this._eventHandlers && this._eventHandlers.has(handler)) {
-      this._eventHandlers.delete(handler);
-    }
+    return { remove };
   },
 };
 
-if (Platform.OS === "android") {
-  Module._eventHandlers = new Set();
-  Module._eventEmitter = new NativeEventEmitter(RNLanguages);
-
-  const onLanguagesChange = (eventData: EventData) => {
-    Module.language = eventData.language;
-    Module.languages = eventData.languages;
-
-    if (Module._eventHandlers) {
-      Module._eventHandlers.forEach(handler => handler(eventData));
-    }
-  };
-
-  Module._eventEmitter.addListener("languagesDidChange", onLanguagesChange);
-}
+emitter.addListener("languagesConfigDidChange", (config: LanguagesConfig) => {
+  Object.keys(config).forEach((k: string) => (Module[k] = config[k]));
+  handlers.forEach(handler => handler(config));
+});
 
 export default Module;

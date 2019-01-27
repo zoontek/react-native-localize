@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "83CBBA2D1A601D0E00E9B192"
+               BlueprintIdentifier = "2D2A28121D9B038B00D4039D"
                BuildableName = "libReact.a"
-               BlueprintName = "React"
+               BlueprintName = "React-tvOS"
                ReferencedContainer = "container:../node_modules/react-native/React/React.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,9 +28,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "RNLanguagesExample.app"
-               BlueprintName = "RNLanguagesExample"
+               BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
+               BuildableName = "RNLanguagesExample-tvOS.app"
+               BlueprintName = "RNLanguagesExample-tvOS"
+               ReferencedContainer = "container:RNLanguagesExample.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
+               BuildableName = "RNLanguagesExample-tvOSTests.xctest"
+               BlueprintName = "RNLanguagesExample-tvOSTests"
                ReferencedContainer = "container:RNLanguagesExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,13 +56,23 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
+               BuildableName = "RNLanguagesExample-tvOSTests.xctest"
+               BlueprintName = "RNLanguagesExample-tvOSTests"
+               ReferencedContainer = "container:RNLanguagesExample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "RNLanguagesExample.app"
-            BlueprintName = "RNLanguagesExample"
+            BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
+            BuildableName = "RNLanguagesExample-tvOS.app"
+            BlueprintName = "RNLanguagesExample-tvOS"
             ReferencedContainer = "container:RNLanguagesExample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -69,9 +93,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "RNLanguagesExample.app"
-            BlueprintName = "RNLanguagesExample"
+            BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
+            BuildableName = "RNLanguagesExample-tvOS.app"
+            BlueprintName = "RNLanguagesExample-tvOS"
             ReferencedContainer = "container:RNLanguagesExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -88,9 +112,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "RNLanguagesExample.app"
-            BlueprintName = "RNLanguagesExample"
+            BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
+            BuildableName = "RNLanguagesExample-tvOS.app"
+            BlueprintName = "RNLanguagesExample-tvOS"
             ReferencedContainer = "container:RNLanguagesExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

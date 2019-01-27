@@ -35,7 +35,9 @@
 				134814211AA4EA7D00B7C361 /* Products */,
 				2D2A28471D9B043800D4039D /* libRNLanguages-tvOS.a */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 /* End PBXGroup section */
 
