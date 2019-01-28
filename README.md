@@ -10,7 +10,7 @@ A toolbox for your React Native app localization (previously [react-native-langu
 
 | package name           | version | react-native version |
 | ---------------------- | ------- | -------------------- |
-| react-native-localize  | 4.0.0+  | 0.56.0+              |
+| react-native-localize  | 1.0.0+  | 0.56.0+              |
 | react-native-languages | 2.0.1   | 0.48.0 - 0.55.4      |
 
 ## Installation
