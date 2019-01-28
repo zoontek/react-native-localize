@@ -1,6 +1,6 @@
 # 🌍  react-native-localize
 
-A toolbox for your React Native app localization.
+A toolbox for your React Native app localization (previously [react-native-languages](https://www.npmjs.com/package/react-native-languages)).
 
 [![npm version](https://badge.fury.io/js/react-native-localize.svg)](https://badge.fury.io/js/react-native-localize) [![npm](https://img.shields.io/npm/dt/react-native-localize.svg)](https://www.npmjs.org/package/react-native-localize) ![Platform - Android and iOS](https://img.shields.io/badge/platform-Android%20%7C%20iOS-yellow.svg) ![MIT](https://img.shields.io/dub/l/vibe-d.svg) [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
@@ -8,10 +8,10 @@ A toolbox for your React Native app localization.
 
 ## Support
 
-| Version | Supported react-native version |
-| ------- | ------------------------------ |
-| 4.+     | 0.56.0+                        |
-| 2.0.1   | 0.48.0 - 0.55.4                |
+| package name           | version | react-native version |
+| ---------------------- | ------- | -------------------- |
+| react-native-localize  | 4.0.0+  | 0.56.0+              |
+| react-native-languages | 2.0.1   | 0.48.0 - 0.55.4      |
 
 ## Installation
 
@@ -90,37 +90,226 @@ public class MainApplication extends Application implements ReactApplication {
 }
 ```
 
-## Basic usage
+## Basic usage example
 
-```javascript
-import RNLocalize from "react-native-localize";
+```js
+import * as RNLocalize from "react-native-localize";
 
-// User preferred languages list (in order)
-console.log("languages", RNLocalize.languages);
+console.log(RNLocalize.getLocales());
+console.log(RNLocalize.getCurrencies());
 
-// User preferred currencies (in order)
-console.log("currencies", RNLocalize.currencies);
-
-// Listening for languages changes (on Android)
-RNLocalize.addListener("configDidChange", () => {
-  // RNLocalize exported constants changed
-  // Do languages related things
+RNLocalize.addEventListener("change", () => {
+  // do localization related stuff…
 });
 ```
 
 ## API
 
-|                  | Type                                                                     | Since |
-| ---------------- | ------------------------------------------------------------------------ | :---: |
-| languages        | `Array<{ code: string, isRTL: boolean, isFallback: boolean }>`           | 4.0.0 |
-| currencies       | `Array<string>`                                                          | 4.0.0 |
-| calendar         | `"gregorian" \| "japanese" \| "buddhist"`                                | 4.0.0 |
-| country          | `string`                                                                 | 4.0.0 |
-| temperatureUnit  | `"celsius" \| "fahrenheit"`                                              | 4.0.0 |
-| timeZone         | `string`                                                                 | 4.0.0 |
-| uses24HourClock  | `boolean`                                                                | 4.0.0 |
-| usesMetricSystem | `boolean`                                                                | 4.0.0 |
-| addListener()    | `("configDidChange", LanguagesEventHandler) => ({ remove: () => void })` | 4.0.0 |
+### getLocales()
+
+Returns the user preferred locales, in order.
+
+#### Method type
+
+```ts
+type getLocales = () => Array<{
+  languageCode: string;
+  scriptCode?: string;
+  countryCode: string;
+  languageTag: string;
+  isRTL: boolean;
+}>;
+```
+
+#### Usage example
+
+```js
+console.log(RNLocalize.getLocales());
+/* -> [
+  { countryCode: "GB", languageTag: "en-GB", languageCode: "en", isRTL: false },
+  { countryCode: "US", languageTag: "en-US", languageCode: "en", isRTL: false },
+  { countryCode: "FR", languageTag: "fr-FR", languageCode: "fr", isRTL: false },
+] */
+```
+
+---
+
+### getCurrencies()
+
+Returns the user preferred currency codes, in order.
+
+#### Method type
+
+```ts
+type getCurrencies = () => Array<string>;
+```
+
+#### Usage example
+
+```js
+console.log(RNLocalize.getCurrencies());
+// -> ["EUR", "GBP", "USD"]
+```
+
+---
+
+### getCountry()
+
+Returns the user current country code (based on its device locale, **not** on its position).
+
+#### Method type
+
+```ts
+type getCountry = () => string;
+```
+
+#### Usage example
+
+```js
+console.log(RNLocalize.getCountry());
+// -> "FR"
+```
+
+---
+
+### getCalendar()
+
+Returns the user preferred calendar format.
+
+#### Method type
+
+```ts
+type getCalendar = () => "gregorian" | "japanese" | "buddhist";
+```
+
+#### Usage example
+
+```js
+console.log(RNLocalize.getCalendar());
+// -> "gregorian"
+```
+
+---
+
+### getTemperatureUnit()
+
+Returns the user preferred temperature unit.
+
+#### Method type
+
+```ts
+type getTemperatureUnit = () => "celsius" | "fahrenheit";
+```
+
+#### Usage example
+
+```js
+console.log(RNLocalize.getTemperatureUnit());
+// -> "celsius"
+```
+
+---
+
+### getTimeZone()
+
+Returns the user preferred timezone (based on its device settings, **not** on its position).
+
+#### Method type
+
+```ts
+type getTimeZone = () => string;
+```
+
+#### Usage example
+
+```js
+console.log(RNLocalize.getTimeZone());
+// -> "Europe/Paris"
+```
+
+---
+
+### uses24HourClock()
+
+Returns `true` if the user prefers 24h clock format, `false`if he prefers 12h clock format.
+
+#### Method type
+
+```ts
+type uses24HourClock = () => boolean;
+```
+
+#### Usage example
+
+```js
+console.log(RNLocalize.uses24HourClock());
+// -> true
+```
+
+---
+
+### usesMetricSystem()
+
+Returns `true` if the user prefers metric measure system, `false` if he prefers imperial.
+
+#### Method type
+
+```ts
+type usesMetricSystem = () => boolean;
+```
+
+#### Usage example
+
+```js
+console.log(RNLocalize.usesMetricSystem());
+// -> true
+```
+
+---
+
+### addEventListener() / removeEventListener()
+
+Allows you to listen for any localization change.
+
+#### Methods type
+
+```ts
+type addEventListener = (type: "change", handler: Function) => void;
+type removeEventListener = (type: "change", handler: Function) => void;
+```
+
+#### Usage example
+
+```js
+function handleLocalizationChange() {
+  console.log(RNLocalize.getLocales());
+}
+
+RNLocalize.addEventListener("change", handleLocalizationChange);
+// …later (ex: component unmount)
+RNLocalize.removeEventListener("change", handleLocalizationChange);
+```
+
+---
+
+### findBestAvailableLanguage()
+
+Returns the best language tag possible and its direction (if it can find one). Useful to choose the best translation available.
+
+#### Method type
+
+```ts
+type findBestAvailableLanguage = (
+  languageTags: Array<string>,
+) => { languageTag: string; isRTL: boolean } | void;
+```
+
+#### Usage example
+
+```js
+console.log(RNLocalize.findBestAvailableLanguage(["en-US", "en", "fr"]));
+// -> { languageTag: "en-US", isRTL: false }
+```
 
 ## Add project's supported localizations (iOS)
 
