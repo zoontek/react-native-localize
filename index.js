@@ -79,3 +79,38 @@ export function removeEventListener(
     handlers.delete(handler);
   }
 }
+
+export function findBestAvailableLanguage(
+  languageTags: string[],
+): {|
+  languageTag: string,
+  isRTL: boolean,
+|} | void {
+  const locales = getLocales();
+
+  for (let index = 0; index < locales.length; index++) {
+    const currentLocale = locales[index];
+    const { languageTag, languageCode, isRTL } = currentLocale;
+
+    if (languageTags.includes(languageTag)) {
+      return { languageTag, isRTL };
+    }
+
+    const partialTag = getPartialTag(currentLocale);
+    const nextLocale = locales[index + 1];
+
+    if (
+      (!nextLocale || partialTag !== getPartialTag(nextLocale)) &&
+      languageTags.includes(partialTag)
+    ) {
+      return { languageTag: partialTag, isRTL };
+    }
+
+    if (
+      (!nextLocale || languageCode !== nextLocale.languageCode) &&
+      languageTags.includes(languageCode)
+    ) {
+      return { languageTag: languageCode, isRTL };
+    }
+  }
+}
