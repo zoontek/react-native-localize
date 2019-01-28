@@ -1,5 +1,5 @@
 import React from "react";
-import RNLocalize from "react-native-localize";
+import * as RNLocalize from "react-native-localize";
 import i18n from "i18n-js";
 import memoize from "lodash.memoize";
 
@@ -26,25 +26,19 @@ const translate = memoize(
 );
 
 const setI18nConfig = () => {
-  // most suited language
-  const language = RNLocalize.languages.find(l =>
-    Object.keys(translationGetters).includes(l.code),
-  );
-
-  // fallback of no available translation fits well
-  const languageCode = language ? language.code : "en";
-  const isRTL = language ? language.isRTL : false;
-  const translation = translationGetters[languageCode]();
+  const {
+    languageTag = "en", // fallback if no available language fits
+    isRTL = false, // fallback if no available language fits
+  } = RNLocalize.findBestAvailableLanguage(Object.keys(translationGetters));
 
   // clear translation cache
-  translate.cache = new memoize.Cache();
+  translate.cache.clear();
+  // update layout direction
+  I18nManager.forceRTL(isRTL);
 
   // set i18n-js config
-  i18n.translations = { [languageCode]: translation };
-  i18n.locale = languageCode;
-
-  // change layout direction
-  I18nManager.forceRTL(isRTL);
+  i18n.translations = { [languageTag]: translationGetters[languageTag]() };
+  i18n.locale = languageTag;
 };
 
 export default class SyncExample extends React.Component {
@@ -54,48 +48,60 @@ export default class SyncExample extends React.Component {
   }
 
   componentDidMount() {
-    this.configDidChangeListener = RNLocalize.addListener(
-      "configDidChange",
-      () => {
-        setI18nConfig();
-        this.forceUpdate();
-      },
-    );
+    RNLocalize.addEventListener("change", this.handleLocalizationChange);
   }
 
   componentWillUnmount() {
-    if (this.configDidChangeListener) {
-      this.configDidChangeListener.remove();
-    }
+    RNLocalize.removeEventListener("change", this.handleLocalizationChange);
   }
+
+  handleLocalizationChange = () => {
+    setI18nConfig();
+    this.forceUpdate();
+  };
 
   render() {
     return (
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.container}>
+          <Line
+            name="RNLocalize.getLocales()"
+            value={RNLocalize.getLocales()}
+          />
+          <Line
+            name="RNLocalize.getCurrencies()"
+            value={RNLocalize.getCurrencies()}
+          />
+          <Line
+            name="RNLocalize.getCountry()"
+            value={RNLocalize.getCountry()}
+          />
+          <Line
+            name="RNLocalize.getCalendar()"
+            value={RNLocalize.getCalendar()}
+          />
+          <Line
+            name="RNLocalize.getTemperatureUnit()"
+            value={RNLocalize.getTemperatureUnit()}
+          />
+          <Line
+            name="RNLocalize.getTimeZone()"
+            value={RNLocalize.getTimeZone()}
+          />
+          <Line
+            name="RNLocalize.uses24HourClock()"
+            value={RNLocalize.uses24HourClock()}
+          />
+          <Line
+            name="RNLocalize.usesMetricSystem()"
+            value={RNLocalize.usesMetricSystem()}
+          />
+          <Line
+            name="RNLocalize.findBestAvailableLanguage(['en-US', 'en', 'fr'])"
+            value={RNLocalize.findBestAvailableLanguage(["en-US", "en", "fr"])}
+          />
+
           <Line name="Translation example" value={translate("hello")} />
-
-          <Line name="RNLocalize.languages" value={RNLocalize.languages} />
-          <Line name="RNLocalize.currencies" value={RNLocalize.currencies} />
-          <Line name="RNLocalize.calendar" value={RNLocalize.calendar} />
-          <Line name="RNLocalize.country" value={RNLocalize.country} />
-
-          <Line
-            name="RNLocalize.temperatureUnit"
-            value={RNLocalize.temperatureUnit}
-          />
-
-          <Line name="RNLocalize.timeZone" value={RNLocalize.timeZone} />
-
-          <Line
-            name="RNLocalize.uses24HourClock"
-            value={RNLocalize.uses24HourClock}
-          />
-
-          <Line
-            name="RNLocalize.usesMetricSystem"
-            value={RNLocalize.usesMetricSystem}
-          />
         </ScrollView>
       </SafeAreaView>
     );

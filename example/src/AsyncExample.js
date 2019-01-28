@@ -1,5 +1,5 @@
 import React from "react";
-import RNLocalize from "react-native-localize";
+import * as RNLocalize from "react-native-localize";
 import RNFS from "react-native-fs";
 import i18n from "i18n-js";
 import memoize from "lodash.memoize";
@@ -15,46 +15,34 @@ import {
 } from "react-native";
 
 const setI18nConfig = async () => {
-  const isAndroid = Platform.OS === "android";
-
-  const translationsDir = await (isAndroid
+  const translationsDir = await (Platform.OS === "android"
     ? RNFS.readDirAssets("translations")
     : RNFS.readDir(RNFS.MainBundlePath + "/translations"));
 
-  const paths = translationsDir
-    .filter(entry => entry.isFile() && entry.name.endsWith(".json"))
-    .reduce(
-      (acc, file) => ({
-        ...acc,
-        [file.name.replace(".json", "")]: file.path,
-      }),
-      {},
-    );
+  const translationPaths = translationsDir
+    .filter(({ isFile, name }) => isFile() && name.endsWith(".json"))
+    .reduce((all, { name, path }) => {
+      const languageTag = name.replace(".json", "");
+      return { ...all, [languageTag]: path };
+    }, {});
 
-  // most suited language
-  const language = RNLocalize.languages.find(l =>
-    Object.keys(paths).includes(l.code),
-  );
+  const {
+    languageTag = "en", // fallback if no available language fits
+    isRTL = false, // fallback if no available language fits
+  } = RNLocalize.findBestAvailableLanguage(Object.keys(translationPaths));
 
-  // fallback of no available translation fits well
-  const languageCode = language ? language.code : "en";
-  const isRTL = language ? language.isRTL : false;
-
-  const content = await (isAndroid
-    ? RNFS.readFileAssets(paths[languageCode], "utf8")
-    : RNFS.readFile(paths[languageCode], "utf8"));
-
-  const translation = JSON.parse(content);
+  const fileContent = await (Platform.OS === "android"
+    ? RNFS.readFileAssets(translationPaths[languageTag], "utf8")
+    : RNFS.readFile(translationPaths[languageTag], "utf8"));
 
   // clear translation cache
-  translate.cache = new memoize.Cache();
+  translate.cache.clear();
+  // update layout direction
+  I18nManager.forceRTL(isRTL);
 
   // set i18n-js config
-  i18n.translations = { [languageCode]: translation };
-  i18n.locale = languageCode;
-
-  // change layout direction
-  I18nManager.forceRTL(isRTL);
+  i18n.translations = { [languageTag]: JSON.parse(fileContent) };
+  i18n.locale = languageTag;
 };
 
 const translate = memoize(
@@ -67,69 +55,77 @@ export default class AsyncExample extends React.Component {
     super(props);
 
     this.state = {
-      isInit: false,
+      isTranslationLoaded: false,
     };
 
-    setI18nConfig()
+    setI18nConfig() // set initial config
       .then(() => {
-        this.setState({ isInit: true });
-        this.listenForConfigChanges();
+        this.setState({ isTranslationLoaded: true });
+        RNLocalize.addEventListener("change", this.handleLocalizationChange);
       })
-      .catch(({ message }) => {
-        console.error(message);
+      .catch(error => {
+        console.error(error);
       });
   }
 
-  listenForConfigChanges = () => {
-    this.configDidChangeListener = RNLocalize.addListener(
-      "configDidChange",
-      () => {
-        setI18nConfig()
-          .then(() => this.forceUpdate())
-          .catch(({ message }) => {
-            console.error(message);
-          });
-      },
-    );
-  };
-
   componentWillUnmount() {
-    if (this.configDidChangeListener) {
-      this.configDidChangeListener.remove();
-    }
+    RNLocalize.removeEventListener("change", this.handleLocalizationChange);
   }
 
+  handleLocalizationChange = () => {
+    setI18nConfig()
+      .then(() => this.forceUpdate())
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   render() {
-    if (!this.state.isInit) {
+    if (!this.state.isTranslationLoaded) {
       return <SafeAreaView style={styles.safeArea} />;
     }
 
     return (
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.container}>
+          <Line
+            name="RNLocalize.getLocales()"
+            value={RNLocalize.getLocales()}
+          />
+          <Line
+            name="RNLocalize.getCurrencies()"
+            value={RNLocalize.getCurrencies()}
+          />
+          <Line
+            name="RNLocalize.getCountry()"
+            value={RNLocalize.getCountry()}
+          />
+          <Line
+            name="RNLocalize.getCalendar()"
+            value={RNLocalize.getCalendar()}
+          />
+          <Line
+            name="RNLocalize.getTemperatureUnit()"
+            value={RNLocalize.getTemperatureUnit()}
+          />
+          <Line
+            name="RNLocalize.getTimeZone()"
+            value={RNLocalize.getTimeZone()}
+          />
+          <Line
+            name="RNLocalize.uses24HourClock()"
+            value={RNLocalize.uses24HourClock()}
+          />
+          <Line
+            name="RNLocalize.usesMetricSystem()"
+            value={RNLocalize.usesMetricSystem()}
+          />
+          <Line
+            name="RNLocalize.findBestAvailableLanguage(['en-US', 'en', 'fr'])"
+            value={RNLocalize.findBestAvailableLanguage(["en-US", "en", "fr"])}
+          />
+
           <Line name="Translation example" value={translate("hello")} />
-
-          <Line name="RNLocalize.languages" value={RNLocalize.languages} />
-          <Line name="RNLocalize.currencies" value={RNLocalize.currencies} />
-          <Line name="RNLocalize.calendar" value={RNLocalize.calendar} />
-          <Line name="RNLocalize.country" value={RNLocalize.country} />
-
-          <Line
-            name="RNLocalize.temperatureUnit"
-            value={RNLocalize.temperatureUnit}
-          />
-
-          <Line name="RNLocalize.timeZone" value={RNLocalize.timeZone} />
-
-          <Line
-            name="RNLocalize.uses24HourClock"
-            value={RNLocalize.uses24HourClock}
-          />
-
-          <Line
-            name="RNLocalize.usesMetricSystem"
-            value={RNLocalize.usesMetricSystem}
-          />
         </ScrollView>
       </SafeAreaView>
     );
