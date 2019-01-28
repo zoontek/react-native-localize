@@ -31,19 +31,6 @@ $ yarn add react-native-localize
 $ react-native link react-native-localize
 ```
 
-_NB: If you use a Cocoapods and have a `Podfile`, `react-native link` will only add this library as a dependency, and you'll need to run `pod install`._
-
-#### Using CocoaPods (iOS)
-
-```ruby
-# add this line in your Podfile
-pod 'RNLocalize', :path => '../node_modules/react-native-localize/ios'
-```
-
-```bash
-$ pod install
-```
-
 #### Manual (iOS)
 
 1.  In the XCode's "Project navigator", right click on your project's Libraries folder ➜ `Add Files to <...>`
@@ -75,18 +62,18 @@ import com.reactcommunity.rnlocalize.RNLocalizePackage; // <-- Add the RNLocaliz
 
 public class MainApplication extends Application implements ReactApplication {
 
-  // ...
+  // …
 
   @Override
   protected List<ReactPackage> getPackages() {
     return Arrays.<ReactPackage>asList(
       new MainReactPackage(),
-      // ...
+      // …
       new RNLocalizePackage() // <-- Add it to the packages list
     );
   }
 
-  // ...
+  // …
 }
 ```
 
