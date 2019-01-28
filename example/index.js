@@ -9,4 +9,4 @@ import AsyncExample from "./src/AsyncExample";
 import { name as appName } from "./app.json";
 
 // you can switch between SyncExample / AsyncExample
-AppRegistry.registerComponent(appName, () => AsyncExample);
+AppRegistry.registerComponent(appName, () => SyncExample);
