@@ -1,31 +1,33 @@
 declare module "react-native-localize" {
+  export type LocalizationEvent = "change";
+
   export type Calendar = "gregorian" | "japanese" | "buddhist";
   export type TemperatureUnit = "celsius" | "fahrenheit";
 
-  export interface LanguagesConfig {
-    readonly languages: string[];
-    readonly currencies: string[];
-    readonly calendar: Calendar;
-    readonly country: string;
-    readonly temperatureUnit: TemperatureUnit;
-    readonly timeZone: string;
-    readonly uses24HourClock: boolean;
-    readonly usesMetricSystem: boolean;
-  }
-
-  export type LanguagesEmitterSubscription = {
-    remove: () => void;
+  export type Locale = {
+    readonly languageCode: string;
+    readonly scriptCode?: string;
+    readonly countryCode: string;
+    readonly languageTag: string;
+    readonly isRTL: boolean;
   };
-  export type LanguagesEvent = "configDidChange";
-  export type LanguagesEventHandler = (config: LanguagesConfig) => any;
 
-  interface RNLocalizeModule extends LanguagesConfig {
-    addListener: (
-      type: LanguagesEvent,
-      handler: LanguagesEventHandler,
-    ) => LanguagesEmitterSubscription;
-  }
+  export function getCalendar(): Calendar;
+  export function getCountry(): string;
+  export function getCurrencies(): string[];
+  export function getLocales(): Locale[];
+  export function getTemperatureUnit(): TemperatureUnit;
+  export function getTimeZone(): string;
+  export function uses24HourClock(): boolean;
+  export function usesMetricSystem(): boolean;
 
-  let Module: RNLocalizeModule;
-  export default Module;
+  export function addEventListener(
+    type: LocalizationEvent,
+    handler: Function,
+  ): void;
+
+  export function removeEventListener(
+    type: LocalizationEvent,
+    handler: Function,
+  ): void;
 }

@@ -21,15 +21,6 @@ static NSString *getCalendar(NSLocale *locale) {
   return calendar;
 }
 
-static NSString *getLanguageCode(NSLocale *locale) {
-  return [locale objectForKey:NSLocaleLanguageCode];
-}
-
-static NSString *getScriptCode(NSLocale *locale) {
-  NSString *scriptCode = [locale objectForKey:NSLocaleScriptCode];
-  return scriptCode != nil ? scriptCode : @"";
-}
-
 static NSString *getCountryCode(NSLocale *locale, NSString *fallback) {
   NSString *countryCode = [locale objectForKey:NSLocaleCountryCode];
   return countryCode != nil ? countryCode : fallback;
@@ -38,14 +29,6 @@ static NSString *getCountryCode(NSLocale *locale, NSString *fallback) {
 static NSString *getCurrencyCode(NSLocale *locale, NSString *fallback) {
   NSString *currencyCode = [locale objectForKey:NSLocaleCurrencyCode];
   return currencyCode != nil ? currencyCode : fallback;
-}
-
-static bool getIsRTL(NSString *languageCode) {
-  return [NSLocale characterDirectionForLanguage:languageCode] == NSLocaleLanguageDirectionRightToLeft;
-}
-
-static NSString *concatCodes(NSString *code1, NSString *code2) {
-  return [code1 stringByAppendingFormat:([code2 isEqualToString:@""] ? @"%@" : @"-%@"), code2];
 }
 
 static NSString *getTemperatureUnit(NSLocale *locale, NSString *countryCode) {
@@ -94,92 +77,51 @@ static bool getUsesMetricSystem(NSLocale *locale) {
   return [[locale objectForKey:NSLocaleUsesMetricSystem] boolValue];
 }
 
-static NSDictionary *getConfig() {
-  NSMutableArray<NSDictionary *> *languages = [NSMutableArray array];
-  NSMutableArray<NSString *> *currencies = [NSMutableArray array];
-  NSMutableArray<NSDictionary *> *extracteds = [NSMutableArray array];
-  NSMutableArray<NSString *> *fallbacks = [NSMutableArray array];
-
+static NSDictionary *getExported() {
   NSLocale *currentLocale = [NSLocale autoupdatingCurrentLocale];
   NSString *currentCountryCode = getCountryCode(currentLocale, @"US");
+
+  NSMutableArray<NSDictionary *> *locales = [NSMutableArray array];
+  NSMutableArray<NSString *> *currencies = [NSMutableArray array];
 
   [currencies addObject:getCurrencyCode(currentLocale, @"USD")];
 
   for (NSString *identifier in [NSLocale preferredLanguages]) {
     NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:identifier];
-
-    NSString *languageCode = getLanguageCode(locale);
-    NSString *partialCode = concatCodes(languageCode, getScriptCode(locale));
-    NSString *currencyCode = getCurrencyCode(locale, @"USD");
+    NSString *languageCode = [locale objectForKey:NSLocaleLanguageCode];
+    NSString *scriptCode = [locale objectForKey:NSLocaleScriptCode];
     NSString *countryCode = getCountryCode(locale, currentCountryCode);
+    NSString *currencyCode = getCurrencyCode(locale, @"USD");
+    bool isRTL = [NSLocale characterDirectionForLanguage:languageCode] == NSLocaleLanguageDirectionRightToLeft;
 
     if (![currencies containsObject:currencyCode]) {
       [currencies addObject:currencyCode];
     }
 
-    [extracteds addObject:@{
-                            @"languageCode": languageCode,
-                            @"partialCode": partialCode,
-                            @"fullCode": concatCodes(partialCode, countryCode),
-                            }];
-  }
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] initWithDictionary:@{
+                                                                                    @"languageCode": languageCode,
+                                                                                    @"countryCode": countryCode,
+                                                                                    @"isRTL": @(isRTL),
+                                                                                    }];
 
-  long extractedsCount = [extracteds count];
+    NSString *languageTag = [languageCode copy];
 
-  for (long i = 0; i < extractedsCount; i++) {
-    NSDictionary *extracted = [extracteds objectAtIndex:i];
-    NSString *languageCode = [extracted objectForKey:@"languageCode"];
-    NSString *partialCode = [extracted objectForKey:@"partialCode"];
-    bool isRTL = getIsRTL(languageCode);
-
-    [languages addObject:@{
-                           @"code": [extracted objectForKey:@"fullCode"],
-                           @"isRTL": @(isRTL),
-                           @"isFallback": @((bool)0),
-                           }];
-
-    NSString *nextLanguageCode = nil;
-    NSString *nextPartialCode = nil;
-
-    if (i + 1 < extractedsCount) {
-      nextLanguageCode = [[extracteds objectAtIndex:i + 1] objectForKey:@"languageCode"];
-      nextPartialCode = [[extracteds objectAtIndex:i + 1] objectForKey:@"partialCode"];
+    if (scriptCode != nil) {
+      languageTag = [languageTag stringByAppendingFormat:@"-%@", scriptCode];
+      [result setObject:scriptCode forKey:@"scriptCode"];
     }
 
-    if (![partialCode isEqualToString:languageCode]) {
-      if ([partialCode isEqualToString:nextPartialCode]) {
-        continue;
-      }
+    languageTag = [languageTag stringByAppendingFormat:@"-%@", countryCode];
+    [result setObject:languageTag forKey:@"languageTag"];
 
-      if (![fallbacks containsObject:partialCode]) {
-        [fallbacks addObject:partialCode];
-
-        [languages addObject:@{
-                               @"code": partialCode,
-                               @"isRTL": @(isRTL),
-                               @"isFallback": @((bool)1),
-                               }];
-      }
-    }
-
-    if (![languageCode isEqualToString:nextPartialCode] && ![languageCode isEqualToString:nextLanguageCode]) {
-      if (![fallbacks containsObject:languageCode]) {
-        [fallbacks addObject:languageCode];
-
-        [languages addObject:@{
-                               @"code": languageCode,
-                               @"isRTL": @(isRTL),
-                               @"isFallback": @((bool)1),
-                               }];
-      }
-    }
+    [locales addObject:result];
   }
 
   return @{
-           @"languages": languages,
-           @"currencies": currencies,
            @"calendar": getCalendar(currentLocale),
            @"country": currentCountryCode,
+           @"currencies": currencies,
+           @"locales": locales,
            @"temperatureUnit": getTemperatureUnit(currentLocale, currentCountryCode),
            @"timeZone": [[NSTimeZone localTimeZone] name],
            @"uses24HourClock": @(getUses24HourClock(currentLocale)),
@@ -197,7 +139,7 @@ RCT_EXPORT_MODULE();
 
 - (void)startObserving {
   [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(onLanguagesConfigDidChange)
+                                           selector:@selector(onLocalizationDidChange)
                                                name:NSCurrentLocaleDidChangeNotification
                                              object:nil];
 }
@@ -207,15 +149,15 @@ RCT_EXPORT_MODULE();
 }
 
 - (NSDictionary *)constantsToExport {
-  return @{ @"config": getConfig() };
+  return @{ @"initialConstants": getExported() };
 }
 
 - (NSArray<NSString *> *)supportedEvents {
-  return @[@"languagesConfigDidChange"];
+  return @[@"localizationDidChange"];
 }
 
-- (void)onLanguagesConfigDidChange {
-  [self sendEventWithName:@"languagesConfigDidChange" body:getConfig()];
+- (void)onLocalizationDidChange {
+  [self sendEventWithName:@"localizationDidChange" body:getExported()];
 }
 
 @end
