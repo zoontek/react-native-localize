@@ -1,4 +1,4 @@
-#import "RNLanguages.h"
+#import "RNLocalize.h"
 
 static NSString *getCalendar(NSLocale *locale) {
   static dispatch_once_t onceToken;
@@ -187,7 +187,7 @@ static NSDictionary *getConfig() {
            };
 }
 
-@implementation RNLanguages
+@implementation RNLocalize
 
 RCT_EXPORT_MODULE();
 

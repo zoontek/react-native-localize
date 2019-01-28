@@ -1,5 +1,5 @@
 import React from "react";
-import RNLanguages from "react-native-languages";
+import RNLocalize from "react-native-localize";
 import i18n from "i18n-js";
 import memoize from "lodash.memoize";
 
@@ -27,7 +27,7 @@ const translate = memoize(
 
 const setI18nConfig = () => {
   // most suited language
-  const language = RNLanguages.languages.find(l =>
+  const language = RNLocalize.languages.find(l =>
     Object.keys(translationGetters).includes(l.code),
   );
 
@@ -54,7 +54,7 @@ export default class SyncExample extends React.Component {
   }
 
   componentDidMount() {
-    this.configDidChangeListener = RNLanguages.addListener(
+    this.configDidChangeListener = RNLocalize.addListener(
       "configDidChange",
       () => {
         setI18nConfig();
@@ -75,26 +75,26 @@ export default class SyncExample extends React.Component {
         <ScrollView contentContainerStyle={styles.container}>
           <Line name="Translation example" value={translate("hello")} />
 
-          <Line name="RNLanguages.languages" value={RNLanguages.languages} />
-          <Line name="RNLanguages.currencies" value={RNLanguages.currencies} />
-          <Line name="RNLanguages.calendar" value={RNLanguages.calendar} />
-          <Line name="RNLanguages.country" value={RNLanguages.country} />
+          <Line name="RNLocalize.languages" value={RNLocalize.languages} />
+          <Line name="RNLocalize.currencies" value={RNLocalize.currencies} />
+          <Line name="RNLocalize.calendar" value={RNLocalize.calendar} />
+          <Line name="RNLocalize.country" value={RNLocalize.country} />
 
           <Line
-            name="RNLanguages.temperatureUnit"
-            value={RNLanguages.temperatureUnit}
+            name="RNLocalize.temperatureUnit"
+            value={RNLocalize.temperatureUnit}
           />
 
-          <Line name="RNLanguages.timeZone" value={RNLanguages.timeZone} />
+          <Line name="RNLocalize.timeZone" value={RNLocalize.timeZone} />
 
           <Line
-            name="RNLanguages.uses24HourClock"
-            value={RNLanguages.uses24HourClock}
+            name="RNLocalize.uses24HourClock"
+            value={RNLocalize.uses24HourClock}
           />
 
           <Line
-            name="RNLanguages.usesMetricSystem"
-            value={RNLanguages.usesMetricSystem}
+            name="RNLocalize.usesMetricSystem"
+            value={RNLocalize.usesMetricSystem}
           />
         </ScrollView>
       </SafeAreaView>

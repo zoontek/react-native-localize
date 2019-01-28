@@ -1,4 +1,4 @@
-package com.rnlanguagesexample;
+package com.rnlocalizeexample;
 
 import android.app.Application;
 
@@ -9,7 +9,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
 import com.rnfs.RNFSPackage;
-import com.reactcommunity.rnlanguages.RNLanguagesPackage;
+import com.reactcommunity.rnlocalize.RNLocalizePackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
           new RNFSPackage(),
-          new RNLanguagesPackage()
+          new RNLocalizePackage()
       );
     }
 

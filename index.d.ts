@@ -1,4 +1,4 @@
-declare module "react-native-languages" {
+declare module "react-native-localize" {
   export type Calendar = "gregorian" | "japanese" | "buddhist";
   export type TemperatureUnit = "celsius" | "fahrenheit";
 
@@ -19,13 +19,13 @@ declare module "react-native-languages" {
   export type LanguagesEvent = "configDidChange";
   export type LanguagesEventHandler = (config: LanguagesConfig) => any;
 
-  interface RNLanguagesModule extends LanguagesConfig {
+  interface RNLocalizeModule extends LanguagesConfig {
     addListener: (
       type: LanguagesEvent,
       handler: LanguagesEventHandler,
     ) => LanguagesEmitterSubscription;
   }
 
-  let Module: RNLanguagesModule;
+  let Module: RNLocalizeModule;
   export default Module;
 }

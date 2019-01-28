@@ -1,9 +1,9 @@
 {
-  "name": "RNLanguagesExample",
+  "name": "RNLocalizeExample",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "clean-haste": "rm -rf node_modules/react-native-languages/node_modules",
+    "clean-haste": "rm -rf node_modules/react-native-localize/node_modules",
     "start": "npm run clean-haste && node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
@@ -13,7 +13,7 @@
     "react": "16.6.3",
     "react-native": "0.58.1",
     "react-native-fs": "^2.13.3",
-    "react-native-languages": "file:../"
+    "react-native-localize": "file:../"
   },
   "devDependencies": {
     "babel-core": "^7.0.0-bridge.0",

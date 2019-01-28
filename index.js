@@ -2,7 +2,7 @@
 
 // $FlowFixMe
 import { NativeModules, NativeEventEmitter } from "react-native";
-const { RNLanguages } = NativeModules;
+const { RNLocalize } = NativeModules;
 
 export type Calendar = "gregorian" | "japanese" | "buddhist";
 export type TemperatureUnit = "celsius" | "fahrenheit";
@@ -24,7 +24,7 @@ export type LanguagesEmitterSubscription = {|
 export type LanguagesEvent = "configDidChange";
 export type LanguagesEventHandler = (config: LanguagesConfig) => any;
 
-type RNLanguagesModule = {|
+type RNLocalizeModule = {|
   ...LanguagesConfig,
   addListener: (
     type: LanguagesEvent,
@@ -32,11 +32,11 @@ type RNLanguagesModule = {|
   ) => LanguagesEmitterSubscription,
 |};
 
-const emitter = new NativeEventEmitter(RNLanguages);
+const emitter = new NativeEventEmitter(RNLocalize);
 const handlers: Set<LanguagesEventHandler> = new Set();
 
-let Module: RNLanguagesModule = {
-  ...RNLanguages.config,
+let Module: RNLocalizeModule = {
+  ...RNLocalize.config,
 
   addListener(
     type: LanguagesEvent,

@@ -9,7 +9,7 @@ be closed if it doesn't provide the informations required.
 
 ### Describe your environment
 
-- react-native-languages version
+- react-native-localize version
 - react-native version
 - Target platform: iOS, Android, both ?
 - Device (which one?), simulator ?

@@ -1,14 +1,14 @@
 {
-  "name": "react-native-languages",
+  "name": "react-native-localize",
   "version": "4.0.0",
   "license": "MIT",
   "description": "React Native properties and methods related to the language of the device",
   "author": "Mathieu Acthernoene <zoontek@gmail.com>",
-  "homepage": "https://github.com/react-community/react-native-languages",
+  "homepage": "https://github.com/react-community/react-native-localize",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-community/react-native-languages.git"
+    "url": "https://github.com/react-community/react-native-localize.git"
   },
   "scripts": {
     "precommit": "lint-staged",

@@ -1,10 +1,10 @@
-# 🌍  react-native-languages
+# 🌍  react-native-localize
 
 A toolbox for your app localization.
 
-[![npm version](https://badge.fury.io/js/react-native-languages.svg)](https://badge.fury.io/js/react-native-languages) [![npm](https://img.shields.io/npm/dt/react-native-languages.svg)](https://www.npmjs.org/package/react-native-languages) ![Platform - Android and iOS](https://img.shields.io/badge/platform-Android%20%7C%20iOS-yellow.svg) ![MIT](https://img.shields.io/dub/l/vibe-d.svg) [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![npm version](https://badge.fury.io/js/react-native-localize.svg)](https://badge.fury.io/js/react-native-localize) [![npm](https://img.shields.io/npm/dt/react-native-localize.svg)](https://www.npmjs.org/package/react-native-localize) ![Platform - Android and iOS](https://img.shields.io/badge/platform-Android%20%7C%20iOS-yellow.svg) ![MIT](https://img.shields.io/dub/l/vibe-d.svg) [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-<img width="400" height="auto" src="https://github.com/react-community/react-native-languages/blob/4.0.0/docs/ios-screenshot.png?raw=true" />
+<img width="400" height="auto" src="https://github.com/react-community/react-native-localize/blob/4.0.0/docs/ios-screenshot.png?raw=true" />
 
 ## Support
 
@@ -18,9 +18,9 @@ A toolbox for your app localization.
 #### Using yarn
 
 ```bash
-$ npm install --save react-native-languages
+$ npm install --save react-native-localize
 # --- or ---
-$ yarn add react-native-languages
+$ yarn add react-native-localize
 ```
 
 ## Linking
@@ -28,7 +28,7 @@ $ yarn add react-native-languages
 #### Using react-native-cli (recommended)
 
 ```bash
-$ react-native link react-native-languages
+$ react-native link react-native-localize
 ```
 
 _NB: If you use a Cocoapods and have a `Podfile`, `react-native link` will only add this library as a dependency, and you'll need to run `pod install`._
@@ -37,7 +37,7 @@ _NB: If you use a Cocoapods and have a `Podfile`, `react-native link` will only 
 
 ```ruby
 # add this line in your Podfile
-pod 'RNLanguages', :path => '../node_modules/react-native-languages/ios'
+pod 'RNLocalize', :path => '../node_modules/react-native-localize/ios'
 ```
 
 ```bash
@@ -47,16 +47,16 @@ $ pod install
 #### Manual (iOS)
 
 1.  In the XCode's "Project navigator", right click on your project's Libraries folder ➜ `Add Files to <...>`
-2.  Go to `node_modules` ➜ `react-native-languages` ➜ `ios` ➜ select `RNLanguages.xcodeproj`
-3.  Add `RNLanguages.a` to `Build Phases -> Link Binary With Libraries`
+2.  Go to `node_modules` ➜ `react-native-localize` ➜ `ios` ➜ select `RNLocalize.xcodeproj`
+3.  Add `RNLocalize.a` to `Build Phases -> Link Binary With Libraries`
 
 #### Manual (Android)
 
 1.  Add the following lines to `android/settings.gradle`:
 
 ```gradle
-include ':react-native-languages'
-project(':react-native-languages').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-languages/android')
+include ':react-native-localize'
+project(':react-native-localize').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-localize/android')
 ```
 
 2.  Add the compile line to the dependencies in `android/app/build.gradle`:
@@ -64,14 +64,14 @@ project(':react-native-languages').projectDir = new File(rootProject.projectDir,
 ```gradle
 dependencies {
   // ...
-  compile project(':react-native-languages')
+  compile project(':react-native-localize')
 }
 ```
 
 3.  Add the import and link the package in `MainApplication.java`:
 
 ```java
-import com.reactcommunity.rnlanguages.RNLanguagesPackage; // <-- Add the RNLanguages import
+import com.reactcommunity.rnlocalize.RNLocalizePackage; // <-- Add the RNLocalize import
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -82,7 +82,7 @@ public class MainApplication extends Application implements ReactApplication {
     return Arrays.<ReactPackage>asList(
       new MainReactPackage(),
       // ...
-      new RNLanguagesPackage() // <-- Add it to the packages list
+      new RNLocalizePackage() // <-- Add it to the packages list
     );
   }
 
@@ -93,17 +93,17 @@ public class MainApplication extends Application implements ReactApplication {
 ## Basic usage
 
 ```javascript
-import RNLanguages from "react-native-languages";
+import RNLocalize from "react-native-localize";
 
 // User preferred languages list (in order)
-console.log("languages", RNLanguages.languages);
+console.log("languages", RNLocalize.languages);
 
 // User preferred currencies (in order)
-console.log("currencies", RNLanguages.currencies);
+console.log("currencies", RNLocalize.currencies);
 
 // Listening for languages changes (on Android)
-RNLanguages.addListener("configDidChange", () => {
-  // RNLanguages exported constants changed
+RNLocalize.addListener("configDidChange", () => {
+  // RNLocalize exported constants changed
   // Do languages related things
 });
 ```
@@ -124,8 +124,8 @@ RNLanguages.addListener("configDidChange", () => {
 
 ## Add project's supported localizations (iOS)
 
-![](https://github.com/react-community/react-native-languages/blob/master/docs/xcode-adding-locales.png?raw=true)
+![](https://github.com/react-community/react-native-localize/blob/master/docs/xcode-adding-locales.png?raw=true)
 
 ## Examples with [i18n-js](https://github.com/fnando/i18n-js)
 
-Browse the files in the [/example](https://github.com/react-community/react-native-languages/tree/master/example) directory.
+Browse the files in the [/example](https://github.com/react-community/react-native-localize/tree/master/example) directory.

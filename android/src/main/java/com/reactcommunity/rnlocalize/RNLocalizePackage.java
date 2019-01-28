@@ -1,4 +1,4 @@
-package com.reactcommunity.rnlanguages;
+package com.reactcommunity.rnlocalize;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
@@ -9,11 +9,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class RNLanguagesPackage implements ReactPackage {
+public class RNLocalizePackage implements ReactPackage {
 
   @Override
   public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-    return Arrays.<NativeModule>asList(new RNLanguagesModule(reactContext));
+    return Arrays.<NativeModule>asList(new RNLocalizeModule(reactContext));
   }
 
   @Override

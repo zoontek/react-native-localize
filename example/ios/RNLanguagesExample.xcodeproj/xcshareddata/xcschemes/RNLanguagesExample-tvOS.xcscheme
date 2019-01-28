@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "RNLanguagesExample-tvOS.app"
-               BlueprintName = "RNLanguagesExample-tvOS"
-               ReferencedContainer = "container:RNLanguagesExample.xcodeproj">
+               BuildableName = "RNLocalizeExample-tvOS.app"
+               BlueprintName = "RNLocalizeExample-tvOS"
+               ReferencedContainer = "container:RNLocalizeExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "RNLanguagesExample-tvOSTests.xctest"
-               BlueprintName = "RNLanguagesExample-tvOSTests"
-               ReferencedContainer = "container:RNLanguagesExample.xcodeproj">
+               BuildableName = "RNLocalizeExample-tvOSTests.xctest"
+               BlueprintName = "RNLocalizeExample-tvOSTests"
+               ReferencedContainer = "container:RNLocalizeExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "RNLanguagesExample-tvOSTests.xctest"
-               BlueprintName = "RNLanguagesExample-tvOSTests"
-               ReferencedContainer = "container:RNLanguagesExample.xcodeproj">
+               BuildableName = "RNLocalizeExample-tvOSTests.xctest"
+               BlueprintName = "RNLocalizeExample-tvOSTests"
+               ReferencedContainer = "container:RNLocalizeExample.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "RNLanguagesExample-tvOS.app"
-            BlueprintName = "RNLanguagesExample-tvOS"
-            ReferencedContainer = "container:RNLanguagesExample.xcodeproj">
+            BuildableName = "RNLocalizeExample-tvOS.app"
+            BlueprintName = "RNLocalizeExample-tvOS"
+            ReferencedContainer = "container:RNLocalizeExample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "RNLanguagesExample-tvOS.app"
-            BlueprintName = "RNLanguagesExample-tvOS"
-            ReferencedContainer = "container:RNLanguagesExample.xcodeproj">
+            BuildableName = "RNLocalizeExample-tvOS.app"
+            BlueprintName = "RNLocalizeExample-tvOS"
+            ReferencedContainer = "container:RNLocalizeExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "RNLanguagesExample-tvOS.app"
-            BlueprintName = "RNLanguagesExample-tvOS"
-            ReferencedContainer = "container:RNLanguagesExample.xcodeproj">
+            BuildableName = "RNLocalizeExample-tvOS.app"
+            BlueprintName = "RNLocalizeExample-tvOS"
+            ReferencedContainer = "container:RNLocalizeExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

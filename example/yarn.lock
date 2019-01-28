@@ -4578,7 +4578,7 @@ react-native-fs@^2.13.3:
     base-64 "^0.1.0"
     utf8 "^2.1.1"
 
-"react-native-languages@file:..":
+"react-native-localize@file:..":
   version "4.0.0"
 
 react-native@0.58.1:

@@ -1,4 +1,4 @@
-package com.reactcommunity.rnlanguages;
+package com.reactcommunity.rnlocalize;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -29,7 +29,7 @@ import java.util.TimeZone;
 
 import javax.annotation.Nullable;
 
-public class RNLanguagesModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
+public class RNLocalizeModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
 
   private static final List<String> USES_FAHRENHEIT_UNIT =
       Arrays.asList("BS", "BZ", "KY", "PR", "PW", "US");
@@ -41,7 +41,7 @@ public class RNLanguagesModule extends ReactContextBaseJavaModule implements Lif
   private boolean applicationIsPaused = false;
   private boolean emitChangeOnResume = false;
 
-  public RNLanguagesModule(ReactApplicationContext reactContext) {
+  public RNLocalizeModule(ReactApplicationContext reactContext) {
     super(reactContext);
 
     IntentFilter filter = new IntentFilter();
@@ -62,7 +62,7 @@ public class RNLanguagesModule extends ReactContextBaseJavaModule implements Lif
 
   @Override
   public String getName() {
-    return "RNLanguages";
+    return "RNLocalize";
   }
 
   @Override
