@@ -26,10 +26,12 @@ const setI18nConfig = async () => {
       return { ...all, [languageTag]: path };
     }, {});
 
-  const {
-    languageTag = "en", // fallback if no available language fits
-    isRTL = false, // fallback if no available language fits
-  } = RNLocalize.findBestAvailableLanguage(Object.keys(translationPaths));
+  // fallback if no available language fits
+  const fallback = { languageTag: "en", isRTL: false };
+
+  const { languageTag, isRTL } =
+    RNLocalize.findBestAvailableLanguage(Object.keys(translationPaths)) ||
+    fallback;
 
   const fileContent = await (Platform.OS === "android"
     ? RNFS.readFileAssets(translationPaths[languageTag], "utf8")

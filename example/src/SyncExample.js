@@ -26,10 +26,12 @@ const translate = memoize(
 );
 
 const setI18nConfig = () => {
-  const {
-    languageTag = "en", // fallback if no available language fits
-    isRTL = false, // fallback if no available language fits
-  } = RNLocalize.findBestAvailableLanguage(Object.keys(translationGetters));
+  // fallback if no available language fits
+  const fallback = { languageTag: "en", isRTL: false };
+
+  const { languageTag, isRTL } =
+    RNLocalize.findBestAvailableLanguage(Object.keys(translationGetters)) ||
+    fallback;
 
   // clear translation cache
   translate.cache.clear();
