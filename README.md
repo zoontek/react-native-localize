@@ -4,7 +4,7 @@ A toolbox for your React Native app localization (formerly [react-native-languag
 
 [![npm version](https://badge.fury.io/js/react-native-localize.svg)](https://badge.fury.io/js/react-native-localize) [![npm](https://img.shields.io/npm/dt/react-native-localize.svg)](https://www.npmjs.org/package/react-native-localize) ![Platform - Android and iOS](https://img.shields.io/badge/platform-Android%20%7C%20iOS-yellow.svg) ![MIT](https://img.shields.io/dub/l/vibe-d.svg) [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-<img width="400" height="auto" src="https://github.com/react-community/react-native-localize/blob/master/docs/screenshot.png?raw=true" />
+<img width="400" height="auto" src="https://github.com/react-native-community/react-native-localize/blob/master/docs/screenshot.png?raw=true" />
 
 ## Support
 
@@ -300,8 +300,8 @@ console.log(RNLocalize.findBestAvailableLanguage(["en-US", "en", "fr"]));
 
 ## Add project's supported localizations (iOS)
 
-![](https://github.com/react-community/react-native-localize/blob/master/docs/xcode-adding-locales.png?raw=true)
+![](https://github.com/react-native-community/react-native-localize/blob/master/docs/xcode-adding-locales.png?raw=true)
 
 ## Examples with [i18n-js](https://github.com/fnando/i18n-js)
 
-Browse the files in the [/example](https://github.com/react-community/react-native-localize/tree/master/example) directory.
+Browse the files in the [/example](https://github.com/react-native-community/react-native-localize/tree/master/example) directory.
