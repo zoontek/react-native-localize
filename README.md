@@ -218,7 +218,7 @@ console.log(RNLocalize.getTimeZone());
 
 ### uses24HourClock()
 
-Returns `true` if the user prefers 24h clock format, `false`if he prefers 12h clock format.
+Returns `true` if the user prefers 24h clock format, `false` if he prefers 12h clock format.
 
 #### Method type
 
