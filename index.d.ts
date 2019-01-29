@@ -1,22 +1,36 @@
-declare module 'react-native-languages' {
-  interface EventData {
-    language: string;
-    languages: string[];
-  }
+declare module "react-native-localize" {
+  export type Calendar = "gregorian" | "japanese" | "buddhist";
+  export type LocalizationEvent = "change";
+  export type TemperatureUnit = "celsius" | "fahrenheit";
 
-  type EventHandler = (eventData: EventData) => any;
+  export type Locale = {
+    readonly languageCode: string;
+    readonly scriptCode?: string;
+    readonly countryCode: string;
+    readonly languageTag: string;
+    readonly isRTL: boolean;
+  };
 
-  interface RNLanguagesModule {
-    readonly language: string;
-    readonly languages: string[];
-    addEventListener: (type: 'change', handler: EventHandler) => void;
-    removeEventListener: (type: 'change', handler: EventHandler) => void;
-  }
+  export function getCalendar(): Calendar;
+  export function getCountry(): string;
+  export function getCurrencies(): string[];
+  export function getLocales(): Locale[];
+  export function getTemperatureUnit(): TemperatureUnit;
+  export function getTimeZone(): string;
+  export function uses24HourClock(): boolean;
+  export function usesMetricSystem(): boolean;
 
-  export const language: string;
-  export const languages: string[];
+  export function addEventListener(
+    type: LocalizationEvent,
+    handler: Function,
+  ): void;
 
-  let Module: RNLanguagesModule;
+  export function removeEventListener(
+    type: LocalizationEvent,
+    handler: Function,
+  ): void;
 
-  export default Module;
+  export function findBestAvailableLanguage<T extends string>(
+    languageTags: T[],
+  ): { languageTag: T; isRTL: boolean } | void;
 }

@@ -1,6 +1,9 @@
-rootProject.name = 'RNLanguagesExample'
+rootProject.name = 'RNLocalizeExample'
 
-include ':react-native-languages'
-project(':react-native-languages').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-languages/android')
+include ':react-native-fs'
+project(':react-native-fs').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fs/android')
+
+include ':react-native-localize'
+project(':react-native-localize').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-localize/android')
 
 include ':app'

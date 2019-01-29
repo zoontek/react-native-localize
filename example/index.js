@@ -1,5 +1,12 @@
-import { AppRegistry } from 'react-native';
-import App from './src/App';
-import { name as appName } from './app.json';
+/**
+ * @format
+ * @lint-ignore-every XPLATJSCOPYRIGHT1
+ */
 
-AppRegistry.registerComponent(appName, () => App);
+import { AppRegistry } from "react-native";
+import SyncExample from "./src/SyncExample";
+import AsyncExample from "./src/AsyncExample";
+import { name as appName } from "./app.json";
+
+// you can switch between SyncExample / AsyncExample
+AppRegistry.registerComponent(appName, () => SyncExample);
