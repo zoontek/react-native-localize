@@ -16,5 +16,5 @@ Pod::Spec.new do |s|
   s.ios.deployment_target  = "9.0"
 
   s.source                 = { :git => "#{s.homepage}.git", :tag => s.version }
-  s.source_files           = "ios/*.{h,m}"
+  s.source_files           = "*.{h,m}"
 end
