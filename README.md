@@ -1,10 +1,14 @@
 # 🌍  react-native-localize
 
-A toolbox for your React Native app localization (formerly [react-native-languages](https://www.npmjs.com/package/react-native-languages)).
+A toolbox for your React Native app localization.
 
 [![npm version](https://badge.fury.io/js/react-native-localize.svg)](https://badge.fury.io/js/react-native-localize) [![npm](https://img.shields.io/npm/dt/react-native-localize.svg)](https://www.npmjs.org/package/react-native-localize) ![Platform - Android and iOS](https://img.shields.io/badge/platform-Android%20%7C%20iOS-yellow.svg) ![MIT](https://img.shields.io/dub/l/vibe-d.svg) [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-<img width="400" height="auto" src="https://github.com/react-native-community/react-native-localize/blob/master/docs/screenshot.png?raw=true" />
+### ⚠️  Breaking change
+
+This project was known as [react-native-languages](https://www.npmjs.com/package/react-native-languages) and has been renamed to reflect new APIs possibilities.<br>Find more informations about this change [here](https://github.com/react-native-community/react-native-localize/pull/29).
+
+<img width="400" height="auto" center src="https://github.com/react-native-community/react-native-localize/blob/master/docs/screenshot.png?raw=true" />
 
 ## Support
 
