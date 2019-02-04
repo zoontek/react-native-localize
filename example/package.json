@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "clean-haste": "rm -rf node_modules/react-native-localize/node_modules",
-    "start": "npm run clean-haste && node node_modules/react-native/local-cli/cli.js start",
+    "clean:modules": "rm -rf node_modules/react-native-localize/node_modules",
+    "clean:example": "rm -rf node_modules/react-native-localize/example",
+    "start": "yarn clean:modules && yarn clean:example && node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
   "dependencies": {
