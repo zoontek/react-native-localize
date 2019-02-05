@@ -158,12 +158,18 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
 
   private static String getCountryCode(Locale locale, String fallback) {
     String countryCode = locale.getCountry();
-    return countryCode != null ? countryCode : fallback;
+    return countryCode == null || countryCode.equals("") ? fallback : countryCode;
   }
 
   private static String getCurrencyCode(Locale locale, String fallback) {
+    String countryCode = locale.getCountry();
+
+    if (countryCode == null || countryCode.equals("")) {
+      return fallback;
+    }
+
     Currency currency = Currency.getInstance(locale);
-    return currency != null ? currency.getCurrencyCode() : fallback;
+    return currency == null ? fallback : currency.getCurrencyCode();
   }
 
   private static boolean getIsRTL(Locale locale) {
