@@ -4,11 +4,11 @@
   "license": "MIT",
   "description": "A toolbox for your React Native app localization.",
   "author": "Mathieu Acthernoene <zoontek@gmail.com>",
-  "homepage": "https://github.com/react-community/react-native-localize",
+  "homepage": "https://github.com/react-native-community/react-native-localize",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-community/react-native-localize.git"
+    "url": "https://github.com/react-native-community/react-native-localize.git"
   },
   "keywords": [
     "react-native-localize",
