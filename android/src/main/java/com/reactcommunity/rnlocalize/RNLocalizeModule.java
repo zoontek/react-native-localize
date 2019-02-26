@@ -168,8 +168,12 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
       return fallback;
     }
 
-    Currency currency = Currency.getInstance(locale);
-    return currency == null ? fallback : currency.getCurrencyCode();
+    try {
+        Currency currency = Currency.getInstance(locale);
+        return currency == null ? fallback : currency.getCurrencyCode();
+    } catch (IllegalArgumentException e) {
+        return fallback;
+    }
   }
 
   private static boolean getIsRTL(Locale locale) {
