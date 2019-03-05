@@ -53,7 +53,7 @@ project(':react-native-localize').projectDir = new File(rootProject.projectDir, 
 ```gradle
 dependencies {
   // ...
-  compile project(':react-native-localize')
+  implementation project(':react-native-localize')
 }
 ```
 
