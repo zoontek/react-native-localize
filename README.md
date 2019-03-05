@@ -17,9 +17,7 @@ This project was known as [react-native-languages](https://www.npmjs.com/package
 | react-native-localize  | 1.0.0+  | 0.56.0+              |
 | react-native-languages | 2.0.1   | 0.48.0 - 0.55.4      |
 
-## Installation
-
-#### Using yarn
+## Setup
 
 ```bash
 $ npm install --save react-native-localize
