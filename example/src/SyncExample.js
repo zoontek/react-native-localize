@@ -83,6 +83,10 @@ export default class SyncExample extends React.Component {
             value={RNLocalize.getCalendar()}
           />
           <Line
+            name="RNLocalize.getNumberFormatSettings()"
+            value={RNLocalize.getNumberFormatSettings()}
+          />
+          <Line
             name="RNLocalize.getTemperatureUnit()"
             value={RNLocalize.getTemperatureUnit()}
           />
@@ -113,7 +117,7 @@ export default class SyncExample extends React.Component {
 const Line = props => (
   <View style={styles.block}>
     <Text style={styles.name}>{props.name}</Text>
-    <Text style={styles.value}>{JSON.stringify(props.value)}</Text>
+    <Text style={styles.value}>{JSON.stringify(props.value, null, 2)}</Text>
   </View>
 );
 

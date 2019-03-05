@@ -107,6 +107,10 @@ export default class AsyncExample extends React.Component {
             value={RNLocalize.getCalendar()}
           />
           <Line
+            name="RNLocalize.getNumberFormatSettings()"
+            value={RNLocalize.getNumberFormatSettings()}
+          />
+          <Line
             name="RNLocalize.getTemperatureUnit()"
             value={RNLocalize.getTemperatureUnit()}
           />
