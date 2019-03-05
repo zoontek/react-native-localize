@@ -11,10 +11,16 @@ declare module "react-native-localize" {
     readonly isRTL: boolean;
   };
 
+  export type NumberFormatSettings = {
+    decimalSeparator: string;
+    groupingSeparator: string;
+  };
+
   export function getCalendar(): Calendar;
   export function getCountry(): string;
   export function getCurrencies(): string[];
   export function getLocales(): Locale[];
+  export function getNumberFormatSettings(): NumberFormatSettings;
   export function getTemperatureUnit(): TemperatureUnit;
   export function getTimeZone(): string;
   export function uses24HourClock(): boolean;

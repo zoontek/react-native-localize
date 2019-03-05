@@ -16,6 +16,11 @@ export type Locale = {|
   +isRTL: boolean,
 |};
 
+export type NumberFormatSettings = {|
+  +decimalSeparator: string,
+  +groupingSeparator: string,
+|};
+
 let constants = RNLocalize.initialConstants;
 const emitter = new NativeEventEmitter(RNLocalize);
 const handlers: Set<Function> = new Set();
@@ -43,6 +48,9 @@ export function getCurrencies(): string[] {
 }
 export function getLocales(): Locale[] {
   return constants.locales;
+}
+export function getNumberFormatSettings(): NumberFormatSettings {
+  return constants.numberFormatSettings;
 }
 export function getTemperatureUnit(): TemperatureUnit {
   return constants.temperatureUnit;

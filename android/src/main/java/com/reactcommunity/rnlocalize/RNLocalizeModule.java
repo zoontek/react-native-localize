@@ -20,6 +20,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter;
 
 import java.lang.IllegalArgumentException;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Currency;
@@ -189,7 +190,17 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
   }
 
   private static boolean getUsesMetricSystem(Locale locale) {
-    return !USES_IMPERIAL.contains(getCountryCode(locale,"US"));
+    return !USES_IMPERIAL.contains(getCountryCode(locale, "US"));
+  }
+
+  private static WritableMap getNumberFormatSettings(Locale locale) {
+    WritableMap settings = Arguments.createMap();
+    DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
+
+    settings.putString("decimalSeparator", String.valueOf(symbols.getDecimalSeparator()));
+    settings.putString("groupingSeparator", String.valueOf(symbols.getGroupingSeparator()));
+
+    return settings;
   }
 
   private WritableMap getExported() {
@@ -236,6 +247,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     exported.putString("country", currentCountryCode);
     exported.putArray("currencies", currencies);
     exported.putArray("locales", locales);
+    exported.putMap("numberFormatSettings", getNumberFormatSettings(currentLocale));
     exported.putString("temperatureUnit", getTemperatureUnit(currentLocale));
     exported.putString("timeZone", TimeZone.getDefault().getID());
     exported.putBoolean("uses24HourClock", DateFormat.is24HourFormat(getReactApplicationContext()));

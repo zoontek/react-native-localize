@@ -77,6 +77,13 @@ static bool getUsesMetricSystem(NSLocale *locale) {
   return [[locale objectForKey:NSLocaleUsesMetricSystem] boolValue];
 }
 
+static NSDictionary *getNumberFormatSettings(NSLocale *locale) {
+  return @{
+           @"decimalSeparator": [locale objectForKey:NSLocaleDecimalSeparator],
+           @"groupingSeparator": [locale objectForKey:NSLocaleGroupingSeparator],
+           };
+}
+
 static NSDictionary *getExported() {
   NSLocale *currentLocale = [NSLocale autoupdatingCurrentLocale];
   NSString *currentCountryCode = getCountryCode(currentLocale, @"US");
@@ -122,6 +129,7 @@ static NSDictionary *getExported() {
            @"country": currentCountryCode,
            @"currencies": currencies,
            @"locales": locales,
+           @"numberFormatSettings": getNumberFormatSettings(currentLocale),
            @"temperatureUnit": getTemperatureUnit(currentLocale, currentCountryCode),
            @"timeZone": [[NSTimeZone localTimeZone] name],
            @"uses24HourClock": @(getUses24HourClock(currentLocale)),
