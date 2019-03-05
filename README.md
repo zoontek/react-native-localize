@@ -125,6 +125,31 @@ console.log(RNLocalize.getLocales());
 
 ---
 
+### getNumberFormatSettings()
+
+Returns number formatting settings.
+
+#### Method type
+
+```ts
+type getNumberFormatSettings = () => {
+  decimalSeparator: string;
+  groupingSeparator: string;
+};
+```
+
+#### Usage example
+
+```js
+console.log(RNLocalize.getNumberFormatSettings());
+/* -> {
+  decimalSeparator: ".",
+  groupingSeparator: ",",
+} */
+```
+
+---
+
 ### getCurrencies()
 
 Returns the user preferred currency codes, in order.
