@@ -111,9 +111,11 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
   public void onHostDestroy() {}
 
   private void emitLocalizationDidChange() {
-    getReactApplicationContext()
-        .getJSModule(RCTDeviceEventEmitter.class)
-        .emit("localizationDidChange", getExported());
+    if (getReactApplicationContext().hasActiveCatalystInstance()) {
+      getReactApplicationContext()
+          .getJSModule(RCTDeviceEventEmitter.class)
+          .emit("localizationDidChange", getExported());
+    }
   }
 
   private List<Locale> getLocales() {
