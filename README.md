@@ -325,10 +325,59 @@ console.log(RNLocalize.findBestAvailableLanguage(["en-US", "en", "fr"]));
 // -> { languageTag: "en-US", isRTL: false }
 ```
 
-## Add project's supported localizations (iOS)
-
-![](https://github.com/react-native-community/react-native-localize/blob/master/docs/xcode-adding-locales.png?raw=true)
-
 ## Examples with [i18n-js](https://github.com/fnando/i18n-js)
 
 Browse the files in the [/example](https://github.com/react-native-community/react-native-localize/tree/master/example) directory.
+
+## How to test your code
+
+Because it's a native module, you might need to mock this package to run your tests flawlessly.<br />
+Here is an example for Jest, adapt it to your needs :
+
+```js
+// __mocks__/react-native-localize.js
+
+const getLocales = () => [
+  // you can choose / add the locales you want
+  { countryCode: "US", languageTag: "en-US", languageCode: "en", isRTL: false },
+  { countryCode: "FR", languageTag: "fr-FR", languageCode: "fr", isRTL: false },
+];
+
+// use a provided translation, or return undefined to test your fallback
+const findBestAvailableLanguage = () => ({ languageTag: 'en-US', isRTL: false });
+
+const getNumberFormatSettings = () => ({
+  decimalSeparator: ".",
+  groupingSeparator: ",",
+});
+
+const getCalendar = () => "gregorian"; // or "japanese", "buddhist"
+const getCountry = () => "US"; // the country code you want
+const getCurrencies = () => ["USD", "EUR"]; // can be empty array
+const getTemperatureUnit = () => "celsius"; // or "fahrenheit"
+const getTimeZone = () => "Europe/Paris"; // the timezone you want
+const uses24HourClock = () => true;
+const usesMetricSystem = () => true;
+
+const addEventListener = jest.fn();
+const removeEventListener = jest.fn();
+
+export {
+  findBestAvailableLanguage,
+  getLocales,
+  getNumberFormatSettings,
+  getCalendar,
+  getCountry,
+  getCurrencies,
+  getTemperatureUnit,
+  getTimeZone,
+  uses24HourClock,
+  usesMetricSystem,
+  addEventListener,
+  removeEventListener,
+};
+```
+
+## Add project's supported localizations (iOS)
+
+![](https://github.com/react-native-community/react-native-localize/blob/master/docs/xcode-adding-locales.png?raw=true)
