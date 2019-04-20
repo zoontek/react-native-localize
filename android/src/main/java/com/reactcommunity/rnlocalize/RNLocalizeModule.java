@@ -52,7 +52,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     filter.addAction(Intent.ACTION_TIME_CHANGED);
     filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
 
-    BroadcastReceiver mLocalizationReceiver = new BroadcastReceiver() {
+    BroadcastReceiver receiver = new BroadcastReceiver() {
       @Override
       public void onReceive(Context context, Intent intent) {
         if (intent.getAction() != null) {
@@ -61,8 +61,8 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
       }
     };
 
-    getReactApplicationContext()
-        .registerReceiver(mLocalizationReceiver, filter);
+    reactContext.addLifecycleEventListener(this);
+    reactContext.registerReceiver(receiver, filter);
   }
 
   @Override
@@ -76,12 +76,6 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     constants.put("initialConstants", getExported());
 
     return constants;
-  }
-
-  @Override
-  public void initialize() {
-    getReactApplicationContext()
-        .addLifecycleEventListener(this);
   }
 
   private void onLocalizationDidChange() {
