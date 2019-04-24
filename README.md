@@ -39,6 +39,13 @@ $ react-native link react-native-localize
 2.  Go to `node_modules` ➜ `react-native-localize` ➜ `ios` ➜ select `RNLocalize.xcodeproj`
 3.  Add `RNLocalize.a` to `Build Phases -> Link Binary With Libraries`
 
+#### Manual (CocoaPods)
+1.  Add the following line to `ios/Podfile`:
+```
+pod 'RNLocalize', :path => '../node_modules/react-native-localize'
+```
+
+
 #### Manual (Android)
 
 1.  Add the following lines to `android/settings.gradle`:
