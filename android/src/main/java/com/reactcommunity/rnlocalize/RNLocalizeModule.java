@@ -17,6 +17,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter;
 
 import java.lang.IllegalArgumentException;
@@ -32,7 +33,10 @@ import java.util.TimeZone;
 
 import javax.annotation.Nullable;
 
+@ReactModule(name = RNLocalizeModule.MODULE_NAME)
 public class RNLocalizeModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
+
+  static final String MODULE_NAME = "RNLocalize";
 
   private static final List<String> USES_FAHRENHEIT =
       Arrays.asList("BS", "BZ", "KY", "PR", "PW", "US");
@@ -67,7 +71,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
 
   @Override
   public String getName() {
-    return "RNLocalize";
+    return this.MODULE_NAME;
   }
 
   @Override
