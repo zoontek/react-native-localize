@@ -23,6 +23,9 @@ node_modules/warning/.*
 ; Flow doesn't support platforms
 .*/Libraries/Utilities/HMRLoadingView.js
 
+; Ingnore example folder
+<PROJECT_ROOT>/example/
+
 [untyped]
 .*/node_modules/@react-native-community/cli/.*/.*
 
