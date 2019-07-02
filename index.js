@@ -1,5 +1,6 @@
 // @flow
 
+import React from "react";
 // $FlowFixMe
 import { NativeModules, NativeEventEmitter } from "react-native";
 const { RNLocalize } = NativeModules;
@@ -21,7 +22,19 @@ export type NumberFormatSettings = {|
   +groupingSeparator: string,
 |};
 
-let constants = RNLocalize.initialConstants;
+export type LocalizationConstants = {|
+  calendar: Calendar,
+  country: string,
+  currencies: string[],
+  locales: Locale[],
+  numberFormatSettings: NumberFormatSettings,
+  temperatureUnit: TemperatureUnit,
+  timeZone: string,
+  uses24HourClock: boolean,
+  usesMetricSystem: boolean,
+|};
+
+let constants: LocalizationConstants = RNLocalize.initialConstants;
 const emitter = new NativeEventEmitter(RNLocalize);
 const handlers: Set<Function> = new Set();
 
@@ -120,4 +133,18 @@ export function findBestAvailableLanguage(
       return { languageTag: languageCode, isRTL };
     }
   }
+}
+
+export function useLocalization() {
+  const [state, setState] = React.useState<LocalizationConstants>(constants);
+
+  React.useEffect(() => {
+    const handler = (nextConstants: LocalizationConstants) =>
+      setState(nextConstants);
+
+    addEventListener("change", handler);
+    return () => removeEventListener("change", handler);
+  }, []);
+
+  return state;
 }

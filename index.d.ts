@@ -16,6 +16,18 @@ declare module "react-native-localize" {
     groupingSeparator: string;
   };
 
+  export type LocalizationConstants = {
+    calendar: Calendar;
+    country: string;
+    currencies: string[];
+    locales: Locale[];
+    numberFormatSettings: NumberFormatSettings;
+    temperatureUnit: TemperatureUnit;
+    timeZone: string;
+    uses24HourClock: boolean;
+    usesMetricSystem: boolean;
+  };
+
   export function getCalendar(): Calendar;
   export function getCountry(): string;
   export function getCurrencies(): string[];
@@ -39,4 +51,6 @@ declare module "react-native-localize" {
   export function findBestAvailableLanguage<T extends string>(
     languageTags: T[],
   ): { languageTag: T; isRTL: boolean } | void;
+
+  export function useLocalization(): LocalizationConstants;
 }
