@@ -344,7 +344,10 @@ const getLocales = () => [
 ];
 
 // use a provided translation, or return undefined to test your fallback
-const findBestAvailableLanguage = () => ({ languageTag: 'en-US', isRTL: false });
+const findBestAvailableLanguage = () => ({
+  languageTag: "en-US",
+  isRTL: false,
+});
 
 const getNumberFormatSettings = () => ({
   decimalSeparator: ".",
