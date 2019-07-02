@@ -2425,6 +2425,11 @@ jest-worker@^24.6.0:
     merge-stream "^1.0.1"
     supports-color "^6.1.0"
 
+jetifier@1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/jetifier/-/jetifier-1.6.1.tgz#4aa50dd35c5f6893c35c2278c53972852fd0e877"
+  integrity sha512-EF55MQWvFRaTA8LwHW15N4qnYm2a1Crg95YcVI7cTTzS9iNkBFgJ/f+o0OeJ62U1Laidrq/WG7HkYKoGwwPRRQ==
+
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"

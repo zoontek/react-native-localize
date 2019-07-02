@@ -6,8 +6,8 @@
     "clean:modules": "rm -rf node_modules/react-native-localize/node_modules",
     "clean:example": "rm -rf node_modules/react-native-localize/example",
     "clean": "yarn clean:modules && yarn clean:example",
-    "postinstall": "yarn clean",
-    "start": "yarn clean && react-native start"
+    "postinstall": "yarn clean && jetify",
+    "start": "yarn clean && jetify && react-native start"
   },
   "dependencies": {
     "i18n-js": "3.3.0",
@@ -20,6 +20,7 @@
   "devDependencies": {
     "@babel/core": "7.4.5",
     "@babel/runtime": "7.4.5",
+    "jetifier": "1.6.1",
     "metro-react-native-babel-preset": "0.54.1"
   }
 }
