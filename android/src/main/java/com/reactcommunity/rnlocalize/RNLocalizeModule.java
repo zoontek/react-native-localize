@@ -38,11 +38,11 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
 
   static final String MODULE_NAME = "RNLocalize";
 
-  private static final List<String> USES_FAHRENHEIT =
+  private final List<String> USES_FAHRENHEIT =
       Arrays.asList("BS", "BZ", "KY", "PR", "PW", "US");
-  private static final List<String> USES_IMPERIAL=
+  private final List<String> USES_IMPERIAL=
       Arrays.asList("LR", "MM", "US");
-  private static final List<String> USES_RTL_LAYOUT =
+  private final List<String> USES_RTL_LAYOUT =
       Arrays.asList("ar", "ckb", "fa", "he", "ks", "lrc", "mzn", "ps", "ug", "ur", "yi");
 
   private boolean applicationIsPaused = false;
@@ -135,7 +135,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     return locales;
   }
 
-  private static String getLanguageCode(Locale locale) {
+  private String getLanguageCode(Locale locale) {
     String languageCode = locale.getLanguage();
 
     switch (languageCode) {
@@ -150,7 +150,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     return languageCode;
   }
 
-  private static @Nullable String getScriptCode(Locale locale) {
+  private @Nullable String getScriptCode(Locale locale) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       String scriptCode = locale.getScript();
       return scriptCode.equals("") ? null : scriptCode;
@@ -158,12 +158,12 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     return null;
   }
 
-  private static String getCountryCode(Locale locale, String fallback) {
+  private String getCountryCode(Locale locale, String fallback) {
     String countryCode = locale.getCountry();
     return countryCode == null || countryCode.equals("") ? fallback : countryCode;
   }
 
-  private static String getCurrencyCode(Locale locale, String fallback) {
+  private String getCurrencyCode(Locale locale, String fallback) {
     try {
       Currency currency = Currency.getInstance(locale);
       return currency == null ? fallback : currency.getCurrencyCode();
@@ -172,22 +172,22 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     }
   }
 
-  private static boolean getIsRTL(Locale locale) {
+  private boolean getIsRTL(Locale locale) {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
         ? TextUtils.getLayoutDirectionFromLocale(locale) == View.LAYOUT_DIRECTION_RTL
         : USES_RTL_LAYOUT.contains(getLanguageCode(locale));
   }
 
-  private static String getTemperatureUnit(Locale locale) {
+  private String getTemperatureUnit(Locale locale) {
     return USES_FAHRENHEIT.contains(getCountryCode(locale, "US"))
         ? "fahrenheit" : "celsius";
   }
 
-  private static boolean getUsesMetricSystem(Locale locale) {
+  private boolean getUsesMetricSystem(Locale locale) {
     return !USES_IMPERIAL.contains(getCountryCode(locale, "US"));
   }
 
-  private static WritableMap getNumberFormatSettings(Locale locale) {
+  private WritableMap getNumberFormatSettings(Locale locale) {
     WritableMap settings = Arguments.createMap();
     DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
 
