@@ -71,7 +71,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
 
   @Override
   public String getName() {
-    return this.MODULE_NAME;
+    return MODULE_NAME;
   }
 
   @Override
