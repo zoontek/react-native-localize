@@ -5,26 +5,21 @@
   "scripts": {
     "clean:modules": "rm -rf node_modules/react-native-localize/node_modules",
     "clean:example": "rm -rf node_modules/react-native-localize/example",
-    "start": "yarn clean:modules && yarn clean:example && node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "clean": "yarn clean:modules && yarn clean:example",
+    "postinstall": "yarn clean",
+    "start": "yarn clean && react-native start"
   },
   "dependencies": {
-    "i18n-js": "^3.2.1",
-    "lodash.memoize": "^4.1.2",
-    "react": "16.8.3",
-    "react-native": "0.59.5",
-    "react-native-fs": "^2.13.3",
+    "i18n-js": "3.3.0",
+    "lodash.memoize": "4.1.2",
+    "react": "16.8.6",
+    "react-native": "0.60.0-rc.3",
+    "react-native-fs": "2.13.3",
     "react-native-localize": "file:../"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/runtime": "^7.4.3",
-    "babel-jest": "^24.7.0",
-    "jest": "^24.7.0",
-    "metro-react-native-babel-preset": "^0.53.1",
-    "react-test-renderer": "16.8.3"
-  },
-  "jest": {
-    "preset": "react-native"
+    "@babel/core": "7.4.5",
+    "@babel/runtime": "7.4.5",
+    "metro-react-native-babel-preset": "0.54.1"
   }
 }
