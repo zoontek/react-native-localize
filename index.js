@@ -134,17 +134,3 @@ export function findBestAvailableLanguage(
     }
   }
 }
-
-export function useLocalization() {
-  const [state, setState] = React.useState<LocalizationConstants>(constants);
-
-  React.useEffect(() => {
-    const handler = (nextConstants: LocalizationConstants) =>
-      setState(nextConstants);
-
-    addEventListener("change", handler);
-    return () => removeEventListener("change", handler);
-  }, []);
-
-  return state;
-}
