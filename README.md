@@ -311,7 +311,7 @@ RNLocalize.removeEventListener("change", handleLocalizationChange);
 
 ### findBestAvailableLanguage()
 
-Returns the best language tag possible and its reading direction (⚠️ **it respects the user preferred languages list order**). Useful to pick the best translation available.
+Returns the best language tag possible and its reading direction (⚠️ **it respects the user preferred languages list order, see [explanations](https://github.com/react-native-community/react-native-localize/issues/57#issuecomment-508456427)**). Useful to pick the best translation available.
 
 #### Method type
 
