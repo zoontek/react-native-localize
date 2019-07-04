@@ -117,17 +117,17 @@ export function findBestAvailableLanguage(
     }
 
     const partialTag = getPartialTag(currentLocale);
-    const nextLocale = locales[index + 1];
+    const next = locales[index + 1];
 
     if (
-      (!nextLocale || partialTag !== getPartialTag(nextLocale)) &&
+      (!next || partialTag !== getPartialTag(next)) &&
       languageTags.includes(partialTag)
     ) {
       return { languageTag: partialTag, isRTL };
     }
 
     if (
-      (!nextLocale || languageCode !== nextLocale.languageCode) &&
+      (!next || languageCode !== next.languageCode) &&
       languageTags.includes(languageCode)
     ) {
       return { languageTag: languageCode, isRTL };

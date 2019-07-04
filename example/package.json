@@ -13,7 +13,7 @@
     "i18n-js": "3.3.0",
     "lodash.memoize": "4.1.2",
     "react": "16.8.6",
-    "react-native": "0.60.0-rc.3",
+    "react-native": "0.60.0",
     "react-native-fs": "2.13.3",
     "react-native-localize": "file:../"
   },
