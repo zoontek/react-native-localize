@@ -1,6 +1,6 @@
 {
   "name": "react-native-localize",
-  "version": "1.2.0",
+  "version": "1.1.4",
   "license": "MIT",
   "description": "A toolbox for your React Native app localization.",
   "author": "Mathieu Acthernoene <zoontek@gmail.com>",
