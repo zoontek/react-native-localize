@@ -25,30 +25,33 @@ $ npm install --save react-native-localize
 $ yarn add react-native-localize
 ```
 
-## Linking
+## 🆘 Manual linking
 
-#### Using react-native-cli (recommended)
+⚠️ If you use a version of React Native prior to `0.60.0`, you can follow the linking instructions [here](https://github.com/react-native-community/react-native-localize/tree/1.1.3#linking).
+
+If you use this package with React Native `0.60.0`or superior, you will probably don't need to link it. Otherwise if it still cannot be found, follow this steps to link it manually :
+
+#### iOS
+
+Add this line to your `ios/Podfile` file, then run `pod install`.
 
 ```bash
-$ react-native link react-native-localize
+target 'YourAwesomeProject' do
+  # …
+  pod 'RNLocalize', :path => '../node_modules/react-native-localize'
+end
 ```
 
-#### Manual (iOS)
+#### Android
 
-1.  In the XCode's "Project navigator", right click on your project's Libraries folder ➜ `Add Files to <...>`
-2.  Go to `node_modules` ➜ `react-native-localize` ➜ `ios` ➜ select `RNLocalize.xcodeproj`
-3.  Add `RNLocalize.a` to `Build Phases -> Link Binary With Libraries`
-
-#### Manual (Android)
-
-1.  Add the following lines to `android/settings.gradle`:
+1. Add the following lines to `android/settings.gradle`:
 
 ```gradle
 include ':react-native-localize'
 project(':react-native-localize').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-localize/android')
 ```
 
-2.  Add the compile line to the dependencies in `android/app/build.gradle`:
+2. Add the implementation line to the dependencies in `android/app/build.gradle`:
 
 ```gradle
 dependencies {
@@ -57,10 +60,10 @@ dependencies {
 }
 ```
 
-3.  Add the import and link the package in `MainApplication.java`:
+3. Add the import and link the package in `MainApplication.java`:
 
 ```java
-import com.reactcommunity.rnlocalize.RNLocalizePackage; // <-- Add the RNLocalize import
+import com.reactcommunity.rnlocalize.RNLocalizePackage; // <- add the RNLocalizePackage import
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -68,11 +71,11 @@ public class MainApplication extends Application implements ReactApplication {
 
   @Override
   protected List<ReactPackage> getPackages() {
-    return Arrays.<ReactPackage>asList(
-      new MainReactPackage(),
-      // …
-      new RNLocalizePackage() // <-- Add it to the packages list
-    );
+    @SuppressWarnings("UnnecessaryLocalVariable")
+    List<ReactPackage> packages = new PackageList(this).getPackages();
+    // …
+    packages.add(new RNLocalizePackage());
+    return packages;
   }
 
   // …
@@ -308,7 +311,7 @@ RNLocalize.removeEventListener("change", handleLocalizationChange);
 
 ### findBestAvailableLanguage()
 
-Returns the best language tag possible and its direction (if it can find one). Useful to choose the best translation available.
+Returns the best language tag possible and its reading direction (⚠️ **it respects the user preferred languages list order**). Useful to pick the best translation available.
 
 #### Method type
 
