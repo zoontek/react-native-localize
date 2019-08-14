@@ -38,7 +38,7 @@ Add this line to your `ios/Podfile` file, then run `pod install`.
 ```bash
 target 'YourAwesomeProject' do
   # …
-  pod 'RNLocalize', :path => '../node_modules/react-native-localize'
+  pod 'react-native-localize', :path => '../node_modules/react-native-localize'
 end
 ```
 
