@@ -25,7 +25,7 @@ $ npm install --save react-native-localize
 $ yarn add react-native-localize
 ```
 
-_⚠️ Don't forget to run `pod install` after that !_
+_Don't forget to run `pod install` after that !_
 
 ## 🆘 Manual linking
 
