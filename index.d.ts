@@ -25,6 +25,8 @@ declare module "react-native-localize" {
     temperatureUnit: TemperatureUnit;
     timeZone: string;
     uses24HourClock: boolean;
+    isAutoDateAndTime: boolean;
+    isAutoTimeZone: boolean;
     usesMetricSystem: boolean;
   };
 
@@ -36,6 +38,8 @@ declare module "react-native-localize" {
   export function getTemperatureUnit(): TemperatureUnit;
   export function getTimeZone(): string;
   export function uses24HourClock(): boolean;
+  export function isAutoDateAndTime(): boolean;
+  export function isAutoTimeZone(): boolean;
   export function usesMetricSystem(): boolean;
 
   export function addEventListener(

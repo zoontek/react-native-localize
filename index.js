@@ -31,6 +31,8 @@ export type LocalizationConstants = {|
   temperatureUnit: TemperatureUnit,
   timeZone: string,
   uses24HourClock: boolean,
+  isAutoDateAndTime: boolean,
+  isAutoTimeZone: boolean,
   usesMetricSystem: boolean,
 |};
 
@@ -73,6 +75,12 @@ export function getTimeZone(): string {
 }
 export function uses24HourClock(): boolean {
   return constants.uses24HourClock;
+}
+export function isAutoDateAndTime(): boolean {
+  return constants.isAutoDateAndTime;
+}
+export function isAutoTimeZone(): boolean {
+  return constants.isAutoTimeZone;
 }
 export function usesMetricSystem(): boolean {
   return constants.usesMetricSystem;

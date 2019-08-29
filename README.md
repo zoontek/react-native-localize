@@ -267,6 +267,42 @@ console.log(RNLocalize.uses24HourClock());
 
 ---
 
+### isAutoDateAndTime()
+
+Tells if the automatic date & time setting is enabled on the phone. **Android only**
+
+#### Method type
+
+```ts
+type isAutoDateAndTime = () => boolean;
+```
+
+#### Usage example
+
+```js
+console.log(RNLocalize.isAutoDateAndTime()); // true or false
+```
+
+---
+
+### isAutoTimeZone()
+
+Tells if the automatic time zone setting is enabled on the phone. **Android only**
+
+#### Method type
+
+```ts
+type isAutoTimeZone = () => boolean;
+```
+
+#### Usage example
+
+```js
+console.log(RNLocalize.isAutoTimeZone());
+```
+
+---
+
 ### usesMetricSystem()
 
 Returns `true` if the user prefers metric measure system, `false` if he prefers imperial.

@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.LocaleList;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -197,6 +198,26 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     return settings;
   }
 
+  private boolean isAutoDateAndTime() {
+    boolean isAutoDateAndTime;
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      isAutoDateAndTime = Settings.System.getInt(getReactApplicationContext().getContentResolver(),Settings.System.AUTO_TIME, 0) != 0;
+    } else {
+      isAutoDateAndTime = Settings.Global.getInt(getReactApplicationContext().getContentResolver(),Settings.Global.AUTO_TIME, 0) != 0;
+    }
+    return isAutoDateAndTime;
+  }
+
+  private boolean isAutoTimeZone() {
+    boolean isAutoTimeZone;
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      isAutoTimeZone = Settings.System.getInt(getReactApplicationContext().getContentResolver(),Settings.System.AUTO_TIME_ZONE, 0) != 0;
+    } else {
+      isAutoTimeZone = Settings.Global.getInt(getReactApplicationContext().getContentResolver(),Settings.Global.AUTO_TIME_ZONE, 0) != 0;
+    }
+    return isAutoTimeZone;
+  }
+
   private WritableMap getExported() {
     List<Locale> deviceLocales = getLocales();
     List<String> currenciesCache = new ArrayList<>();
@@ -244,6 +265,8 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     exported.putMap("numberFormatSettings", getNumberFormatSettings(currentLocale));
     exported.putString("temperatureUnit", getTemperatureUnit(currentLocale));
     exported.putString("timeZone", TimeZone.getDefault().getID());
+    exported.putBoolean("isAutoDateAndTime", isAutoDateAndTime());
+    exported.putBoolean("isAutoTimeZone", isAutoTimeZone());
     exported.putBoolean("uses24HourClock", DateFormat.is24HourFormat(getReactApplicationContext()));
     exported.putBoolean("usesMetricSystem", getUsesMetricSystem(currentLocale));
 
