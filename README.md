@@ -267,38 +267,38 @@ console.log(RNLocalize.uses24HourClock());
 
 ---
 
-### isAutoDateAndTime()
+### usesAutoDateAndTime()
 
 Tells if the automatic date & time setting is enabled on the phone. **Android only**
 
 #### Method type
 
 ```ts
-type isAutoDateAndTime = () => boolean;
+type usesAutoDateAndTime = () => Option<boolean>;
 ```
 
 #### Usage example
 
 ```js
-console.log(RNLocalize.isAutoDateAndTime()); // true or false
+console.log(RNLocalize.usesAutoDateAndTime()); // true or false
 ```
 
 ---
 
-### isAutoTimeZone()
+### usesAutoTimeZone()
 
 Tells if the automatic time zone setting is enabled on the phone. **Android only**
 
 #### Method type
 
 ```ts
-type isAutoTimeZone = () => boolean;
+type usesAutoTimeZone = () => Option<boolean>;
 ```
 
 #### Usage example
 
 ```js
-console.log(RNLocalize.isAutoTimeZone());
+console.log(RNLocalize.usesAutoTimeZone());
 ```
 
 ---

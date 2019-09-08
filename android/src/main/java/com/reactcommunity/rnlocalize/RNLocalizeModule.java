@@ -1,6 +1,7 @@
 package com.reactcommunity.rnlocalize;
 
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -198,24 +199,20 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     return settings;
   }
 
-  private boolean isAutoDateAndTime() {
-    boolean isAutoDateAndTime;
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-      isAutoDateAndTime = Settings.System.getInt(getReactApplicationContext().getContentResolver(),Settings.System.AUTO_TIME, 0) != 0;
-    } else {
-      isAutoDateAndTime = Settings.Global.getInt(getReactApplicationContext().getContentResolver(),Settings.Global.AUTO_TIME, 0) != 0;
-    }
-    return isAutoDateAndTime;
+  private boolean usesAutoDateAndTime() {
+    ContentResolver resolver = getReactApplicationContext().getContentResolver();
+
+    return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
+        ? Settings.Global.getInt(resolver, Settings.Global.AUTO_TIME, 0)
+        : Settings.System.getInt(resolver, Settings.System.AUTO_TIME, 0)) != 0;
   }
 
-  private boolean isAutoTimeZone() {
-    boolean isAutoTimeZone;
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-      isAutoTimeZone = Settings.System.getInt(getReactApplicationContext().getContentResolver(),Settings.System.AUTO_TIME_ZONE, 0) != 0;
-    } else {
-      isAutoTimeZone = Settings.Global.getInt(getReactApplicationContext().getContentResolver(),Settings.Global.AUTO_TIME_ZONE, 0) != 0;
-    }
-    return isAutoTimeZone;
+  private boolean usesAutoTimeZone() {
+    ContentResolver resolver = getReactApplicationContext().getContentResolver();
+
+    return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
+        ? Settings.Global.getInt(resolver, Settings.Global.AUTO_TIME_ZONE, 0)
+        : Settings.System.getInt(resolver, Settings.System.AUTO_TIME_ZONE, 0)) != 0;
   }
 
   private WritableMap getExported() {
@@ -265,8 +262,8 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     exported.putMap("numberFormatSettings", getNumberFormatSettings(currentLocale));
     exported.putString("temperatureUnit", getTemperatureUnit(currentLocale));
     exported.putString("timeZone", TimeZone.getDefault().getID());
-    exported.putBoolean("isAutoDateAndTime", isAutoDateAndTime());
-    exported.putBoolean("isAutoTimeZone", isAutoTimeZone());
+    exported.putBoolean("usesAutoDateAndTime", usesAutoDateAndTime());
+    exported.putBoolean("usesAutoTimeZone", usesAutoTimeZone());
     exported.putBoolean("uses24HourClock", DateFormat.is24HourFormat(getReactApplicationContext()));
     exported.putBoolean("usesMetricSystem", getUsesMetricSystem(currentLocale));
 

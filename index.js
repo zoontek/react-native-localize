@@ -36,6 +36,8 @@ export type LocalizationConstants = {|
   usesMetricSystem: boolean,
 |};
 
+export type Option<T> = T | boolean;
+
 let constants: LocalizationConstants = RNLocalize.initialConstants;
 const emitter = new NativeEventEmitter(RNLocalize);
 const handlers: Set<Function> = new Set();
@@ -76,11 +78,11 @@ export function getTimeZone(): string {
 export function uses24HourClock(): boolean {
   return constants.uses24HourClock;
 }
-export function isAutoDateAndTime(): boolean {
-  return constants.isAutoDateAndTime;
+export function usesAutoDateAndTime(): Option<boolean> {
+  return constants.usesAutoDateAndTime;
 }
-export function isAutoTimeZone(): boolean {
-  return constants.isAutoTimeZone;
+export function usesAutoTimeZone(): Option<boolean> {
+  return constants.usesAutoTimeZone;
 }
 export function usesMetricSystem(): boolean {
   return constants.usesMetricSystem;
