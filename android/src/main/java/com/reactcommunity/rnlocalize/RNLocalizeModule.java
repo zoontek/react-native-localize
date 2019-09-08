@@ -1,12 +1,14 @@
 package com.reactcommunity.rnlocalize;
 
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.LocaleList;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -197,6 +199,22 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     return settings;
   }
 
+  private boolean usesAutoDateAndTime() {
+    ContentResolver resolver = getReactApplicationContext().getContentResolver();
+
+    return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
+        ? Settings.Global.getInt(resolver, Settings.Global.AUTO_TIME, 0)
+        : Settings.System.getInt(resolver, Settings.System.AUTO_TIME, 0)) != 0;
+  }
+
+  private boolean usesAutoTimeZone() {
+    ContentResolver resolver = getReactApplicationContext().getContentResolver();
+
+    return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
+        ? Settings.Global.getInt(resolver, Settings.Global.AUTO_TIME_ZONE, 0)
+        : Settings.System.getInt(resolver, Settings.System.AUTO_TIME_ZONE, 0)) != 0;
+  }
+
   private WritableMap getExported() {
     List<Locale> deviceLocales = getLocales();
     List<String> currenciesCache = new ArrayList<>();
@@ -244,6 +262,8 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     exported.putMap("numberFormatSettings", getNumberFormatSettings(currentLocale));
     exported.putString("temperatureUnit", getTemperatureUnit(currentLocale));
     exported.putString("timeZone", TimeZone.getDefault().getID());
+    exported.putBoolean("usesAutoDateAndTime", usesAutoDateAndTime());
+    exported.putBoolean("usesAutoTimeZone", usesAutoTimeZone());
     exported.putBoolean("uses24HourClock", DateFormat.is24HourFormat(getReactApplicationContext()));
     exported.putBoolean("usesMetricSystem", getUsesMetricSystem(currentLocale));
 

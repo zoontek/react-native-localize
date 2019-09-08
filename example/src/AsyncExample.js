@@ -123,6 +123,14 @@ export default class AsyncExample extends React.Component {
             value={RNLocalize.uses24HourClock()}
           />
           <Line
+            name="RNLocalize.usesAutoDateAndTime()"
+            value={RNLocalize.usesAutoDateAndTime()}
+          />
+          <Line
+            name="RNLocalize.usesAutoTimeZone()"
+            value={RNLocalize.usesAutoTimeZone()}
+          />
+          <Line
             name="RNLocalize.usesMetricSystem()"
             value={RNLocalize.usesMetricSystem()}
           />

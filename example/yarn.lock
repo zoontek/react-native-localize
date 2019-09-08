@@ -3561,7 +3561,10 @@ react-native-fs@2.13.3:
     utf8 "^2.1.1"
 
 "react-native-localize@file:..":
-  version "1.2.0"
+  version "1.1.4"
+
+"react-native-localize@file:../":
+  version "1.1.4"
 
 react-native@0.60.0:
   version "0.60.0"
