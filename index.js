@@ -1,9 +1,10 @@
 // @flow
 
 import React from "react";
-// $FlowFixMe
 import { NativeModules, NativeEventEmitter } from "react-native";
 const { RNLocalize } = NativeModules;
+
+export type Option<T> = T | boolean;
 
 export type Calendar = "gregorian" | "japanese" | "buddhist";
 export type LocalizationEvent = "change";
@@ -31,14 +32,13 @@ export type LocalizationConstants = {|
   temperatureUnit: TemperatureUnit,
   timeZone: string,
   uses24HourClock: boolean,
-  isAutoDateAndTime: boolean,
-  isAutoTimeZone: boolean,
   usesMetricSystem: boolean,
+  usesAutoDateAndTime: Option<boolean>,
+  usesAutoTimeZone: Option<boolean>,
 |};
 
-export type Option<T> = T | boolean;
-
 let constants: LocalizationConstants = RNLocalize.initialConstants;
+
 const emitter = new NativeEventEmitter(RNLocalize);
 const handlers: Set<Function> = new Set();
 
