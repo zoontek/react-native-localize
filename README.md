@@ -267,6 +267,25 @@ console.log(RNLocalize.uses24HourClock());
 
 ---
 
+### usesMetricSystem()
+
+Returns `true` if the user prefers metric measure system, `false` if he prefers imperial.
+
+#### Method type
+
+```ts
+type usesMetricSystem = () => boolean;
+```
+
+#### Usage example
+
+```js
+console.log(RNLocalize.usesMetricSystem());
+// -> true
+```
+
+---
+
 ### usesAutoDateAndTime()
 
 Tells if the automatic date & time setting is enabled on the phone. **Android only**
@@ -274,6 +293,7 @@ Tells if the automatic date & time setting is enabled on the phone. **Android on
 #### Method type
 
 ```ts
+type Option<T> = T | undefined;
 type usesAutoDateAndTime = () => Option<boolean>;
 ```
 
@@ -292,6 +312,7 @@ Tells if the automatic time zone setting is enabled on the phone. **Android only
 #### Method type
 
 ```ts
+type Option<T> = T | undefined;
 type usesAutoTimeZone = () => Option<boolean>;
 ```
 
@@ -299,25 +320,6 @@ type usesAutoTimeZone = () => Option<boolean>;
 
 ```js
 console.log(RNLocalize.usesAutoTimeZone());
-```
-
----
-
-### usesMetricSystem()
-
-Returns `true` if the user prefers metric measure system, `false` if he prefers imperial.
-
-#### Method type
-
-```ts
-type usesMetricSystem = () => boolean;
-```
-
-#### Usage example
-
-```js
-console.log(RNLocalize.usesMetricSystem());
-// -> true
 ```
 
 ---

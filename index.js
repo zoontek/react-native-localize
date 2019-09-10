@@ -78,14 +78,14 @@ export function getTimeZone(): string {
 export function uses24HourClock(): boolean {
   return constants.uses24HourClock;
 }
+export function usesMetricSystem(): boolean {
+  return constants.usesMetricSystem;
+}
 export function usesAutoDateAndTime(): Option<boolean> {
   return constants.usesAutoDateAndTime;
 }
 export function usesAutoTimeZone(): Option<boolean> {
   return constants.usesAutoTimeZone;
-}
-export function usesMetricSystem(): boolean {
-  return constants.usesMetricSystem;
 }
 
 export function addEventListener(
