@@ -47,7 +47,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
   private final List<String> USES_RTL_LAYOUT =
       Arrays.asList("ar", "ckb", "fa", "he", "ks", "lrc", "mzn", "ps", "ug", "ur", "yi");
 
-  private boolean applicationIsPaused = false;
+  private boolean mainActivityVisible = true;
   private boolean emitChangeOnResume = false;
 
   public RNLocalizeModule(ReactApplicationContext reactContext) {
@@ -87,16 +87,16 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
   }
 
   private void onLocalizationDidChange() {
-    if (applicationIsPaused) {
-      emitChangeOnResume = true;
-    } else {
+    if (mainActivityVisible) {
       emitLocalizationDidChange();
+    } else {
+      emitChangeOnResume = true;
     }
   }
 
   @Override
   public void onHostResume() {
-    applicationIsPaused = false;
+    mainActivityVisible = true;
 
     if (emitChangeOnResume) {
       emitLocalizationDidChange();
@@ -106,7 +106,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
 
   @Override
   public void onHostPause() {
-    applicationIsPaused = true;
+    mainActivityVisible = false;
   }
 
   @Override
