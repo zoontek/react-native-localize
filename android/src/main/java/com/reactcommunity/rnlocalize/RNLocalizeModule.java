@@ -54,6 +54,8 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     super(reactContext);
 
     IntentFilter filter = new IntentFilter();
+
+    filter.addAction(Intent.ACTION_DATE_CHANGED);
     filter.addAction(Intent.ACTION_LOCALE_CHANGED);
     filter.addAction(Intent.ACTION_TIME_CHANGED);
     filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);

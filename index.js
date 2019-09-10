@@ -42,9 +42,11 @@ let constants: LocalizationConstants = RNLocalize.initialConstants;
 const emitter = new NativeEventEmitter(RNLocalize);
 const handlers: Set<Function> = new Set();
 
-emitter.addListener("localizationDidChange", nextConstants => {
-  constants = nextConstants;
-  handlers.forEach(handler => handler());
+emitter.addListener("localizationDidChange", (next: LocalizationConstants) => {
+  if (JSON.stringify(next) !== JSON.stringify(constants)) {
+    constants = next;
+    handlers.forEach(handler => handler());
+  }
 });
 
 function logUnsupportedEvent(type: string) {
