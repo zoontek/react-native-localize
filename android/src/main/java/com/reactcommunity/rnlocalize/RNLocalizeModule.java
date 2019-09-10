@@ -129,10 +129,10 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
       locales.add(config.locale);
     } else {
-      LocaleList localeList = config.getLocales();
+      LocaleList list = config.getLocales();
 
-      for (int i = 0; i < localeList.size(); i++) {
-        locales.add(localeList.get(i));
+      for (int i = 0; i < list.size(); i++) {
+        locales.add(list.get(i));
       }
     }
 
@@ -140,9 +140,9 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
   }
 
   private String getLanguageCode(Locale locale) {
-    String languageCode = locale.getLanguage();
+    String language = locale.getLanguage();
 
-    switch (languageCode) {
+    switch (language) {
       case "iw":
         return "he";
       case "in":
@@ -151,27 +151,32 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
         return "yi";
     }
 
-    return languageCode;
+    return language;
   }
 
   private @Nullable String getScriptCode(Locale locale) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      String scriptCode = locale.getScript();
-      return scriptCode.equals("") ? null : scriptCode;
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+      return null;
     }
-    return null;
+
+    String script = locale.getScript();
+    return script.equals("") ? null : script;
   }
 
   private String getCountryCode(Locale locale, String fallback) {
-    String countryCode = locale.getCountry();
-    return countryCode == null || countryCode.equals("") ? fallback : countryCode;
+    try {
+      String country = locale.getCountry();
+      return country == null || country.equals("") ? fallback : country;
+    } catch (Exception e) {
+      return fallback;
+    }
   }
 
   private String getCurrencyCode(Locale locale, String fallback) {
     try {
       Currency currency = Currency.getInstance(locale);
       return currency == null ? fallback : currency.getCurrencyCode();
-    } catch (IllegalArgumentException e) {
+    } catch (Exception e) {
       return fallback;
     }
   }
@@ -201,7 +206,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     return settings;
   }
 
-  private boolean usesAutoDateAndTime() {
+  private boolean getUsesAutoDateAndTime() {
     ContentResolver resolver = getReactApplicationContext().getContentResolver();
 
     return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
@@ -209,7 +214,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
         : Settings.System.getInt(resolver, Settings.System.AUTO_TIME, 0)) != 0;
   }
 
-  private boolean usesAutoTimeZone() {
+  private boolean getUsesAutoTimeZone() {
     ContentResolver resolver = getReactApplicationContext().getContentResolver();
 
     return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
@@ -264,10 +269,10 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     exported.putMap("numberFormatSettings", getNumberFormatSettings(currentLocale));
     exported.putString("temperatureUnit", getTemperatureUnit(currentLocale));
     exported.putString("timeZone", TimeZone.getDefault().getID());
-    exported.putBoolean("usesAutoDateAndTime", usesAutoDateAndTime());
-    exported.putBoolean("usesAutoTimeZone", usesAutoTimeZone());
     exported.putBoolean("uses24HourClock", DateFormat.is24HourFormat(getReactApplicationContext()));
     exported.putBoolean("usesMetricSystem", getUsesMetricSystem(currentLocale));
+    exported.putBoolean("usesAutoDateAndTime", getUsesAutoDateAndTime());
+    exported.putBoolean("usesAutoTimeZone", getUsesAutoTimeZone());
 
     return exported;
   }
