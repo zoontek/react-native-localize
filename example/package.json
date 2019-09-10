@@ -3,24 +3,21 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "clean:modules": "rm -rf node_modules/react-native-localize/node_modules",
-    "clean:example": "rm -rf node_modules/react-native-localize/example",
-    "clean": "yarn clean:modules && yarn clean:example",
-    "postinstall": "yarn clean && jetify",
-    "start": "yarn clean && jetify && react-native start"
+    "start": "react-native start",
+    "postinstall": "rm -rf node_modules/react-native-localize/{example,node_modules}",
+    "reinstall": "rm -rf node_modules ios/Pods && yarn install && cd ios && pod install"
   },
   "dependencies": {
     "i18n-js": "3.3.0",
     "lodash.memoize": "4.1.2",
     "react": "16.8.6",
-    "react-native": "0.60.0",
-    "react-native-fs": "2.13.3",
+    "react-native": "0.60.5",
+    "react-native-fs": "2.14.1",
     "react-native-localize": "file:../"
   },
   "devDependencies": {
-    "@babel/core": "7.4.5",
-    "@babel/runtime": "7.4.5",
-    "jetifier": "1.6.1",
-    "metro-react-native-babel-preset": "0.54.1"
+    "@babel/core": "7.6.0",
+    "@babel/runtime": "7.6.0",
+    "metro-react-native-babel-preset": "0.56.0"
   }
 }
