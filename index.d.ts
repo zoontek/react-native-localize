@@ -1,4 +1,6 @@
 declare module "react-native-localize" {
+  export type Option<T> = T | undefined;
+
   export type Calendar = "gregorian" | "japanese" | "buddhist";
   export type LocalizationEvent = "change";
   export type TemperatureUnit = "celsius" | "fahrenheit";
@@ -25,12 +27,10 @@ declare module "react-native-localize" {
     temperatureUnit: TemperatureUnit;
     timeZone: string;
     uses24HourClock: boolean;
+    usesMetricSystem: boolean;
     usesAutoDateAndTime: Option<boolean>;
     usesAutoTimeZone: Option<boolean>;
-    usesMetricSystem: boolean;
   };
-
-  export type Option<T> = T | undefined;
 
   export function getCalendar(): Calendar;
   export function getCountry(): string;
@@ -40,9 +40,9 @@ declare module "react-native-localize" {
   export function getTemperatureUnit(): TemperatureUnit;
   export function getTimeZone(): string;
   export function uses24HourClock(): boolean;
+  export function usesMetricSystem(): boolean;
   export function usesAutoDateAndTime(): Option<boolean>;
   export function usesAutoTimeZone(): Option<boolean>;
-  export function usesMetricSystem(): boolean;
 
   export function addEventListener(
     type: LocalizationEvent,
