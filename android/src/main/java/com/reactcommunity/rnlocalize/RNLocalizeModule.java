@@ -38,7 +38,7 @@ import javax.annotation.Nullable;
 @ReactModule(name = RNLocalizeModule.MODULE_NAME)
 public class RNLocalizeModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
 
-  static final String MODULE_NAME = "RNLocalize";
+  public static final String MODULE_NAME = "RNLocalize";
 
   private final List<String> USES_FAHRENHEIT =
       Arrays.asList("BS", "BZ", "KY", "PR", "PW", "US");
