@@ -2,7 +2,13 @@
 
 import React from "react";
 import { NativeModules, NativeEventEmitter } from "react-native";
-const { RNLocalize } = NativeModules;
+let { RNLocalize } = NativeModules;
+if (Platform.OS === 'web' || Platform.OS === 'dom') {
+  RNLocalize = require('./web');
+}
+if (!RNLocalize) {
+  throw new Error('@react-native-localize: NativeModule.RNLocalize is null.');
+}
 
 export type Option<T> = T | boolean;
 
