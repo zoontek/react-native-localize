@@ -81,7 +81,7 @@ PODS:
     - React-Core (= 0.60.5)
   - RNFS (2.14.1):
     - React
-  - RNLocalize (1.2.0):
+  - RNLocalize (1.2.1):
     - React
   - yoga (0.60.5.React)
 
@@ -185,7 +185,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 2105b2e0e2b66a6408fc69a46c8a7fb5b2fdade0
   React-RCTWebSocket: cd932a16b7214898b6b7f788c8bddb3637246ac4
   RNFS: a8fbe7060fa49157d819466404794ad9c58e58cf
-  RNLocalize: 18737f1e6c0762579c8c5730c8f7eca881e2d205
+  RNLocalize: f42aea3133d91d7fa3ec01284a6895019af1a83f
   yoga: 312528f5bbbba37b4dcea5ef00e8b4033fdd9411
 
 PODFILE CHECKSUM: b45381785e7eb336fbe1aedab20368d196e6210c
