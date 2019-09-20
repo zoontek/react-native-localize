@@ -2942,6 +2942,11 @@ load-json-file@^2.0.0:
     pify "^2.0.0"
     strip-bom "^3.0.0"
 
+locale-currency@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/locale-currency/-/locale-currency-0.0.2.tgz#e2c90607563ce47a59f9559e45a70e24e4db4b6d"
+  integrity sha1-4skGB1Y85HpZ+VWeRacOJOTbS20=
+
 locate-path@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-2.0.0.tgz#2b568b265eec944c6d9c0de9c3dbbbca0354cd8e"
@@ -4361,6 +4366,11 @@ rsvp@^4.8.4:
   version "4.8.5"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.5.tgz#c8f155311d167f68f21e168df71ec5b083113734"
   integrity sha512-nfMOlASu9OnRJo1mbEk2cz0D56a1MBNrJ7orjRZQG10XDyuvwksKbuXNp6qa+kbn839HwjwhBzhFmdsaEAfauA==
+
+rtl-detect@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/rtl-detect/-/rtl-detect-1.0.2.tgz#8eca316f5c6563d54df4e406171dd7819adda67f"
+  integrity sha512-5X1422hvphzg2a/bo4tIDbjFjbJUOaPZwqE6dnyyxqwFqfR+tBcvfqapJr0o0VygATVCGKiODEewhZtKF+90AA==
 
 run-async@^2.2.0:
   version "2.3.0"

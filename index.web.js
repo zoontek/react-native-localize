@@ -1,6 +1,8 @@
 // @flow
+
 import React from "react";
-import { NativeModules, NativeEventEmitter } from "react-native";
+import rtlDetect from "rtl-detect";
+import LocaleCurrency from "locale-currency";
 import type {
   Option,
   Calendar,
@@ -11,20 +13,7 @@ import type {
   LocalizationConstants,
 } from "./types";
 
-const { RNLocalize } = NativeModules;
-
-let constants: LocalizationConstants = RNLocalize.initialConstants;
-
-// $FlowFixMe
-const emitter = new NativeEventEmitter(RNLocalize);
 const handlers: Set<Function> = new Set();
-
-emitter.addListener("localizationDidChange", (next: LocalizationConstants) => {
-  if (JSON.stringify(next) !== JSON.stringify(constants)) {
-    constants = next;
-    handlers.forEach(handler => handler());
-  }
-});
 
 function logUnsupportedEvent(type: string) {
   console.error(`\`${type}\` is not a valid RNLocalize event`);
@@ -34,37 +23,68 @@ function getPartialTag({ languageCode, scriptCode }: Locale) {
 }
 
 export function getCalendar(): Calendar {
-  return constants.calendar;
+  return "gregorian";
 }
 export function getCountry(): string {
-  return constants.country;
+  return getLocales()[0]?.countryCode;
 }
 export function getCurrencies(): string[] {
-  return constants.currencies;
+  return LocaleCurrency.getCurrency(getCountry());
 }
 export function getLocales(): Locale[] {
-  return constants.locales;
+  return navigator.languages.map(languageTag => ({
+    languageTag,
+    countryCode: languageTag.split("-")[1],
+    languageCode: languageTag.split("-")[0],
+    isRTL: rtlDetect.isRtlLang(languageTag),
+  }));
 }
 export function getNumberFormatSettings(): NumberFormatSettings {
-  return constants.numberFormatSettings;
+  const languageTag = getLocales()[0]?.languageTag;
+  const numberFormat = new Intl.NumberFormat(languageTag);
+  const result = numberFormat.format(123456.789);
+  const [groupingSeparator, decimalSeparator] = [...result.replace(/\d/g, "")];
+  return { groupingSeparator, decimalSeparator };
 }
 export function getTemperatureUnit(): TemperatureUnit {
-  return constants.temperatureUnit;
+  const fahrenheitCountries = {
+    US: true,
+    LR: true,
+    BZ: true,
+    BS: true,
+    FM: true,
+    AG: true,
+    KY: true,
+    BM: true,
+    MH: true,
+    KN: true,
+    VG: true,
+    PW: true,
+    MS: true,
+  };
+  return fahrenheitCountries[getCountry()] ? "fahrenheit" : "celsius";
 }
 export function getTimeZone(): string {
-  return constants.timeZone;
+  return Intl.DateTimeFormat().resolvedOptions().timeZone || "";
 }
 export function uses24HourClock(): boolean {
-  return constants.uses24HourClock;
+  const date = new Date(Date.UTC(2012, 11, 12, 3, 0, 0));
+  const dateString = date.toLocaleTimeString();
+  return !(dateString.match(/am|pm/i) || date.toString().match(/am|pm/i));
 }
 export function usesMetricSystem(): boolean {
-  return constants.usesMetricSystem;
+  const imperialCountries = {
+    US: true,
+    MM: true,
+    LR: true,
+  };
+  return !imperialCountries[getCountry()];
 }
 export function usesAutoDateAndTime(): Option<boolean> {
-  return constants.usesAutoDateAndTime;
+  throw new Error("Not implemented");
 }
 export function usesAutoTimeZone(): Option<boolean> {
-  return constants.usesAutoTimeZone;
+  throw new Error("Not implemented");
 }
 
 export function addEventListener(
