@@ -1,7 +1,6 @@
 // @flow
 
-import React from "react";
-import { NativeModules, NativeEventEmitter } from "react-native";
+import { Platform, NativeModules, NativeEventEmitter } from "react-native";
 let { RNLocalize } = NativeModules;
 if (Platform.OS === 'web' || Platform.OS === 'dom') {
   RNLocalize = require('./web');
