@@ -84,6 +84,17 @@ public class MainApplication extends Application implements ReactApplication {
 }
 ```
 
+## React Native Web
+
+Support for react-native-web can be enabled by adding the following to your webpack
+config:
+
+```js
+resolver: {
+  resolverMainFields: ["react-native-web", "react-native", "browser", "main"],
+}
+```
+
 ## Basic usage example
 
 ```js
