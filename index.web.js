@@ -73,7 +73,7 @@ export function getTemperatureUnit(): TemperatureUnit {
     : "celsius";
 }
 export function getTimeZone(): string {
-  return Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+  return Intl.DateTimeFormat().resolvedOptions().timeZone || "Etc/UTC";
 }
 export function uses24HourClock(): boolean {
   const date = new Date(Date.UTC(2012, 11, 12, 3, 0, 0));
