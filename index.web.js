@@ -44,7 +44,7 @@ export function getCountry(): string {
   return locales[0] && locales[0].countryCode;
 }
 export function getCurrencies(): string[] {
-  return LocaleCurrency.getCurrency(getCountry());
+  return [LocaleCurrency.getCurrency(getCountry())];
 }
 export function getLocales(): Locale[] {
   return navigator.languages.map(languageTag => {
