@@ -1,6 +1,8 @@
 // @flow
+
 import React from "react";
-import { NativeModules, NativeEventEmitter } from "react-native";
+import LocaleCurrency from "locale-currency";
+import bcp47 from "bcp-47";
 import type {
   Option,
   Calendar,
@@ -11,21 +13,6 @@ import type {
   LocalizationConstants,
 } from "./types";
 
-const { RNLocalize } = NativeModules;
-
-let constants: LocalizationConstants = RNLocalize.initialConstants;
-
-// $FlowFixMe
-const emitter = new NativeEventEmitter(RNLocalize);
-const handlers: Set<Function> = new Set();
-
-emitter.addListener("localizationDidChange", (next: LocalizationConstants) => {
-  if (JSON.stringify(next) !== JSON.stringify(constants)) {
-    constants = next;
-    handlers.forEach(handler => handler());
-  }
-});
-
 function logUnsupportedEvent(type: string) {
   console.error(`\`${type}\` is not a valid RNLocalize event`);
 }
@@ -33,38 +20,74 @@ function getPartialTag({ languageCode, scriptCode }: Locale) {
   return languageCode + (scriptCode ? "-" + scriptCode : "");
 }
 
+const fahrenheitCountries = ["BS", "BZ", "KY", "PR", "PW", "US"];
+const imperialCountries = ["LR", "MM", "US"];
+const rtlCountries = [
+  "ar",
+  "ckb",
+  "fa",
+  "he",
+  "ks",
+  "lrc",
+  "mzn",
+  "ps",
+  "ug",
+  "ur",
+  "yi",
+];
+
 export function getCalendar(): Calendar {
-  return constants.calendar;
+  return "gregorian";
 }
 export function getCountry(): string {
-  return constants.country;
+  const locales = getLocales();
+  return locales[0] && locales[0].countryCode;
 }
 export function getCurrencies(): string[] {
-  return constants.currencies;
+  return [LocaleCurrency.getCurrency(getCountry())];
 }
 export function getLocales(): Locale[] {
-  return constants.locales;
+  return navigator.languages.map(languageTag => {
+    const { language: languageCode, region: countryCode } = bcp47.parse(
+      languageTag,
+    );
+    return {
+      languageTag,
+      countryCode,
+      languageCode,
+      isRTL: rtlCountries.includes(countryCode.toLowerCase()),
+    };
+  });
 }
 export function getNumberFormatSettings(): NumberFormatSettings {
-  return constants.numberFormatSettings;
+  const locales = getLocales();
+  const languageTag = locales[0] && locales[0].languageTag;
+  const numberFormat = new Intl.NumberFormat(languageTag);
+  const result = numberFormat.format(123456.789);
+  const [groupingSeparator, decimalSeparator] = [...result.replace(/\d/g, "")];
+  return { groupingSeparator, decimalSeparator };
 }
 export function getTemperatureUnit(): TemperatureUnit {
-  return constants.temperatureUnit;
+  return fahrenheitCountries.find(code => code === getCountry())
+    ? "fahrenheit"
+    : "celsius";
 }
 export function getTimeZone(): string {
-  return constants.timeZone;
+  return Intl.DateTimeFormat().resolvedOptions().timeZone || "Etc/UTC";
 }
 export function uses24HourClock(): boolean {
-  return constants.uses24HourClock;
+  const date = new Date(Date.UTC(2012, 11, 12, 3, 0, 0));
+  const dateString = date.toLocaleTimeString();
+  return !(dateString.match(/am|pm/i) || date.toString().match(/am|pm/i));
 }
 export function usesMetricSystem(): boolean {
-  return constants.usesMetricSystem;
+  return !imperialCountries.find(code => code === getCountry());
 }
 export function usesAutoDateAndTime(): Option<boolean> {
-  return constants.usesAutoDateAndTime;
+  return false;
 }
 export function usesAutoTimeZone(): Option<boolean> {
-  return constants.usesAutoTimeZone;
+  return false;
 }
 
 export function addEventListener(
@@ -73,8 +96,8 @@ export function addEventListener(
 ): void {
   if (type !== "change") {
     logUnsupportedEvent(type);
-  } else if (!handlers.has(handler)) {
-    handlers.add(handler);
+  } else {
+    window.addEventListener("languagechange", handler);
   }
 }
 
@@ -84,8 +107,8 @@ export function removeEventListener(
 ): void {
   if (type !== "change") {
     logUnsupportedEvent(type);
-  } else if (handlers.has(handler)) {
-    handlers.delete(handler);
+  } else {
+    window.removeEventListener("languagechange", handler);
   }
 }
 
