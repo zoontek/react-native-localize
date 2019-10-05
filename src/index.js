@@ -1,93 +1,63 @@
 // @flow
 
-import React from "react";
-import LocaleCurrency from "locale-currency";
-import bcp47 from "bcp-47";
+import { constants, handlers } from "./module";
+
 import type {
-  Option,
   Calendar,
-  LocalizationEvent,
-  TemperatureUnit,
   Locale,
+  LocalizationEvent,
   NumberFormatSettings,
-  LocalizationConstants,
+  Option,
+  TemperatureUnit,
+} from "./types";
+
+export type {
+  Calendar,
+  Locale,
+  LocalizationEvent,
+  NumberFormatSettings,
+  TemperatureUnit,
 } from "./types";
 
 function logUnsupportedEvent(type: string) {
-  console.error(`\`${type}\` is not a valid RNLocalize event`);
+  console.error(`\`${type}\` is not a valid react-native-localize event`);
 }
 function getPartialTag({ languageCode, scriptCode }: Locale) {
   return languageCode + (scriptCode ? "-" + scriptCode : "");
 }
 
-const fahrenheitCountries = ["BS", "BZ", "KY", "PR", "PW", "US"];
-const imperialCountries = ["LR", "MM", "US"];
-const rtlCountries = [
-  "ar",
-  "ckb",
-  "fa",
-  "he",
-  "ks",
-  "lrc",
-  "mzn",
-  "ps",
-  "ug",
-  "ur",
-  "yi",
-];
-
 export function getCalendar(): Calendar {
-  return "gregorian";
+  return constants.calendar;
 }
 export function getCountry(): string {
-  const locales = getLocales();
-  return locales[0] && locales[0].countryCode;
+  return constants.country;
 }
 export function getCurrencies(): string[] {
-  return [LocaleCurrency.getCurrency(getCountry())];
+  return constants.currencies;
 }
 export function getLocales(): Locale[] {
-  return navigator.languages.map(languageTag => {
-    const { language: languageCode, region: countryCode } = bcp47.parse(
-      languageTag,
-    );
-    return {
-      languageTag,
-      countryCode,
-      languageCode,
-      isRTL: rtlCountries.includes(countryCode.toLowerCase()),
-    };
-  });
+  return constants.locales;
 }
 export function getNumberFormatSettings(): NumberFormatSettings {
-  const locales = getLocales();
-  const languageTag = locales[0] && locales[0].languageTag;
-  const numberFormat = new Intl.NumberFormat(languageTag);
-  const result = numberFormat.format(123456.789);
-  const [groupingSeparator, decimalSeparator] = [...result.replace(/\d/g, "")];
-  return { groupingSeparator, decimalSeparator };
+  return constants.numberFormatSettings;
 }
 export function getTemperatureUnit(): TemperatureUnit {
-  return fahrenheitCountries.find(code => code === getCountry())
-    ? "fahrenheit"
-    : "celsius";
+  return constants.temperatureUnit;
 }
 export function getTimeZone(): string {
-  return Intl.DateTimeFormat().resolvedOptions().timeZone || "Etc/UTC";
+  return constants.timeZone;
 }
 export function uses24HourClock(): boolean {
-  const date = new Date(Date.UTC(2012, 11, 12, 3, 0, 0));
-  const dateString = date.toLocaleTimeString();
-  return !(dateString.match(/am|pm/i) || date.toString().match(/am|pm/i));
+  return constants.uses24HourClock;
 }
 export function usesMetricSystem(): boolean {
-  return !imperialCountries.find(code => code === getCountry());
+  return constants.usesMetricSystem;
 }
 export function usesAutoDateAndTime(): Option<boolean> {
-  return false;
+  return constants.usesAutoDateAndTime;
 }
 export function usesAutoTimeZone(): Option<boolean> {
-  return false;
+  return constants.usesAutoTimeZone;
 }
 
 export function addEventListener(
@@ -96,8 +66,8 @@ export function addEventListener(
 ): void {
   if (type !== "change") {
     logUnsupportedEvent(type);
-  } else {
-    window.addEventListener("languagechange", handler);
+  } else if (!handlers.has(handler)) {
+    handlers.add(handler);
   }
 }
 
@@ -107,8 +77,8 @@ export function removeEventListener(
 ): void {
   if (type !== "change") {
     logUnsupportedEvent(type);
-  } else {
-    window.removeEventListener("languagechange", handler);
+  } else if (handlers.has(handler)) {
+    handlers.delete(handler);
   }
 }
 

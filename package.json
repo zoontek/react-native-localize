@@ -5,8 +5,8 @@
   "description": "A toolbox for your React Native app localization.",
   "author": "Mathieu Acthernoene <zoontek@gmail.com>",
   "homepage": "https://github.com/react-native-community/react-native-localize",
-  "main": "index.js",
-  "react-native-web": "index.web.js",
+  "main": "./src/index.js",
+  "types": "./index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/react-native-community/react-native-localize.git"
@@ -31,10 +31,6 @@
   },
   "peerDependencies": {
     "react-native": ">=0.56.0"
-  },
-  "dependencies": {
-    "locale-currency": "0.0.2",
-    "bcp-47": "1.0.5"
   },
   "devDependencies": {
     "@babel/core": "7.6.2",
