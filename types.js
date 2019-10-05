@@ -1,4 +1,5 @@
 // @flow
+
 export type Option<T> = T | boolean;
 
 export type Calendar = "gregorian" | "japanese" | "buddhist";

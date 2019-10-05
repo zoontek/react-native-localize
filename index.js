@@ -1,21 +1,22 @@
 // @flow
+
 import React from "react";
 import { NativeModules, NativeEventEmitter } from "react-native";
+
 import type {
-  Option,
   Calendar,
-  LocalizationEvent,
-  TemperatureUnit,
   Locale,
-  NumberFormatSettings,
   LocalizationConstants,
+  LocalizationEvent,
+  NumberFormatSettings,
+  Option,
+  TemperatureUnit,
 } from "./types";
 
 const { RNLocalize } = NativeModules;
 
 let constants: LocalizationConstants = RNLocalize.initialConstants;
 
-// $FlowFixMe
 const emitter = new NativeEventEmitter(RNLocalize);
 const handlers: Set<Function> = new Set();
 

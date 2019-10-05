@@ -1,9 +1,7 @@
 # OSX
-#
 .DS_Store
 
 # Xcode
-#
 build/
 *.pbxuser
 !default.pbxuser
@@ -23,18 +21,16 @@ DerivedData
 project.xcworkspace
 
 # Android/IntelliJ
-#
 build/
 .idea
 .gradle
 local.properties
 *.iml
-android/gradle/
-android/gradlew
-android/gradlew.bat
+
+# Visual Studio Code
+.vscode/
 
 # node.js
-#
 node_modules/
 npm-debug.log
 yarn-error.log
@@ -43,9 +39,10 @@ yarn-error.log
 buck-out/
 \.buckd/
 *.keystore
+!debug.keystore
 
-*.xcworkspace
-Thumbs.db
-Desktop.ini
+# CocoaPods
+Pods/
 
-.vscode/
+# Bundle artifact
+*.jsbundle
