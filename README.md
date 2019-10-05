@@ -2,7 +2,7 @@
 
 A toolbox for your React Native app localization.
 
-[![npm version](https://badge.fury.io/js/react-native-localize.svg)](https://badge.fury.io/js/react-native-localize) [![npm](https://img.shields.io/npm/dt/react-native-localize.svg)](https://www.npmjs.org/package/react-native-localize) ![Platform - Android and iOS](https://img.shields.io/badge/platform-Android%20%7C%20iOS-yellow.svg) ![MIT](https://img.shields.io/dub/l/vibe-d.svg) [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![npm version](https://badge.fury.io/js/react-native-localize.svg)](https://badge.fury.io/js/react-native-localize) [![npm](https://img.shields.io/npm/dt/react-native-localize.svg)](https://www.npmjs.org/package/react-native-localize) ![Platform - Android, iOS and Web](https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%7C%20Web-yellow.svg) ![MIT](https://img.shields.io/dub/l/vibe-d.svg) [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 <img width="400" height="auto" center src="https://github.com/react-native-community/react-native-localize/blob/master/docs/screenshot.png?raw=true" />
 
@@ -23,17 +23,14 @@ $ yarn add react-native-localize
 
 _Don't forget to run `pod install` after that !_
 
-## Web support
-
-This package supports `react-native-web`. Follow their [official guide](https://github.com/necolas/react-native-web/blob/master/docs/guides/multi-platform-apps.md) to configure `webpack`.
-
 ## 🆘  Manual linking
 
-⚠️ If you use a version of React Native prior to `0.60.0`, you can follow the linking instructions [here](https://github.com/react-native-community/react-native-localize/tree/1.1.3#linking).
+Because this package targets React Native 0.60.0+, you will probably don't need to link it manually. Otherwise if it's not the case, follow this additional instructions:
 
-If you use this package with React Native `0.60.0`or superior, you will probably don't need to link it. Otherwise if it still cannot be found, follow this steps to link it manually :
+<details>
+  <summary><b>👀 See manual linking instructions</b></summary>
 
-#### iOS
+### iOS
 
 Add this line to your `ios/Podfile` file, then run `pod install`.
 
@@ -44,7 +41,7 @@ target 'YourAwesomeProject' do
 end
 ```
 
-#### Android
+### Android
 
 1. Add the following lines to `android/settings.gradle`:
 
@@ -83,6 +80,12 @@ public class MainApplication extends Application implements ReactApplication {
   // …
 }
 ```
+
+</details>
+
+## Web support
+
+This package supports `react-native-web`. Follow their [official guide](https://github.com/necolas/react-native-web/blob/master/docs/guides/multi-platform-apps.md) to configure `webpack`.
 
 ## Basic usage example
 
