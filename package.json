@@ -5,8 +5,9 @@
   "description": "A toolbox for your React Native app localization.",
   "author": "Mathieu Acthernoene <zoontek@gmail.com>",
   "homepage": "https://github.com/react-native-community/react-native-localize",
-  "main": "./src/index.js",
-  "types": "./index.d.ts",
+  "types": "index.d.ts",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/react-native-community/react-native-localize.git"
@@ -20,12 +21,31 @@
   ],
   "scripts": {
     "precommit": "lint-staged",
-    "format": "prettier --write '**/*.{js,json,md,ts,tsx}'",
+    "prepare": "bob build",
+    "format": "prettier '**/*.{js,json,md,ts,tsx}' --write",
     "typecheck": "flow ."
+  },
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      [
+        "commonjs",
+        {
+          "flow": true
+        }
+      ],
+      "module"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "**/*.{js,json,md,ts,tsx}": [
-      "prettier --write",
+      "yarn format",
       "git add"
     ]
   },
@@ -34,6 +54,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.6.2",
+    "@react-native-community/bob": "0.7.0",
     "flow-bin": "0.106.0",
     "husky": "3.0.8",
     "lint-staged": "9.4.1",
