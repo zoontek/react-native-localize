@@ -1,36 +1,22 @@
 declare module "react-native-localize" {
-  export type Option<T> = T | undefined;
+  type Option<T> = T | undefined;
 
   export type Calendar = "gregorian" | "japanese" | "buddhist";
   export type LocalizationEvent = "change";
   export type TemperatureUnit = "celsius" | "fahrenheit";
 
-  export type Locale = {
-    readonly languageCode: string;
-    readonly scriptCode?: string;
-    readonly countryCode: string;
-    readonly languageTag: string;
-    readonly isRTL: boolean;
-  };
+  export type Locale = Readonly<{
+    languageCode: string;
+    scriptCode?: string;
+    countryCode: string;
+    languageTag: string;
+    isRTL: boolean;
+  }>;
 
-  export type NumberFormatSettings = {
+  export type NumberFormatSettings = Readonly<{
     decimalSeparator: string;
     groupingSeparator: string;
-  };
-
-  export type LocalizationConstants = {
-    calendar: Calendar;
-    country: string;
-    currencies: string[];
-    locales: Locale[];
-    numberFormatSettings: NumberFormatSettings;
-    temperatureUnit: TemperatureUnit;
-    timeZone: string;
-    uses24HourClock: boolean;
-    usesMetricSystem: boolean;
-    usesAutoDateAndTime: Option<boolean>;
-    usesAutoTimeZone: Option<boolean>;
-  };
+  }>;
 
   export function getCalendar(): Calendar;
   export function getCountry(): string;
