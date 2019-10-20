@@ -1,6 +1,6 @@
 #import "RNLocalize.h"
 
-static NSString *getCalendar(NSLocale *locale) {
+static NSString * _Nonnull getCalendar(NSLocale * _Nonnull locale) {
   static dispatch_once_t onceToken;
   static NSDictionary *calendars;
 
@@ -21,17 +21,41 @@ static NSString *getCalendar(NSLocale *locale) {
   return calendar;
 }
 
-static NSString *getCountryCode(NSLocale *locale, NSString *fallback) {
+static NSString * _Nullable getCountryCode(NSLocale * _Nonnull locale) {
   NSString *countryCode = [locale objectForKey:NSLocaleCountryCode];
-  return countryCode != nil ? countryCode : fallback;
+
+  if ([countryCode isEqualToString:@"419"]) {
+    return @"UN";
+  }
+
+  return countryCode;
 }
 
-static NSString *getCurrencyCode(NSLocale *locale, NSString *fallback) {
-  NSString *currencyCode = [locale objectForKey:NSLocaleCurrencyCode];
-  return currencyCode != nil ? currencyCode : fallback;
+static NSString * _Nonnull getFirstCountryCode(NSArray<NSLocale *> * _Nonnull locales) {
+  for (NSLocale *locale in locales) {
+    NSString *countryCode = getCountryCode(locale);
+
+    if (countryCode != nil) {
+      return countryCode;
+    }
+  }
+
+  return @"US";
 }
 
-static NSString *getTemperatureUnit(NSLocale *locale, NSString *countryCode) {
+static NSString * _Nonnull createLanguageTag(NSString * _Nonnull languageCode,
+                                             NSString * _Nullable scriptCode,
+                                             NSString * _Nonnull countryCode) {
+  NSString *languageTag = [languageCode copy];
+
+  if (scriptCode != nil) {
+    languageTag = [languageTag stringByAppendingFormat:@"-%@", scriptCode];
+  }
+
+  return [languageTag stringByAppendingFormat:@"-%@", countryCode];
+}
+
+static NSString * _Nonnull getTemperatureUnit(NSLocale * _Nonnull locale, NSString * _Nonnull countryCode) {
   static dispatch_once_t onceToken;
   static NSArray<NSString *> *usesFahrenheit;
   static NSDictionary *temperatureUnits;
@@ -62,7 +86,7 @@ static NSString *getTemperatureUnit(NSLocale *locale, NSString *countryCode) {
   return [temperatureUnits objectForKey:([usesFahrenheit containsObject:countryCode] ? @"F" : @"C")];
 }
 
-static bool getUses24HourClock(NSLocale *locale) {
+static bool getUses24HourClock(NSLocale * _Nonnull locale) {
   NSDateFormatter* formatter = [NSDateFormatter new];
   [formatter setLocale:locale];
   [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
@@ -73,67 +97,79 @@ static bool getUses24HourClock(NSLocale *locale) {
   return [[formatter stringFromDate:date] containsString:@"20"];
 }
 
-static bool getUsesMetricSystem(NSLocale *locale) {
+static bool getUsesMetricSystem(NSLocale * _Nonnull locale) {
   return [[locale objectForKey:NSLocaleUsesMetricSystem] boolValue];
 }
 
-static NSDictionary *getNumberFormatSettings(NSLocale *locale) {
+static NSDictionary * _Nonnull getNumberFormatSettings(NSLocale * _Nonnull locale) {
   return @{
            @"decimalSeparator": [locale objectForKey:NSLocaleDecimalSeparator],
            @"groupingSeparator": [locale objectForKey:NSLocaleGroupingSeparator],
            };
 }
 
-static NSDictionary *getExported() {
-  NSLocale *currentLocale = [NSLocale autoupdatingCurrentLocale];
-  NSString *currentCountryCode = getCountryCode(currentLocale, @"US");
+static NSDictionary * _Nonnull getExported() {
+  NSMutableArray<NSLocale *> *deviceLocales = [NSMutableArray array];
 
+  for (NSString *identifier in [NSLocale preferredLanguages]) {
+    [deviceLocales addObject:[[NSLocale alloc] initWithLocaleIdentifier:identifier]];
+  }
+
+  NSLocale *firstLocale = [deviceLocales objectAtIndex:0];
+  NSString *firstCountryCode = getFirstCountryCode(deviceLocales);
+
+  NSMutableArray<NSString *> *languageTagsList = [NSMutableArray array];
   NSMutableArray<NSDictionary *> *locales = [NSMutableArray array];
   NSMutableArray<NSString *> *currencies = [NSMutableArray array];
 
-  [currencies addObject:getCurrencyCode(currentLocale, @"USD")];
-
-  for (NSString *identifier in [NSLocale preferredLanguages]) {
-    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:identifier];
-    NSString *languageCode = [locale objectForKey:NSLocaleLanguageCode];
-    NSString *scriptCode = [locale objectForKey:NSLocaleScriptCode];
-    NSString *countryCode = getCountryCode(locale, currentCountryCode);
-    NSString *currencyCode = getCurrencyCode(locale, @"USD");
+  for (NSLocale *deviceLocale in deviceLocales) {
+    NSString *languageCode = [deviceLocale objectForKey:NSLocaleLanguageCode];
+    NSString *scriptCode = [deviceLocale objectForKey:NSLocaleScriptCode];
+    NSString *countryCode = getCountryCode(deviceLocale);
+    NSString *currencyCode = [deviceLocale objectForKey:NSLocaleCurrencyCode];
     bool isRTL = [NSLocale characterDirectionForLanguage:languageCode] == NSLocaleLanguageDirectionRightToLeft;
 
-    if (![currencies containsObject:currencyCode]) {
-      [currencies addObject:currencyCode];
+    if (countryCode == nil) {
+      countryCode = firstCountryCode;
     }
 
-    NSMutableDictionary *result = [[NSMutableDictionary alloc] initWithDictionary:@{
+    NSString *languageTag = createLanguageTag(languageCode, scriptCode, countryCode);
+
+    NSMutableDictionary *locale = [[NSMutableDictionary alloc] initWithDictionary:@{
                                                                                     @"languageCode": languageCode,
                                                                                     @"countryCode": countryCode,
+                                                                                    @"languageTag": languageTag,
                                                                                     @"isRTL": @(isRTL),
                                                                                     }];
 
-    NSString *languageTag = [languageCode copy];
-
     if (scriptCode != nil) {
-      languageTag = [languageTag stringByAppendingFormat:@"-%@", scriptCode];
-      [result setObject:scriptCode forKey:@"scriptCode"];
+      [locale setObject:scriptCode forKey:@"scriptCode"];
     }
 
-    languageTag = [languageTag stringByAppendingFormat:@"-%@", countryCode];
-    [result setObject:languageTag forKey:@"languageTag"];
+    if (![languageTagsList containsObject:languageTag]) {
+      [languageTagsList addObject:languageTag];
+      [locales addObject:locale];
+    }
 
-    [locales addObject:result];
+    if (currencyCode != nil && ![currencies containsObject:currencyCode]) {
+      [currencies addObject:currencyCode];
+    }
+  }
+
+  if ([currencies count] == 0) {
+    [currencies addObject:@"USD"];
   }
 
   return @{
-           @"calendar": getCalendar(currentLocale),
-           @"country": currentCountryCode,
+           @"calendar": getCalendar(firstLocale),
+           @"country": firstCountryCode,
            @"currencies": currencies,
            @"locales": locales,
-           @"numberFormatSettings": getNumberFormatSettings(currentLocale),
-           @"temperatureUnit": getTemperatureUnit(currentLocale, currentCountryCode),
+           @"numberFormatSettings": getNumberFormatSettings(firstLocale),
+           @"temperatureUnit": getTemperatureUnit(firstLocale, firstCountryCode),
            @"timeZone": [[NSTimeZone localTimeZone] name],
-           @"uses24HourClock": @(getUses24HourClock(currentLocale)),
-           @"usesMetricSystem": @(getUsesMetricSystem(currentLocale)),
+           @"uses24HourClock": @(getUses24HourClock(firstLocale)),
+           @"usesMetricSystem": @(getUsesMetricSystem(firstLocale)),
            };
 }
 

@@ -9,18 +9,20 @@ import {
 
 import type { Locale, LocalizationConstants } from "./types";
 
+function getCountryCode(languageTagParts: string[]): ?string {
+  // overwrite Latin America and Caribbean region
+  return languageTagParts[1] === "419"
+    ? (languageTagParts[1] = "UN")
+    : languageTagParts[1];
+}
+
 function getLocaleFromLanguageTag(
   languageTag: string,
   countryCodeFallback: string,
 ): Locale {
   const splitted = languageTag.split("-");
   const languageCode = splitted[0];
-
-  if (splitted[1] === "419") {
-    splitted[1] = "UN"; // overwrite Latin America and Caribbean region
-  }
-
-  const countryCode = splitted[1] || countryCodeFallback;
+  const countryCode = getCountryCode(splitted) || countryCodeFallback;
 
   return {
     languageCode: languageCode,
@@ -33,26 +35,40 @@ function getLocaleFromLanguageTag(
 function generateConstants(
   languageTags: $ReadOnlyArray<string>,
 ): LocalizationConstants {
-  const base = getLocaleFromLanguageTag(languageTags[0], "US");
+  let firstCountryCode = "US";
+
+  for (let i = 0; i < languageTags.length; i++) {
+    const countryCode = getCountryCode(languageTags[i].split("-"));
+
+    if (countryCode) {
+      firstCountryCode = countryCode;
+      break;
+    }
+  }
 
   const currencies: string[] = [];
   const locales: Locale[] = [];
 
-  const numberFormatter = new Intl.NumberFormat(base.languageTag);
-  const dateFormatter = new Intl.DateTimeFormat(base.languageTag, {
-    hour: "numeric",
-  });
-
   languageTags.forEach(languageTag => {
-    const locale = getLocaleFromLanguageTag(languageTag, base.countryCode);
-    const currency = CURRENCIES[locale.countryCode] || "USD";
+    const locale = getLocaleFromLanguageTag(languageTag, firstCountryCode);
+    const currency = CURRENCIES[locale.countryCode];
 
     if (!locales.find(_ => _.languageTag === locale.languageTag)) {
       locales.push(locale);
     }
-    if (!currencies.includes(currency)) {
+
+    if (currency && !currencies.includes(currency)) {
       currencies.push(currency);
     }
+  });
+
+  if (currencies.length === 0) {
+    currencies.push("USD");
+  }
+
+  const numberFormatter = new Intl.NumberFormat(locales[0].languageTag);
+  const dateFormatter = new Intl.DateTimeFormat(locales[0].languageTag, {
+    hour: "numeric",
   });
 
   const numberSeparators = [
@@ -68,16 +84,16 @@ function generateConstants(
 
   return {
     calendar: "gregorian",
-    country: base.countryCode,
+    country: firstCountryCode,
     currencies,
     locales,
     numberFormatSettings,
-    temperatureUnit: USES_FAHRENHEIT.includes(base.countryCode)
+    temperatureUnit: USES_FAHRENHEIT.includes(firstCountryCode)
       ? "fahrenheit"
       : "celsius",
     timeZone: dateFormatter.resolvedOptions().timeZone || "Etc/UTC",
     uses24HourClock,
-    usesMetricSystem: !USES_IMPERIAL.includes(base.countryCode),
+    usesMetricSystem: !USES_IMPERIAL.includes(firstCountryCode),
   };
 }
 

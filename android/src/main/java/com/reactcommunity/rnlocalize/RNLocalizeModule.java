@@ -22,7 +22,6 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter;
 
-import java.lang.IllegalArgumentException;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +32,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 @ReactModule(name = RNLocalizeModule.MODULE_NAME)
@@ -120,7 +120,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     }
   }
 
-  private List<Locale> getLocales() {
+  private @Nonnull List<Locale> getLocales() {
     List<Locale> locales = new ArrayList<>();
     Configuration config = getReactApplicationContext()
         .getResources()
@@ -139,7 +139,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     return locales;
   }
 
-  private String getLanguageCode(Locale locale) {
+  private @Nonnull String getLanguageCode(@Nonnull Locale locale) {
     String language = locale.getLanguage();
 
     switch (language) {
@@ -154,7 +154,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     return language;
   }
 
-  private @Nullable String getScriptCode(Locale locale) {
+  private @Nullable String getScriptCode(@Nonnull Locale locale) {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
       return null;
     }
@@ -163,40 +163,60 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     return script.equals("") ? null : script;
   }
 
-  private String getCountryCode(Locale locale, String fallback) {
+  private @Nullable String getCountryCode(@Nonnull Locale locale) {
     try {
       String country = locale.getCountry();
-      return country == null || country.equals("") ? fallback : country;
+
+      if (country.equals("419")) {
+        return "UN";
+      }
+
+      return country.equals("") ? null : country;
     } catch (Exception e) {
-      return fallback;
+      return null;
     }
   }
 
-  private String getCurrencyCode(Locale locale, String fallback) {
+  private @Nullable String getFirstCountryCode(@Nonnull List<Locale> locales) {
+    for (int i = 0; i < locales.size(); i++) {
+      String countryCode = getCountryCode(locales.get(i));
+
+      if (countryCode != null) {
+        return countryCode;
+      }
+    }
+
+    return null;
+  }
+
+  private @Nullable String getCurrencyCode(@Nonnull Locale locale) {
     try {
       Currency currency = Currency.getInstance(locale);
-      return currency == null ? fallback : currency.getCurrencyCode();
+      return currency == null ? null : currency.getCurrencyCode();
     } catch (Exception e) {
-      return fallback;
+      return null;
     }
   }
 
-  private boolean getIsRTL(Locale locale) {
+  private boolean getIsRTL(@Nonnull Locale locale) {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
         ? TextUtils.getLayoutDirectionFromLocale(locale) == View.LAYOUT_DIRECTION_RTL
         : USES_RTL_LAYOUT.contains(getLanguageCode(locale));
   }
 
-  private String getTemperatureUnit(Locale locale) {
-    return USES_FAHRENHEIT.contains(getCountryCode(locale, "US"))
-        ? "fahrenheit" : "celsius";
+  private @Nonnull String createLanguageTag(@Nonnull String languageCode,
+                                            @Nullable String scriptCode,
+                                            @Nonnull String countryCode) {
+    String languageTag = languageCode;
+
+    if (scriptCode != null) {
+      languageTag += "-" + scriptCode;
+    }
+
+    return languageTag + "-" + countryCode;
   }
 
-  private boolean getUsesMetricSystem(Locale locale) {
-    return !USES_IMPERIAL.contains(getCountryCode(locale, "US"));
-  }
-
-  private WritableMap getNumberFormatSettings(Locale locale) {
+  private @Nonnull WritableMap getNumberFormatSettings(@Nonnull Locale locale) {
     WritableMap settings = Arguments.createMap();
     DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
 
@@ -222,57 +242,70 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
         : Settings.System.getInt(resolver, Settings.System.AUTO_TIME_ZONE, 0)) != 0;
   }
 
-  private WritableMap getExported() {
+  private @Nonnull WritableMap getExported() {
     List<Locale> deviceLocales = getLocales();
-    List<String> currenciesCache = new ArrayList<>();
-    Locale currentLocale = deviceLocales.get(0);
-    String currentCountryCode = getCountryCode(currentLocale, "US");
+    Locale firstLocale = deviceLocales.get(0);
+    String firstCountryCode = getFirstCountryCode(deviceLocales);
 
+    if (firstCountryCode == null) {
+      firstCountryCode = "US";
+    }
+
+    List<String> languageTagsList = new ArrayList<>();
+    List<String> currenciesList = new ArrayList<>();
     WritableArray locales = Arguments.createArray();
     WritableArray currencies = Arguments.createArray();
 
-    for (Locale locale: deviceLocales) {
-      String languageCode = getLanguageCode(locale);
-      String scriptCode = getScriptCode(locale);
-      String countryCode = getCountryCode(locale, currentCountryCode);
-      String currencyCode = getCurrencyCode(locale, "USD");
+    for (Locale deviceLocale: deviceLocales) {
+      String languageCode = getLanguageCode(deviceLocale);
+      String scriptCode = getScriptCode(deviceLocale);
+      String countryCode = getCountryCode(deviceLocale);
+      String currencyCode = getCurrencyCode(deviceLocale);
 
-      if (!currenciesCache.contains(currencyCode)) {
-        currenciesCache.add(currencyCode);
-        currencies.pushString(currencyCode);
+      if (countryCode == null) {
+        countryCode = firstCountryCode;
       }
 
-      WritableMap result = Arguments.createMap();
-      String languageTag = languageCode;
+      String languageTag = createLanguageTag(languageCode, scriptCode, countryCode);
 
-      result.putString("languageCode", languageCode);
-      result.putString("countryCode", countryCode);
-      result.putBoolean("isRTL", getIsRTL(locale));
+      WritableMap locale = Arguments.createMap();
+      locale.putString("languageCode", languageCode);
+      locale.putString("countryCode", countryCode);
+      locale.putString("languageTag", languageTag);
+      locale.putBoolean("isRTL", getIsRTL(deviceLocale));
 
       if (scriptCode != null) {
-        languageTag += "-" + scriptCode;
-        result.putString("scriptCode", scriptCode);
+        locale.putString("scriptCode", scriptCode);
       }
 
-      languageTag += "-" + countryCode;
-      result.putString("languageTag", languageTag);
+      if (!languageTagsList.contains(languageTag)) {
+        languageTagsList.add(languageTag);
+        locales.pushMap(locale);
+      }
 
-      locales.pushMap(result);
+      if (currencyCode != null && !currenciesList.contains(currencyCode)) {
+        currenciesList.add(currencyCode);
+        currencies.pushString(currencyCode);
+      }
+    }
+
+    if (currencies.size() == 0) {
+      currencies.pushString("USD");
     }
 
     WritableMap exported = Arguments.createMap();
 
     exported.putString("calendar", "gregorian");
-    exported.putString("country", currentCountryCode);
+    exported.putString("country", firstCountryCode);
     exported.putArray("currencies", currencies);
     exported.putArray("locales", locales);
-    exported.putMap("numberFormatSettings", getNumberFormatSettings(currentLocale));
-    exported.putString("temperatureUnit", getTemperatureUnit(currentLocale));
+    exported.putMap("numberFormatSettings", getNumberFormatSettings(firstLocale));
+    exported.putString("temperatureUnit", USES_FAHRENHEIT.contains(firstCountryCode) ? "fahrenheit" : "celsius");
     exported.putString("timeZone", TimeZone.getDefault().getID());
     exported.putBoolean("uses24HourClock", DateFormat.is24HourFormat(getReactApplicationContext()));
-    exported.putBoolean("usesMetricSystem", getUsesMetricSystem(currentLocale));
     exported.putBoolean("usesAutoDateAndTime", getUsesAutoDateAndTime());
     exported.putBoolean("usesAutoTimeZone", getUsesAutoTimeZone());
+    exported.putBoolean("usesMetricSystem", !USES_IMPERIAL.contains(firstCountryCode));
 
     return exported;
   }
