@@ -11,9 +11,7 @@ import type { Locale, LocalizationConstants } from "./types";
 
 function getCountryCode(languageTagParts: string[]): ?string {
   // overwrite Latin America and Caribbean region
-  return languageTagParts[1] === "419"
-    ? (languageTagParts[1] = "UN")
-    : languageTagParts[1];
+  return languageTagParts[1] === "419" ? "UN" : languageTagParts[1];
 }
 
 function getLocaleFromLanguageTag(
@@ -32,25 +30,25 @@ function getLocaleFromLanguageTag(
   };
 }
 
-function generateConstants(
-  languageTags: $ReadOnlyArray<string>,
-): LocalizationConstants {
-  let firstCountryCode = "US";
-
+function getFirstCountryCode(languageTags: $ReadOnlyArray<string>): ?string {
   for (let i = 0; i < languageTags.length; i++) {
     const countryCode = getCountryCode(languageTags[i].split("-"));
 
     if (countryCode) {
-      firstCountryCode = countryCode;
-      break;
+      return countryCode;
     }
   }
+}
 
-  const currencies: string[] = [];
+function generateConstants(
+  languageTags: $ReadOnlyArray<string>,
+): LocalizationConstants {
+  const countryCode = getFirstCountryCode(languageTags);
   const locales: Locale[] = [];
+  const currencies: string[] = [];
 
   languageTags.forEach(languageTag => {
-    const locale = getLocaleFromLanguageTag(languageTag, firstCountryCode);
+    const locale = getLocaleFromLanguageTag(languageTag, countryCode);
     const currency = CURRENCIES[locale.countryCode];
 
     if (!locales.find(_ => _.languageTag === locale.languageTag)) {
@@ -84,16 +82,16 @@ function generateConstants(
 
   return {
     calendar: "gregorian",
-    country: firstCountryCode,
+    country: countryCode,
     currencies,
     locales,
     numberFormatSettings,
-    temperatureUnit: USES_FAHRENHEIT.includes(firstCountryCode)
+    temperatureUnit: USES_FAHRENHEIT.includes(countryCode)
       ? "fahrenheit"
       : "celsius",
     timeZone: dateFormatter.resolvedOptions().timeZone || "Etc/UTC",
     uses24HourClock,
-    usesMetricSystem: !USES_IMPERIAL.includes(firstCountryCode),
+    usesMetricSystem: !USES_IMPERIAL.includes(countryCode),
   };
 }
 

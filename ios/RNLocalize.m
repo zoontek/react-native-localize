@@ -31,18 +31,6 @@ static NSString * _Nullable getCountryCode(NSLocale * _Nonnull locale) {
   return countryCode;
 }
 
-static NSString * _Nonnull getFirstCountryCode(NSArray<NSLocale *> * _Nonnull locales) {
-  for (NSLocale *locale in locales) {
-    NSString *countryCode = getCountryCode(locale);
-
-    if (countryCode != nil) {
-      return countryCode;
-    }
-  }
-
-  return @"US";
-}
-
 static NSString * _Nonnull createLanguageTag(NSString * _Nonnull languageCode,
                                              NSString * _Nullable scriptCode,
                                              NSString * _Nonnull countryCode) {
@@ -109,20 +97,25 @@ static NSDictionary * _Nonnull getNumberFormatSettings(NSLocale * _Nonnull local
 }
 
 static NSDictionary * _Nonnull getExported() {
-  NSMutableArray<NSLocale *> *deviceLocales = [NSMutableArray array];
+  NSLocale *currentLocale = [NSLocale autoupdatingCurrentLocale];
+  NSString *currentCountryCode = getCountryCode(currentLocale);
+  NSString *currentCurrency = [currentLocale objectForKey:NSLocaleCurrencyCode];
 
-  for (NSString *identifier in [NSLocale preferredLanguages]) {
-    [deviceLocales addObject:[[NSLocale alloc] initWithLocaleIdentifier:identifier]];
+  if (currentCountryCode == nil) {
+    currentCountryCode = @"US"; // only happen in the simulator
   }
-
-  NSLocale *firstLocale = [deviceLocales objectAtIndex:0];
-  NSString *firstCountryCode = getFirstCountryCode(deviceLocales);
 
   NSMutableArray<NSString *> *languageTagsList = [NSMutableArray array];
   NSMutableArray<NSDictionary *> *locales = [NSMutableArray array];
   NSMutableArray<NSString *> *currencies = [NSMutableArray array];
 
-  for (NSLocale *deviceLocale in deviceLocales) {
+  if (currentCurrency != nil) {
+    [currencies addObject:currentCurrency];
+  }
+
+  for (NSString *identifier in [NSLocale preferredLanguages]) {
+    NSLocale *deviceLocale = [[NSLocale alloc] initWithLocaleIdentifier:identifier];
+
     NSString *languageCode = [deviceLocale objectForKey:NSLocaleLanguageCode];
     NSString *scriptCode = [deviceLocale objectForKey:NSLocaleScriptCode];
     NSString *countryCode = getCountryCode(deviceLocale);
@@ -130,7 +123,7 @@ static NSDictionary * _Nonnull getExported() {
     bool isRTL = [NSLocale characterDirectionForLanguage:languageCode] == NSLocaleLanguageDirectionRightToLeft;
 
     if (countryCode == nil) {
-      countryCode = firstCountryCode;
+      countryCode = currentCountryCode;
     }
 
     NSString *languageTag = createLanguageTag(languageCode, scriptCode, countryCode);
@@ -161,15 +154,15 @@ static NSDictionary * _Nonnull getExported() {
   }
 
   return @{
-           @"calendar": getCalendar(firstLocale),
-           @"country": firstCountryCode,
+           @"calendar": getCalendar(currentLocale),
+           @"country": currentCountryCode,
            @"currencies": currencies,
            @"locales": locales,
-           @"numberFormatSettings": getNumberFormatSettings(firstLocale),
-           @"temperatureUnit": getTemperatureUnit(firstLocale, firstCountryCode),
+           @"numberFormatSettings": getNumberFormatSettings(currentLocale),
+           @"temperatureUnit": getTemperatureUnit(currentLocale, currentCountryCode),
            @"timeZone": [[NSTimeZone localTimeZone] name],
-           @"uses24HourClock": @(getUses24HourClock(firstLocale)),
-           @"usesMetricSystem": @(getUsesMetricSystem(firstLocale)),
+           @"uses24HourClock": @(getUses24HourClock(currentLocale)),
+           @"usesMetricSystem": @(getUsesMetricSystem(currentLocale)),
            };
 }
 

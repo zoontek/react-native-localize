@@ -177,18 +177,6 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     }
   }
 
-  private @Nullable String getFirstCountryCode(@Nonnull List<Locale> locales) {
-    for (int i = 0; i < locales.size(); i++) {
-      String countryCode = getCountryCode(locales.get(i));
-
-      if (countryCode != null) {
-        return countryCode;
-      }
-    }
-
-    return null;
-  }
-
   private @Nullable String getCurrencyCode(@Nonnull Locale locale) {
     try {
       Currency currency = Currency.getInstance(locale);
@@ -244,11 +232,11 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
 
   private @Nonnull WritableMap getExported() {
     List<Locale> deviceLocales = getLocales();
-    Locale firstLocale = deviceLocales.get(0);
-    String firstCountryCode = getFirstCountryCode(deviceLocales);
+    Locale currentLocale = deviceLocales.get(0);
+    String currentCountryCode = getCountryCode(currentLocale);
 
-    if (firstCountryCode == null) {
-      firstCountryCode = "US";
+    if (currentCountryCode  == null) {
+      currentCountryCode = "US";
     }
 
     List<String> languageTagsList = new ArrayList<>();
@@ -263,7 +251,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
       String currencyCode = getCurrencyCode(deviceLocale);
 
       if (countryCode == null) {
-        countryCode = firstCountryCode;
+        countryCode = currentCountryCode;
       }
 
       String languageTag = createLanguageTag(languageCode, scriptCode, countryCode);
@@ -296,16 +284,16 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     WritableMap exported = Arguments.createMap();
 
     exported.putString("calendar", "gregorian");
-    exported.putString("country", firstCountryCode);
+    exported.putString("country", currentCountryCode);
     exported.putArray("currencies", currencies);
     exported.putArray("locales", locales);
-    exported.putMap("numberFormatSettings", getNumberFormatSettings(firstLocale));
-    exported.putString("temperatureUnit", USES_FAHRENHEIT.contains(firstCountryCode) ? "fahrenheit" : "celsius");
+    exported.putMap("numberFormatSettings", getNumberFormatSettings(currentLocale));
+    exported.putString("temperatureUnit", USES_FAHRENHEIT.contains(currentCountryCode) ? "fahrenheit" : "celsius");
     exported.putString("timeZone", TimeZone.getDefault().getID());
     exported.putBoolean("uses24HourClock", DateFormat.is24HourFormat(getReactApplicationContext()));
     exported.putBoolean("usesAutoDateAndTime", getUsesAutoDateAndTime());
     exported.putBoolean("usesAutoTimeZone", getUsesAutoTimeZone());
-    exported.putBoolean("usesMetricSystem", !USES_IMPERIAL.contains(firstCountryCode));
+    exported.putBoolean("usesMetricSystem", !USES_IMPERIAL.contains(currentCountryCode));
 
     return exported;
   }
