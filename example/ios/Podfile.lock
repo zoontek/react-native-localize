@@ -219,7 +219,7 @@ PODS:
     - ReactCommon/jscallinvoker (= 0.61.2)
   - RNFS (2.15.2):
     - React
-  - RNLocalize (1.3.1):
+  - RNLocalize (1.3.2):
     - React
   - Yoga (1.14.0)
 
@@ -342,9 +342,9 @@ SPEC CHECKSUMS:
   React-RCTVibration: fb54c732fd20405a76598e431aa2f8c2bf527de9
   ReactCommon: 5848032ed2f274fcb40f6b9ec24067787c42d479
   RNFS: 54da03c2b7d862c42ea3ca8c7f86f892760a535a
-  RNLocalize: 07eb7a91d10021cdf59d80061ebf3adb8a5b5688
+  RNLocalize: 08eb68476e1f2d8cacd75fa919bf5e219fb03b19
   Yoga: 14927e37bd25376d216b150ab2a561773d57911f
 
 PODFILE CHECKSUM: 44ffdee083f5ef6bc1ac027a7481f58b47a10dbd
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.8.4

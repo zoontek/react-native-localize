@@ -1,1 +1,4 @@
-example/node_modules/
+node_modules
+lib/
+example/android/app/build
+example/ios/Pods
