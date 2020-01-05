@@ -22,7 +22,7 @@ static NSString * _Nonnull getCalendar(NSLocale * _Nonnull locale) {
 }
 
 static NSString * _Nullable getCountryCode(NSLocale * _Nonnull locale) {
-  NSString *countryCode = [locale objectForKey:NSLocaleCountryCode];
+  NSString *countryCode = [[locale objectForKey:NSLocaleCountryCode] uppercaseString];
 
   if ([countryCode isEqualToString:@"419"]) {
     return @"UN";
@@ -116,10 +116,10 @@ static NSDictionary * _Nonnull getExported() {
   for (NSString *identifier in [NSLocale preferredLanguages]) {
     NSLocale *deviceLocale = [[NSLocale alloc] initWithLocaleIdentifier:identifier];
 
-    NSString *languageCode = [deviceLocale objectForKey:NSLocaleLanguageCode];
+    NSString *languageCode = [[deviceLocale objectForKey:NSLocaleLanguageCode] lowercaseString];
     NSString *scriptCode = [deviceLocale objectForKey:NSLocaleScriptCode];
     NSString *countryCode = getCountryCode(deviceLocale);
-    NSString *currencyCode = [deviceLocale objectForKey:NSLocaleCurrencyCode];
+    NSString *currencyCode = [[deviceLocale objectForKey:NSLocaleCurrencyCode] uppercaseString];
     bool isRTL = [NSLocale characterDirectionForLanguage:languageCode] == NSLocaleLanguageDirectionRightToLeft;
 
     if (countryCode == nil) {
