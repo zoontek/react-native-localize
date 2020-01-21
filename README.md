@@ -85,7 +85,7 @@ public class MainApplication extends Application implements ReactApplication {
 
 ## Web support
 
-This package supports `react-native-web`. Follow their [official guide](https://github.com/necolas/react-native-web/blob/master/docs/guides/multi-platform-apps.md) to configure `webpack`.
+This package supports `react-native-web`. Follow their [official guide](http://necolas.github.io/react-native-web/docs/?path=/docs/guides-multi-platform--page) to configure `webpack`.
 
 ## Basic usage example
 
