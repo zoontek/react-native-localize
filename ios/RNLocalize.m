@@ -184,6 +184,11 @@ RCT_EXPORT_MODULE();
                                            selector:@selector(onLocalizationDidChange)
                                                name:NSSystemTimeZoneDidChangeNotification
                                              object:nil];
+
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(onLocalizationDidChange)
+                                               name:NSSystemClockDidChangeNotification
+                                             object:nil];
 }
 
 - (void)stopObserving {
