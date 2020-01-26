@@ -12,22 +12,22 @@
     "reinstall": "yarn clean && yarn install"
   },
   "dependencies": {
-    "i18n-js": "3.3.0",
+    "i18n-js": "3.5.1",
     "lodash.memoize": "4.1.2",
     "react": "16.9.0",
     "react-dom": "16.9.0",
-    "react-native": "0.61.2",
-    "react-native-fs": "2.15.2",
+    "react-native": "0.61.5",
+    "react-native-fs": "2.16.2",
     "react-native-localize": "file:../",
-    "react-native-web": "0.11.7"
+    "react-native-web": "0.12.0"
   },
   "devDependencies": {
-    "@babel/core": "7.6.4",
-    "@babel/runtime": "7.6.3",
+    "@babel/core": "7.8.3",
+    "@babel/runtime": "7.8.3",
     "babel-loader": "8.0.6",
-    "metro-react-native-babel-preset": "0.56.0",
-    "webpack": "4.41.2",
-    "webpack-cli": "3.3.9",
-    "webpack-dev-server": "3.8.2"
+    "metro-react-native-babel-preset": "0.58.0",
+    "webpack": "4.41.5",
+    "webpack-cli": "3.3.10",
+    "webpack-dev-server": "3.10.1"
   }
 }
