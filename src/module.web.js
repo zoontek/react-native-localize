@@ -1,18 +1,15 @@
 // @flow
 
 import {
-  CURRENCIES,
   USES_FAHRENHEIT,
   USES_IMPERIAL,
   USES_RTL_LAYOUT,
+  CURRENCIES,
 } from "./constants";
-import { findBestLanguageForLocales, logUnknownEvent } from "./utils";
 
 import type {
   Calendar,
   Locale,
-  LocalizationConstants,
-  LocalizationEvent,
   NumberFormatSettings,
   Option,
   TemperatureUnit,
@@ -151,41 +148,10 @@ export function usesMetricSystem(): boolean {
 export function usesAutoDateAndTime(): Option<boolean> {}
 export function usesAutoTimeZone(): Option<boolean> {}
 
-const handlers: Set<Function> = new Set();
+export const handlers: Set<Function> = new Set();
 
 if (canUseDOM) {
   window.addEventListener("languagechange", () => {
     handlers.forEach(handler => handler());
   });
-}
-
-export function addEventListener(
-  type: LocalizationEvent,
-  handler: Function,
-): void {
-  if (type !== "change") {
-    logUnknownEvent(type);
-  } else if (!handlers.has(handler)) {
-    handlers.add(handler);
-  }
-}
-
-export function removeEventListener(
-  type: LocalizationEvent,
-  handler: Function,
-): void {
-  if (type !== "change") {
-    logUnknownEvent(type);
-  } else if (handlers.has(handler)) {
-    handlers.delete(handler);
-  }
-}
-
-export function findBestAvailableLanguage(
-  languageTags: string[],
-): {|
-  languageTag: string,
-  isRTL: boolean,
-|} | void {
-  return findBestLanguageForLocales(languageTags, getLocales());
 }
