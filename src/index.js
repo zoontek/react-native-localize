@@ -1,30 +1,21 @@
 // @flow
 
-import { constants, handlers } from "./module";
+import { NativeEventEmitter, NativeModules } from "react-native";
+import { findBestLanguageForLocales, logUnknownEvent } from "./utils";
 
 import type {
   Calendar,
   Locale,
+  LocalizationConstants,
   LocalizationEvent,
   NumberFormatSettings,
   Option,
   TemperatureUnit,
 } from "./types";
 
-export type {
-  Calendar,
-  Locale,
-  LocalizationEvent,
-  NumberFormatSettings,
-  TemperatureUnit,
-} from "./types";
+const { RNLocalize } = NativeModules;
 
-function logUnsupportedEvent(type: string) {
-  console.error(`\`${type}\` is not a valid react-native-localize event`);
-}
-function getPartialTag({ languageCode, scriptCode }: Locale) {
-  return languageCode + (scriptCode ? "-" + scriptCode : "");
-}
+let constants: LocalizationConstants = RNLocalize.initialConstants;
 
 export function getCalendar(): Calendar {
   return constants.calendar;
@@ -60,12 +51,22 @@ export function usesAutoTimeZone(): Option<boolean> {
   return constants.usesAutoTimeZone;
 }
 
+const emitter = new NativeEventEmitter(RNLocalize);
+const handlers: Set<Function> = new Set();
+
+emitter.addListener("localizationDidChange", (next: LocalizationConstants) => {
+  if (JSON.stringify(next) !== JSON.stringify(constants)) {
+    constants = next;
+    handlers.forEach(handler => handler());
+  }
+});
+
 export function addEventListener(
   type: LocalizationEvent,
   handler: Function,
 ): void {
   if (type !== "change") {
-    logUnsupportedEvent(type);
+    logUnknownEvent(type);
   } else if (!handlers.has(handler)) {
     handlers.add(handler);
   }
@@ -76,7 +77,7 @@ export function removeEventListener(
   handler: Function,
 ): void {
   if (type !== "change") {
-    logUnsupportedEvent(type);
+    logUnknownEvent(type);
   } else if (handlers.has(handler)) {
     handlers.delete(handler);
   }
@@ -88,31 +89,5 @@ export function findBestAvailableLanguage(
   languageTag: string,
   isRTL: boolean,
 |} | void {
-  const locales = getLocales();
-
-  for (let index = 0; index < locales.length; index++) {
-    const currentLocale = locales[index];
-    const { languageTag, languageCode, isRTL } = currentLocale;
-
-    if (languageTags.includes(languageTag)) {
-      return { languageTag, isRTL };
-    }
-
-    const partialTag = getPartialTag(currentLocale);
-    const next = locales[index + 1];
-
-    if (
-      (!next || partialTag !== getPartialTag(next)) &&
-      languageTags.includes(partialTag)
-    ) {
-      return { languageTag: partialTag, isRTL };
-    }
-
-    if (
-      (!next || languageCode !== next.languageCode) &&
-      languageTags.includes(languageCode)
-    ) {
-      return { languageTag: languageCode, isRTL };
-    }
-  }
+  return findBestLanguageForLocales(languageTags, getLocales());
 }
