@@ -81,7 +81,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
   @Override
   public @Nullable Map<String, Object> getConstants() {
     HashMap<String, Object> constants = new HashMap<>();
-    constants.put("initialConstants", getExported());
+    constants.put("initialConstants", getExportedConstants());
 
     return constants;
   }
@@ -116,7 +116,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     if (getReactApplicationContext().hasActiveCatalystInstance()) {
       getReactApplicationContext()
           .getJSModule(RCTDeviceEventEmitter.class)
-          .emit("localizationDidChange", getExported());
+          .emit("localizationDidChange", getExportedConstants());
     }
   }
 
@@ -230,7 +230,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
         : Settings.System.getInt(resolver, Settings.System.AUTO_TIME_ZONE, 0)) != 0;
   }
 
-  private @Nonnull WritableMap getExported() {
+  private @Nonnull WritableMap getExportedConstants() {
     List<Locale> deviceLocales = getLocales();
     Locale currentLocale = deviceLocales.get(0);
     String currentCountryCode = getCountryCode(currentLocale);
