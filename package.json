@@ -20,7 +20,6 @@
     "l20n"
   ],
   "scripts": {
-    "precommit": "lint-staged",
     "prepare": "bob build",
     "format": "prettier '**/*.{js,json,md,ts,tsx}' --write",
     "typecheck": "flow ."
@@ -44,20 +43,19 @@
     }
   },
   "lint-staged": {
-    "**/*.{js,json,md,ts,tsx}": [
-      "yarn format",
-      "git add"
-    ]
+    "**/*.{js,json,md,ts,tsx}": "prettier --write"
   },
   "peerDependencies": {
     "react-native": ">=0.56.0"
   },
   "devDependencies": {
-    "@babel/core": "7.7.7",
-    "@react-native-community/bob": "0.7.0",
+    "@babel/core": "7.8.3",
+    "@react-native-community/bob": "0.8.0",
+    "@types/react": "16.9.19",
+    "@types/react-native": "0.61.4",
     "flow-bin": "0.115.0",
-    "husky": "3.1.0",
-    "lint-staged": "9.5.0",
+    "husky": "4.2.1",
+    "lint-staged": "10.0.2",
     "prettier": "1.19.1",
     "react": "16.9.0",
     "react-native": "0.61.5"
