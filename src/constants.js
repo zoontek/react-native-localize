@@ -1,3 +1,5 @@
+// @flow
+
 export const USES_FAHRENHEIT = ["BS", "BZ", "KY", "PR", "PW", "US"];
 
 export const USES_IMPERIAL = ["LR", "MM", "US"];
