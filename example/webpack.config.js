@@ -1,4 +1,4 @@
-// https://github.com/necolas/react-native-web/blob/0.11.7/docs/guides/multi-platform-apps.md
+// http://necolas.github.io/react-native-web/docs/?path=/docs/guides-multi-platform--page#web-packaging-for-existing-react-native-apps
 
 const webpack = require("webpack");
 const path = require("path");
