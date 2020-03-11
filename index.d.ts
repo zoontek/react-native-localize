@@ -42,5 +42,5 @@ declare module "react-native-localize" {
 
   export function findBestAvailableLanguage<T extends string>(
     languageTags: T[],
-  ): { languageTag: T; isRTL: boolean } | void;
+  ): { languageTag: T; isRTL: boolean } | undefined;
 }

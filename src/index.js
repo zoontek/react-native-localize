@@ -67,7 +67,7 @@ export function findBestAvailableLanguage(
 ): {|
   languageTag: string,
   isRTL: boolean,
-|} | void {
+|} | undefined {
   const locales = getLocales();
 
   for (let i = 0; i < locales.length; i++) {
