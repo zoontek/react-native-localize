@@ -64,10 +64,7 @@ export function removeEventListener(
 
 export function findBestAvailableLanguage(
   languageTags: string[],
-): {|
-  languageTag: string,
-  isRTL: boolean,
-|} | undefined {
+): {| languageTag: string, isRTL: boolean |} | typeof undefined {
   const locales = getLocales();
 
   for (let i = 0; i < locales.length; i++) {
