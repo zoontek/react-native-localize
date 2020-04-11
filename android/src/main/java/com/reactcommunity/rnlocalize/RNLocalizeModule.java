@@ -22,6 +22,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter;
 
+import java.lang.reflect.Method;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -154,16 +155,27 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     return language;
   }
 
-  private @Nullable String getScriptCode(@Nonnull Locale locale) {
+  private @Nonnull String getScriptCode(@Nonnull Locale locale) {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-      return null;
+      return "";
     }
 
     String script = locale.getScript();
-    return script.equals("") ? null : script;
+    return TextUtils.isEmpty(script) ? "" : script;
   }
 
-  private @Nullable String getCountryCode(@Nonnull Locale locale) {
+  private @Nonnull String getSystemProperty(String key) {
+    try {
+      Class<?> systemProperties = Class.forName("android.os.SystemProperties");
+      Method get = systemProperties.getMethod("get", String.class);
+
+      return (String) get.invoke(systemProperties, key);
+    } catch (Exception ignored) {
+      return "";
+    }
+  }
+
+  private @Nonnull String getCountryCode(@Nonnull Locale locale) {
     try {
       String country = locale.getCountry();
 
@@ -171,18 +183,28 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
         return "UN";
       }
 
-      return country.equals("") ? null : country;
-    } catch (Exception e) {
-      return null;
+      return TextUtils.isEmpty(country) ? "" : country;
+    } catch (Exception ignored) {
+      return "";
     }
   }
 
-  private @Nullable String getCurrencyCode(@Nonnull Locale locale) {
+  private @Nonnull String getRegionCode(@Nonnull Locale locale) {
+    String miuiRegion = getSystemProperty("ro.miui.region");
+
+    if (!TextUtils.isEmpty(miuiRegion)) {
+      return miuiRegion;
+    }
+
+    return getCountryCode(locale);
+  }
+
+  private @Nonnull String getCurrencyCode(@Nonnull Locale locale) {
     try {
       Currency currency = Currency.getInstance(locale);
-      return currency == null ? null : currency.getCurrencyCode();
-    } catch (Exception e) {
-      return null;
+      return currency == null ? "" : currency.getCurrencyCode();
+    } catch (Exception ignored) {
+      return "";
     }
   }
 
@@ -193,11 +215,11 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
   }
 
   private @Nonnull String createLanguageTag(@Nonnull String languageCode,
-                                            @Nullable String scriptCode,
+                                            @Nonnull String scriptCode,
                                             @Nonnull String countryCode) {
     String languageTag = languageCode;
 
-    if (scriptCode != null) {
+    if (!TextUtils.isEmpty(scriptCode)) {
       languageTag += "-" + scriptCode;
     }
 
@@ -233,10 +255,10 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
   private @Nonnull WritableMap getExportedConstants() {
     List<Locale> deviceLocales = getLocales();
     Locale currentLocale = deviceLocales.get(0);
-    String currentCountryCode = getCountryCode(currentLocale);
+    String currentRegionCode = getRegionCode(currentLocale);
 
-    if (currentCountryCode  == null) {
-      currentCountryCode = "US";
+    if (TextUtils.isEmpty(currentRegionCode)) {
+      currentRegionCode = "US";
     }
 
     List<String> languageTagsList = new ArrayList<>();
@@ -250,8 +272,8 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
       String countryCode = getCountryCode(deviceLocale);
       String currencyCode = getCurrencyCode(deviceLocale);
 
-      if (countryCode == null) {
-        countryCode = currentCountryCode;
+      if (TextUtils.isEmpty(countryCode)) {
+        countryCode = currentRegionCode;
       }
 
       String languageTag = createLanguageTag(languageCode, scriptCode, countryCode);
@@ -262,7 +284,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
       locale.putString("languageTag", languageTag);
       locale.putBoolean("isRTL", getIsRTL(deviceLocale));
 
-      if (scriptCode != null) {
+      if (!TextUtils.isEmpty(scriptCode)) {
         locale.putString("scriptCode", scriptCode);
       }
 
@@ -271,7 +293,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
         locales.pushMap(locale);
       }
 
-      if (currencyCode != null && !currenciesList.contains(currencyCode)) {
+      if (!TextUtils.isEmpty(currencyCode) && !currenciesList.contains(currencyCode)) {
         currenciesList.add(currencyCode);
         currencies.pushString(currencyCode);
       }
@@ -284,16 +306,16 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     WritableMap exported = Arguments.createMap();
 
     exported.putString("calendar", "gregorian");
-    exported.putString("country", currentCountryCode);
+    exported.putString("country", currentRegionCode);
     exported.putArray("currencies", currencies);
     exported.putArray("locales", locales);
     exported.putMap("numberFormatSettings", getNumberFormatSettings(currentLocale));
-    exported.putString("temperatureUnit", USES_FAHRENHEIT.contains(currentCountryCode) ? "fahrenheit" : "celsius");
+    exported.putString("temperatureUnit", USES_FAHRENHEIT.contains(currentRegionCode) ? "fahrenheit" : "celsius");
     exported.putString("timeZone", TimeZone.getDefault().getID());
     exported.putBoolean("uses24HourClock", DateFormat.is24HourFormat(getReactApplicationContext()));
     exported.putBoolean("usesAutoDateAndTime", getUsesAutoDateAndTime());
     exported.putBoolean("usesAutoTimeZone", getUsesAutoTimeZone());
-    exported.putBoolean("usesMetricSystem", !USES_IMPERIAL.contains(currentCountryCode));
+    exported.putBoolean("usesMetricSystem", !USES_IMPERIAL.contains(currentRegionCode));
 
     return exported;
   }
