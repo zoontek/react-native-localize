@@ -77,7 +77,7 @@ export function getCurrencies(): string[] {
   const { languages } = navigator;
   const currencies: string[] = [];
 
-  languages.forEach(language => {
+  languages.forEach((language) => {
     const { countryCode } = splitLanguageTag(language);
 
     if (countryCode) {
@@ -102,7 +102,7 @@ export function getLocales(): Locale[] {
   const cache: string[] = [];
   const locales: Locale[] = [];
 
-  languages.forEach(language => {
+  languages.forEach((language) => {
     const locale = convertLanguageTagToLocale(language, countryCode);
 
     if (cache.indexOf(locale.languageTag) === -1) {
@@ -152,6 +152,6 @@ export const handlers: Set<Function> = new Set();
 
 if (canUseDOM) {
   window.addEventListener("languagechange", () => {
-    handlers.forEach(handler => handler());
+    handlers.forEach((handler) => handler());
   });
 }

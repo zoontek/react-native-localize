@@ -2,7 +2,7 @@
 
 const webpack = require("webpack");
 const path = require("path");
-const fromRoot = _ => path.resolve(__dirname, _);
+const fromRoot = (_) => path.resolve(__dirname, _);
 
 module.exports = {
   entry: fromRoot("index.js"),

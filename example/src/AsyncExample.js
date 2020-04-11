@@ -65,7 +65,7 @@ export default class AsyncExample extends React.Component {
         this.setState({ isTranslationLoaded: true });
         RNLocalize.addEventListener("change", this.handleLocalizationChange);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   }
@@ -77,7 +77,7 @@ export default class AsyncExample extends React.Component {
   handleLocalizationChange = () => {
     setI18nConfig()
       .then(() => this.forceUpdate())
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -152,7 +152,7 @@ export default class AsyncExample extends React.Component {
   }
 }
 
-const Line = props => (
+const Line = (props) => (
   <View style={styles.block}>
     <Text style={styles.name}>{props.name}</Text>
     <Text style={styles.value}>{JSON.stringify(props.value)}</Text>
