@@ -12,6 +12,7 @@ module.exports = {
   },
   devServer: {
     contentBase: fromRoot("dist"),
+    publicPath: "/",
   },
   module: {
     rules: [

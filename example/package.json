@@ -5,29 +5,29 @@
   "scripts": {
     "clean-modules": "rm -rf ./node_modules/react-native-localize/{example,node_modules}",
     "clean": "rm -rf ./node_modules ./ios/Pods",
-    "postinstall": "yarn clean-modules && yarn pod-install",
-    "pod-install": "cd ./ios && pod install && cd ..",
+    "postinstall": "yarn clean-modules && yarn pod-update",
+    "pod-update": "cd ./ios && pod update && cd ..",
     "start-metro": "react-native start",
-    "start-webpack": "webpack-dev-server --mode development",
+    "start-webpack": "webpack serve",
     "reinstall": "yarn clean && yarn install"
   },
   "dependencies": {
-    "i18n-js": "3.5.1",
+    "i18n-js": "3.8.0",
     "lodash.memoize": "4.1.2",
-    "react": "16.11.0",
-    "react-dom": "16.11.0",
-    "react-native": "0.62.2",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-native": "0.63.3",
     "react-native-fs": "2.16.6",
     "react-native-localize": "file:../",
-    "react-native-web": "0.12.2"
+    "react-native-web": "0.14.6"
   },
   "devDependencies": {
-    "@babel/core": "7.9.0",
-    "@babel/runtime": "7.9.2",
-    "babel-loader": "8.1.0",
-    "metro-react-native-babel-preset": "0.59.0",
-    "webpack": "4.42.1",
-    "webpack-cli": "3.3.11",
-    "webpack-dev-server": "3.10.3"
+    "@babel/core": "^7.12.3",
+    "@babel/runtime": "^7.12.1",
+    "babel-loader": "^8.1.0",
+    "metro-react-native-babel-preset": "^0.59.0",
+    "webpack": "^5.3.2",
+    "webpack-cli": "^4.1.0",
+    "webpack-dev-server": "^3.11.0"
   }
 }
