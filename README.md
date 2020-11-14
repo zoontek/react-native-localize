@@ -4,14 +4,14 @@ A toolbox for your React Native app localization.
 
 [![npm version](https://badge.fury.io/js/react-native-localize.svg)](https://badge.fury.io/js/react-native-localize) [![npm](https://img.shields.io/npm/dt/react-native-localize.svg)](https://www.npmjs.org/package/react-native-localize) ![Platform - Android, iOS and Web](https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%7C%20Web-yellow.svg) ![MIT](https://img.shields.io/dub/l/vibe-d.svg) [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-<img width="400" height="auto" center src="https://github.com/react-native-community/react-native-localize/blob/master/docs/screenshot.png?raw=true" />
+<img width="400" height="auto" center src="https://github.com/zoontek/react-native-localize/blob/master/docs/screenshot.png?raw=true" />
 
 ## Support
 
-| package name           | version | react-native version |
-| ---------------------- | ------- | -------------------- |
-| react-native-localize  | 1.0.0+  | 0.56.0+              |
-| react-native-languages | 2.0.1   | 0.48.0 - 0.55.4      |
+| package name          | version | react-native version |
+| --------------------- | ------- | -------------------- |
+| react-native-localize | 2.0.0+  | 0.60.0+              |
+| react-native-localize | 1.0.0+  | 0.56.0+              |
 
 ## Setup
 
@@ -62,7 +62,7 @@ dependencies {
 3. Add the import and link the package in `MainApplication.java`:
 
 ```java
-import com.reactcommunity.rnlocalize.RNLocalizePackage; // <- add the RNLocalizePackage import
+import com.zoontek.rnlocalize.RNLocalizePackage; // <- add the RNLocalizePackage import
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -354,7 +354,7 @@ RNLocalize.removeEventListener("change", handleLocalizationChange);
 
 ### findBestAvailableLanguage()
 
-Returns the best language tag possible and its reading direction (⚠️ **it respects the user preferred languages list order, see [explanations](https://github.com/react-native-community/react-native-localize/issues/57#issuecomment-508456427)**). Useful to pick the best translation available.
+Returns the best language tag possible and its reading direction (⚠️ **it respects the user preferred languages list order, see [explanations](https://github.com/zoontek/react-native-localize/issues/57#issuecomment-508456427)**). Useful to pick the best translation available.
 
 #### Method type
 
@@ -373,7 +373,7 @@ console.log(RNLocalize.findBestAvailableLanguage(["en-US", "en", "fr"]));
 
 ## Examples with [i18n-js](https://github.com/fnando/i18n-js)
 
-Browse the files in the [/example](https://github.com/react-native-community/react-native-localize/tree/master/example) directory.
+Browse the files in the [/example](https://github.com/zoontek/react-native-localize/tree/master/example) directory.
 
 ## How to test your code
 
@@ -429,4 +429,4 @@ export {
 
 ## Add project's supported localizations (iOS)
 
-![](https://github.com/react-native-community/react-native-localize/blob/master/docs/xcode-adding-locales.png?raw=true)
+![](https://github.com/zoontek/react-native-localize/blob/master/docs/xcode-adding-locales.png?raw=true)

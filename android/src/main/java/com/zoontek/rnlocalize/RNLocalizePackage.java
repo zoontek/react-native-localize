@@ -1,4 +1,4 @@
-package com.reactcommunity.rnlocalize;
+package com.zoontek.rnlocalize;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;

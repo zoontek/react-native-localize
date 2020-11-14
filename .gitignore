@@ -18,7 +18,6 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
-project.xcworkspace
 
 # Android/IntelliJ
 build/
@@ -42,7 +41,7 @@ buck-out/
 !debug.keystore
 
 # Bob
-lib/
+dist/
 
 # CocoaPods
 Pods/

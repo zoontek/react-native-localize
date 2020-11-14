@@ -1,17 +1,13 @@
-// @flow
-
 import {
+  CURRENCIES,
   USES_FAHRENHEIT,
   USES_IMPERIAL,
   USES_RTL_LAYOUT,
-  CURRENCIES,
 } from "./constants";
-
 import type {
   Calendar,
   Locale,
   NumberFormatSettings,
-  Option,
   TemperatureUnit,
 } from "./types";
 
@@ -27,10 +23,10 @@ function ensureCountryCode(countryCode: string): string {
 
 function splitLanguageTag(
   languageTag: string,
-): {|
-  languageCode: string,
-  countryCode?: string,
-|} {
+): {
+  languageCode: string;
+  countryCode?: string;
+} {
   const [languageCode, countryCode] = languageTag.split("-");
   return { languageCode, countryCode };
 }
@@ -117,7 +113,7 @@ export function getLocales(): Locale[] {
 export function getNumberFormatSettings(): NumberFormatSettings {
   const { languageTag } = getCurrentLocale();
   const formatter = new Intl.NumberFormat(languageTag);
-  const separators = [...formatter.format(1000000.1).replace(/\d/g, "")];
+  const separators = formatter.format(1000000.1).replace(/\d/g, "");
 
   return {
     decimalSeparator: separators[separators.length - 1],
@@ -145,8 +141,13 @@ export function usesMetricSystem(): boolean {
   return !USES_IMPERIAL.includes(getCountry());
 }
 
-export function usesAutoDateAndTime(): Option<boolean> {}
-export function usesAutoTimeZone(): Option<boolean> {}
+export function usesAutoDateAndTime(): boolean | undefined {
+  return;
+}
+
+export function usesAutoTimeZone(): boolean | undefined {
+  return;
+}
 
 export const handlers: Set<Function> = new Set();
 

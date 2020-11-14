@@ -1,4 +1,4 @@
-package com.reactcommunity.rnlocalize;
+package com.zoontek.rnlocalize;
 
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -12,6 +12,9 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.LifecycleEventListener;
@@ -33,23 +36,21 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 @ReactModule(name = RNLocalizeModule.MODULE_NAME)
 public class RNLocalizeModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
 
   public static final String MODULE_NAME = "RNLocalize";
 
   private final List<String> USES_FAHRENHEIT =
-      Arrays.asList("BS", "BZ", "KY", "PR", "PW", "US");
+    Arrays.asList("BS", "BZ", "KY", "PR", "PW", "US");
   private final List<String> USES_IMPERIAL=
-      Arrays.asList("LR", "MM", "US");
+    Arrays.asList("LR", "MM", "US");
   private final List<String> USES_RTL_LAYOUT =
-      Arrays.asList("ar", "ckb", "fa", "he", "ks", "lrc", "mzn", "ps", "ug", "ur", "yi");
+    Arrays.asList("ar", "ckb", "fa", "he", "ks", "lrc", "mzn", "ps", "ug", "ur", "yi");
 
-  private boolean mainActivityVisible = true;
-  private boolean emitChangeOnResume = false;
+  private @Nullable final BroadcastReceiver mBroadcastReceiver;
+  private boolean mMainActivityVisible = true;
+  private boolean mEmitChangeOnResume = false;
 
   public RNLocalizeModule(ReactApplicationContext reactContext) {
     super(reactContext);
@@ -61,7 +62,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     filter.addAction(Intent.ACTION_TIME_CHANGED);
     filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
 
-    BroadcastReceiver receiver = new BroadcastReceiver() {
+    mBroadcastReceiver = new BroadcastReceiver() {
       @Override
       public void onReceive(Context context, Intent intent) {
         if (intent.getAction() != null) {
@@ -71,7 +72,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     };
 
     reactContext.addLifecycleEventListener(this);
-    reactContext.registerReceiver(receiver, filter);
+    reactContext.registerReceiver(mBroadcastReceiver, filter);
   }
 
   @Override
@@ -88,44 +89,46 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
   }
 
   private void onLocalizationDidChange() {
-    if (mainActivityVisible) {
+    if (mMainActivityVisible) {
       emitLocalizationDidChange();
     } else {
-      emitChangeOnResume = true;
+      mEmitChangeOnResume = true;
     }
   }
 
   @Override
   public void onHostResume() {
-    mainActivityVisible = true;
+    mMainActivityVisible = true;
 
-    if (emitChangeOnResume) {
+    if (mEmitChangeOnResume) {
       emitLocalizationDidChange();
-      emitChangeOnResume = false;
+      mEmitChangeOnResume = false;
     }
   }
 
   @Override
   public void onHostPause() {
-    mainActivityVisible = false;
+    mMainActivityVisible = false;
   }
 
   @Override
-  public void onHostDestroy() {}
+  public void onHostDestroy() {
+    getReactApplicationContext().unregisterReceiver(mBroadcastReceiver);
+  }
 
   private void emitLocalizationDidChange() {
     if (getReactApplicationContext().hasActiveCatalystInstance()) {
       getReactApplicationContext()
-          .getJSModule(RCTDeviceEventEmitter.class)
-          .emit("localizationDidChange", getExportedConstants());
+        .getJSModule(RCTDeviceEventEmitter.class)
+        .emit("localizationDidChange", getExportedConstants());
     }
   }
 
-  private @Nonnull List<Locale> getLocales() {
+  private @NonNull List<Locale> getLocales() {
     List<Locale> locales = new ArrayList<>();
     Configuration config = getReactApplicationContext()
-        .getResources()
-        .getConfiguration();
+      .getResources()
+      .getConfiguration();
 
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
       locales.add(config.locale);
@@ -140,7 +143,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     return locales;
   }
 
-  private @Nonnull String getLanguageCode(@Nonnull Locale locale) {
+  private @NonNull String getLanguageCode(@NonNull Locale locale) {
     String language = locale.getLanguage();
 
     switch (language) {
@@ -155,7 +158,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     return language;
   }
 
-  private @Nonnull String getScriptCode(@Nonnull Locale locale) {
+  private @NonNull String getScriptCode(@NonNull Locale locale) {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
       return "";
     }
@@ -164,7 +167,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     return TextUtils.isEmpty(script) ? "" : script;
   }
 
-  private @Nonnull String getSystemProperty(String key) {
+  private @NonNull String getSystemProperty(String key) {
     try {
       Class<?> systemProperties = Class.forName("android.os.SystemProperties");
       Method get = systemProperties.getMethod("get", String.class);
@@ -175,7 +178,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     }
   }
 
-  private @Nonnull String getCountryCode(@Nonnull Locale locale) {
+  private @NonNull String getCountryCode(@NonNull Locale locale) {
     try {
       String country = locale.getCountry();
 
@@ -189,7 +192,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     }
   }
 
-  private @Nonnull String getRegionCode(@Nonnull Locale locale) {
+  private @NonNull String getRegionCode(@NonNull Locale locale) {
     String miuiRegion = getSystemProperty("ro.miui.region");
 
     if (!TextUtils.isEmpty(miuiRegion)) {
@@ -199,7 +202,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     return getCountryCode(locale);
   }
 
-  private @Nonnull String getCurrencyCode(@Nonnull Locale locale) {
+  private @NonNull String getCurrencyCode(@NonNull Locale locale) {
     try {
       Currency currency = Currency.getInstance(locale);
       return currency == null ? "" : currency.getCurrencyCode();
@@ -208,15 +211,15 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     }
   }
 
-  private boolean getIsRTL(@Nonnull Locale locale) {
+  private boolean getIsRTL(@NonNull Locale locale) {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
-        ? TextUtils.getLayoutDirectionFromLocale(locale) == View.LAYOUT_DIRECTION_RTL
-        : USES_RTL_LAYOUT.contains(getLanguageCode(locale));
+      ? TextUtils.getLayoutDirectionFromLocale(locale) == View.LAYOUT_DIRECTION_RTL
+      : USES_RTL_LAYOUT.contains(getLanguageCode(locale));
   }
 
-  private @Nonnull String createLanguageTag(@Nonnull String languageCode,
-                                            @Nonnull String scriptCode,
-                                            @Nonnull String countryCode) {
+  private @NonNull String createLanguageTag(@NonNull String languageCode,
+                                            @NonNull String scriptCode,
+                                            @NonNull String countryCode) {
     String languageTag = languageCode;
 
     if (!TextUtils.isEmpty(scriptCode)) {
@@ -226,7 +229,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     return languageTag + "-" + countryCode;
   }
 
-  private @Nonnull WritableMap getNumberFormatSettings(@Nonnull Locale locale) {
+  private @NonNull WritableMap getNumberFormatSettings(@NonNull Locale locale) {
     WritableMap settings = Arguments.createMap();
     DecimalFormatSymbols symbols = new DecimalFormatSymbols(locale);
 
@@ -240,19 +243,19 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     ContentResolver resolver = getReactApplicationContext().getContentResolver();
 
     return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
-        ? Settings.Global.getInt(resolver, Settings.Global.AUTO_TIME, 0)
-        : Settings.System.getInt(resolver, Settings.System.AUTO_TIME, 0)) != 0;
+      ? Settings.Global.getInt(resolver, Settings.Global.AUTO_TIME, 0)
+      : Settings.System.getInt(resolver, Settings.System.AUTO_TIME, 0)) != 0;
   }
 
   private boolean getUsesAutoTimeZone() {
     ContentResolver resolver = getReactApplicationContext().getContentResolver();
 
     return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
-        ? Settings.Global.getInt(resolver, Settings.Global.AUTO_TIME_ZONE, 0)
-        : Settings.System.getInt(resolver, Settings.System.AUTO_TIME_ZONE, 0)) != 0;
+      ? Settings.Global.getInt(resolver, Settings.Global.AUTO_TIME_ZONE, 0)
+      : Settings.System.getInt(resolver, Settings.System.AUTO_TIME_ZONE, 0)) != 0;
   }
 
-  private @Nonnull WritableMap getExportedConstants() {
+  private @NonNull WritableMap getExportedConstants() {
     List<Locale> deviceLocales = getLocales();
     Locale currentLocale = deviceLocales.get(0);
     String currentRegionCode = getRegionCode(currentLocale);
