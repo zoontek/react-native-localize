@@ -1,9 +1,6 @@
-import React from "react";
-import * as RNLocalize from "react-native-localize";
-import RNFS from "react-native-fs";
 import i18n from "i18n-js";
 import memoize from "lodash.memoize";
-
+import * as React from "react";
 import {
   I18nManager,
   Platform,
@@ -13,6 +10,8 @@ import {
   Text,
   View,
 } from "react-native";
+import RNFS from "react-native-fs";
+import * as RNLocalize from "react-native-localize";
 
 const setI18nConfig = async () => {
   const translationsDir = await (Platform.OS === "android"

@@ -1,5 +1,3 @@
-// @flow
-
 export const USES_FAHRENHEIT = ["BS", "BZ", "KY", "PR", "PW", "US"];
 
 export const USES_IMPERIAL = ["LR", "MM", "US"];
@@ -18,7 +16,7 @@ export const USES_RTL_LAYOUT = [
   "yi",
 ];
 
-export const CURRENCIES = Object.freeze({
+export const CURRENCIES: Record<string, string> = {
   AD: "EUR",
   AE: "AED",
   AF: "AFN",
@@ -268,4 +266,4 @@ export const CURRENCIES = Object.freeze({
   ZA: "ZAR",
   ZM: "ZMW",
   ZW: "ZWL",
-});
+};

@@ -1,8 +1,6 @@
-import React from "react";
-import * as RNLocalize from "react-native-localize";
 import i18n from "i18n-js";
 import memoize from "lodash.memoize";
-
+import * as React from "react";
 import {
   I18nManager,
   Platform,
@@ -12,6 +10,7 @@ import {
   Text,
   View,
 } from "react-native";
+import * as RNLocalize from "react-native-localize";
 
 const translationGetters = {
   // lazy requires (metro bundler does not support symlinks)
