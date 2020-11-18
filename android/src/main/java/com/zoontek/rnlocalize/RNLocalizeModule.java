@@ -71,8 +71,8 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
       }
     };
 
-    reactContext.addLifecycleEventListener(this);
     reactContext.registerReceiver(mBroadcastReceiver, filter);
+    reactContext.addLifecycleEventListener(this);
   }
 
   @Override
