@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.WritableArray;
@@ -37,7 +36,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 @ReactModule(name = RNLocalizeModule.MODULE_NAME)
-public class RNLocalizeModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
+public class RNLocalizeModule extends ReactContextBaseJavaModule {
 
   public static final String MODULE_NAME = "RNLocalize";
 
@@ -48,31 +47,22 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
   private final List<String> USES_RTL_LAYOUT =
     Arrays.asList("ar", "ckb", "fa", "he", "ks", "lrc", "mzn", "ps", "ug", "ur", "yi");
 
-  private @Nullable final BroadcastReceiver mBroadcastReceiver;
-  private boolean mMainActivityVisible = true;
-  private boolean mEmitChangeOnResume = false;
+  private final @NonNull BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+      ReactApplicationContext reactContext = getReactApplicationContext();
+
+      if (intent.getAction() != null &&
+        reactContext.hasActiveCatalystInstance()) {
+        reactContext
+          .getJSModule(RCTDeviceEventEmitter.class)
+          .emit("localizationDidChange", getExportedConstants());
+      }
+    }
+  };
 
   public RNLocalizeModule(ReactApplicationContext reactContext) {
     super(reactContext);
-
-    IntentFilter filter = new IntentFilter();
-
-    filter.addAction(Intent.ACTION_DATE_CHANGED);
-    filter.addAction(Intent.ACTION_LOCALE_CHANGED);
-    filter.addAction(Intent.ACTION_TIME_CHANGED);
-    filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-
-    mBroadcastReceiver = new BroadcastReceiver() {
-      @Override
-      public void onReceive(Context context, Intent intent) {
-        if (intent.getAction() != null) {
-          onLocalizationDidChange();
-        }
-      }
-    };
-
-    reactContext.addLifecycleEventListener(this);
-    reactContext.registerReceiver(mBroadcastReceiver, filter);
   }
 
   @Override
@@ -88,40 +78,27 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule implements Life
     return constants;
   }
 
-  private void onLocalizationDidChange() {
-    if (mMainActivityVisible) {
-      emitLocalizationDidChange();
-    } else {
-      mEmitChangeOnResume = true;
-    }
+  @Override
+  public void initialize() {
+    super.initialize();
+
+    IntentFilter filter = new IntentFilter();
+
+    filter.addAction(Intent.ACTION_LOCALE_CHANGED);
+    filter.addAction(Intent.ACTION_DATE_CHANGED);
+    filter.addAction(Intent.ACTION_TIME_CHANGED);
+    filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+
+    getReactApplicationContext()
+      .registerReceiver(mBroadcastReceiver, filter);
   }
 
   @Override
-  public void onHostResume() {
-    mMainActivityVisible = true;
+  public void onCatalystInstanceDestroy() {
+    super.onCatalystInstanceDestroy();
 
-    if (mEmitChangeOnResume) {
-      emitLocalizationDidChange();
-      mEmitChangeOnResume = false;
-    }
-  }
-
-  @Override
-  public void onHostPause() {
-    mMainActivityVisible = false;
-  }
-
-  @Override
-  public void onHostDestroy() {
-    getReactApplicationContext().unregisterReceiver(mBroadcastReceiver);
-  }
-
-  private void emitLocalizationDidChange() {
-    if (getReactApplicationContext().hasActiveCatalystInstance()) {
-      getReactApplicationContext()
-        .getJSModule(RCTDeviceEventEmitter.class)
-        .emit("localizationDidChange", getExportedConstants());
-    }
+    getReactApplicationContext()
+      .unregisterReceiver(mBroadcastReceiver);
   }
 
   private @NonNull List<Locale> getLocales() {
