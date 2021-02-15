@@ -104,4 +104,8 @@ export default {
   usesAutoDateAndTime,
   usesAutoTimeZone,
   usesMetricSystem,
+
+  findBestAvailableLanguage,
+  addEventListener,
+  removeEventListener,
 };
