@@ -1,12 +1,17 @@
 <a href="https://github.com/sponsors/zoontek">
-  <img align="right" width="200" alt="Philosopher’s stone, logo of PostCSS" src=".github/funding-octocat.svg">
+  <img align="right" width="200" alt="This library helped you? Consider sponsoring!" src=".github/funding-octocat.svg">
 </a>
 
 # 🌍  react-native-localize
 
 A toolbox for your React Native app localization.
 
-[![npm version](https://badge.fury.io/js/react-native-localize.svg)](https://badge.fury.io/js/react-native-localize) [![npm](https://img.shields.io/npm/dt/react-native-localize.svg)](https://www.npmjs.org/package/react-native-localize) ![Platform - Android, iOS and Web](https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%7C%20Web-yellow.svg) ![MIT](https://img.shields.io/dub/l/vibe-d.svg) [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![npm version](https://badge.fury.io/js/react-native-localize.svg)](https://badge.fury.io/js/react-native-localize)
+[![npm](https://img.shields.io/npm/dt/react-native-localize.svg)](https://www.npmjs.org/package/react-native-localize)
+![MIT](https://img.shields.io/dub/l/vibe-d.svg)
+<br />
+![Platform - Android](https://img.shields.io/badge/platform-Android-3ddc84.svg?style=flat&logo=android)
+![Platform - iOS](https://img.shields.io/badge/platform-iOS-000.svg?style=flat&logo=apple)
 
 <img width="400" height="auto" center src="https://github.com/zoontek/react-native-localize/blob/master/docs/screenshot.png?raw=true" />
 
