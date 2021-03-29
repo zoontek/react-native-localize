@@ -1,15 +1,15 @@
-<a href="https://github.com/sponsors/zoontek">
-  <img align="right" width="200" alt="This library helped you? Consider sponsoring!" src=".github/funding-octocat.svg">
-</a>
+# 🌍 React native localize
 
-# 🌍  react-native-localize
+<a href="https://github.com/sponsors/zoontek">
+  <img align="right" width="160" alt="This library helped you? Consider sponsoring!" src=".github/funding-octocat.svg">
+</a>
 
 A toolbox for your React Native app localization.
 
 [![npm version](https://badge.fury.io/js/react-native-localize.svg)](https://badge.fury.io/js/react-native-localize)
 ![MIT](https://img.shields.io/dub/l/vibe-d.svg)
 [![npm](https://img.shields.io/npm/dt/react-native-localize.svg)](https://www.npmjs.org/package/react-native-localize)
-<br />
+<br>
 ![Platform - Android](https://img.shields.io/badge/platform-Android-3ddc84.svg?style=flat&logo=android)
 ![Platform - iOS](https://img.shields.io/badge/platform-iOS-000.svg?style=flat&logo=apple)
 ![Platform - Web](https://img.shields.io/badge/platform-Web-1977f2.svg?style=flat&logo=html5&logoColor=fff)
