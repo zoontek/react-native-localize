@@ -9,7 +9,7 @@ using namespace winrt::Microsoft::ReactNative;
 namespace winrt::ReactNativeLocalize
 {
 
-REACT_MODULE(RNLocalizeModule, L"ReactNativeLocalize");
+REACT_MODULE(RNLocalizeModule, L"RNLocalize");
 struct RNLocalizeModule
 {
     REACT_CONSTANT_PROVIDER(GetConstants)
