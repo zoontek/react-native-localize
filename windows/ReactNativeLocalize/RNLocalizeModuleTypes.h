@@ -3,6 +3,7 @@
 #include "NativeModules.h"
 
 #include <optional>
+#include <string>
 
 // These should stay aligned with those defined here
 // https://github.com/react-native-community/react-native-localize/tree/master/src

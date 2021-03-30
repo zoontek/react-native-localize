@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "RNLocalizeModule.h"
 
 #include "winrt/Windows.Globalization.h"
@@ -128,7 +130,7 @@ NumberFormatSettings RNLocalizeModule::getNumberFormatSettings(std::string local
     LPWSTR numberFormatBuffer = new TCHAR[9];
     GetNumberFormatEx(locale_l, NULL, num_l, NULL, numberFormatBuffer, 9);
     std::string formattedString = winrt::to_string(numberFormatBuffer);
-    delete numberFormatBuffer; // this or delete[]?
+    delete numberFormatBuffer;
 
     numberFormatSettings.decimalSeparator = formattedString.substr(5, 1);
     numberFormatSettings.groupingSeparator = formattedString.substr(1, 1);

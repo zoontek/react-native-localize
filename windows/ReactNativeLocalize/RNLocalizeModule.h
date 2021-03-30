@@ -1,8 +1,9 @@
-﻿#pragma once
+#pragma once
 
 #include "JSValue.h"
 #include "NativeModules.h"
-
+#include "RNLocalizeModuleTypes.h"
+#include <vector>
 using namespace winrt::Microsoft::ReactNative;
 
 namespace winrt::ReactNativeLocalize
@@ -12,7 +13,7 @@ REACT_MODULE(RNLocalizeModule, L"ReactNativeLocalize");
 struct RNLocalizeModule
 {
     REACT_CONSTANT_PROVIDER(GetConstants)
-    void RNLocalizeModule::GetConstants(RN::ReactConstantProvider &provider) noexcept;
+    void RNLocalizeModule::GetConstants(winrt::Microsoft::ReactNative::ReactConstantProvider &provider) noexcept;
 
     REACT_METHOD(initialConstants)
     LocalizationConstants initialConstants() noexcept;
