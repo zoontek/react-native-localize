@@ -6,7 +6,6 @@
     "clean-modules": "rimraf ./node_modules/react-native-localize/{example,node_modules}",
     "clean": "rimraf ./node_modules ./ios/Pods",
     "postinstall": "yarn clean-modules",
-    "postinstall:ios": "yarn pod-update",
     "pod-update": "cd ./ios && pod update && cd ..",
     "start-metro": "react-native start",
     "start-webpack": "webpack serve",

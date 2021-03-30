@@ -7,11 +7,13 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="ReactPackageProvider.cpp" />
+    <ClCompile Include="RNLocalizeModule.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="ReactPackageProvider.h" />
-    <ClInclude Include="ReactNativeModule.h" />
+    <ClInclude Include="RNLocalizeModule.h" />
+    <ClInclude Include="RNLocalizeModuleTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />

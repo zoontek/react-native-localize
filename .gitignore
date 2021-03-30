@@ -48,3 +48,6 @@ Pods/
 
 # Bundle artifact
 *.jsbundle
+
+bin/
+msbuild.binlog
