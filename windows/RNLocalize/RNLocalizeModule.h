@@ -4,9 +4,10 @@
 #include "NativeModules.h"
 #include "RNLocalizeModuleTypes.h"
 #include <vector>
+
 using namespace winrt::Microsoft::ReactNative;
 
-namespace winrt::ReactNativeLocalize
+namespace winrt::RNLocalize
 {
 
 REACT_MODULE(RNLocalizeModule, L"RNLocalize");
@@ -40,4 +41,4 @@ private:
         {"ar", "ckb", "fa", "he", "ks", "lrc", "mzn", "ps", "ug", "ur", "yi"}};
 };
 
-} // namespace winrt::ReactNativeLocalize
+} // namespace winrt::RNLocalize

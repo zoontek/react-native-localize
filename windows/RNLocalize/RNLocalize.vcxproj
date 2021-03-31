@@ -6,8 +6,8 @@
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
     <MinimalCoreWin>true</MinimalCoreWin>
     <ProjectGuid>{10e2379c-4264-444a-8656-b3d7e83acb44}</ProjectGuid>
-    <ProjectName>ReactNativeLocalize</ProjectName>
-    <RootNamespace>ReactNativeLocalize</RootNamespace>
+    <ProjectName>RNLocalize</ProjectName>
+    <RootNamespace>RNLocalize</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>16.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
@@ -95,7 +95,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateWindowsMetadata>true</GenerateWindowsMetadata>
-      <ModuleDefinitionFile>ReactNativeLocalize.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>RNLocalize.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">

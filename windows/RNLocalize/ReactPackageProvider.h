@@ -3,7 +3,7 @@
 
 using namespace winrt::Microsoft::ReactNative;
 
-namespace winrt::ReactNativeLocalize::implementation
+namespace winrt::RNLocalize::implementation
 {
     struct ReactPackageProvider : ReactPackageProviderT<ReactPackageProvider>
     {
@@ -11,11 +11,11 @@ namespace winrt::ReactNativeLocalize::implementation
 
         void CreatePackage(IReactPackageBuilder const &packageBuilder) noexcept;
     };
-} // namespace winrt::ReactNativeLocalize::implementation
+} // namespace winrt::RNLocalize::implementation
 
-namespace winrt::ReactNativeLocalize::factory_implementation
+namespace winrt::RNLocalize::factory_implementation
 {
 
 struct ReactPackageProvider : ReactPackageProviderT<ReactPackageProvider, implementation::ReactPackageProvider> {};
 
-} // namespace winrt::ReactNativeLocalize::factory_implementation
+} // namespace winrt::RNLocalize::factory_implementation

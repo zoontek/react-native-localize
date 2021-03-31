@@ -12,6 +12,7 @@ A toolbox for your React Native app localization.
 <br>
 [![Platform - Android](https://img.shields.io/badge/platform-Android-3ddc84.svg?style=flat&logo=android)](https://www.android.com)
 [![Platform - iOS](https://img.shields.io/badge/platform-iOS-000.svg?style=flat&logo=apple)](https://developer.apple.com/ios)
+[![Platform - Windows](https://img.shields.io/badge/platform-Windows-0067b8.svg?style=flat&logo=windows)](https://www.microsoft.com/en-us/windows)
 [![Platform - Web](https://img.shields.io/badge/platform-Web-1977f2.svg?style=flat&logo=html5&logoColor=fff)](https://developer.mozilla.org)
 
 <img width="400" height="auto" center src="https://github.com/zoontek/react-native-localize/blob/master/docs/screenshot.png?raw=true" />
@@ -90,6 +91,12 @@ public class MainApplication extends Application implements ReactApplication {
   // …
 }
 ```
+
+### Windows Support
+
+Because this RNW package targets React Native 0.63.0+, you probably won't need to link it manually. Otherwise if it's not the case, follow these additional instructions. You also need to manual link the module on Windows when using React Native Windows prior to 0.63:
+
+For more information about autolinking and manual linking. Follow the [official guide](https://microsoft.github.io/react-native-windows/docs/native-modules-autolinking)
 
 </details>
 

@@ -4,7 +4,7 @@
 #include "AutolinkedNativeModules.g.h"
 
 // Includes from react-native-localize
-#include <winrt/ReactNativeLocalize.h>
+#include <winrt/RNLocalize.h>
 
 namespace winrt::Microsoft::ReactNative
 {
@@ -12,7 +12,7 @@ namespace winrt::Microsoft::ReactNative
 void RegisterAutolinkedNativeModulePackages(winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::ReactNative::IReactPackageProvider> const& packageProviders)
 { 
     // IReactPackageProviders from react-native-localize
-    packageProviders.Append(winrt::ReactNativeLocalize::ReactPackageProvider());
+    packageProviders.Append(winrt::RNLocalize::ReactPackageProvider());
 }
 
 }

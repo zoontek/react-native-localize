@@ -1,4 +1,4 @@
-namespace ReactNativeLocalize
+namespace RNLocalize
 {
     [webhosthidden]
     [default_interface]

@@ -6,7 +6,7 @@
 
 using namespace winrt::Microsoft::ReactNative;
 
-namespace winrt::ReactNativeLocalize
+namespace winrt::RNLocalize
 {
 
 std::vector<winrt::hstring> RNLocalizeModule::getLocaleNames()
@@ -187,4 +187,4 @@ LocalizationConstants RNLocalizeModule::initialConstants() noexcept
     return constants;
 }
 
-} // namespace winrt::ReactNativeLocalize
+} // namespace winrt::RNLocalize

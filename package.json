@@ -12,6 +12,7 @@
     "/android",
     "/dist",
     "/ios",
+    "/windows",
     "/src",
     "RNLocalize.podspec",
     "package.json"
@@ -23,6 +24,7 @@
   "keywords": [
     "react-native-localize",
     "react-native",
+    "react-native-windows",
     "localize",
     "localization",
     "l20n"
