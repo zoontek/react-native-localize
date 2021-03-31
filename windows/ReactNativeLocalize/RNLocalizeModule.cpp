@@ -92,7 +92,21 @@ std::string RNLocalizeModule::getScriptCode(winrt::hstring locale)
 std::string RNLocalizeModule::getCalendar()
 {
     std::string calendar = to_string(winrt::Windows::Globalization::Calendar().GetCalendarSystem());
+
+    // Window's Calendar system can return any of these values:
+    // "EastAsianLunisolarCalendar", "GregorianCalendar", "HebrewCalendar, "HijriCalendar",
+    // "JapaneseCalendar", "JulianCalendar", "KoreanCalendar", "PersianCalendar",
+    // "TaiwanCalendar", "ThaiBuddhistCalendar", "UmAlQuraCalendar"
+    // In all cases they end in "Calendar" and RNL doesn't expect this, so we must truncate it.
     calendar = calendar.substr(0, calendar.size() - 8);
+
+    // Special edge case: RNL expects "buddhist" not "thaibuddhist"
+    // see https://github.com/zoontek/react-native-localize/blob/master/src/types.ts
+    if (calendar == "ThaiBuddhist")
+    {
+        return "buddhist";
+    }
+
     std::transform(calendar.begin(), calendar.end(), calendar.begin(), ::tolower);
     return calendar;
 }
