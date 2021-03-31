@@ -6,8 +6,8 @@
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
     <MinimalCoreWin>true</MinimalCoreWin>
     <ProjectGuid>{eec382ff-948d-444c-8318-03380e8a3088}</ProjectGuid>
-    <ProjectName>RNLocalizeSampleApp</ProjectName>
-    <RootNamespace>RNLocalizeSampleApp</RootNamespace>
+    <ProjectName>RNLocalizeExampleApp</ProjectName>
+    <RootNamespace>RNLocalizeExampleApp</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>16.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
@@ -15,7 +15,7 @@
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
     <WindowsTargetPlatformVersion Condition=" '$(WindowsTargetPlatformVersion)' == '' ">10.0.18362.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformMinVersion>10.0.16299.0</WindowsTargetPlatformMinVersion>
-    <PackageCertificateKeyFile>RNLocalizeSampleApp_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>RNLocalizeExampleApp_TemporaryKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>7F5FF536DF12FBB03D5AE657CA37218B48F2BF52</PackageCertificateThumbprint>
     <PackageCertificatePassword>password</PackageCertificatePassword>
   </PropertyGroup>

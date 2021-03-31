@@ -2,7 +2,7 @@
 #include "MainPage.g.h"
 #include <winrt/Microsoft.ReactNative.h>
 
-namespace winrt::RNLocalizeSampleApp::implementation
+namespace winrt::RNLocalizeExampleApp::implementation
 {
     struct MainPage : MainPageT<MainPage>
     {
@@ -10,7 +10,7 @@ namespace winrt::RNLocalizeSampleApp::implementation
     };
 }
 
-namespace winrt::RNLocalizeSampleApp::factory_implementation
+namespace winrt::RNLocalizeExampleApp::factory_implementation
 {
     struct MainPage : MainPageT<MainPage, implementation::MainPage>
     {

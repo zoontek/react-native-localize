@@ -5,8 +5,8 @@
 #include "AutolinkedNativeModules.g.h"
 #include "ReactPackageProvider.h"
 
-using namespace winrt::RNLocalizeSampleApp;
-using namespace winrt::RNLocalizeSampleApp::implementation;
+using namespace winrt::RNLocalizeExampleApp;
+using namespace winrt::RNLocalizeExampleApp::implementation;
 using namespace winrt;
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
@@ -48,12 +48,12 @@ App::App() noexcept
 /// will be used such as when the application is launched to open a specific file.
 /// </summary>
 /// <param name="e">Details about the launch request and process.</param>
-void App::OnLaunched(activation::LaunchActivatedEventArgs const& e)
+void App::OnLaunched(activation::LaunchActivatedEventArgs const &e)
 {
     super::OnLaunched(e);
 
     Frame rootFrame = Window::Current().Content().as<Frame>();
-    rootFrame.Navigate(xaml_typename<RNLocalizeSampleApp::MainPage>(), box_value(e.Arguments()));
+    rootFrame.Navigate(xaml_typename<RNLocalizeExampleApp::MainPage>(), box_value(e.Arguments()));
 }
 
 /// <summary>
@@ -63,7 +63,7 @@ void App::OnLaunched(activation::LaunchActivatedEventArgs const& e)
 /// </summary>
 /// <param name="sender">The source of the suspend request.</param>
 /// <param name="e">Details about the suspend request.</param>
-void App::OnSuspending([[maybe_unused]] IInspectable const& sender, [[maybe_unused]] SuspendingEventArgs const& e)
+void App::OnSuspending([[maybe_unused]] IInspectable const &sender, [[maybe_unused]] SuspendingEventArgs const &e)
 {
     // Save application state and stop any background activity
 }
@@ -73,7 +73,7 @@ void App::OnSuspending([[maybe_unused]] IInspectable const& sender, [[maybe_unus
 /// </summary>
 /// <param name="sender">The Frame which failed navigation</param>
 /// <param name="e">Details about the navigation failure</param>
-void App::OnNavigationFailed(IInspectable const&, NavigationFailedEventArgs const& e)
+void App::OnNavigationFailed(IInspectable const &, NavigationFailedEventArgs const &e)
 {
     throw hresult_error(E_FAIL, hstring(L"Failed to load Page ") + e.SourcePageType().Name);
 }
