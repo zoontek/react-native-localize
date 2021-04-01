@@ -113,7 +113,7 @@ std::string RNLocalizeModule::getCalendar()
 
 std::string RNLocalizeModule::getTimeZone()
 {
-    // Use GetTimeZoneInformation to get the hour bias from GMT and then create a formatted string (KLUDGE)
+    // Use GetTimeZoneInformation to get the hour bias from GMT and then create a formatted string.
     TIME_ZONE_INFORMATION TimeZoneInfo;
     GetTimeZoneInformation(&TimeZoneInfo);
 
@@ -136,7 +136,7 @@ NumberFormatSettings RNLocalizeModule::getNumberFormatSettings(std::string local
 
     NumberFormatSettings numberFormatSettings;
 
-    // Use GetNumberFormatEx to get number formatting based on the passed locale (KLUDGE)
+    // Use GetNumberFormatEx to get number formatting based on the passed locale.
     std::string num_s("1000.00");
     std::wstring num_w = std::wstring(num_s.begin(), num_s.end());
     LPCWSTR num_l = num_w.c_str();
