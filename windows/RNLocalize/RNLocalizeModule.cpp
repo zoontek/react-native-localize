@@ -93,7 +93,7 @@ std::string RNLocalizeModule::getCalendar()
 {
     std::string calendar = to_string(winrt::Windows::Globalization::Calendar().GetCalendarSystem());
 
-    // Window's Calendar system can return any of these values:
+    // The Windows calendar APIs can return any of these values:
     // "EastAsianLunisolarCalendar", "GregorianCalendar", "HebrewCalendar, "HijriCalendar",
     // "JapaneseCalendar", "JulianCalendar", "KoreanCalendar", "PersianCalendar",
     // "TaiwanCalendar", "ThaiBuddhistCalendar", "UmAlQuraCalendar"
@@ -141,8 +141,8 @@ NumberFormatSettings RNLocalizeModule::getNumberFormatSettings(std::string local
     std::wstring num_w = std::wstring(num_s.begin(), num_s.end());
     LPCWSTR num_l = num_w.c_str();
 
-    LPWSTR numberFormatBuffer = new TCHAR[9];
-    GetNumberFormatEx(locale_l, NULL, num_l, NULL, numberFormatBuffer, 9);
+    wchar_t numberFormatBuffer[9]={};
+    GetNumberFormatEx(locale_l, nullptr, num_l, nullptr, numberFormatBuffer, ARRAYSIZE(numberFormatBuffer));
     std::string formattedString = winrt::to_string(numberFormatBuffer);
     delete numberFormatBuffer;
 
