@@ -154,17 +154,18 @@ std::string RNLocalizeModule::getTimeZone()
 
 NumberFormatSettings RNLocalizeModule::getNumberFormatSettings(std::string locale)
 {
-  LPCWSTR locale_l = std::wstring(locale.begin(), locale.end()).c_str();
+  const wchar_t *locale_l = std::wstring(locale.begin(), locale.end()).c_str();
 
   NumberFormatSettings numberFormatSettings;
 
   // Use GetNumberFormatEx to get number formatting based on the passed locale.
   std::string num_s("1000.00");
   std::wstring num_w = std::wstring(num_s.begin(), num_s.end());
-  LPCWSTR num_l = num_w.c_str();
+  const wchar_t *num_l = num_w.c_str();
 
-  LPWSTR numberFormatBuffer = new TCHAR[9];
-  GetNumberFormatEx(locale_l, NULL, num_l, NULL, numberFormatBuffer, 9);
+  int numberFormatBufferLength = 9;
+  wchar_t *numberFormatBuffer = new wchar_t[numberFormatBufferLength];
+  GetNumberFormatEx(locale_l, 0, num_l, nullptr, numberFormatBuffer, numberFormatBufferLength);
   std::string formattedString = winrt::to_string(numberFormatBuffer);
   delete numberFormatBuffer;
 
