@@ -24,7 +24,7 @@ struct Locale
     std::string languageTag;
 
     REACT_FIELD(isRTL, L"isRTL")
-    bool isRTL;
+    bool isRTL = true;
 };
 
 REACT_STRUCT(NumberFormatSettings)
@@ -62,10 +62,10 @@ struct LocalizationConstants
     std::string timeZone;
 
     REACT_FIELD(uses24HourClock, L"uses24HourClock")
-    bool uses24HourClock;
+    bool uses24HourClock = false;
 
     REACT_FIELD(usesMetricSystem, L"usesMetricSystem")
-    bool usesMetricSystem;
+    bool usesMetricSystem = true;
 
     REACT_FIELD(usesAutoDateAndTime, L"usesAutoDateAndTime")
     std::optional<bool> usesAutoDateAndTime;

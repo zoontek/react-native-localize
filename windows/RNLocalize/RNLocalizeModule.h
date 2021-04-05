@@ -24,7 +24,7 @@ private:
     std::vector<Locale> getLocales(std::vector<winrt::hstring>);
     std::string getCountryCode(std::string);
     std::string getLanguageCode(std::string);
-    bool getIsRTL(std::string);
+    bool getIsRTL(winrt::Windows::Globalization::LanguageLayoutDirection);
     bool getUsesMetricSystem(std::string);
     std::string getTemperatureUnit(std::string);
     bool getUses24HourClock();
@@ -37,8 +37,6 @@ private:
 
     const std::array<std::string, 6> USES_FAHRENHEIT{{"BS", "BZ", "KY", "PR", "PW", "US"}};
     const std::array<std::string, 3> USES_IMPERIAL{{"LR", "MM", "US"}};
-    const std::array<std::string, 11> USES_RTL_LAYOUT{
-        {"ar", "ckb", "fa", "he", "ks", "lrc", "mzn", "ps", "ug", "ur", "yi"}};
 };
 
 } // namespace winrt::RNLocalize
