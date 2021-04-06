@@ -163,11 +163,10 @@ NumberFormatSettings RNLocalizeModule::getNumberFormatSettings(std::string local
   std::wstring num_w = std::wstring(num_s.begin(), num_s.end());
   const wchar_t *num_l = num_w.c_str();
 
-  int numberFormatBufferLength = 9;
-  wchar_t *numberFormatBuffer = new wchar_t[numberFormatBufferLength];
+  const int numberFormatBufferLength = 9;
+  wchar_t numberFormatBuffer[numberFormatBufferLength];
   GetNumberFormatEx(locale_l, 0, num_l, nullptr, numberFormatBuffer, numberFormatBufferLength);
   std::string formattedString = winrt::to_string(numberFormatBuffer);
-  delete numberFormatBuffer;
 
   numberFormatSettings.decimalSeparator = formattedString.substr(5, 1);
   numberFormatSettings.groupingSeparator = formattedString.substr(1, 1);
