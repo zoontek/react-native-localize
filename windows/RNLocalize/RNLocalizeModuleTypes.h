@@ -24,7 +24,7 @@ struct Locale
     std::string languageTag;
 
     REACT_FIELD(isRTL, L"isRTL")
-    bool isRTL = true;
+    bool isRTL = false;
 };
 
 REACT_STRUCT(NumberFormatSettings)

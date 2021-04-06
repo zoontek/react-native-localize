@@ -3,8 +3,6 @@
 #include "RNLocalizeModule.h"
 
 #include <winrt/Windows.Globalization.h>
-#include <winrt/Windows.Globalization.DateTimeFormatting.h>
-#include <winrt/Windows.Globalization.NumberFormatting.h>
 #include <winrt/Windows.System.UserProfile.h>
 #include <winrt/Windows.System.h>
 
@@ -129,7 +127,11 @@ std::string RNLocalizeModule::getCalendar()
     return "buddhist";
   }
 
-  std::transform(calendar.begin(), calendar.end(), calendar.begin(), ::tolower);
+  std::transform(calendar.begin(), calendar.end(), calendar.begin(),
+                 [](char c) {
+                   return static_cast<char>(std::tolower(c));
+                 });
+
   return calendar;
 }
 
@@ -154,18 +156,16 @@ std::string RNLocalizeModule::getTimeZone()
 
 NumberFormatSettings RNLocalizeModule::getNumberFormatSettings(std::string locale)
 {
-  const wchar_t *locale_l = std::wstring(locale.begin(), locale.end()).c_str();
-
   NumberFormatSettings numberFormatSettings;
 
   // Use GetNumberFormatEx to get number formatting based on the passed locale.
   std::string num_s("1000.00");
   std::wstring num_w = std::wstring(num_s.begin(), num_s.end());
-  const wchar_t *num_l = num_w.c_str();
 
+  const wchar_t *locale_l = std::wstring(locale.begin(), locale.end()).c_str();
   const int numberFormatBufferLength = 9;
   wchar_t numberFormatBuffer[numberFormatBufferLength];
-  GetNumberFormatEx(locale_l, 0, num_l, nullptr, numberFormatBuffer, numberFormatBufferLength);
+  GetNumberFormatEx(locale_l, 0, num_w.c_str(), nullptr, numberFormatBuffer, numberFormatBufferLength);
   std::string formattedString = winrt::to_string(numberFormatBuffer);
 
   numberFormatSettings.decimalSeparator = formattedString.substr(5, 1);
