@@ -118,7 +118,7 @@ std::string RNLocalizeModule::getCalendar()
   // "JapaneseCalendar", "JulianCalendar", "KoreanCalendar", "PersianCalendar",
   // "TaiwanCalendar", "ThaiBuddhistCalendar", "UmAlQuraCalendar"
   // In all cases they end in "Calendar" and RNL doesn't expect this, so we must truncate it.
-  calendar = calendar.substr(0, calendar.size() - 8);
+  calendar = calendar.substr(0, calendar.size() - (ARRAYSIZE("Calendar") - 1));
 
   // Special edge case: RNL expects "buddhist" not "thaibuddhist"
   // see https://github.com/zoontek/react-native-localize/blob/master/src/types.ts
@@ -139,14 +139,16 @@ std::string RNLocalizeModule::getTimeZone()
 {
   // Use GetTimeZoneInformation to get the hour bias from GMT and then create a formatted string.
   TIME_ZONE_INFORMATION TimeZoneInfo;
-  GetTimeZoneInformation(&TimeZoneInfo);
-
+  if (GetTimeZoneInformation(&TimeZoneInfo) == TIME_ZONE_ID_INVALID)
+  {
+    return std::string();
+  }
   int hourBias = -TimeZoneInfo.Bias / 60;
   char timeZoneBuffer[10];
   snprintf(
       timeZoneBuffer,
       sizeof(timeZoneBuffer),
-      "GMT%s%02d:00",
+      "UTC%s%02d:00",
       hourBias < 0 ? "-" : "+",
       hourBias < 0 ? -hourBias : hourBias);
   std::string timeZoneString(timeZoneBuffer);
@@ -159,13 +161,12 @@ NumberFormatSettings RNLocalizeModule::getNumberFormatSettings(std::string local
   NumberFormatSettings numberFormatSettings;
 
   // Use GetNumberFormatEx to get number formatting based on the passed locale.
-  std::string num_s("1000.00");
-  std::wstring num_w = std::wstring(num_s.begin(), num_s.end());
+  std::wstring num1000(L"1000.00");
 
-  const wchar_t *locale_l = std::wstring(locale.begin(), locale.end()).c_str();
+  std::wstring wStrLocale = std::wstring(locale.begin(), locale.end());
   const int numberFormatBufferLength = 9;
   wchar_t numberFormatBuffer[numberFormatBufferLength];
-  GetNumberFormatEx(locale_l, 0, num_w.c_str(), nullptr, numberFormatBuffer, numberFormatBufferLength);
+  GetNumberFormatEx(wStrLocale.c_str(), 0, num1000.c_str(), nullptr, numberFormatBuffer, numberFormatBufferLength);
   std::string formattedString = winrt::to_string(numberFormatBuffer);
 
   numberFormatSettings.decimalSeparator = formattedString.substr(5, 1);

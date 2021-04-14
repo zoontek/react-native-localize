@@ -35,8 +35,8 @@ private:
     NumberFormatSettings getNumberFormatSettings(std::string);
     LocalizationConstants getExported();
 
-    const std::array<std::string, 6> USES_FAHRENHEIT{{"BS", "BZ", "KY", "PR", "PW", "US"}};
-    const std::array<std::string, 3> USES_IMPERIAL{{"LR", "MM", "US"}};
+    const static std::array<std::string, 6> USES_FAHRENHEIT{{"BS", "BZ", "KY", "PR", "PW", "US"}};
+    const static std::array<std::string, 3> USES_IMPERIAL{{"LR", "MM", "US"}};
 };
 
 } // namespace winrt::RNLocalize
