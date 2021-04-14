@@ -169,6 +169,7 @@ NumberFormatSettings RNLocalizeModule::getNumberFormatSettings(std::string local
   GetNumberFormatEx(wStrLocale.c_str(), 0, num1000.c_str(), nullptr, numberFormatBuffer, numberFormatBufferLength);
   std::string formattedString = winrt::to_string(numberFormatBuffer);
 
+  // Note: The index is intentionally 5 because the output is expected to be something like "1,000.00" and not the original input of "1000.00"
   numberFormatSettings.decimalSeparator = formattedString.substr(5, 1);
   numberFormatSettings.groupingSeparator = formattedString.substr(1, 1);
 
