@@ -298,7 +298,7 @@ PODS:
     - React-jsi (= 0.63.3)
   - RNFS (2.16.6):
     - React
-  - RNLocalize (2.0.2):
+  - RNLocalize (2.0.3):
     - React-Core
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -466,7 +466,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 8e9fb25724a0805107fc1acc9075e26f814df454
   ReactCommon: 4167844018c9ed375cc01a843e9ee564399e53c3
   RNFS: 2bd9eb49dc82fa9676382f0585b992c424cd59df
-  RNLocalize: 43f6c30d8e19ad92282ae434d310fb463b31f419
+  RNLocalize: 99e59cad311ca1b6872b1764514009416ccba03d
   Yoga: 7d13633d129fd179e01b8953d38d47be90db185a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
