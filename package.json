@@ -31,8 +31,7 @@
   ],
   "scripts": {
     "format": "prettier '**/*.{js,json,md,ts,tsx}' --write",
-    "prepare": "bob build",
-    "windows": "react-native run-windows"
+    "prepare": "bob build"
   },
   "@react-native-community/bob": {
     "source": "src",
