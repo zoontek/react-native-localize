@@ -175,8 +175,10 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     fontWeight: "500",
     marginBottom: 8,
+    color: "black",
   },
   value: {
     textAlign: "left",
+    color: "black",
   },
 });

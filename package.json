@@ -12,6 +12,7 @@
     "/android",
     "/dist",
     "/ios",
+    "/windows",
     "/src",
     "RNLocalize.podspec",
     "package.json"
@@ -23,6 +24,7 @@
   "keywords": [
     "react-native-localize",
     "react-native",
+    "react-native-windows",
     "localize",
     "localization",
     "l20n"
@@ -61,6 +63,7 @@
     "prettier": "^2.1.2",
     "react": "16.13.1",
     "react-native": "0.63.3",
+    "react-native-windows": "0.63.26",
     "typescript": "^4.0.5"
   }
 }

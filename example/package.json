@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "clean-modules": "rm -rf ./node_modules/react-native-localize/{example,node_modules}",
-    "clean": "rm -rf ./node_modules ./ios/Pods",
+    "clean-modules": "rimraf ./node_modules/react-native-localize/{example,node_modules}",
+    "clean": "rimraf ./node_modules ./ios/Pods",
     "postinstall": "yarn clean-modules && yarn pod-update",
     "pod-update": "cd ./ios && pod update && cd ..",
     "start-metro": "react-native start",
@@ -18,6 +18,7 @@
     "react-dom": "16.13.1",
     "react-native": "0.63.3",
     "react-native-fs": "2.16.6",
+    "react-native-windows": "0.63.26",
     "react-native-localize": "file:../",
     "react-native-web": "0.14.8"
   },
@@ -26,6 +27,7 @@
     "@babel/runtime": "^7.12.5",
     "babel-loader": "^8.2.1",
     "metro-react-native-babel-preset": "^0.59.0",
+    "rimraf": "^3.0.2",
     "webpack": "^5.4.0",
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^3.11.0"
