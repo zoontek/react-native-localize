@@ -11,6 +11,9 @@ using namespace winrt::Microsoft::ReactNative;
 namespace winrt::RNLocalize
 {
 
+/*static*/ const std::array<std::string, 6> RNLocalizeModule::USES_FAHRENHEIT{{"BS", "BZ", "KY", "PR", "PW", "US"}};
+/*static*/ const std::array<std::string, 3> RNLocalizeModule::USES_IMPERIAL{{"LR", "MM", "US"}};
+
 std::vector<winrt::hstring> RNLocalizeModule::getLocaleNames()
 {
   std::vector<winrt::hstring> locales;
