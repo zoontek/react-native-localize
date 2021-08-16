@@ -21,9 +21,7 @@ function ensureCountryCode(countryCode: string): string {
   return countryCode === "419" ? "UN" : countryCode.toUpperCase();
 }
 
-function splitLanguageTag(
-  languageTag: string,
-): {
+function splitLanguageTag(languageTag: string): {
   languageCode: string;
   countryCode?: string;
 } {
