@@ -209,6 +209,10 @@ console.log(RNLocalize.getCountry());
 // -> "FR"
 ```
 
+#### Note
+
+Devices using Latin American regional settings will return "UN" instead of "419", as the latter is not a standard country code.
+
 ---
 
 ### getCalendar()
