@@ -269,7 +269,7 @@ PODS:
     - React-perflogger (= 0.64.2)
   - RNFS (2.18.0):
     - React
-  - RNLocalize (2.1.1):
+  - RNLocalize (2.1.2):
     - React-Core
   - Yoga (1.14.0)
 
@@ -403,7 +403,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: a9904c6d0218fb9f8b19d6dd88607225927668f9
   ReactCommon: 149906e01aa51142707a10665185db879898e966
   RNFS: 3ab21fa6c56d65566d1fb26c2228e2b6132e5e32
-  RNLocalize: 82a569022724d35461e2dc5b5d015a13c3ca995b
+  RNLocalize: 901e3164ad6729ef41b20f472ecb7d3ce830bb6c
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
 
 PODFILE CHECKSUM: 3a20b072e44b628ff35ff0b04c90192230e89e97
