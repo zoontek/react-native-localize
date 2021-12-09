@@ -398,56 +398,17 @@ Browse the files in the [/example](https://github.com/zoontek/react-native-local
 
 ## How to test your code
 
-Because it's a native module, you might need to mock this package to run your tests flawlessly.<br />
-Here is an example for Jest, adapt it to your needs :
+Because it's a native module, you need to mock this package in jest to run your tests.<br />
+The package provides a default mock you may reference in your jest `setupFiles` config as:
 
+````json
+  "setupFiles": [
+    // ...other setup files here
+    "./node_modules/react-native-localize/mock.js"
+  ]
 ```js
-// __mocks__/react-native-localize.js
-
-const getLocales = () => [
-  // you can choose / add the locales you want
-  { countryCode: "US", languageTag: "en-US", languageCode: "en", isRTL: false },
-  { countryCode: "FR", languageTag: "fr-FR", languageCode: "fr", isRTL: false },
-];
-
-// use a provided translation, or return undefined to test your fallback
-const findBestAvailableLanguage = () => ({
-  languageTag: "en-US",
-  isRTL: false,
-});
-
-const getNumberFormatSettings = () => ({
-  decimalSeparator: ".",
-  groupingSeparator: ",",
-});
-
-const getCalendar = () => "gregorian"; // or "japanese", "buddhist"
-const getCountry = () => "US"; // the country code you want
-const getCurrencies = () => ["USD", "EUR"]; // can be empty array
-const getTemperatureUnit = () => "celsius"; // or "fahrenheit"
-const getTimeZone = () => "Europe/Paris"; // the timezone you want
-const uses24HourClock = () => true;
-const usesMetricSystem = () => true;
-
-const addEventListener = jest.fn();
-const removeEventListener = jest.fn();
-
-export {
-  findBestAvailableLanguage,
-  getLocales,
-  getNumberFormatSettings,
-  getCalendar,
-  getCountry,
-  getCurrencies,
-  getTemperatureUnit,
-  getTimeZone,
-  uses24HourClock,
-  usesMetricSystem,
-  addEventListener,
-  removeEventListener,
-};
-```
 
 ## Add project's supported localizations (iOS)
 
 ![](https://github.com/zoontek/react-native-localize/blob/master/docs/xcode-adding-locales.png?raw=true)
+````
