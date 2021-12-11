@@ -76,8 +76,6 @@ export function findBestAvailableLanguage<T extends string>(
   }
 }
 
-export * from "./types";
-
 export {
   getCalendar,
   getCountry,
@@ -91,6 +89,7 @@ export {
   usesAutoTimeZone,
   usesMetricSystem,
 } from "./module";
+export * from "./types";
 
 export default {
   getCalendar,

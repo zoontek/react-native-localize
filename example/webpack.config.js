@@ -4,15 +4,18 @@ const webpack = require("webpack");
 const path = require("path");
 const fromRoot = (_) => path.resolve(__dirname, _);
 
+const isProd = process.env.NODE_ENV === "production";
+
 module.exports = {
+  mode: isProd ? "production" : "development",
   entry: fromRoot("index.js"),
   output: {
     path: fromRoot("dist"),
     filename: "bundle.web.js",
   },
   devServer: {
-    contentBase: fromRoot("dist"),
-    publicPath: "/",
+    static: { directory: fromRoot("dist") },
+    devMiddleware: { publicPath: "/" },
   },
   module: {
     rules: [

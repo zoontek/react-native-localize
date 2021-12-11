@@ -16,20 +16,20 @@
     "lodash.memoize": "4.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-native": "0.64.2",
+    "react-native": "0.66.4",
     "react-native-fs": "2.18.0",
-    "react-native-windows": "0.64.14",
+    "react-native-windows": "0.66.5",
     "react-native-localize": "file:../",
-    "react-native-web": "0.17.1"
+    "react-native-web": "0.17.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.0",
-    "@babel/runtime": "^7.15.3",
-    "babel-loader": "^8.2.2",
+    "@babel/core": "^7.16.0",
+    "@babel/runtime": "^7.16.3",
+    "babel-loader": "^8.2.3",
     "metro-react-native-babel-preset": "^0.66.2",
     "rimraf": "^3.0.2",
-    "webpack": "^5.50.0",
-    "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0"
   }
 }

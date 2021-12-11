@@ -1,6 +1,6 @@
 import { AppRegistry } from "react-native";
-import SyncExample from "./src/SyncExample";
 import { name as appName } from "./app.json";
+import SyncExample from "./src/SyncExample";
 
 // on mobile, you can switch between SyncExample / AsyncExample
 // import AsyncExample from "./src/AsyncExample";
