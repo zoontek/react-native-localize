@@ -15,7 +15,8 @@
     "/windows",
     "/src",
     "RNLocalize.podspec",
-    "package.json"
+    "package.json",
+    "mock.js"
   ],
   "repository": {
     "type": "git",
