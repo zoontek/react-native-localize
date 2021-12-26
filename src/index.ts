@@ -12,14 +12,10 @@ import {
   usesAutoTimeZone,
   usesMetricSystem,
 } from "./module";
-import { Locale, LocalizationEvent } from "./types";
+import { LocalizationEvent } from "./types";
 
 function logUnknownEvent(type: string) {
   console.error(`\`${type}\` is not a valid react-native-localize event`);
-}
-
-function getPartialTag({ languageCode, scriptCode }: Locale) {
-  return languageCode + (scriptCode ? "-" + scriptCode : "");
 }
 
 export function addEventListener(
@@ -48,30 +44,34 @@ export function findBestAvailableLanguage<T extends string>(
   languageTags: ReadonlyArray<T>,
 ): { languageTag: T; isRTL: boolean } | undefined {
   const locales = getLocales();
+  const loweredLanguageTags = languageTags.map((tag) => tag.toLowerCase());
 
   for (let i = 0; i < locales.length; i++) {
     const currentLocale = locales[i];
-    const { languageTag, languageCode, isRTL } = currentLocale;
+    const { languageTag, languageCode, countryCode, isRTL } = currentLocale;
 
-    if (languageTags.includes(languageTag as T)) {
-      return { languageTag: languageTag as T, isRTL };
+    const languageTagIndex = loweredLanguageTags.indexOf(
+      languageTag.toLowerCase(),
+    );
+
+    if (languageTagIndex !== -1) {
+      return { languageTag: languageTags[languageTagIndex], isRTL };
     }
 
-    const partial = getPartialTag(currentLocale);
-    const next = locales[i + 1];
+    const partialTagIndex = loweredLanguageTags.indexOf(
+      (languageCode + "-" + countryCode).toLowerCase(),
+    );
 
-    if (
-      (!next || partial !== getPartialTag(next)) &&
-      languageTags.includes(partial as T)
-    ) {
-      return { languageTag: partial as T, isRTL };
+    if (partialTagIndex !== -1) {
+      return { languageTag: languageTags[partialTagIndex], isRTL };
     }
 
-    if (
-      (!next || languageCode !== next.languageCode) &&
-      languageTags.includes(languageCode as T)
-    ) {
-      return { languageTag: languageCode as T, isRTL };
+    const languageCodeIndex = loweredLanguageTags.indexOf(
+      languageCode.toLowerCase(),
+    );
+
+    if (languageCodeIndex !== -1) {
+      return { languageTag: languageTags[languageCodeIndex], isRTL };
     }
   }
 }
