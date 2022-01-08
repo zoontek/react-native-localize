@@ -401,12 +401,12 @@ Browse the files in the [/example](https://github.com/zoontek/react-native-local
 Because it's a native module, you need to mock this package in jest to run your tests.<br />
 The package provides a default mock you may reference in your jest `setupFiles` config as:
 
-````json
-  "setupFiles": [
-    // ...other setup files here
-    "./node_modules/react-native-localize/mock.js"
-  ]
 ```js
+"setupFiles": [
+  // …other setup files here
+  "./node_modules/react-native-localize/mock.js"
+]
+```
 
 ## Add project's supported localizations (iOS)
 
