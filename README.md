@@ -402,7 +402,7 @@ Because it's a native module, you need to mock this package.<br />
 The package provides a default mock you may use in your \_\_mocks\_\_/react-native-localize.js or jest.setup.js.
 
 ```js
-import mockRNLocalize from 'react-native-localize/mock.js';
+import * as mockRNLocalize from 'react-native-localize/mock.js'
 
 jest.mock('react-native-localize', () => mockRNLocalize);
 ```
