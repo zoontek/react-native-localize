@@ -54,7 +54,7 @@ export function getCalendar(): Calendar {
 }
 
 export function getCountry(): string {
-  const { languages } = navigator;
+  const languages = navigator.languages ?? [navigator.language];
 
   for (let i = 0; i < languages.length; i++) {
     const { countryCode } = splitLanguageTag(languages[i]);
@@ -68,7 +68,7 @@ export function getCountry(): string {
 }
 
 export function getCurrencies(): string[] {
-  const { languages } = navigator;
+  const languages = navigator.languages ?? [navigator.language];
   const currencies: string[] = [];
 
   languages.forEach((language) => {
@@ -91,7 +91,7 @@ export function getCurrencies(): string[] {
 }
 
 export function getLocales(): Locale[] {
-  const { languages } = navigator;
+  const languages = navigator.languages ?? [navigator.language];
   const countryCode = getCountry();
   const cache: string[] = [];
   const locales: Locale[] = [];
