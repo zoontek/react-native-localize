@@ -402,12 +402,11 @@ Because it's a native module, you need to mock this package.<br />
 The package provides a default mock you may use in your \_\_mocks\_\_/react-native-localize.js or jest.setup.js.
 
 ```js
-import * as mockRNLocalize from 'react-native-localize/mock.js'
+import RNLocalize from "react-native-localize/mock";
 
-jest.mock('react-native-localize', () => mockRNLocalize);
+jest.mock("react-native-localize", () => RNLocalize);
 ```
 
 ## Add project's supported localizations (iOS)
 
 ![](https://github.com/zoontek/react-native-localize/blob/master/docs/xcode-adding-locales.png?raw=true)
-````

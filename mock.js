@@ -26,7 +26,7 @@ const usesMetricSystem = () => true;
 const addEventListener = jest.fn();
 const removeEventListener = jest.fn();
 
-export {
+module.exports = {
   findBestAvailableLanguage,
   getLocales,
   getNumberFormatSettings,
