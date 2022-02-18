@@ -25,6 +25,7 @@
   "keywords": [
     "react-native-localize",
     "react-native",
+    "react-native-macos",
     "react-native-windows",
     "localize",
     "localization",
@@ -51,9 +52,13 @@
   "peerDependencies": {
     "react": ">=16.8.6",
     "react-native": ">=0.60.0",
+    "react-native-macos": ">=0.64.0",
     "react-native-windows": ">=0.62.0"
   },
   "peerDependenciesMeta": {
+    "react-native-macos": {
+      "optional": true
+    },
     "react-native-windows": {
       "optional": true
     }

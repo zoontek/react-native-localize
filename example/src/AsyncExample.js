@@ -16,6 +16,8 @@ import * as RNLocalize from "react-native-localize";
 const setI18nConfig = async () => {
   const translationsDir = await (Platform.OS === "android"
     ? RNFS.readDirAssets("translations")
+    : Platform.OS === "macos"
+    ? RNFS.readDir(RNFS.MainBundlePath + "/Contents/Resources/translations")
     : RNFS.readDir(RNFS.MainBundlePath + "/translations"));
 
   const translationPaths = translationsDir

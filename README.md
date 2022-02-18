@@ -12,6 +12,7 @@ A toolbox for your React Native app localization.
 <br>
 [![Platform - Android](https://img.shields.io/badge/platform-Android-3ddc84.svg?style=flat&logo=android)](https://www.android.com)
 [![Platform - iOS](https://img.shields.io/badge/platform-iOS-000.svg?style=flat&logo=apple)](https://developer.apple.com/ios)
+[![Platform - macOS](https://img.shields.io/badge/platform-macOS-000.svg?style=flat&logo=apple)](https://developer.apple.com/macos)
 [![Platform - Windows](https://img.shields.io/badge/platform-Windows-0067b8.svg?style=flat&logo=windows)](https://www.microsoft.com/windows)
 [![Platform - Web](https://img.shields.io/badge/platform-Web-1977f2.svg?style=flat&logo=html5&logoColor=fff)](https://developer.mozilla.org)
 
@@ -90,6 +91,17 @@ public class MainApplication extends Application implements ReactApplication {
 
   // …
 }
+```
+
+### macOS
+
+Add this line to your `macos/Podfile` file, then run `pod install`.
+
+```bash
+target 'YourAwesomeProject' do
+  # …
+  pod 'RNLocalize', :path => '../node_modules/react-native-localize'
+end
 ```
 
 ### Windows Support
