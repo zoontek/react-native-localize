@@ -20,18 +20,18 @@
     "react-native": "0.66.4",
     "react-native-fs": "2.18.0",
     "react-native-localize": "file:../",
-    "react-native-macos": "^0.66.0-0",
+    "react-native-macos": "0.66.12",
     "react-native-web": "0.17.5",
     "react-native-windows": "0.66.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.5",
-    "@babel/runtime": "^7.16.5",
+    "@babel/core": "^7.17.5",
+    "@babel/runtime": "^7.17.2",
     "babel-loader": "^8.2.3",
     "metro-react-native-babel-preset": "^0.66.2",
     "rimraf": "^3.0.2",
-    "webpack": "^5.65.0",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.7.1"
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
   }
 }
