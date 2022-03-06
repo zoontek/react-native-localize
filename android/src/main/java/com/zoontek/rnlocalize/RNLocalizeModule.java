@@ -1,5 +1,6 @@
 package com.zoontek.rnlocalize;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -34,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TimeZone;
 
 @ReactModule(name = RNLocalizeModule.MODULE_NAME)
@@ -66,6 +68,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule {
     super(reactContext);
   }
 
+  @NonNull
   @Override
   public String getName() {
     return MODULE_NAME;
@@ -104,12 +107,12 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void addListener(String eventName) {
-    // Keep: Required for RN built in Event Emitter Calls.
+    // Set up any upstream listeners or background tasks as necessary
   }
 
   @ReactMethod
   public void removeListeners(Integer count) {
-    // Keep: Required for RN built in Event Emitter Calls.
+    // Remove upstream listeners, stop unnecessary background tasks
   }
 
   private @NonNull List<Locale> getLocales() {
@@ -157,10 +160,11 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule {
 
   private @NonNull String getSystemProperty(String key) {
     try {
+      @SuppressLint("PrivateApi")
       Class<?> systemProperties = Class.forName("android.os.SystemProperties");
       Method get = systemProperties.getMethod("get", String.class);
 
-      return (String) get.invoke(systemProperties, key);
+      return (String) Objects.requireNonNull(get.invoke(systemProperties, key));
     } catch (Exception ignored) {
       return "";
     }
