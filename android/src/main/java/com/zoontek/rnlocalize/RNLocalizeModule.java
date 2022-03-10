@@ -117,14 +117,15 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule {
 
   private @NonNull List<Locale> getLocales() {
     List<Locale> locales = new ArrayList<>();
-    Configuration config = getReactApplicationContext()
-      .getResources()
-      .getConfiguration();
 
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+      Configuration config = getReactApplicationContext()
+        .getResources()
+        .getConfiguration();
+
       locales.add(config.locale);
     } else {
-      LocaleList list = config.getLocales();
+      LocaleList list = LocaleList.getDefault();
 
       for (int i = 0; i < list.size(); i++) {
         locales.add(list.get(i));
