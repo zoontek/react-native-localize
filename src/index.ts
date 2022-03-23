@@ -48,7 +48,7 @@ export function findBestAvailableLanguage<T extends string>(
 
   for (let i = 0; i < locales.length; i++) {
     const currentLocale = locales[i];
-    const { languageTag, languageCode, countryCode, isRTL } = currentLocale;
+    const { languageTag, languageCode, countryCode, scriptCode, isRTL } = currentLocale;
 
     const languageTagIndex = loweredLanguageTags.indexOf(
       languageTag.toLowerCase(),
@@ -64,6 +64,16 @@ export function findBestAvailableLanguage<T extends string>(
 
     if (partialTagIndex !== -1) {
       return { languageTag: languageTags[partialTagIndex], isRTL };
+    }
+
+    if (scriptCode != null && scriptCode.length > 0) {
+      const partialTagByScriptCodeIndex = loweredLanguageTags.indexOf(
+        (languageCode + '-' + scriptCode).toLowerCase(),
+      )
+
+      if (partialTagByScriptCodeIndex !== -1) {
+        return { languageTag: languageTags[partialTagByScriptCodeIndex], isRTL }
+      }
     }
 
     const languageCodeIndex = loweredLanguageTags.indexOf(
