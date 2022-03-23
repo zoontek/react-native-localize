@@ -50,51 +50,24 @@ export function findBestAvailableLanguage<T extends string>(
     const currentLocale = locales[i];
     const { languageTag, languageCode, countryCode, scriptCode, isRTL } = currentLocale;
 
-    const languageTagIndex = loweredLanguageTags.indexOf(
-      languageTag.toLowerCase(),
-    );
+    const combinations = [
+      languageTag,
+      (scriptCode != null && scriptCode.length > 0) ? (languageCode + '-' + scriptCode) : null,
+      (languageCode + "-" + countryCode),
+      languageCode
+    ].filter((combination): combination is string  => combination != null)
 
-    if (languageTagIndex !== -1) {
-      return { languageTag: languageTags[languageTagIndex], isRTL };
-    }
+    for (let j = 0; j < combinations.length; j++) {
+      const loweredCombination = combinations[j].toLowerCase()
+      const matchedIndex = loweredLanguageTags.indexOf(loweredCombination)
 
-    if (scriptCode != null && scriptCode.length > 0) {
-      const partialTagByScriptCodeAndCountryCodeIndex =
-        loweredLanguageTags.indexOf(
-          (languageCode + '-' + scriptCode + '-' + countryCode).toLowerCase(),
-        )
-
-      if (partialTagByScriptCodeAndCountryCodeIndex !== -1) {
-        return {
-          languageTag: languageTags[partialTagByScriptCodeAndCountryCodeIndex],
-          isRTL,
-        }
+      if (matchedIndex !== -1) {
+        return { languageTag: languageTags[matchedIndex], isRTL };
       }
-      const partialTagByScriptCodeIndex = loweredLanguageTags.indexOf(
-        (languageCode + '-' + scriptCode).toLowerCase(),
-      )
-
-      if (partialTagByScriptCodeIndex !== -1) {
-        return { languageTag: languageTags[partialTagByScriptCodeIndex], isRTL }
-      }
-    }
-
-    const partialTagIndex = loweredLanguageTags.indexOf(
-      (languageCode + "-" + countryCode).toLowerCase(),
-    );
-
-    if (partialTagIndex !== -1) {
-      return { languageTag: languageTags[partialTagIndex], isRTL };
-    }
-
-    const languageCodeIndex = loweredLanguageTags.indexOf(
-      languageCode.toLowerCase(),
-    );
-
-    if (languageCodeIndex !== -1) {
-      return { languageTag: languageTags[languageCodeIndex], isRTL };
     }
   }
+
+  return undefined
 }
 
 export {
