@@ -58,15 +58,18 @@ export function findBestAvailableLanguage<T extends string>(
       return { languageTag: languageTags[languageTagIndex], isRTL };
     }
 
-    const partialTagIndex = loweredLanguageTags.indexOf(
-      (languageCode + "-" + countryCode).toLowerCase(),
-    );
-
-    if (partialTagIndex !== -1) {
-      return { languageTag: languageTags[partialTagIndex], isRTL };
-    }
-
     if (scriptCode != null && scriptCode.length > 0) {
+      const partialTagByScriptCodeAndCountryCodeIndex =
+        loweredLanguageTags.indexOf(
+          (languageCode + '-' + scriptCode + '-' + countryCode).toLowerCase(),
+        )
+
+      if (partialTagByScriptCodeAndCountryCodeIndex !== -1) {
+        return {
+          languageTag: languageTags[partialTagByScriptCodeAndCountryCodeIndex],
+          isRTL,
+        }
+      }
       const partialTagByScriptCodeIndex = loweredLanguageTags.indexOf(
         (languageCode + '-' + scriptCode).toLowerCase(),
       )
@@ -74,6 +77,14 @@ export function findBestAvailableLanguage<T extends string>(
       if (partialTagByScriptCodeIndex !== -1) {
         return { languageTag: languageTags[partialTagByScriptCodeIndex], isRTL }
       }
+    }
+
+    const partialTagIndex = loweredLanguageTags.indexOf(
+      (languageCode + "-" + countryCode).toLowerCase(),
+    );
+
+    if (partialTagIndex !== -1) {
+      return { languageTag: languageTags[partialTagIndex], isRTL };
     }
 
     const languageCodeIndex = loweredLanguageTags.indexOf(
