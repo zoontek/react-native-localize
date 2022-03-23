@@ -66,8 +66,6 @@ export function findBestAvailableLanguage<T extends string>(
       }
     }
   }
-
-  return undefined
 }
 
 export {
