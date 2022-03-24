@@ -53,7 +53,7 @@ const translate = memoize(
   (key, config) => (config ? key + JSON.stringify(config) : key),
 );
 
-export default class AsyncExample extends React.Component {
+export class App extends React.Component {
   constructor(props) {
     super(props);
 

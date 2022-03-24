@@ -42,7 +42,7 @@ const setI18nConfig = () => {
   i18n.locale = languageTag;
 };
 
-export default class SyncExample extends React.Component {
+export class App extends React.Component {
   constructor(props) {
     super(props);
     setI18nConfig(); // set initial config
