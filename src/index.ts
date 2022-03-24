@@ -48,30 +48,22 @@ export function findBestAvailableLanguage<T extends string>(
 
   for (let i = 0; i < locales.length; i++) {
     const currentLocale = locales[i];
-    const { languageTag, languageCode, countryCode, isRTL } = currentLocale;
+    const { languageTag, languageCode, countryCode, scriptCode, isRTL } = currentLocale;
 
-    const languageTagIndex = loweredLanguageTags.indexOf(
-      languageTag.toLowerCase(),
-    );
+    const combinations = [
+      languageTag,
+      (scriptCode != null && scriptCode.length > 0) ? (languageCode + '-' + scriptCode) : null,
+      (languageCode + "-" + countryCode),
+      languageCode
+    ].filter((combination): combination is string  => combination != null)
 
-    if (languageTagIndex !== -1) {
-      return { languageTag: languageTags[languageTagIndex], isRTL };
-    }
+    for (let j = 0; j < combinations.length; j++) {
+      const loweredCombination = combinations[j].toLowerCase()
+      const matchedIndex = loweredLanguageTags.indexOf(loweredCombination)
 
-    const partialTagIndex = loweredLanguageTags.indexOf(
-      (languageCode + "-" + countryCode).toLowerCase(),
-    );
-
-    if (partialTagIndex !== -1) {
-      return { languageTag: languageTags[partialTagIndex], isRTL };
-    }
-
-    const languageCodeIndex = loweredLanguageTags.indexOf(
-      languageCode.toLowerCase(),
-    );
-
-    if (languageCodeIndex !== -1) {
-      return { languageTag: languageTags[languageCodeIndex], isRTL };
+      if (matchedIndex !== -1) {
+        return { languageTag: languageTags[matchedIndex], isRTL };
+      }
     }
   }
 }
