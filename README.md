@@ -1,9 +1,5 @@
 # 🌍  react-native-localize
 
-<a href="https://github.com/sponsors/zoontek">
-  <img align="right" width="160" alt="This library helped you? Consider sponsoring!" src=".github/funding-octocat.svg">
-</a>
-
 A toolbox for your React Native app localization.
 
 [![npm version](https://badge.fury.io/js/react-native-localize.svg)](https://www.npmjs.org/package/react-native-localize)
@@ -17,6 +13,16 @@ A toolbox for your React Native app localization.
 [![Platform - Web](https://img.shields.io/badge/platform-Web-1977f2.svg?style=flat&logo=html5&logoColor=fff)](https://developer.mozilla.org)
 
 <img width="400" height="auto" center src="https://github.com/zoontek/react-native-localize/blob/master/docs/screenshot.png?raw=true" />
+
+## Funding
+
+<a href="https://github.com/sponsors/zoontek">
+  <img align="right" width="110" alt="This library helped you? Consider sponsoring!" src=".github/funding-octocat.svg">
+</a>
+
+This module is provided **as is**, I work on it in my free time.
+
+If your company uses it in a production app, consider sponsoring this project 💰. You also can contact me for **premium** enterprise support, help with issues, prioritize bugfixes, feature requests, etc.
 
 ## Support
 
