@@ -10,7 +10,6 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		8301BD1327BD8A4500CBEE55 /* translations in Resources */ = {isa = PBXBuildFile; fileRef = 8301BD1227BD8A4500CBEE55 /* translations */; };
 		9C2B229AC6F8FBCDC303C20D /* libPods-RNLocalizeExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-RNLocalizeExample.a */; };
 		DDE435E02865D23A007E1E0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDE435DF2865D23A007E1E0D /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -25,7 +24,6 @@
 		3B4392A12AC88292D35C810B /* Pods-RNLocalizeExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNLocalizeExample.debug.xcconfig"; path = "Target Support Files/Pods-RNLocalizeExample/Pods-RNLocalizeExample.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-RNLocalizeExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNLocalizeExample.release.xcconfig"; path = "Target Support Files/Pods-RNLocalizeExample/Pods-RNLocalizeExample.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-RNLocalizeExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNLocalizeExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8301BD1227BD8A4500CBEE55 /* translations */ = {isa = PBXFileReference; lastKnownFileType = folder; name = translations; path = ../android/app/src/main/assets/translations; sourceTree = "<group>"; };
 		DDE435DF2865D23A007E1E0D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = RNLocalizeExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -45,7 +43,6 @@
 		13B07FAE1A68108700A75B9A /* RNLocalizeExample */ = {
 			isa = PBXGroup;
 			children = (
-				8301BD1227BD8A4500CBEE55 /* translations */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -157,7 +154,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDE435E02865D23A007E1E0D /* LaunchScreen.storyboard in Resources */,
-				8301BD1327BD8A4500CBEE55 /* translations in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

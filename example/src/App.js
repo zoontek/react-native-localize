@@ -10,42 +10,13 @@ import {
   Text,
   View,
 } from "react-native";
-import RNFS from "react-native-fs";
 import * as RNLocalize from "react-native-localize";
 
-const setI18nConfig = async () => {
-  const translationsDir = await (Platform.OS === "android"
-    ? RNFS.readDirAssets("translations")
-    : Platform.OS === "macos"
-    ? RNFS.readDir(RNFS.MainBundlePath + "/Contents/Resources/translations")
-    : RNFS.readDir(RNFS.MainBundlePath + "/translations"));
-
-  const translationPaths = translationsDir
-    .filter(({ isFile, name }) => isFile() && name.endsWith(".json"))
-    .reduce((all, { name, path }) => {
-      const languageTag = name.replace(".json", "");
-      return { ...all, [languageTag]: path };
-    }, {});
-
-  // fallback if no available language fits
-  const fallback = { languageTag: "en", isRTL: false };
-
-  const { languageTag, isRTL } =
-    RNLocalize.findBestAvailableLanguage(Object.keys(translationPaths)) ||
-    fallback;
-
-  const fileContent = await (Platform.OS === "android"
-    ? RNFS.readFileAssets(translationPaths[languageTag], "utf8")
-    : RNFS.readFile(translationPaths[languageTag], "utf8"));
-
-  // clear translation cache
-  translate.cache.clear();
-  // update layout direction
-  I18nManager.forceRTL(isRTL);
-
-  // set i18n-js config
-  i18n.translations = { [languageTag]: JSON.parse(fileContent) };
-  i18n.locale = languageTag;
+const translationGetters = {
+  // lazy requires
+  ar: () => require("./translations/ar.json"),
+  en: () => require("./translations/en.json"),
+  fr: () => require("./translations/fr.json"),
 };
 
 const translate = memoize(
@@ -53,22 +24,35 @@ const translate = memoize(
   (key, config) => (config ? key + JSON.stringify(config) : key),
 );
 
+const setI18nConfig = () => {
+  // fallback if no available language fits
+  const fallback = { languageTag: "en", isRTL: false };
+
+  const { languageTag, isRTL } =
+    RNLocalize.findBestAvailableLanguage(Object.keys(translationGetters)) ||
+    fallback;
+
+  // clear translation cache
+  translate.cache.clear();
+  // update layout direction
+  I18nManager.forceRTL(isRTL);
+
+  // set i18n-js config
+  i18n.translations = {
+    [languageTag]: translationGetters[languageTag](),
+  };
+
+  i18n.locale = languageTag;
+};
+
 export class App extends React.Component {
   constructor(props) {
     super(props);
+    setI18nConfig(); // set initial config
+  }
 
-    this.state = {
-      isTranslationLoaded: false,
-    };
-
-    setI18nConfig() // set initial config
-      .then(() => {
-        this.setState({ isTranslationLoaded: true });
-        RNLocalize.addEventListener("change", this.handleLocalizationChange);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  componentDidMount() {
+    RNLocalize.addEventListener("change", this.handleLocalizationChange);
   }
 
   componentWillUnmount() {
@@ -76,18 +60,11 @@ export class App extends React.Component {
   }
 
   handleLocalizationChange = () => {
-    setI18nConfig()
-      .then(() => this.forceUpdate())
-      .catch((error) => {
-        console.error(error);
-      });
+    setI18nConfig();
+    this.forceUpdate();
   };
 
   render() {
-    if (!this.state.isTranslationLoaded) {
-      return <SafeAreaView style={styles.safeArea} />;
-    }
-
     return (
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.container}>
@@ -156,7 +133,7 @@ export class App extends React.Component {
 const Line = (props) => (
   <View style={styles.block}>
     <Text style={styles.name}>{props.name}</Text>
-    <Text style={styles.value}>{JSON.stringify(props.value)}</Text>
+    <Text style={styles.value}>{JSON.stringify(props.value, null, 2)}</Text>
   </View>
 );
 

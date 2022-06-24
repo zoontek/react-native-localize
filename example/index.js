@@ -1,8 +1,6 @@
 import { AppRegistry } from "react-native";
 import { name as appName } from "./app.json";
-// On native, you can switch between SyncExample / AsyncExample
-import { App } from "./src/SyncExample";
-// import { App } from "./src/AsyncExample";
+import { App } from "./src/App";
 
 AppRegistry.registerComponent(appName, () => App);
 

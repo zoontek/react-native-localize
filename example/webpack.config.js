@@ -22,11 +22,7 @@ module.exports = {
       {
         test: /\.js$/,
         use: { loader: "babel-loader", options: { cacheDirectory: true } },
-        include: [
-          fromRoot("index.js"),
-          fromRoot("src"),
-          fromRoot("node_modules/react-native-fs"),
-        ],
+        include: [fromRoot("index.js"), fromRoot("src")],
       },
     ],
   },

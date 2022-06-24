@@ -275,8 +275,6 @@ PODS:
     - React-jsi (= 0.66.58)
     - React-logger (= 0.66.58)
     - React-perflogger (= 0.66.58)
-  - RNFS (2.20.0):
-    - React-Core
   - RNLocalize (2.2.2):
     - React-Core
   - Yoga (1.14.0)
@@ -314,7 +312,6 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native-macos/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native-macos/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native-macos/ReactCommon`)
-  - RNFS (from `../node_modules/react-native-fs`)
   - RNLocalize (from `../node_modules/react-native-localize`)
   - Yoga (from `../node_modules/react-native-macos/ReactCommon/yoga`)
 
@@ -383,8 +380,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-macos/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native-macos/ReactCommon"
-  RNFS:
-    :path: "../node_modules/react-native-fs"
   RNLocalize:
     :path: "../node_modules/react-native-localize"
   Yoga:
@@ -422,7 +417,6 @@ SPEC CHECKSUMS:
   React-RCTVibration: f1c08efb7c529e199136b49e54d930785f30cda2
   React-runtimeexecutor: 144f219bc33650626a224c2fb2a3d7f0525e8293
   ReactCommon: 7aff5f881d46f2bd90d75741e75024d1f81874ee
-  RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNLocalize: 95a43f85e41a966be7bc9cff2437128911c52da0
   Yoga: 375d8228a7086723f3b05cc2d6268aa24613c692
 
