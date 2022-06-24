@@ -5,33 +5,32 @@
   "scripts": {
     "clean-modules": "rimraf ./node_modules/react-native-localize/{example,node_modules}",
     "clean": "rimraf ./node_modules ./ios/Pods ./macos/Pods",
-    "postinstall": "yarn clean-modules && yarn pod-update && yarn pod-update:macos",
+    "postinstall": "yarn clean-modules && yarn pod-update",
     "pod-update": "cd ./ios && pod update && cd ..",
-    "pod-update:macos": "cd ./macos && pod update && cd ..",
+    "install-macos": "yarn add react-native-macos@0.66.58 && cd ./macos && pod update && cd ..",
     "start-metro": "react-native start",
     "start-webpack": "webpack serve",
     "reinstall": "yarn clean && yarn install"
   },
   "dependencies": {
-    "i18n-js": "3.8.0",
+    "i18n-js": "3.9.2",
     "lodash.memoize": "4.1.2",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-native": "0.66.4",
-    "react-native-fs": "2.19.0",
+    "react": "18.0.0",
+    "react-dom": "18.0.0",
+    "react-native": "0.69.0",
+    "react-native-fs": "2.20.0",
     "react-native-localize": "file:../",
-    "react-native-macos": "0.66.37",
-    "react-native-web": "0.17.7",
-    "react-native-windows": "0.66.15"
+    "react-native-web": "0.18.1",
+    "react-native-windows": "0.68.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.8",
-    "@babel/runtime": "^7.17.8",
-    "babel-loader": "^8.2.4",
-    "metro-react-native-babel-preset": "^0.66.2",
+    "@babel/core": "^7.18.5",
+    "@babel/runtime": "^7.18.3",
+    "babel-loader": "^8.2.5",
+    "metro-react-native-babel-preset": "^0.70.3",
     "rimraf": "^3.0.2",
-    "webpack": "^5.70.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.7.4"
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.2"
   }
 }

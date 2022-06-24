@@ -32,7 +32,7 @@
     "l20n"
   ],
   "scripts": {
-    "format": "prettier '**/*.{js,json,md,ts,tsx}' --write",
+    "format": "prettier '**/*' -u -w",
     "prepare": "yarn setup-hooks && bob build",
     "setup-hooks": "git config --local core.hooksPath .hooks",
     "tscheck": "tsc --project ./ --noEmit"
@@ -47,7 +47,7 @@
     ]
   },
   "lint-staged": {
-    "**/*.{js,json,md,ts,tsx}": "prettier --write"
+    "*": "prettier -u -w"
   },
   "peerDependencies": {
     "react": ">=16.8.6",
@@ -64,15 +64,15 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "^7.17.8",
-    "@types/react": "^17.0.42",
-    "@types/react-native": "^0.66.17",
-    "lint-staged": "^12.3.7",
-    "prettier": "^2.6.0",
-    "prettier-plugin-organize-imports": "^2.3.4",
-    "react": "17.0.2",
-    "react-native": "0.66.4",
-    "react-native-builder-bob": "^0.18.2",
-    "typescript": "^4.6.2"
+    "@babel/core": "^7.18.5",
+    "@types/react": "^18.0.14",
+    "@types/react-native": "^0.69.0",
+    "lint-staged": "^13.0.2",
+    "prettier": "^2.7.1",
+    "prettier-plugin-organize-imports": "^3.0.0",
+    "react": "^18.0.0",
+    "react-native": "^0.69.0",
+    "react-native-builder-bob": "^0.18.3",
+    "typescript": "^4.7.4"
   }
 }
