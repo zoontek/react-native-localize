@@ -33,7 +33,7 @@
   ],
   "scripts": {
     "format": "prettier '**/*' -u -w",
-    "prepare": "yarn setup-hooks && bob build",
+    "prepack": "yarn setup-hooks && bob build",
     "setup-hooks": "git config --local core.hooksPath .hooks",
     "tscheck": "tsc --project ./ --noEmit"
   },
