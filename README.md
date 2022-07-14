@@ -2,15 +2,15 @@
 
 A toolbox for your React Native app localization.
 
-[![npm version](https://badge.fury.io/js/react-native-localize.svg)](https://www.npmjs.org/package/react-native-localize)
-[![npm](https://img.shields.io/npm/dt/react-native-localize.svg)](https://www.npmjs.org/package/react-native-localize)
-[![MIT](https://img.shields.io/dub/l/vibe-d.svg)](https://opensource.org/licenses/MIT)
-<br>
-[![Platform - Android](https://img.shields.io/badge/platform-Android-3ddc84.svg?style=flat&logo=android)](https://www.android.com)
-[![Platform - iOS](https://img.shields.io/badge/platform-iOS-000.svg?style=flat&logo=apple)](https://developer.apple.com/ios)
-[![Platform - macOS](https://img.shields.io/badge/platform-macOS-000.svg?style=flat&logo=apple)](https://developer.apple.com/macos)
-[![Platform - Windows](https://img.shields.io/badge/platform-Windows-0067b8.svg?style=flat&logo=windows)](https://www.microsoft.com/windows)
-[![Platform - Web](https://img.shields.io/badge/platform-Web-1977f2.svg?style=flat&logo=html5&logoColor=fff)](https://developer.mozilla.org)
+[![mit licence](https://img.shields.io/dub/l/vibe-d.svg?style=for-the-badge)](https://github.com/zoontek/react-native-localize/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/react-native-localize?style=for-the-badge)](https://www.npmjs.org/package/react-native-localize)
+[![npm downloads](https://img.shields.io/npm/dt/react-native-localize.svg?label=downloads&style=for-the-badge)](https://www.npmjs.org/package/react-native-localize)
+<br />
+[![platform - android](https://img.shields.io/badge/platform-Android-3ddc84.svg?logo=android&style=for-the-badge)](https://www.android.com)
+[![platform - ios](https://img.shields.io/badge/platform-iOS-000.svg?logo=apple&style=for-the-badge)](https://developer.apple.com/ios)
+[![platform - windows](https://img.shields.io/badge/platform-Windows-0067b8.svg?logo=windows&style=for-the-badge)](https://www.microsoft.com/en-us/windows)
+[![platform - macos](https://img.shields.io/badge/platform-macOS-000.svg?logo=apple&style=for-the-badge)](https://developer.apple.com/macos)
+[![platform - web](https://img.shields.io/badge/platform-Web-1977f2.svg?logo=html5&logoColor=fff&style=for-the-badge)](https://developer.mozilla.org)
 
 <img width="400" height="auto" center src="https://github.com/zoontek/react-native-localize/blob/master/docs/screenshot.png?raw=true" />
 
