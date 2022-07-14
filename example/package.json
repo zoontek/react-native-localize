@@ -8,7 +8,7 @@
     "preinstall": "cd .. && yarn prepack && cd example",
     "postinstall": "yarn clean-modules && yarn pod-update",
     "pod-update": "cd ./ios && pod update && cd ..",
-    "install-macos": "yarn add react-native-macos@0.66.59 && cd ./macos && pod update && cd ..",
+    "install-macos": "yarn add react-native-macos@0.68.11 && cd ./macos && pod update && cd ..",
     "start-metro": "react-native start",
     "start-webpack": "webpack serve",
     "reinstall": "yarn clean && yarn install"
