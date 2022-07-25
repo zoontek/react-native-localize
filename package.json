@@ -33,9 +33,9 @@
   ],
   "scripts": {
     "format": "prettier '**/*' -u -w",
-    "prepack": "yarn setup-hooks && bob build",
-    "setup-hooks": "git config --local core.hooksPath .hooks",
-    "tscheck": "tsc --project ./ --noEmit"
+    "postinstall": "git config --local core.hooksPath .hooks",
+    "prepack": "bob build",
+    "typecheck": "tsc --project ./ --noEmit"
   },
   "react-native-builder-bob": {
     "source": "src",
@@ -64,14 +64,14 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "^7.18.6",
+    "@babel/core": "^7.18.9",
     "@types/react": "^18.0.15",
     "@types/react-native": "^0.69.3",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "prettier-plugin-organize-imports": "^3.0.0",
     "react": "^18.0.0",
-    "react-native": "^0.69.1",
+    "react-native": "^0.69.2",
     "react-native-builder-bob": "^0.18.3",
     "typescript": "^4.7.4"
   }
