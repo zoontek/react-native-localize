@@ -1,6 +1,6 @@
 {
   "name": "react-native-localize",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "license": "MIT",
   "description": "A toolbox for your React Native app localization.",
   "author": "Mathieu Acthernoene <zoontek@gmail.com>",
@@ -33,7 +33,7 @@
   ],
   "scripts": {
     "format": "prettier '**/*' -u -w",
-    "postinstall": "git config --local core.hooksPath .hooks",
+    "setup-hooks": "git config --local core.hooksPath .hooks",
     "prepack": "bob build",
     "typecheck": "tsc --project ./ --noEmit"
   },
