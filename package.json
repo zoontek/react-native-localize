@@ -1,6 +1,6 @@
 {
   "name": "react-native-localize",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "license": "MIT",
   "description": "A toolbox for your React Native app localization.",
   "author": "Mathieu Acthernoene <zoontek@gmail.com>",
@@ -12,10 +12,10 @@
     "/android",
     "/dist",
     "/ios",
-    "/windows",
+    "/mock",
     "/src",
+    "/windows",
     "RNLocalize.podspec",
-    "mock.js",
     "package.json"
   ],
   "repository": {
@@ -32,9 +32,10 @@
     "l20n"
   ],
   "scripts": {
+    "build-mock": "tsc mock/index -d -m commonjs -t es2015 --skipLibCheck",
     "format": "prettier '**/*' -u -w",
     "setup-hooks": "git config --local core.hooksPath .hooks",
-    "prepack": "bob build",
+    "prepack": "bob build && yarn build-mock",
     "typecheck": "tsc --project ./ --noEmit"
   },
   "react-native-builder-bob": {
@@ -65,7 +66,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.18.9",
-    "@types/react": "^18.0.15",
+    "@types/jest": "^29.0.3",
     "@types/react-native": "^0.69.3",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
