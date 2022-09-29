@@ -292,7 +292,7 @@ console.log(RNLocalize.getTimeZone());
 
 ### uses24HourClock()
 
-Returns `true` if the user prefers 24h clock format, `false` if he prefers 12h clock format.
+Returns `true` if the user prefers 24h clock format, `false` if they prefer 12h clock format.
 
 #### Method type
 
@@ -311,7 +311,7 @@ console.log(RNLocalize.uses24HourClock());
 
 ### usesMetricSystem()
 
-Returns `true` if the user prefers metric measure system, `false` if he prefers imperial.
+Returns `true` if the user prefers metric measure system, `false` if they prefer imperial.
 
 #### Method type
 
