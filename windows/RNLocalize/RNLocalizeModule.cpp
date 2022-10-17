@@ -159,22 +159,22 @@ std::string RNLocalizeModule::getTimeZone()
   return timeZoneString;
 }
 
+std::wstring RNLocalizeModule::getNlsLocaleInfo(std::wstring localeName, LCTYPE localeInformationType) {
+  constexpr int32_t NLS_BUFFER_SIZE = 512;
+
+  wchar_t nlsBuffer[NLS_BUFFER_SIZE];
+  GetLocaleInfoEx(localeName.c_str(), localeInformationType, nlsBuffer, NLS_BUFFER_SIZE);
+  return std::wstring(nlsBuffer);
+}
+
 NumberFormatSettings RNLocalizeModule::getNumberFormatSettings(std::string locale)
 {
   NumberFormatSettings numberFormatSettings;
 
-  // Use GetNumberFormatEx to get number formatting based on the passed locale.
-  std::wstring num1000(L"1000.00");
-
   std::wstring wStrLocale = std::wstring(locale.begin(), locale.end());
-  const int numberFormatBufferLength = 9;
-  wchar_t numberFormatBuffer[numberFormatBufferLength];
-  GetNumberFormatEx(wStrLocale.c_str(), 0, num1000.c_str(), nullptr, numberFormatBuffer, numberFormatBufferLength);
-  std::string formattedString = winrt::to_string(numberFormatBuffer);
 
-  // Note: The index is intentionally 5 because the output is expected to be something like "1,000.00" and not the original input of "1000.00"
-  numberFormatSettings.decimalSeparator = formattedString.substr(5, 1);
-  numberFormatSettings.groupingSeparator = formattedString.substr(1, 1);
+  numberFormatSettings.decimalSeparator = getNlsLocaleInfo(wStrLocale, LOCALE_SDECIMAL);
+  numberFormatSettings.groupingSeparator = getNlsLocaleInfo(wStrLocale, LOCALE_STHOUSAND);
 
   return numberFormatSettings;
 }
