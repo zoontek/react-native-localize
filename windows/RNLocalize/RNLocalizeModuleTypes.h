@@ -31,10 +31,10 @@ REACT_STRUCT(NumberFormatSettings)
 struct NumberFormatSettings
 {
     REACT_FIELD(decimalSeparator, L"decimalSeparator")
-    std::string decimalSeparator;
+    std::wstring decimalSeparator;
 
     REACT_FIELD(groupingSeparator, L"groupingSeparator")
-    std::string groupingSeparator;
+    std::wstring groupingSeparator;
 };
 
 REACT_STRUCT(LocalizationConstants)

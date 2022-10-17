@@ -32,6 +32,7 @@ private:
     std::string getScriptCode(winrt::hstring);
     std::string getCalendar();
     std::string getTimeZone();
+    std::wstring getNlsLocaleInfo(std::wstring, LCTYPE);
     NumberFormatSettings getNumberFormatSettings(std::string);
     LocalizationConstants getExported();
 
