@@ -3,6 +3,7 @@ import type {
   Calendar,
   Locale,
   NumberFormatSettings,
+  DateFormatSettings,
   TemperatureUnit,
 } from "./types";
 
@@ -26,6 +27,7 @@ type LocalizationConstants = Readonly<{
   currencies: string[];
   locales: Locale[];
   numberFormatSettings: NumberFormatSettings;
+  dateFormatSettings: DateFormatSettings;
   temperatureUnit: TemperatureUnit;
   timeZone: string;
   uses24HourClock: boolean;
@@ -51,6 +53,9 @@ export function getLocales(): Locale[] {
 }
 export function getNumberFormatSettings(): NumberFormatSettings {
   return constants.numberFormatSettings;
+}
+export function getDateFormatSettings(): DateFormatSettings {
+  return constants.dateFormatSettings;
 }
 export function getTemperatureUnit(): TemperatureUnit {
   return constants.temperatureUnit;

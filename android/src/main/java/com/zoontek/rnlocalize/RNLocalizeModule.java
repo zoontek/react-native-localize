@@ -28,6 +28,10 @@ import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEm
 
 import java.lang.reflect.Method;
 import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.FormatStyle;
+import java.time.chrono.Chronology;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Currency;
@@ -231,6 +235,22 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule {
     return settings;
   }
 
+  private @NonNull WritableMap getDateFormatSettings(@NonNull Locale locale) {
+    WritableMap settings = Arguments.createMap();
+
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+      SimpleDateFormat sdf = new SimpleDateFormat();
+
+      settings.putString("noStyle", String.valueOf(sdf.toPattern()));
+      settings.putString("shortStyle", DateTimeFormatterBuilder.getLocalizedDateTimePattern(FormatStyle.SHORT, FormatStyle.SHORT, Chronology.ofLocale(locale), locale));
+      settings.putString("mediumStyle", DateTimeFormatterBuilder.getLocalizedDateTimePattern(FormatStyle.MEDIUM, FormatStyle.MEDIUM, Chronology.ofLocale(locale), locale));
+      settings.putString("longStyle", DateTimeFormatterBuilder.getLocalizedDateTimePattern(FormatStyle.LONG, FormatStyle.LONG, Chronology.ofLocale(locale), locale));
+      settings.putString("fullStyle", DateTimeFormatterBuilder.getLocalizedDateTimePattern(FormatStyle.FULL, FormatStyle.FULL, Chronology.ofLocale(locale), locale));
+    }
+
+    return settings;
+  }
+
   private boolean getUsesAutoDateAndTime() {
     ContentResolver resolver = getReactApplicationContext().getContentResolver();
 
@@ -305,6 +325,7 @@ public class RNLocalizeModule extends ReactContextBaseJavaModule {
     exported.putArray("currencies", currencies);
     exported.putArray("locales", locales);
     exported.putMap("numberFormatSettings", getNumberFormatSettings(currentLocale));
+    exported.putMap("dateFormatSettings", getDateFormatSettings(currentLocale));
     exported.putString("temperatureUnit", USES_FAHRENHEIT.contains(currentRegionCode) ? "fahrenheit" : "celsius");
     exported.putString("timeZone", TimeZone.getDefault().getID());
     exported.putBoolean("uses24HourClock", DateFormat.is24HourFormat(getReactApplicationContext()));

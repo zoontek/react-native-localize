@@ -8,6 +8,7 @@ import type {
   Calendar,
   Locale,
   NumberFormatSettings,
+  DateFormatSettings,
   TemperatureUnit,
 } from "./types";
 
@@ -116,6 +117,21 @@ export function getNumberFormatSettings(): NumberFormatSettings {
   return {
     decimalSeparator: separators[separators.length - 1],
     groupingSeparator: separators[0],
+  };
+}
+
+export function getDateFormatSettings(): DateFormatSettings {
+  const { languageTag } = getCurrentLocale();
+  console.log("getDateFormatSettings", languageTag);
+  // const formatter = new Intl.NumberFormat(languageTag);
+  // const separators = formatter.format(1000000.1).replace(/\d/g, "");
+
+  return {
+    noStyle: "string",
+    shortStyle: "string",
+    mediumStyle: "string",
+    longStyle: "string",
+    fullStyle: "string",
   };
 }
 
