@@ -14,3 +14,11 @@ export type NumberFormatSettings = Readonly<{
   decimalSeparator: string;
   groupingSeparator: string;
 }>;
+
+export type DateFormatSettings = Readonly<{
+  noStyle: string;
+  shortStyle: string;
+  mediumStyle: string;
+  longStyle: string;
+  fullStyle: string;
+}>;

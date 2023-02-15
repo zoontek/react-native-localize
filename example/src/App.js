@@ -89,6 +89,10 @@ export class App extends React.Component {
             value={RNLocalize.getNumberFormatSettings()}
           />
           <Line
+            name="RNLocalize.getDateFormatSettings()"
+            value={RNLocalize.getDateFormatSettings()}
+          />
+          <Line
             name="RNLocalize.getTemperatureUnit()"
             value={RNLocalize.getTemperatureUnit()}
           />

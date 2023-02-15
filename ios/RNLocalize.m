@@ -51,6 +51,36 @@ RCT_EXPORT_MODULE();
   };
 }
 
+- (NSDictionary * _Nonnull)dateFormatSettingsForLocale:(NSLocale * _Nonnull)locale {
+    NSDateFormatter *formatterNoStyle = [NSDateFormatter new];
+    [formatterNoStyle setLocale:locale];
+    [formatterNoStyle setDateStyle:(NSDateFormatterNoStyle)];
+    
+    NSDateFormatter *formatterShortStyle = [NSDateFormatter new];
+    [formatterShortStyle setLocale:locale];
+    [formatterShortStyle setDateStyle:(NSDateFormatterShortStyle)];
+    
+    NSDateFormatter *formatterMediumStyle = [NSDateFormatter new];
+    [formatterMediumStyle setLocale:locale];
+    [formatterMediumStyle setDateStyle:(NSDateFormatterMediumStyle)];
+    
+    NSDateFormatter *formatterLongStyle = [NSDateFormatter new];
+    [formatterLongStyle setLocale:locale];
+    [formatterLongStyle setDateStyle:(NSDateFormatterLongStyle)];
+    
+    NSDateFormatter *formatterFullStyle = [NSDateFormatter new];
+    [formatterFullStyle setLocale:locale];
+    [formatterFullStyle setDateStyle:(NSDateFormatterFullStyle)];
+    
+  return @{
+      @"noStyle": formatterNoStyle.dateFormat,
+      @"shortStyle": formatterShortStyle.dateFormat,
+      @"mediumStyle": formatterMediumStyle.dateFormat,
+      @"longStyle": formatterLongStyle.dateFormat,
+      @"fullStyle": formatterShortStyle.dateFormat,
+  };
+}
+
 - (NSString * _Nonnull)temperatureUnitForLocale:(NSLocale * _Nonnull)locale
                                     countryCode:(NSString * _Nonnull)countryCode {
   if (@available(iOS 10.0, tvOS 10.0, *)) {
@@ -147,6 +177,7 @@ RCT_EXPORT_MODULE();
     @"currencies": currencies,
     @"locales": locales,
     @"numberFormatSettings": [self numberFormatSettingsForLocale:currentLocale],
+    @"dateFormatSettings": [self dateFormatSettingsForLocale:currentLocale],
     @"temperatureUnit": [self temperatureUnitForLocale:currentLocale countryCode:currentCountryCode],
     @"timeZone": [[NSTimeZone localTimeZone] name],
     @"uses24HourClock": @([self uses24HourClockForLocale:currentLocale]),
