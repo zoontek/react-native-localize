@@ -1,6 +1,5 @@
 // http://necolas.github.io/react-native-web/docs/?path=/docs/guides-multi-platform--page#web-packaging-for-existing-react-native-apps
 
-const webpack = require("webpack");
 const path = require("path");
 const fromRoot = (_) => path.resolve(__dirname, _);
 
@@ -20,14 +19,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        use: { loader: "babel-loader", options: { cacheDirectory: true } },
+        test: /\.(js|jsx|ts|tsx)$/,
+        use: { loader: "babel-loader" },
         include: [fromRoot("index.js"), fromRoot("src")],
       },
     ],
   },
   resolve: {
     alias: { "react-native$": "react-native-web" },
-    extensions: [".web.js", ".js"],
+    extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
+      .map((extension) => [".web" + extension, extension])
+      .flat(),
   },
 };
