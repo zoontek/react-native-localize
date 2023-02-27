@@ -31,6 +31,8 @@ local.properties
 *.iml
 *.hprof
 .cxx/
+*.keystore
+!debug.keystore
 
 # Visual Studio Code
 #
@@ -41,12 +43,6 @@ local.properties
 node_modules/
 npm-debug.log
 yarn-error.log
-
-# BUCK
-buck-out/
-\.buckd/
-*.keystore
-!debug.keystore
 
 # Bob
 dist/
@@ -74,3 +70,6 @@ mock/index.js
 example/ios/Pods/
 example/macos/Pods/
 example/vendor/bundle/
+
+# Temporary files created by Metro to check the health of the file watcher
+.metro-health-check*

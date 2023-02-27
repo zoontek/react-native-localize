@@ -8,12 +8,8 @@ target 'RNLocalizeExample' do
 
   use_react_native!(
     :path => '../node_modules/react-native-macos',
-
-    # To use Hermes, install the `hermes-engine-darwin` npm package, e.g.:
-    #   $ yarn add 'hermes-engine-darwin@~0.5.3'
-    #
-    # Then enable this option:
-    #   :hermes_enabled => true
+    # to enable hermes on macOS, change `false` to `true` and then install pods
+    :hermes_enabled => false
   )
 
   # Pods specifically for macOS target

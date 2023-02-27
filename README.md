@@ -410,7 +410,7 @@ console.log(RNLocalize.findBestAvailableLanguage(["en-US", "en", "fr"]));
 // -> { languageTag: "en-US", isRTL: false }
 ```
 
-## Examples with [i18n-js](https://github.com/fnando/i18n-js)
+## Examples with [@formatjs/intl](https://formatjs.io/docs/intl)
 
 Browse the files in the [/example](https://github.com/zoontek/react-native-localize/tree/master/example) directory.
 
