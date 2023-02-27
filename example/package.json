@@ -13,8 +13,7 @@
     "reinstall": "yarn clean && yarn install"
   },
   "dependencies": {
-    "i18n-js": "3.9.2",
-    "lodash.memoize": "4.1.2",
+    "@formatjs/intl": "2.6.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.3",
