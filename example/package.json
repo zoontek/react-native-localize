@@ -19,7 +19,7 @@
     "react-native": "0.71.3",
     "react-native-localize": "file:../",
     "react-native-web": "0.18.12",
-    "react-native-windows": "0.71.1"
+    "react-native-windows": "0.71.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
