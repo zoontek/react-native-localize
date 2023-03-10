@@ -36,6 +36,7 @@ export default {
   getTemperatureUnit,
   getTimeZone,
   uses24HourClock,
+  usesAutoDateAndTime,
   usesMetricSystem,
 
   findBestAvailableLanguage,
