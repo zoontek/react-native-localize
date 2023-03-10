@@ -21,6 +21,8 @@ export const getCurrencies = () => ["USD", "EUR"]; // can be empty array
 export const getTemperatureUnit = () => "celsius"; // or "fahrenheit"
 export const getTimeZone = () => "Europe/Paris"; // the timezone you want
 export const uses24HourClock = () => true;
+export const usesAutoDateAndTime = () => true;
+export const usesAutoTimeZone = () => true;
 export const usesMetricSystem = () => true;
 
 export const addEventListener = jest.fn();
@@ -35,6 +37,8 @@ export default {
   getTemperatureUnit,
   getTimeZone,
   uses24HourClock,
+  usesAutoDateAndTime,
+  usesAutoTimeZone,
   usesMetricSystem,
 
   findBestAvailableLanguage,
