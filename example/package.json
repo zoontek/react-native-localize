@@ -16,10 +16,10 @@
     "@formatjs/intl": "2.6.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-native": "0.71.3",
+    "react-native": "0.71.4",
     "react-native-localize": "file:../",
     "react-native-web": "0.18.12",
-    "react-native-windows": "0.71.2"
+    "react-native-windows": "0.71.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -27,12 +27,12 @@
     "@babel/runtime": "^7.20.0",
     "@types/react": "^18.0.28",
     "babel-loader": "^9.1.2",
-    "metro-react-native-babel-preset": "0.73.7",
+    "metro-react-native-babel-preset": "0.73.8",
     "pod-install": "^0.1.38",
-    "rimraf": "^4.1.2",
+    "rimraf": "^4.4.0",
     "typescript": "^4.9.5",
-    "webpack": "^5.75.0",
+    "webpack": "^5.76.1",
     "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.11.1"
+    "webpack-dev-server": "^4.12.0"
   }
 }
