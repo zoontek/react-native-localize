@@ -6,39 +6,11 @@ import {
   getNumberFormatSettings,
   getTemperatureUnit,
   getTimeZone,
-  handlers,
   uses24HourClock,
   usesAutoDateAndTime,
   usesAutoTimeZone,
   usesMetricSystem,
 } from "./module";
-import { LocalizationEvent } from "./types";
-
-function logUnknownEvent(type: string) {
-  console.error(`\`${type}\` is not a valid react-native-localize event`);
-}
-
-export function addEventListener(
-  type: LocalizationEvent,
-  handler: Function,
-): void {
-  if (type !== "change") {
-    logUnknownEvent(type);
-  } else if (!handlers.has(handler)) {
-    handlers.add(handler);
-  }
-}
-
-export function removeEventListener(
-  type: LocalizationEvent,
-  handler: Function,
-): void {
-  if (type !== "change") {
-    logUnknownEvent(type);
-  } else if (handlers.has(handler)) {
-    handlers.delete(handler);
-  }
-}
 
 export function findBestAvailableLanguage<T extends string>(
   languageTags: ReadonlyArray<T>,
@@ -99,6 +71,4 @@ export default {
   usesMetricSystem,
 
   findBestAvailableLanguage,
-  addEventListener,
-  removeEventListener,
 };

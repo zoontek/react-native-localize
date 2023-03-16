@@ -8,16 +8,7 @@ RCT_EXPORT_MODULE();
   return NO;
 }
 
-- (NSString * _Nonnull)calendarForLocale:(NSLocale * _Nonnull)locale {
-  NSString *calendar = [[locale objectForKey:NSLocaleCalendar] calendarIdentifier];
-
-  if ([calendar isEqualToString:NSCalendarIdentifierJapanese])
-    return @"japanese";
-  if ([calendar isEqualToString:NSCalendarIdentifierBuddhist])
-    return @"buddhist";
-
-  return @"gregorian";
-}
+// Internal
 
 - (NSString * _Nullable)countryCodeForLocale:(NSLocale * _Nonnull)locale {
   NSString *countryCode = [locale objectForKey:NSLocaleCountryCode];
@@ -44,76 +35,66 @@ RCT_EXPORT_MODULE();
   return [languageTag stringByAppendingFormat:@"-%@", countryCode];
 }
 
-- (NSDictionary * _Nonnull)numberFormatSettingsForLocale:(NSLocale * _Nonnull)locale {
-  return @{
-    @"decimalSeparator": [locale objectForKey:NSLocaleDecimalSeparator],
-    @"groupingSeparator": [locale objectForKey:NSLocaleGroupingSeparator],
-  };
+// Implementation
+
+- (NSString * _Nonnull)currentCalendar {
+  NSLocale *currentLocale = [NSLocale currentLocale];
+  NSString *calendar = [[currentLocale objectForKey:NSLocaleCalendar] calendarIdentifier];
+
+  if ([calendar isEqualToString:NSCalendarIdentifierJapanese])
+    return @"japanese";
+  if ([calendar isEqualToString:NSCalendarIdentifierBuddhist])
+    return @"buddhist";
+
+  return @"gregorian";
 }
 
-- (NSString * _Nonnull)temperatureUnitForLocale:(NSLocale * _Nonnull)locale
-                                    countryCode:(NSString * _Nonnull)countryCode {
-  if (@available(iOS 10.0, tvOS 10.0, *)) {
-    NSMeasurementFormatter *formatter = [NSMeasurementFormatter new];
-    [formatter setLocale:locale];
-
-    NSMeasurement *temperature = [[NSMeasurement alloc] initWithDoubleValue:42.0 unit:[NSUnitTemperature celsius]];
-    NSString *formatted = [formatter stringFromMeasurement:temperature];
-    NSString *unitCharacter = [formatted substringFromIndex:[formatted length] - 1];
-
-    if ([unitCharacter isEqualToString:@"C"])
-      return @"celsius";
-    if ([unitCharacter isEqualToString:@"F"])
-      return @"fahrenheit";
-  }
-
-  NSArray<NSString *> *usesFahrenheit = @[@"BS", @"BZ", @"KY", @"PR", @"PW", @"US"];
-  return [usesFahrenheit containsObject:countryCode] ? @"fahrenheit" : @"celsius";
-}
-
-- (bool)uses24HourClockForLocale:(NSLocale * _Nonnull)locale {
-  NSDateFormatter* formatter = [NSDateFormatter new];
-
-  [formatter setLocale:locale];
-  [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-  [formatter setDateStyle:NSDateFormatterNoStyle];
-  [formatter setTimeStyle:NSDateFormatterShortStyle];
-
-  NSDate *date = [NSDate dateWithTimeIntervalSince1970:72000];
-  return [[formatter stringFromDate:date] containsString:@"20"];
-}
-
-- (bool)usesMetricSystemForLocale:(NSLocale * _Nonnull)locale {
-  return [[locale objectForKey:NSLocaleUsesMetricSystem] boolValue];
-}
-
-- (NSDictionary * _Nonnull)exportedConstants {
+- (NSString * _Nonnull)currentCountryCode {
   NSLocale *currentLocale = [NSLocale currentLocale];
   NSString *currentCountryCode = [self countryCodeForLocale:currentLocale];
-  NSString *currentCurrencyCode = [self currencyCodeForLocale:currentLocale];
 
   if (currentCountryCode == nil)
-    currentCountryCode = @"US"; // only happen in the simulator
+    return @"US"; // only happen in the simulator
 
-  NSMutableArray<NSString *> *languageTags = [NSMutableArray array];
-  NSMutableArray<NSDictionary *> *locales = [NSMutableArray array];
+  return currentCountryCode;
+}
+
+- (NSArray * _Nonnull)currentCurrencies {
   NSMutableArray<NSString *> *currencies = [NSMutableArray array];
+  NSString *currentCurrencyCode = [self currencyCodeForLocale:[NSLocale currentLocale]];
 
   if (currentCurrencyCode != nil)
     [currencies addObject:currentCurrencyCode];
 
   for (NSString *identifier in [NSLocale preferredLanguages]) {
-    NSLocale *deviceLocale = [[NSLocale alloc] initWithLocaleIdentifier:identifier];
-    NSString *deviceLanguageCode = [deviceLocale objectForKey:NSLocaleLanguageCode];
+    NSLocale *systemLocale = [[NSLocale alloc] initWithLocaleIdentifier:identifier];
+    NSString *currencyCode = [self currencyCodeForLocale:systemLocale];
 
-    NSString *languageCode = [deviceLanguageCode lowercaseString];
-    NSString *scriptCode = [deviceLocale objectForKey:NSLocaleScriptCode];
-    NSString *countryCode = [self countryCodeForLocale:deviceLocale];
-    NSString *currencyCode = [self currencyCodeForLocale:deviceLocale];
+    if (currencyCode != nil && ![currencies containsObject:currencyCode])
+      [currencies addObject:currencyCode];
+  }
+
+  if ([currencies count] == 0)
+    [currencies addObject:@"USD"];
+
+  return currencies;
+}
+
+- (NSArray * _Nonnull)currentLocales {
+  NSMutableArray<NSString *> *languageTags = [NSMutableArray array];
+  NSMutableArray<NSDictionary *> *locales = [NSMutableArray array];
+
+  for (NSString *identifier in [NSLocale preferredLanguages]) {
+    NSLocale *systemLocale = [[NSLocale alloc] initWithLocaleIdentifier:identifier];
+    NSString *systemLanguageCode = [systemLocale objectForKey:NSLocaleLanguageCode];
+
+    NSString *languageCode = [systemLanguageCode lowercaseString];
+    NSString *scriptCode = [systemLocale objectForKey:NSLocaleScriptCode];
+    NSString *countryCode = [self countryCodeForLocale:systemLocale];
     bool isRTL = [NSLocale characterDirectionForLanguage:languageCode] == NSLocaleLanguageDirectionRightToLeft;
 
     if (countryCode == nil)
-      countryCode = currentCountryCode;
+      countryCode = [self currentCountryCode];
 
     NSString *languageTag = [self languageTagForLanguageCode:languageCode
                                                   scriptCode:scriptCode
@@ -133,58 +114,99 @@ RCT_EXPORT_MODULE();
       [locales addObject:locale];
       [languageTags addObject:languageTag];
     }
-
-    if (currencyCode != nil && ![currencies containsObject:currencyCode])
-      [currencies addObject:currencyCode];
   }
 
-  if ([currencies count] == 0)
-    [currencies addObject:@"USD"];
+  return locales;
+}
+
+- (NSDictionary * _Nonnull)currentNumberFormatSettings {
+  NSLocale *currentLocale = [NSLocale currentLocale];
 
   return @{
-    @"calendar": [self calendarForLocale:currentLocale],
-    @"country": currentCountryCode,
-    @"currencies": currencies,
-    @"locales": locales,
-    @"numberFormatSettings": [self numberFormatSettingsForLocale:currentLocale],
-    @"temperatureUnit": [self temperatureUnitForLocale:currentLocale countryCode:currentCountryCode],
-    @"timeZone": [[NSTimeZone localTimeZone] name],
-    @"uses24HourClock": @([self uses24HourClockForLocale:currentLocale]),
-    @"usesMetricSystem": @([self usesMetricSystemForLocale:currentLocale]),
+    @"decimalSeparator": [currentLocale objectForKey:NSLocaleDecimalSeparator],
+    @"groupingSeparator": [currentLocale objectForKey:NSLocaleGroupingSeparator],
   };
 }
 
-- (void)startObserving {
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(onLocalizationDidChange)
-                                               name:NSCurrentLocaleDidChangeNotification
-                                             object:nil];
+- (NSString * _Nonnull)currentTemperatureUnit {
+  NSLocale *currentLocale = [NSLocale currentLocale];
+  NSMeasurementFormatter *formatter = [NSMeasurementFormatter new];
 
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(onLocalizationDidChange)
-                                               name:NSSystemTimeZoneDidChangeNotification
-                                             object:nil];
+  [formatter setLocale:currentLocale];
 
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(onLocalizationDidChange)
-                                               name:NSSystemClockDidChangeNotification
-                                             object:nil];
+  NSMeasurement *temperature = [[NSMeasurement alloc] initWithDoubleValue:42.0 unit:[NSUnitTemperature celsius]];
+  NSString *formatted = [formatter stringFromMeasurement:temperature];
+  NSString *unitCharacter = [formatted substringFromIndex:[formatted length] - 1];
+
+  return [unitCharacter isEqualToString:@"C"] ? @"celsius" : @"fahrenheit";
 }
 
-- (void)stopObserving {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
+- (NSString * _Nonnull)currentTimeZone {
+  return [[NSTimeZone localTimeZone] name];
 }
 
-- (NSDictionary *)constantsToExport {
-  return @{ @"initialConstants": [self exportedConstants] };
+- (bool)currentUses24HourClock {
+  NSLocale *currentLocale = [NSLocale currentLocale];
+  NSDateFormatter* formatter = [NSDateFormatter new];
+
+  [formatter setLocale:currentLocale];
+  [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+  [formatter setDateStyle:NSDateFormatterNoStyle];
+  [formatter setTimeStyle:NSDateFormatterShortStyle];
+
+  NSDate *date = [NSDate dateWithTimeIntervalSince1970:72000];
+  return [[formatter stringFromDate:date] containsString:@"20"];
 }
 
-- (NSArray<NSString *> *)supportedEvents {
-  return @[@"localizationDidChange"];
+- (bool)currentUsesMetricSystem {
+  NSLocale *currentLocale = [NSLocale currentLocale];
+  return [[currentLocale objectForKey:NSLocaleUsesMetricSystem] boolValue];
 }
 
-- (void)onLocalizationDidChange {
-  [self sendEventWithName:@"localizationDidChange" body:[self exportedConstants]];
+// Exposed
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getCalendar) {
+  return [self currentCalendar];
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getCountry) {
+  return [self currentCountryCode];
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getCurrencies) {
+  return [self currentCurrencies];
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getLocales) {
+  return [self currentLocales];
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getNumberFormatSettings) {
+  return [self currentNumberFormatSettings];
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getTemperatureUnit) {
+  return [self currentTemperatureUnit];
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getTimeZone) {
+  return [self currentTimeZone];
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(uses24HourClock) {
+  return @([self currentUses24HourClock]);
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(usesAutoDateAndTime) {
+  return nil;
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(usesAutoTimeZone) {
+  return nil;
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(usesMetricSystem) {
+  return @([self currentUsesMetricSystem]);
 }
 
 @end

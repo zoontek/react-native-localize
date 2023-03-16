@@ -37,7 +37,7 @@ const intl = createIntl(
   createIntlCache(),
 );
 
-type TranslationParams = Parameters<typeof intl["formatMessage"]>[1];
+type TranslationParams = Parameters<(typeof intl)["formatMessage"]>[1];
 
 const translate = (key: string, params?: TranslationParams) =>
   intl

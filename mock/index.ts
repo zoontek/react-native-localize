@@ -25,9 +25,6 @@ export const usesAutoDateAndTime = () => true;
 export const usesAutoTimeZone = () => true;
 export const usesMetricSystem = () => true;
 
-export const addEventListener = jest.fn();
-export const removeEventListener = jest.fn();
-
 export default {
   getCalendar,
   getCountry,
@@ -42,6 +39,4 @@ export default {
   usesMetricSystem,
 
   findBestAvailableLanguage,
-  addEventListener,
-  removeEventListener,
 };

@@ -28,8 +28,8 @@ If your company uses it in a production app, consider sponsoring this project �
 
 | package name          | version | react-native version |
 | --------------------- | ------- | -------------------- |
+| react-native-localize | 3.0.0+  | 0.68.0+              |
 | react-native-localize | 2.0.0+  | 0.60.0+              |
-| react-native-localize | 1.0.0+  | 0.56.0+              |
 
 ## Setup
 
@@ -129,10 +129,6 @@ import * as RNLocalize from "react-native-localize";
 
 console.log(RNLocalize.getLocales());
 console.log(RNLocalize.getCurrencies());
-
-RNLocalize.addEventListener("change", () => {
-  // do localization related stuff…
-});
 ```
 
 ## API
@@ -362,31 +358,6 @@ type usesAutoTimeZone = () => Option<boolean>;
 
 ```js
 console.log(RNLocalize.usesAutoTimeZone());
-```
-
----
-
-### addEventListener() / removeEventListener()
-
-Allows you to listen for any localization change.
-
-#### Methods type
-
-```ts
-type addEventListener = (type: "change", handler: Function) => void;
-type removeEventListener = (type: "change", handler: Function) => void;
-```
-
-#### Usage example
-
-```js
-function handleLocalizationChange() {
-  console.log(RNLocalize.getLocales());
-}
-
-RNLocalize.addEventListener("change", handleLocalizationChange);
-// …later (ex: component unmount)
-RNLocalize.removeEventListener("change", handleLocalizationChange);
 ```
 
 ---

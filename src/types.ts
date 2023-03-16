@@ -1,5 +1,4 @@
 export type Calendar = "gregorian" | "japanese" | "buddhist";
-export type LocalizationEvent = "change";
 export type TemperatureUnit = "celsius" | "fahrenheit";
 
 export type Locale = Readonly<{

@@ -11,12 +11,6 @@ import type {
   TemperatureUnit,
 } from "./types";
 
-const canUseDOM = !!(
-  typeof window !== "undefined" &&
-  window.document &&
-  window.document.createElement
-);
-
 function ensureCountryCode(countryCode: string): string {
   return countryCode === "419" ? "UN" : countryCode.toUpperCase();
 }
@@ -145,12 +139,4 @@ export function usesAutoDateAndTime(): boolean | undefined {
 
 export function usesAutoTimeZone(): boolean | undefined {
   return;
-}
-
-export const handlers: Set<Function> = new Set();
-
-if (canUseDOM) {
-  window.addEventListener("languagechange", () => {
-    handlers.forEach((handler) => handler());
-  });
 }
