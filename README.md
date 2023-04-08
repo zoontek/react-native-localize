@@ -67,13 +67,13 @@ Returns the user preferred locales, in order.
 #### Method type
 
 ```ts
-type getLocales = () => {
+type getLocales = () => Array<{
   languageCode: string;
   scriptCode?: string;
   countryCode: string;
   languageTag: string;
   isRTL: boolean;
-}[];
+}>;
 ```
 
 #### Usage example
