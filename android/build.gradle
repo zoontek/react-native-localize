@@ -11,19 +11,47 @@ buildscript {
     }
 }
 
+def isNewArchitectureEnabled() {
+    return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
+}
+
 apply plugin: "com.android.library"
-apply plugin: "com.facebook.react"
+
+if (isNewArchitectureEnabled()) {
+    apply plugin: "com.facebook.react"
+}
 
 android {
     compileSdkVersion safeExtGet("compileSdkVersion", 33)
-    namespace "com.zoontek.rnlocalize"
+    buildToolsVersion safeExtGet("buildToolsVersion", "33.0.0")
+    defaultConfig {
+        buildConfigField("boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString())
+        minSdkVersion safeExtGet("minSdkVersion", 21)
+        targetSdkVersion safeExtGet("targetSdkVersion", 33)
+    }
+    lintOptions {
+        abortOnError false
+    }
+    sourceSets {
+        main {
+            if (isNewArchitectureEnabled()) {
+                java.srcDirs += ["src/newarch"]
+            } else {
+                java.srcDirs += ["src/oldarch"]
+            }
+        }
+    }
 }
 
 repositories {
+    maven {
+        // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+        url "$projectDir/../node_modules/react-native/android"
+    }
     mavenCentral()
     google()
 }
 
 dependencies {
-    implementation "com.facebook.react:react-native"
+    implementation "com.facebook.react:react-native:+"
 }
