@@ -12,7 +12,7 @@ import {
   usesMetricSystem,
 } from "./module";
 
-export function findBestAvailableLanguage<T extends string>(
+export function findBestLanguageTag<T extends string>(
   languageTags: ReadonlyArray<T>,
 ): { languageTag: T; isRTL: boolean } | undefined {
   const locales = getLocales();
@@ -80,5 +80,5 @@ export default {
   usesAutoTimeZone,
   usesMetricSystem,
 
-  findBestAvailableLanguage,
+  findBestLanguageTag,
 };

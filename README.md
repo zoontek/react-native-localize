@@ -323,14 +323,14 @@ console.log(usesAutoTimeZone());
 
 ---
 
-### findBestAvailableLanguage()
+### findBestLanguageTag()
 
 Returns the best language tag possible and its reading direction (⚠️ **it respects the user preferred languages list order, see [explanations](https://github.com/zoontek/react-native-localize/issues/57#issuecomment-508456427)**). Useful to pick the best translation available.
 
 #### Method type
 
 ```ts
-type findBestAvailableLanguage = (
+type findBestLanguageTag = (
   languageTags: string[],
 ) => { languageTag: string; isRTL: boolean } | void;
 ```
@@ -338,9 +338,9 @@ type findBestAvailableLanguage = (
 #### Usage example
 
 ```ts
-import { findBestAvailableLanguage } from "react-native-localize";
+import { findBestLanguageTag } from "react-native-localize";
 
-console.log(findBestAvailableLanguage(["en-US", "en", "fr"]));
+console.log(findBestLanguageTag(["en-US", "en", "fr"]));
 // -> { languageTag: "en-US", isRTL: false }
 ```
 

@@ -23,7 +23,7 @@ type Translation = keyof typeof translations;
 const fallback = { languageTag: "en", isRTL: false };
 
 const { languageTag, isRTL } =
-  RNLocalize.findBestAvailableLanguage(Object.keys(translations)) ?? fallback;
+  RNLocalize.findBestLanguageTag(Object.keys(translations)) ?? fallback;
 
 // update layout direction
 I18nManager.forceRTL(isRTL);
@@ -127,8 +127,8 @@ export const App = () => (
       )}
 
       <Line
-        name="RNLocalize.findBestAvailableLanguage(['en-US', 'en', 'fr'])"
-        value={RNLocalize.findBestAvailableLanguage(["en-US", "en", "fr"])}
+        name="RNLocalize.findBestLanguageTag(['en-US', 'en', 'fr'])"
+        value={RNLocalize.findBestLanguageTag(["en-US", "en", "fr"])}
       />
 
       <Line name="Translation example" value={translate("hello")} />

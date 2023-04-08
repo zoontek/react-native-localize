@@ -5,7 +5,7 @@ export const getLocales = () => [
 ];
 
 // use a provided translation, or return undefined to test your fallback
-export const findBestAvailableLanguage = () => ({
+export const findBestLanguageTag = () => ({
   languageTag: "en-US",
   isRTL: false,
 });
@@ -38,5 +38,5 @@ export default {
   usesAutoDateAndTime,
   usesAutoTimeZone,
 
-  findBestAvailableLanguage,
+  findBestLanguageTag,
 };
