@@ -6,7 +6,7 @@ import type {
   TemperatureUnit,
 } from "./types";
 
-export function getCalendar() {
+export function getCalendar(): Calendar {
   return NativeModule.getCalendar() as Calendar;
 }
 
@@ -18,15 +18,15 @@ export function getCurrencies(): string[] {
   return NativeModule.getCurrencies();
 }
 
-export function getLocales() {
+export function getLocales(): Locale[] {
   return NativeModule.getLocales() as Locale[];
 }
 
-export function getNumberFormatSettings() {
+export function getNumberFormatSettings(): NumberFormatSettings {
   return NativeModule.getNumberFormatSettings() as NumberFormatSettings;
 }
 
-export function getTemperatureUnit() {
+export function getTemperatureUnit(): TemperatureUnit {
   return NativeModule.getTemperatureUnit() as TemperatureUnit;
 }
 
