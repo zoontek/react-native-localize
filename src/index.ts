@@ -1,16 +1,4 @@
-import {
-  getCalendar,
-  getCountry,
-  getCurrencies,
-  getLocales,
-  getNumberFormatSettings,
-  getTemperatureUnit,
-  getTimeZone,
-  uses24HourClock,
-  usesAutoDateAndTime,
-  usesAutoTimeZone,
-  usesMetricSystem,
-} from "./module";
+import { getLocales } from "./module";
 
 export function findBestLanguageTag<T extends string>(
   languageTags: ReadonlyArray<T>,
@@ -66,19 +54,3 @@ export {
   usesMetricSystem,
 } from "./module";
 export * from "./types";
-
-export default {
-  getCalendar,
-  getCountry,
-  getCurrencies,
-  getLocales,
-  getNumberFormatSettings,
-  getTemperatureUnit,
-  getTimeZone,
-  uses24HourClock,
-  usesAutoDateAndTime,
-  usesAutoTimeZone,
-  usesMetricSystem,
-
-  findBestLanguageTag,
-};
