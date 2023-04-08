@@ -19,7 +19,7 @@ function splitLanguageTag(languageTag: string): {
   languageCode: string;
   countryCode?: string;
 } {
-  const [languageCode, countryCode] = languageTag.split("-");
+  const [languageCode = "en", countryCode] = languageTag.split("-");
   return { languageCode, countryCode };
 }
 
@@ -51,7 +51,13 @@ export function getCountry(): string {
   const { languages = [navigator.language] } = navigator;
 
   for (let i = 0; i < languages.length; i++) {
-    const { countryCode } = splitLanguageTag(languages[i]);
+    const language = languages[i];
+
+    if (!language) {
+      continue;
+    }
+
+    const { countryCode } = splitLanguageTag(language);
 
     if (countryCode) {
       return ensureCountryCode(countryCode);
@@ -71,7 +77,7 @@ export function getCurrencies(): string[] {
     if (countryCode) {
       const currency = CURRENCIES[ensureCountryCode(countryCode)];
 
-      if (currencies.indexOf(currency) === -1) {
+      if (currency && currencies.indexOf(currency) === -1) {
         currencies.push(currency);
       }
     }
@@ -108,8 +114,8 @@ export function getNumberFormatSettings(): NumberFormatSettings {
   const separators = formatter.format(1000000.1).replace(/\d/g, "");
 
   return {
-    decimalSeparator: separators[separators.length - 1],
-    groupingSeparator: separators[0],
+    decimalSeparator: separators[separators.length - 1] || ".",
+    groupingSeparator: separators[0] || ",",
   };
 }
 

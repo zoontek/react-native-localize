@@ -1,14 +1,26 @@
 {
   "compilerOptions": {
+    "module": "ES2015",
+    "target": "ES2015",
+    "lib": ["DOM", "DOM.Iterable", "ES2015"],
     "jsx": "react-native",
-    "lib": ["ES2016"],
     "moduleResolution": "Node",
-    "target": "ESNext",
 
+    "allowJs": false,
     "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "isolatedModules": true
+    "declaration": true,
+    "sourceMap": true,
+    "stripInternal": true,
+    "skipLibCheck": true,
+
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": false,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

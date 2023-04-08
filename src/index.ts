@@ -21,6 +21,10 @@ export function findBestAvailableLanguage<T extends string>(
   for (let i = 0; i < locales.length; i++) {
     const currentLocale = locales[i];
 
+    if (!currentLocale) {
+      continue;
+    }
+
     const { languageTag, languageCode, scriptCode, countryCode, isRTL } =
       currentLocale;
 
@@ -32,11 +36,17 @@ export function findBestAvailableLanguage<T extends string>(
     ].filter((value): value is string => !!value);
 
     for (let j = 0; j < combinaisons.length; j++) {
-      const combinaison = combinaisons[j].toLowerCase();
-      const tagIndex = loweredLanguageTags.indexOf(combinaison);
+      const combinaison = combinaisons[j]?.toLowerCase();
 
-      if (tagIndex !== -1) {
-        return { languageTag: languageTags[tagIndex], isRTL };
+      if (!combinaison) {
+        continue;
+      }
+
+      const tagIndex = loweredLanguageTags.indexOf(combinaison);
+      const languageTag = languageTags[tagIndex];
+
+      if (languageTag && tagIndex !== -1) {
+        return { languageTag, isRTL };
       }
     }
   }

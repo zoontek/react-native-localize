@@ -41,10 +41,34 @@ RCT_EXPORT_MODULE();
   NSLocale *currentLocale = [NSLocale currentLocale];
   NSString *calendar = [[currentLocale objectForKey:NSLocaleCalendar] calendarIdentifier];
 
-  if ([calendar isEqualToString:NSCalendarIdentifierJapanese])
-    return @"japanese";
+  if ([calendar isEqualToString:NSCalendarIdentifierGregorian])
+    return @"gregorian";
   if ([calendar isEqualToString:NSCalendarIdentifierBuddhist])
     return @"buddhist";
+  if ([calendar isEqualToString:NSCalendarIdentifierCoptic])
+    return @"coptic";
+  if ([calendar isEqualToString:NSCalendarIdentifierEthiopicAmeteMihret])
+    return @"ethiopic";
+  if ([calendar isEqualToString:NSCalendarIdentifierEthiopicAmeteAlem])
+    return @"ethiopic-amete-alem";
+  if ([calendar isEqualToString:NSCalendarIdentifierHebrew])
+    return @"hebrew";
+  if ([calendar isEqualToString:NSCalendarIdentifierIndian])
+    return @"indian";
+  if ([calendar isEqualToString:NSCalendarIdentifierIslamic])
+    return @"islamic";
+  if ([calendar isEqualToString:NSCalendarIdentifierIslamicUmmAlQura])
+    return @"islamic-umm-al-qura";
+  if ([calendar isEqualToString:NSCalendarIdentifierIslamicCivil])
+    return @"islamic-civil";
+  if ([calendar isEqualToString:NSCalendarIdentifierIslamicTabular])
+    return @"islamic-tabular";
+  if ([calendar isEqualToString:NSCalendarIdentifierISO8601])
+    return @"iso8601";
+  if ([calendar isEqualToString:NSCalendarIdentifierJapanese])
+    return @"japanese";
+  if ([calendar isEqualToString:NSCalendarIdentifierPersian])
+    return @"persian";
 
   return @"gregorian";
 }

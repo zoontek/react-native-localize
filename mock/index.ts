@@ -15,15 +15,15 @@ export const getNumberFormatSettings = () => ({
   groupingSeparator: ",",
 });
 
-export const getCalendar = () => "gregorian"; // or "japanese", "buddhist"
+export const getCalendar = () => "gregorian"; // the calendar identifier you want
 export const getCountry = () => "US"; // the country code you want
 export const getCurrencies = () => ["USD", "EUR"]; // can be empty array
 export const getTemperatureUnit = () => "celsius"; // or "fahrenheit"
 export const getTimeZone = () => "Europe/Paris"; // the timezone you want
 export const uses24HourClock = () => true;
+export const usesMetricSystem = () => true;
 export const usesAutoDateAndTime = () => true;
 export const usesAutoTimeZone = () => true;
-export const usesMetricSystem = () => true;
 
 export default {
   getCalendar,
@@ -34,9 +34,9 @@ export default {
   getTemperatureUnit,
   getTimeZone,
   uses24HourClock,
+  usesMetricSystem,
   usesAutoDateAndTime,
   usesAutoTimeZone,
-  usesMetricSystem,
 
   findBestAvailableLanguage,
 };

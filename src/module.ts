@@ -15,9 +15,9 @@ const NativeModule: Readonly<{
   getTemperatureUnit: () => TemperatureUnit;
   getTimeZone: () => string;
   uses24HourClock: () => boolean;
+  usesMetricSystem: () => boolean;
   usesAutoDateAndTime: () => boolean | null;
   usesAutoTimeZone: () => boolean | null;
-  usesMetricSystem: () => boolean;
 }> = NativeModules.RNLocalize;
 
 export const getCalendar = NativeModule.getCalendar;
