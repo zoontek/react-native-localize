@@ -4,7 +4,6 @@ package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 
 Pod::Spec.new do |s|
   s.name                      = "RNLocalize"
-  s.dependency                  "React-Core"
 
   s.version                   = package["version"]
   s.license                   = package["license"]
@@ -21,5 +20,7 @@ Pod::Spec.new do |s|
 
   if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then
     install_modules_dependencies(s)
+  else
+    s.dependency                  "React-Core"
   end
 end

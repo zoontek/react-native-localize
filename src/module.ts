@@ -1,4 +1,4 @@
-import { NativeModules } from "react-native";
+import NativeModule from "./NativeRNLocalize";
 import type {
   Calendar,
   Locale,
@@ -6,29 +6,41 @@ import type {
   TemperatureUnit,
 } from "./types";
 
-const NativeModule: Readonly<{
-  getCalendar: () => Calendar;
-  getCountry: () => string;
-  getCurrencies: () => string[];
-  getLocales: () => Locale[];
-  getNumberFormatSettings: () => NumberFormatSettings;
-  getTemperatureUnit: () => TemperatureUnit;
-  getTimeZone: () => string;
-  uses24HourClock: () => boolean;
-  usesMetricSystem: () => boolean;
-  usesAutoDateAndTime: () => boolean | null;
-  usesAutoTimeZone: () => boolean | null;
-}> = NativeModules.RNLocalize;
+export function getCalendar() {
+  return NativeModule.getCalendar() as Calendar;
+}
 
-export const getCalendar = NativeModule.getCalendar;
-export const getCountry = NativeModule.getCountry;
-export const getCurrencies = NativeModule.getCurrencies;
-export const getLocales = NativeModule.getLocales;
-export const getNumberFormatSettings = NativeModule.getNumberFormatSettings;
-export const getTemperatureUnit = NativeModule.getTemperatureUnit;
-export const getTimeZone = NativeModule.getTimeZone;
-export const uses24HourClock = NativeModule.uses24HourClock;
-export const usesMetricSystem = NativeModule.usesMetricSystem;
+export function getCountry(): string {
+  return NativeModule.getCountry();
+}
+
+export function getCurrencies(): string[] {
+  return NativeModule.getCurrencies();
+}
+
+export function getLocales() {
+  return NativeModule.getLocales() as Locale[];
+}
+
+export function getNumberFormatSettings() {
+  return NativeModule.getNumberFormatSettings() as NumberFormatSettings;
+}
+
+export function getTemperatureUnit() {
+  return NativeModule.getTemperatureUnit() as TemperatureUnit;
+}
+
+export function getTimeZone(): string {
+  return NativeModule.getTimeZone();
+}
+
+export function uses24HourClock(): boolean {
+  return NativeModule.uses24HourClock();
+}
+
+export function usesMetricSystem(): boolean {
+  return NativeModule.usesMetricSystem();
+}
 
 export function usesAutoDateAndTime(): boolean | undefined {
   return NativeModule.usesAutoDateAndTime() ?? undefined;

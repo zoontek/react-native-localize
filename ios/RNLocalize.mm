@@ -1,16 +1,16 @@
 #import "RNLocalize.h"
 
+#ifdef RCT_NEW_ARCH_ENABLED
+#import "RNLocalizeSpec.h"
+#endif
+
 @implementation RNLocalize
 
 RCT_EXPORT_MODULE();
 
-+ (BOOL)requiresMainQueueSetup {
-  return NO;
-}
-
 // Internal
 
-- (NSString * _Nullable)countryCodeForLocale:(NSLocale * _Nonnull)locale {
+- (NSString * _Nullable)getCountryCodeForLocale:(NSLocale *)locale {
   NSString *countryCode = [locale objectForKey:NSLocaleCountryCode];
 
   if ([countryCode isEqualToString:@"419"])
@@ -19,14 +19,14 @@ RCT_EXPORT_MODULE();
   return countryCode != nil ? [countryCode uppercaseString] : nil;
 }
 
-- (NSString * _Nullable)currencyCodeForLocale:(NSLocale * _Nonnull)locale {
+- (NSString * _Nullable)getCurrencyCodeForLocale:(NSLocale *)locale {
   NSString *currencyCode = [locale objectForKey:NSLocaleCurrencyCode];
   return currencyCode != nil ? [currencyCode uppercaseString] : nil;
 }
 
-- (NSString * _Nonnull)languageTagForLanguageCode:(NSString * _Nonnull)languageCode
-                                       scriptCode:(NSString * _Nullable)scriptCode
-                                      countryCode:(NSString * _Nonnull)countryCode {
+- (NSString *)getLanguageTagForLanguageCode:(NSString *)languageCode
+                                          scriptCode:(NSString * _Nullable)scriptCode
+                                         countryCode:(NSString *)countryCode {
   NSString *languageTag = [languageCode copy];
 
   if (scriptCode != nil)
@@ -37,7 +37,7 @@ RCT_EXPORT_MODULE();
 
 // Implementation
 
-- (NSString * _Nonnull)currentCalendar {
+- (NSString *)getCalendarImpl {
   NSLocale *currentLocale = [NSLocale currentLocale];
   NSString *calendar = [[currentLocale objectForKey:NSLocaleCalendar] calendarIdentifier];
 
@@ -73,26 +73,26 @@ RCT_EXPORT_MODULE();
   return @"gregorian";
 }
 
-- (NSString * _Nonnull)currentCountryCode {
+- (NSString *)getCountryImpl {
   NSLocale *currentLocale = [NSLocale currentLocale];
-  NSString *currentCountryCode = [self countryCodeForLocale:currentLocale];
+  NSString *currentCountryCode = [self getCountryCodeForLocale:currentLocale];
 
   if (currentCountryCode == nil)
-    return @"US"; // only happen in the simulator
+    return @"US"; // Only happen in the simulator
 
   return currentCountryCode;
 }
 
-- (NSArray * _Nonnull)currentCurrencies {
+- (NSArray *)getCurrenciesImpl {
   NSMutableArray<NSString *> *currencies = [NSMutableArray array];
-  NSString *currentCurrencyCode = [self currencyCodeForLocale:[NSLocale currentLocale]];
+  NSString *currentCurrencyCode = [self getCurrencyCodeForLocale:[NSLocale currentLocale]];
 
   if (currentCurrencyCode != nil)
     [currencies addObject:currentCurrencyCode];
 
   for (NSString *identifier in [NSLocale preferredLanguages]) {
     NSLocale *systemLocale = [[NSLocale alloc] initWithLocaleIdentifier:identifier];
-    NSString *currencyCode = [self currencyCodeForLocale:systemLocale];
+    NSString *currencyCode = [self getCurrencyCodeForLocale:systemLocale];
 
     if (currencyCode != nil && ![currencies containsObject:currencyCode])
       [currencies addObject:currencyCode];
@@ -104,7 +104,7 @@ RCT_EXPORT_MODULE();
   return currencies;
 }
 
-- (NSArray * _Nonnull)currentLocales {
+- (NSArray *)getLocalesImpl {
   NSMutableArray<NSString *> *languageTags = [NSMutableArray array];
   NSMutableArray<NSDictionary *> *locales = [NSMutableArray array];
 
@@ -114,15 +114,15 @@ RCT_EXPORT_MODULE();
 
     NSString *languageCode = [systemLanguageCode lowercaseString];
     NSString *scriptCode = [systemLocale objectForKey:NSLocaleScriptCode];
-    NSString *countryCode = [self countryCodeForLocale:systemLocale];
+    NSString *countryCode = [self getCountryCodeForLocale:systemLocale];
     bool isRTL = [NSLocale characterDirectionForLanguage:languageCode] == NSLocaleLanguageDirectionRightToLeft;
 
     if (countryCode == nil)
-      countryCode = [self currentCountryCode];
+      countryCode = [self getCountryImpl];
 
-    NSString *languageTag = [self languageTagForLanguageCode:languageCode
-                                                  scriptCode:scriptCode
-                                                 countryCode:countryCode];
+    NSString *languageTag = [self getLanguageTagForLanguageCode:languageCode
+                                                     scriptCode:scriptCode
+                                                    countryCode:countryCode];
 
     NSMutableDictionary *locale = [[NSMutableDictionary alloc] initWithDictionary:@{
       @"languageCode": languageCode,
@@ -143,7 +143,7 @@ RCT_EXPORT_MODULE();
   return locales;
 }
 
-- (NSDictionary * _Nonnull)currentNumberFormatSettings {
+- (NSDictionary *)getNumberFormatSettingsImpl {
   NSLocale *currentLocale = [NSLocale currentLocale];
 
   return @{
@@ -152,7 +152,7 @@ RCT_EXPORT_MODULE();
   };
 }
 
-- (NSString * _Nonnull)currentTemperatureUnit {
+- (NSString *)getTemperatureUnitImpl {
   NSLocale *currentLocale = [NSLocale currentLocale];
   NSMeasurementFormatter *formatter = [NSMeasurementFormatter new];
 
@@ -165,11 +165,11 @@ RCT_EXPORT_MODULE();
   return [unitCharacter isEqualToString:@"C"] ? @"celsius" : @"fahrenheit";
 }
 
-- (NSString * _Nonnull)currentTimeZone {
+- (NSString *)getTimeZoneImpl {
   return [[NSTimeZone localTimeZone] name];
 }
 
-- (bool)currentUses24HourClock {
+- (bool)uses24HourClockImpl {
   NSLocale *currentLocale = [NSLocale currentLocale];
   NSDateFormatter* formatter = [NSDateFormatter new];
 
@@ -182,43 +182,101 @@ RCT_EXPORT_MODULE();
   return [[formatter stringFromDate:date] containsString:@"20"];
 }
 
-- (bool)currentUsesMetricSystem {
+- (bool)usesMetricSystemImpl {
   NSLocale *currentLocale = [NSLocale currentLocale];
   return [[currentLocale objectForKey:NSLocaleUsesMetricSystem] boolValue];
 }
 
-// Exposed
+#ifdef RCT_NEW_ARCH_ENABLED
+
+// New architecture
+
+- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:(const facebook::react::ObjCTurboModule::InitParams &)params {
+  return std::make_shared<facebook::react::NativeRNLocalizeSpecJSI>(params);
+}
+
+- (NSString *)getCalendar {
+  return [self getCalendarImpl];
+}
+
+- (NSString *)getCountry {
+  return [self getCountryImpl];
+}
+
+- (NSArray<NSString *> *)getCurrencies {
+  return [self getCurrenciesImpl];
+}
+
+- (NSArray<NSDictionary *> *)getLocales {
+  return [self getLocalesImpl];
+}
+
+- (NSDictionary *)getNumberFormatSettings {
+  return [self getNumberFormatSettingsImpl];
+}
+
+- (NSString *)getTemperatureUnit {
+  return [self getTemperatureUnitImpl];
+}
+
+- (NSString *)getTimeZone {
+  return [self getTimeZoneImpl];
+}
+
+- (NSNumber *)uses24HourClock {
+  return @([self uses24HourClockImpl]);
+}
+
+- (NSNumber *)usesMetricSystem {
+  return @([self usesMetricSystemImpl]);
+}
+
+- (NSNumber * _Nullable)usesAutoDateAndTime {
+  return nil;
+}
+
+- (NSNumber * _Nullable)usesAutoTimeZone {
+  return nil;
+}
+
+#else
+
+// Old architecture
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getCalendar) {
-  return [self currentCalendar];
+  return [self getCalendarImpl];
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getCountry) {
-  return [self currentCountryCode];
+  return [self getCountryImpl];
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getCurrencies) {
-  return [self currentCurrencies];
+  return [self getCurrenciesImpl];
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getLocales) {
-  return [self currentLocales];
+  return [self getLocalesImpl];
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getNumberFormatSettings) {
-  return [self currentNumberFormatSettings];
+  return [self getNumberFormatSettingsImpl];
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getTemperatureUnit) {
-  return [self currentTemperatureUnit];
+  return [self getTemperatureUnitImpl];
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getTimeZone) {
-  return [self currentTimeZone];
+  return [self getTimeZoneImpl];
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(uses24HourClock) {
-  return @([self currentUses24HourClock]);
+  return @([self uses24HourClockImpl]);
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(usesMetricSystem) {
+  return @([self usesMetricSystemImpl]);
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(usesAutoDateAndTime) {
@@ -229,8 +287,6 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(usesAutoTimeZone) {
   return nil;
 }
 
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(usesMetricSystem) {
-  return @([self currentUsesMetricSystem]);
-}
+#endif
 
 @end
