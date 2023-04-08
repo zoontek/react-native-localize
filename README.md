@@ -52,10 +52,10 @@ Because this package targets React Native 0.70.0+, you won't need to link it man
 ## Basic usage example
 
 ```ts
-import * as RNLocalize from "react-native-localize";
+import { getCurrencies, getLocales } from "react-native-localize";
 
-console.log(RNLocalize.getLocales());
-console.log(RNLocalize.getCurrencies());
+console.log(getLocales());
+console.log(getCurrencies());
 ```
 
 ## API
@@ -67,19 +67,21 @@ Returns the user preferred locales, in order.
 #### Method type
 
 ```ts
-type getLocales = () => Array<{
+type getLocales = () => {
   languageCode: string;
   scriptCode?: string;
   countryCode: string;
   languageTag: string;
   isRTL: boolean;
-}>;
+}[];
 ```
 
 #### Usage example
 
 ```ts
-console.log(RNLocalize.getLocales());
+import { getLocales } from "react-native-localize";
+
+console.log(getLocales());
 /* -> [
   { countryCode: "GB", languageTag: "en-GB", languageCode: "en", isRTL: false },
   { countryCode: "US", languageTag: "en-US", languageCode: "en", isRTL: false },
@@ -105,7 +107,9 @@ type getNumberFormatSettings = () => {
 #### Usage example
 
 ```ts
-console.log(RNLocalize.getNumberFormatSettings());
+import { getNumberFormatSettings } from "react-native-localize";
+
+console.log(getNumberFormatSettings());
 /* -> {
   decimalSeparator: ".",
   groupingSeparator: ",",
@@ -121,13 +125,15 @@ Returns the user preferred currency codes, in order.
 #### Method type
 
 ```ts
-type getCurrencies = () => Array<string>;
+type getCurrencies = () => string[];
 ```
 
 #### Usage example
 
 ```ts
-console.log(RNLocalize.getCurrencies());
+import { getCurrencies } from "react-native-localize";
+
+console.log(getCurrencies());
 // -> ["EUR", "GBP", "USD"]
 ```
 
@@ -146,7 +152,9 @@ type getCountry = () => string;
 #### Usage example
 
 ```ts
-console.log(RNLocalize.getCountry());
+import { getCountry } from "react-native-localize";
+
+console.log(getCountry());
 // -> "FR"
 ```
 
@@ -183,7 +191,9 @@ type getCalendar = () =>
 #### Usage example
 
 ```ts
-console.log(RNLocalize.getCalendar());
+import { getCalendar } from "react-native-localize";
+
+console.log(getCalendar());
 // -> "gregorian"
 ```
 
@@ -202,7 +212,9 @@ type getTemperatureUnit = () => "celsius" | "fahrenheit";
 #### Usage example
 
 ```ts
-console.log(RNLocalize.getTemperatureUnit());
+import { getTemperatureUnit } from "react-native-localize";
+
+console.log(getTemperatureUnit());
 // -> "celsius"
 ```
 
@@ -221,7 +233,9 @@ type getTimeZone = () => string;
 #### Usage example
 
 ```ts
-console.log(RNLocalize.getTimeZone());
+import { getTimeZone } from "react-native-localize";
+
+console.log(getTimeZone());
 // -> "Europe/Paris"
 ```
 
@@ -240,7 +254,9 @@ type uses24HourClock = () => boolean;
 #### Usage example
 
 ```ts
-console.log(RNLocalize.uses24HourClock());
+import { uses24HourClock } from "react-native-localize";
+
+console.log(uses24HourClock());
 // -> true
 ```
 
@@ -259,7 +275,9 @@ type usesMetricSystem = () => boolean;
 #### Usage example
 
 ```ts
-console.log(RNLocalize.usesMetricSystem());
+import { usesMetricSystem } from "react-native-localize";
+
+console.log(usesMetricSystem());
 // -> true
 ```
 
@@ -272,14 +290,15 @@ Tells if the automatic date & time setting is enabled on the phone. **Android on
 #### Method type
 
 ```ts
-type Option<T> = T | undefined;
-type usesAutoDateAndTime = () => Option<boolean>;
+type usesAutoDateAndTime = () => boolean | undefined;
 ```
 
 #### Usage example
 
 ```ts
-console.log(RNLocalize.usesAutoDateAndTime()); // true or false
+import { usesAutoDateAndTime } from "react-native-localize";
+
+console.log(usesAutoDateAndTime()); // true or false
 ```
 
 ---
@@ -291,14 +310,15 @@ Tells if the automatic time zone setting is enabled on the phone. **Android only
 #### Method type
 
 ```ts
-type Option<T> = T | undefined;
-type usesAutoTimeZone = () => Option<boolean>;
+type usesAutoTimeZone = () => boolean | undefined;
 ```
 
 #### Usage example
 
 ```ts
-console.log(RNLocalize.usesAutoTimeZone());
+import { usesAutoTimeZone } from "react-native-localize";
+
+console.log(usesAutoTimeZone());
 ```
 
 ---
@@ -311,14 +331,16 @@ Returns the best language tag possible and its reading direction (⚠️ **it re
 
 ```ts
 type findBestAvailableLanguage = (
-  languageTags: Array<string>,
+  languageTags: string[],
 ) => { languageTag: string; isRTL: boolean } | void;
 ```
 
 #### Usage example
 
 ```ts
-console.log(RNLocalize.findBestAvailableLanguage(["en-US", "en", "fr"]));
+import { findBestAvailableLanguage } from "react-native-localize";
+
+console.log(findBestAvailableLanguage(["en-US", "en", "fr"]));
 // -> { languageTag: "en-US", isRTL: false }
 ```
 
@@ -338,7 +360,7 @@ Because it's a native module, you need to mock this package.<br />
 The package provides a default mock you may use in your \_\_mocks\_\_/react-native-localize.js or jest.setup.js.
 
 ```ts
-import mockRNLocalize from "react-native-localize/mock";
+import localizeMock from "react-native-localize/mock";
 
-jest.mock("react-native-localize", () => mockRNLocalize);
+jest.mock("react-native-localize", () => localizeMock);
 ```
