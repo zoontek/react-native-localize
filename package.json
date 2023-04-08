@@ -75,5 +75,13 @@
     "react-native": "^0.71.6",
     "react-native-builder-bob": "^0.20.4",
     "typescript": "^5.0.4"
+  },
+  "codegenConfig": {
+    "name": "RNLocalizeSpec",
+    "type": "modules",
+    "jsSrcsDir": "./src",
+    "android": {
+      "javaPackageName": "com.zoontek.rnlocalize"
+    }
   }
 }
