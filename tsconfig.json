@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
-    "module": "ES2015",
-    "target": "ES2015",
-    "lib": ["DOM", "DOM.Iterable", "ES2015"],
+    "module": "ESNext",
+    "lib": ["ES2017"],
     "jsx": "react-native",
     "moduleResolution": "Node",
 
@@ -22,6 +21,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
 }
