@@ -26,10 +26,10 @@ If your company uses it in a production app, consider sponsoring this project ðŸ
 
 ## Support
 
-| package name          | version | react-native version |
-| --------------------- | ------- | -------------------- |
-| react-native-localize | 3.0.0+  | 0.70.0+              |
-| react-native-localize | 2.0.0+  | 0.60.0+              |
+| package version | react-native version |
+| --------------- | -------------------- |
+| 3.0.0+          | 0.70.0+              |
+| 2.0.0+          | 0.60.0+              |
 
 ## Setup
 
