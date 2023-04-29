@@ -8,7 +8,6 @@ A toolbox for your React Native app localization.
 <br />
 [![platform - android](https://img.shields.io/badge/platform-Android-3ddc84.svg?logo=android&style=for-the-badge)](https://www.android.com)
 [![platform - ios](https://img.shields.io/badge/platform-iOS-000.svg?logo=apple&style=for-the-badge)](https://developer.apple.com/ios)
-[![platform - windows](https://img.shields.io/badge/platform-Windows-0067b8.svg?logo=windows&style=for-the-badge)](https://www.microsoft.com/en-us/windows)
 [![platform - macos](https://img.shields.io/badge/platform-macOS-000.svg?logo=apple&style=for-the-badge)](https://developer.apple.com/macos)
 [![platform - web](https://img.shields.io/badge/platform-Web-1977f2.svg?logo=html5&logoColor=fff&style=for-the-badge)](https://developer.mozilla.org)
 
@@ -44,10 +43,6 @@ _Don't forget to run `pod install` after that !_
 ### Web support
 
 This package supports `react-native-web`. Follow their [official guide](https://necolas.github.io/react-native-web/docs/multi-platform/#compiling-and-bundling) to configure `webpack`.
-
-### Windows Support
-
-Because this package targets React Native 0.70.0+, you won't need to link it manually. For more information about autolinking and manual linking, follow the [official guide](https://microsoft.github.io/react-native-windows/docs/native-modules-autolinking)
 
 ## Basic usage example
 

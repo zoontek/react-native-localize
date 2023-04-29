@@ -14,7 +14,6 @@
     "/ios",
     "/mock",
     "/src",
-    "/windows",
     "RNLocalize.podspec",
     "package.json"
   ],
@@ -26,7 +25,6 @@
     "react-native-localize",
     "react-native",
     "react-native-macos",
-    "react-native-windows",
     "localize",
     "localization",
     "l20n"
@@ -53,14 +51,10 @@
   "peerDependencies": {
     "react": ">=18.1.0",
     "react-native": ">=0.70.0",
-    "react-native-macos": ">=0.70.0",
-    "react-native-windows": ">=0.70.0"
+    "react-native-macos": ">=0.70.0"
   },
   "peerDependenciesMeta": {
     "react-native-macos": {
-      "optional": true
-    },
-    "react-native-windows": {
       "optional": true
     }
   },
