@@ -12,27 +12,27 @@
     "reinstall": "yarn clean && yarn install"
   },
   "dependencies": {
-    "@formatjs/intl": "2.6.9",
+    "@formatjs/intl": "2.7.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-native": "0.71.6",
+    "react-native": "0.71.7",
     "react-native-localize": "file:../",
-    "react-native-macos": "0.71.1",
-    "react-native-web": "0.19.2",
-    "react-native-windows": "0.71.4"
+    "react-native-macos": "0.71.3",
+    "react-native-web": "0.19.4",
+    "react-native-windows": "0.71.8"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
-    "@types/react": "^18.0.33",
+    "@types/react": "^18.2.0",
     "babel-loader": "^9.1.2",
     "metro-react-native-babel-preset": "0.73.9",
     "pod-install": "^0.1.38",
-    "rimraf": "^4.4.1",
+    "rimraf": "^5.0.0",
     "typescript": "^5.0.4",
-    "webpack": "^5.78.0",
-    "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.13.2"
+    "webpack": "^5.81.0",
+    "webpack-cli": "^5.0.2",
+    "webpack-dev-server": "^4.13.3"
   }
 }
