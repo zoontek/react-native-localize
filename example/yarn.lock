@@ -5067,7 +5067,7 @@ react-native-gradle-plugin@^0.71.17:
   integrity sha512-OXXYgpISEqERwjSlaCiaQY6cTY5CH6j73gdkWpK0hedxtiWMWgH+i5TOi4hIGYitm9kQBeyDu+wim9fA8ROFJA==
 
 "react-native-localize@file:..":
-  version "3.0.0-beta.1"
+  version "3.0.0"
 
 react-native-macos@0.71.3:
   version "0.71.3"

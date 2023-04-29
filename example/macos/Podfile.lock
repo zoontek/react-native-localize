@@ -329,7 +329,7 @@ PODS:
     - React-jsi (= 0.71.3)
     - React-logger (= 0.71.3)
     - React-perflogger (= 0.71.3)
-  - RNLocalize (3.0.0-beta.1):
+  - RNLocalize (3.0.0):
     - React-Core
   - SocketRocket (0.6.0)
   - Yoga (1.14.0)
@@ -480,7 +480,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: a57e4bd684c7bcbb78742b05f51228e95ac60787
   React-runtimeexecutor: d9c7469d84dc33f32f041ff583c3b24652bb8101
   ReactCommon: adaaae172fa867c3e896964c1a35d0b2696588a9
-  RNLocalize: f38fbb6a01e6efe96751e0315a5c2e27198b2d1d
+  RNLocalize: 5944c97d2fe8150913a51ddd5eab4e23a82bd80d
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: ad2c958f77c9ec5e1005525c1a08e54619f64b40
 
