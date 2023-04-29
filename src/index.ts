@@ -1,46 +1,6 @@
-import {
-  getCalendar,
-  getCountry,
-  getCurrencies,
-  getLocales,
-  getNumberFormatSettings,
-  getTemperatureUnit,
-  getTimeZone,
-  handlers,
-  uses24HourClock,
-  usesAutoDateAndTime,
-  usesAutoTimeZone,
-  usesMetricSystem,
-} from "./module";
-import { LocalizationEvent } from "./types";
+import { getLocales } from "./module";
 
-function logUnknownEvent(type: string) {
-  console.error(`\`${type}\` is not a valid react-native-localize event`);
-}
-
-export function addEventListener(
-  type: LocalizationEvent,
-  handler: Function,
-): void {
-  if (type !== "change") {
-    logUnknownEvent(type);
-  } else if (!handlers.has(handler)) {
-    handlers.add(handler);
-  }
-}
-
-export function removeEventListener(
-  type: LocalizationEvent,
-  handler: Function,
-): void {
-  if (type !== "change") {
-    logUnknownEvent(type);
-  } else if (handlers.has(handler)) {
-    handlers.delete(handler);
-  }
-}
-
-export function findBestAvailableLanguage<T extends string>(
+export function findBestLanguageTag<T extends string>(
   languageTags: ReadonlyArray<T>,
 ): { languageTag: T; isRTL: boolean } | undefined {
   const locales = getLocales();
@@ -48,6 +8,10 @@ export function findBestAvailableLanguage<T extends string>(
 
   for (let i = 0; i < locales.length; i++) {
     const currentLocale = locales[i];
+
+    if (!currentLocale) {
+      continue;
+    }
 
     const { languageTag, languageCode, scriptCode, countryCode, isRTL } =
       currentLocale;
@@ -60,11 +24,17 @@ export function findBestAvailableLanguage<T extends string>(
     ].filter((value): value is string => !!value);
 
     for (let j = 0; j < combinaisons.length; j++) {
-      const combinaison = combinaisons[j].toLowerCase();
-      const tagIndex = loweredLanguageTags.indexOf(combinaison);
+      const combinaison = combinaisons[j]?.toLowerCase();
 
-      if (tagIndex !== -1) {
-        return { languageTag: languageTags[tagIndex], isRTL };
+      if (!combinaison) {
+        continue;
+      }
+
+      const tagIndex = loweredLanguageTags.indexOf(combinaison);
+      const languageTag = languageTags[tagIndex];
+
+      if (languageTag && tagIndex !== -1) {
+        return { languageTag, isRTL };
       }
     }
   }
@@ -84,21 +54,3 @@ export {
   usesMetricSystem,
 } from "./module";
 export * from "./types";
-
-export default {
-  getCalendar,
-  getCountry,
-  getCurrencies,
-  getLocales,
-  getNumberFormatSettings,
-  getTemperatureUnit,
-  getTimeZone,
-  uses24HourClock,
-  usesAutoDateAndTime,
-  usesAutoTimeZone,
-  usesMetricSystem,
-
-  findBestAvailableLanguage,
-  addEventListener,
-  removeEventListener,
-};

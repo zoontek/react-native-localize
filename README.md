@@ -8,7 +8,6 @@ A toolbox for your React Native app localization.
 <br />
 [![platform - android](https://img.shields.io/badge/platform-Android-3ddc84.svg?logo=android&style=for-the-badge)](https://www.android.com)
 [![platform - ios](https://img.shields.io/badge/platform-iOS-000.svg?logo=apple&style=for-the-badge)](https://developer.apple.com/ios)
-[![platform - windows](https://img.shields.io/badge/platform-Windows-0067b8.svg?logo=windows&style=for-the-badge)](https://www.microsoft.com/en-us/windows)
 [![platform - macos](https://img.shields.io/badge/platform-macOS-000.svg?logo=apple&style=for-the-badge)](https://developer.apple.com/macos)
 [![platform - web](https://img.shields.io/badge/platform-Web-1977f2.svg?logo=html5&logoColor=fff&style=for-the-badge)](https://developer.mozilla.org)
 
@@ -26,10 +25,10 @@ If your company uses it in a production app, consider sponsoring this project �
 
 ## Support
 
-| package name          | version | react-native version |
-| --------------------- | ------- | -------------------- |
-| react-native-localize | 2.0.0+  | 0.60.0+              |
-| react-native-localize | 1.0.0+  | 0.56.0+              |
+| package version | react-native version |
+| --------------- | -------------------- |
+| 3.0.0+          | 0.70.0+              |
+| 2.0.0+          | 0.60.0+              |
 
 ## Setup
 
@@ -41,98 +40,22 @@ $ yarn add react-native-localize
 
 _Don't forget to run `pod install` after that !_
 
-## 🆘  Manual linking
+### Web support
 
-Because this package targets React Native 0.60.0+, you will probably don't need to link it manually. Otherwise if it's not the case, follow this additional instructions:
+This package supports `react-native-web`. Follow their [official guide](https://necolas.github.io/react-native-web/docs/multi-platform/#compiling-and-bundling) to configure `webpack`.
 
-<details>
-  <summary><b>👀 See manual linking instructions</b></summary>
+### Debugging
 
-### iOS
-
-Add this line to your `ios/Podfile` file, then run `pod install`.
-
-```bash
-target 'YourAwesomeProject' do
-  # …
-  pod 'RNLocalize', :path => '../node_modules/react-native-localize'
-end
-```
-
-### Android
-
-1. Add the following lines to `android/settings.gradle`:
-
-```gradle
-include ':react-native-localize'
-project(':react-native-localize').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-localize/android')
-```
-
-2. Add the implementation line to the dependencies in `android/app/build.gradle`:
-
-```gradle
-dependencies {
-  // ...
-  implementation project(':react-native-localize')
-}
-```
-
-3. Add the import and link the package in `MainApplication.java`:
-
-```java
-import com.zoontek.rnlocalize.RNLocalizePackage; // <- add the RNLocalizePackage import
-
-public class MainApplication extends Application implements ReactApplication {
-
-  // …
-
-  @Override
-  protected List<ReactPackage> getPackages() {
-    @SuppressWarnings("UnnecessaryLocalVariable")
-    List<ReactPackage> packages = new PackageList(this).getPackages();
-    // …
-    packages.add(new RNLocalizePackage());
-    return packages;
-  }
-
-  // …
-}
-```
-
-### macOS
-
-Add this line to your `macos/Podfile` file, then run `pod install`.
-
-```bash
-target 'YourAwesomeProject' do
-  # …
-  pod 'RNLocalize', :path => '../node_modules/react-native-localize'
-end
-```
-
-### Windows Support
-
-Because this RNW package targets React Native 0.63.0+, you probably won't need to link it manually. Otherwise if it's not the case, follow these additional instructions. You also need to manually link the module on Windows when using React Native Windows prior to 0.63:
-
-For more information about autolinking and manual linking. Follow the [official guide](https://microsoft.github.io/react-native-windows/docs/native-modules-autolinking)
-
-</details>
-
-## Web support
-
-This package supports `react-native-web`. Follow their [official guide](http://necolas.github.io/react-native-web/docs/?path=/docs/guides-multi-platform--page) to configure `webpack`.
+As this library uses synchronous native methods, remote debugging (e.g. with Chrome) is no longer possible.<br />
+Instead, you should use [Flipper 🐬](https://fbflipper.com).
 
 ## Basic usage example
 
-```js
-import * as RNLocalize from "react-native-localize";
+```ts
+import { getCurrencies, getLocales } from "react-native-localize";
 
-console.log(RNLocalize.getLocales());
-console.log(RNLocalize.getCurrencies());
-
-RNLocalize.addEventListener("change", () => {
-  // do localization related stuff…
-});
+console.log(getLocales());
+console.log(getCurrencies());
 ```
 
 ## API
@@ -155,8 +78,10 @@ type getLocales = () => Array<{
 
 #### Usage example
 
-```js
-console.log(RNLocalize.getLocales());
+```ts
+import { getLocales } from "react-native-localize";
+
+console.log(getLocales());
 /* -> [
   { countryCode: "GB", languageTag: "en-GB", languageCode: "en", isRTL: false },
   { countryCode: "US", languageTag: "en-US", languageCode: "en", isRTL: false },
@@ -181,8 +106,10 @@ type getNumberFormatSettings = () => {
 
 #### Usage example
 
-```js
-console.log(RNLocalize.getNumberFormatSettings());
+```ts
+import { getNumberFormatSettings } from "react-native-localize";
+
+console.log(getNumberFormatSettings());
 /* -> {
   decimalSeparator: ".",
   groupingSeparator: ",",
@@ -198,13 +125,15 @@ Returns the user preferred currency codes, in order.
 #### Method type
 
 ```ts
-type getCurrencies = () => Array<string>;
+type getCurrencies = () => string[];
 ```
 
 #### Usage example
 
-```js
-console.log(RNLocalize.getCurrencies());
+```ts
+import { getCurrencies } from "react-native-localize";
+
+console.log(getCurrencies());
 // -> ["EUR", "GBP", "USD"]
 ```
 
@@ -222,8 +151,10 @@ type getCountry = () => string;
 
 #### Usage example
 
-```js
-console.log(RNLocalize.getCountry());
+```ts
+import { getCountry } from "react-native-localize";
+
+console.log(getCountry());
 // -> "FR"
 ```
 
@@ -240,13 +171,29 @@ Returns the user preferred calendar format.
 #### Method type
 
 ```ts
-type getCalendar = () => "gregorian" | "japanese" | "buddhist";
+type getCalendar = () =>
+  | "gregorian"
+  | "buddhist"
+  | "coptic"
+  | "ethiopic"
+  | "ethiopic-amete-alem"
+  | "hebrew"
+  | "indian"
+  | "islamic"
+  | "islamic-umm-al-qura"
+  | "islamic-civil"
+  | "islamic-tabular"
+  | "iso8601"
+  | "japanese"
+  | "persian";
 ```
 
 #### Usage example
 
-```js
-console.log(RNLocalize.getCalendar());
+```ts
+import { getCalendar } from "react-native-localize";
+
+console.log(getCalendar());
 // -> "gregorian"
 ```
 
@@ -264,8 +211,10 @@ type getTemperatureUnit = () => "celsius" | "fahrenheit";
 
 #### Usage example
 
-```js
-console.log(RNLocalize.getTemperatureUnit());
+```ts
+import { getTemperatureUnit } from "react-native-localize";
+
+console.log(getTemperatureUnit());
 // -> "celsius"
 ```
 
@@ -283,8 +232,10 @@ type getTimeZone = () => string;
 
 #### Usage example
 
-```js
-console.log(RNLocalize.getTimeZone());
+```ts
+import { getTimeZone } from "react-native-localize";
+
+console.log(getTimeZone());
 // -> "Europe/Paris"
 ```
 
@@ -302,8 +253,10 @@ type uses24HourClock = () => boolean;
 
 #### Usage example
 
-```js
-console.log(RNLocalize.uses24HourClock());
+```ts
+import { uses24HourClock } from "react-native-localize";
+
+console.log(uses24HourClock());
 // -> true
 ```
 
@@ -321,8 +274,10 @@ type usesMetricSystem = () => boolean;
 
 #### Usage example
 
-```js
-console.log(RNLocalize.usesMetricSystem());
+```ts
+import { usesMetricSystem } from "react-native-localize";
+
+console.log(usesMetricSystem());
 // -> true
 ```
 
@@ -335,14 +290,15 @@ Tells if the automatic date & time setting is enabled on the phone. **Android on
 #### Method type
 
 ```ts
-type Option<T> = T | undefined;
-type usesAutoDateAndTime = () => Option<boolean>;
+type usesAutoDateAndTime = () => boolean | undefined;
 ```
 
 #### Usage example
 
-```js
-console.log(RNLocalize.usesAutoDateAndTime()); // true or false
+```ts
+import { usesAutoDateAndTime } from "react-native-localize";
+
+console.log(usesAutoDateAndTime()); // true or false
 ```
 
 ---
@@ -354,59 +310,37 @@ Tells if the automatic time zone setting is enabled on the phone. **Android only
 #### Method type
 
 ```ts
-type Option<T> = T | undefined;
-type usesAutoTimeZone = () => Option<boolean>;
+type usesAutoTimeZone = () => boolean | undefined;
 ```
 
 #### Usage example
-
-```js
-console.log(RNLocalize.usesAutoTimeZone());
-```
-
----
-
-### addEventListener() / removeEventListener()
-
-Allows you to listen for any localization change.
-
-#### Methods type
 
 ```ts
-type addEventListener = (type: "change", handler: Function) => void;
-type removeEventListener = (type: "change", handler: Function) => void;
-```
+import { usesAutoTimeZone } from "react-native-localize";
 
-#### Usage example
-
-```js
-function handleLocalizationChange() {
-  console.log(RNLocalize.getLocales());
-}
-
-RNLocalize.addEventListener("change", handleLocalizationChange);
-// …later (ex: component unmount)
-RNLocalize.removeEventListener("change", handleLocalizationChange);
+console.log(usesAutoTimeZone());
 ```
 
 ---
 
-### findBestAvailableLanguage()
+### findBestLanguageTag()
 
 Returns the best language tag possible and its reading direction (⚠️ **it respects the user preferred languages list order, see [explanations](https://github.com/zoontek/react-native-localize/issues/57#issuecomment-508456427)**). Useful to pick the best translation available.
 
 #### Method type
 
 ```ts
-type findBestAvailableLanguage = (
-  languageTags: Array<string>,
+type findBestLanguageTag = (
+  languageTags: string[],
 ) => { languageTag: string; isRTL: boolean } | void;
 ```
 
 #### Usage example
 
-```js
-console.log(RNLocalize.findBestAvailableLanguage(["en-US", "en", "fr"]));
+```ts
+import { findBestLanguageTag } from "react-native-localize";
+
+console.log(findBestLanguageTag(["en-US", "en", "fr"]));
 // -> { languageTag: "en-US", isRTL: false }
 ```
 
@@ -414,17 +348,19 @@ console.log(RNLocalize.findBestAvailableLanguage(["en-US", "en", "fr"]));
 
 Browse the files in the [/example](https://github.com/zoontek/react-native-localize/tree/master/example) directory.
 
+## How to update supported localizations (iOS)
+
+You can add / remove supported localizations in your Xcode project infos:
+
+![](https://github.com/zoontek/react-native-localize/blob/master/docs/xcode-adding-locales.png?raw=true)
+
 ## How to test your code
 
 Because it's a native module, you need to mock this package.<br />
 The package provides a default mock you may use in your \_\_mocks\_\_/react-native-localize.js or jest.setup.js.
 
-```js
-import mockRNLocalize from "react-native-localize/mock";
+```ts
+import localizeMock from "react-native-localize/mock";
 
-jest.mock("react-native-localize", () => mockRNLocalize);
+jest.mock("react-native-localize", () => localizeMock);
 ```
-
-## Add project's supported localizations (iOS)
-
-![](https://github.com/zoontek/react-native-localize/blob/master/docs/xcode-adding-locales.png?raw=true)

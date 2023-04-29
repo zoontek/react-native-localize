@@ -1,8 +1,8 @@
-export const USES_FAHRENHEIT = ["BS", "BZ", "KY", "PR", "PW", "US"];
+export const USES_FAHRENHEIT: string[] = ["BS", "BZ", "KY", "PR", "PW", "US"];
 
-export const USES_IMPERIAL = ["LR", "MM", "US"];
+export const USES_IMPERIAL: string[] = ["LR", "MM", "US"];
 
-export const USES_RTL_LAYOUT = [
+export const USES_RTL_LAYOUT: string[] = [
   "ar",
   "ckb",
   "fa",

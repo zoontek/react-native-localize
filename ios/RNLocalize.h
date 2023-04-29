@@ -1,6 +1,13 @@
-#import <React/RCTBridgeModule.h>
-#import <React/RCTEventEmitter.h>
+#ifdef RCT_NEW_ARCH_ENABLED
 
-@interface RNLocalize : RCTEventEmitter <RCTBridgeModule>
+#import <RNLocalizeSpec/RNLocalizeSpec.h>
+@interface RNLocalize : NSObject <NativeRNLocalizeSpec>
+
+#else
+
+#import <React/RCTBridgeModule.h>
+@interface RNLocalize : NSObject <RCTBridgeModule>
+
+#endif
 
 @end

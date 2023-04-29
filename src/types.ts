@@ -1,6 +1,21 @@
-export type Calendar = "gregorian" | "japanese" | "buddhist";
-export type LocalizationEvent = "change";
 export type TemperatureUnit = "celsius" | "fahrenheit";
+
+// https://developer.apple.com/documentation/foundation/nscalendaridentifier?language=objc
+export type Calendar =
+  | "gregorian"
+  | "buddhist"
+  | "coptic"
+  | "ethiopic"
+  | "ethiopic-amete-alem"
+  | "hebrew"
+  | "indian"
+  | "islamic"
+  | "islamic-umm-al-qura"
+  | "islamic-civil"
+  | "islamic-tabular"
+  | "iso8601"
+  | "japanese"
+  | "persian";
 
 export type Locale = Readonly<{
   languageCode: string;
