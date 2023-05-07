@@ -13,16 +13,6 @@ A toolbox for your React Native app localization.
 
 <img width="400" height="auto" center src="https://github.com/zoontek/react-native-localize/blob/master/docs/screenshot.png?raw=true" />
 
-## Funding
-
-<a href="https://github.com/sponsors/zoontek">
-  <img align="right" width="150" alt="This library helped you? Consider sponsoring!" src=".github/funding-octocat.svg">
-</a>
-
-This module is provided **as is**, I work on it in my free time.
-
-If your company uses it in a production app, consider sponsoring this project 💰. You also can contact me for **premium** enterprise support, help with issues, prioritize bugfixes, feature requests, etc.
-
 ## Support
 
 | package version | react-native version |
@@ -364,3 +354,9 @@ import localizeMock from "react-native-localize/mock";
 
 jest.mock("react-native-localize", () => localizeMock);
 ```
+
+## Sponsors
+
+This module is provided **as is**, I work on it in my free time. If you or your company uses it, consider sponsoring this project. You also can contact me for premium enterprise support: help with issues, prioritize bugfixes, feature requests, etc.
+
+<a href="https://github.com/sponsors/zoontek"><img align="center" alt="Sponsors list" src="https://raw.githubusercontent.com/zoontek/sponsors/main/sponsorkit/sponsors.svg"></a>
