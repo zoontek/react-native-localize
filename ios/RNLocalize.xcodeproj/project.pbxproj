@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		66EEFEBE1F217A9E0021D48A /* RNLocalize.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EEFEBD1F217A9E0021D48A /* RNLocalize.m */; };
-		66EEFEBF1F217A9E0021D48A /* RNLocalize.m in Sources */ = {isa = PBXBuildFile; fileRef = 66EEFEBD1F217A9E0021D48A /* RNLocalize.m */; };
+		DD3987DF2A091887007E27CF /* RNLocalize.mm in Sources */ = {isa = PBXBuildFile; fileRef = DD3987DE2A091887007E27CF /* RNLocalize.mm */; };
+		DD3987E02A091887007E27CF /* RNLocalize.mm in Sources */ = {isa = PBXBuildFile; fileRef = DD3987DE2A091887007E27CF /* RNLocalize.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNLocalize.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNLocalize.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D2A28471D9B043800D4039D /* libRNLocalize-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRNLocalize-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66EEFEBC1F217A9E0021D48A /* RNLocalize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNLocalize.h; sourceTree = "<group>"; };
-		66EEFEBD1F217A9E0021D48A /* RNLocalize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNLocalize.m; sourceTree = "<group>"; };
+		DD3987DE2A091887007E27CF /* RNLocalize.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RNLocalize.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -31,7 +31,7 @@
 			isa = PBXGroup;
 			children = (
 				66EEFEBC1F217A9E0021D48A /* RNLocalize.h */,
-				66EEFEBD1F217A9E0021D48A /* RNLocalize.m */,
+				DD3987DE2A091887007E27CF /* RNLocalize.mm */,
 				134814211AA4EA7D00B7C361 /* Products */,
 				2D2A28471D9B043800D4039D /* libRNLocalize-tvOS.a */,
 			);
@@ -113,7 +113,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66EEFEBF1F217A9E0021D48A /* RNLocalize.m in Sources */,
+				DD3987E02A091887007E27CF /* RNLocalize.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,7 +121,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66EEFEBE1F217A9E0021D48A /* RNLocalize.m in Sources */,
+				DD3987DF2A091887007E27CF /* RNLocalize.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
