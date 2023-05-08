@@ -355,7 +355,6 @@ import localizeMock from "react-native-localize/mock";
 jest.mock("react-native-localize", () => localizeMock);
 ```
 
-
 ## Sponsors
 
 This module is provided **as is**, I work on it in my free time.
@@ -363,4 +362,3 @@ This module is provided **as is**, I work on it in my free time.
 If you or your company uses it in a production app, consider sponsoring this project 💰. You also can contact me for **premium** enterprise support: help with issues, prioritize bugfixes, feature requests, etc.
 
 <a href="https://github.com/sponsors/zoontek"><img align="center" alt="Sponsors list" src="https://raw.githubusercontent.com/zoontek/sponsors/main/sponsorkit/sponsors.svg"></a>
-
