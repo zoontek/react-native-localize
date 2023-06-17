@@ -2,17 +2,24 @@ require_relative '../node_modules/react-native-macos/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 platform :macos, '10.15'
+prepare_react_native_project!
 
 target 'RNLocalizeExample' do
   use_native_modules!
+  new_arch_enabled = ENV['RCT_NEW_ARCH_ENABLED'] == '1'
+
+  # Flags change depending on the env values.
+  flags = get_default_flags()
 
   use_react_native!(
     :path => '../node_modules/react-native-macos',
-    # to enable hermes on macOS, change `false` to `true` and then install pods
-    :hermes_enabled => false
+    :hermes_enabled => false,
+    :fabric_enabled => new_arch_enabled,
+    # Flipper is not compatible w/ macOS
+    :flipper_configuration => FlipperConfiguration.disabled,
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-
-  # Pods specifically for macOS target
 
   post_install do |installer|
     react_native_post_install(installer)
