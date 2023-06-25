@@ -15,10 +15,8 @@ A toolbox for your React Native app localization.
 
 ## Support
 
-| package version | react-native version |
-| --------------- | -------------------- |
-| 3.0.0+          | 0.70.0+              |
-| 2.0.0+          | 0.60.0+              |
+This library follows the React Native [releases support policy](https://github.com/reactwg/react-native-releases#releases-support-policy).<br>
+It is supporting the **latest version**, and the **two previous minor series**.
 
 ## Setup
 
