@@ -8,10 +8,11 @@
   "scripts": {
     "clean-modules": "rm -rf ./node_modules/react-native-localize/{example,node_modules}",
     "clean": "rm -rf ./node_modules ./ios/Pods",
+    "install-macos": "yarn add react-native@0.71.12 react-native-macos@0.71.19",
     "preinstall": "cd .. && yarn prepack && cd example",
     "postinstall": "yarn clean-modules && pod-install",
-    "start-metro": "react-native start",
-    "start-webpack": "webpack serve",
+    "start": "react-native start",
+    "start-web": "webpack serve",
     "reinstall": "yarn clean && yarn install"
   },
   "dependencies": {
@@ -20,7 +21,6 @@
     "react-dom": "18.2.0",
     "react-native": "0.72.1",
     "react-native-localize": "file:../",
-    "react-native-macos": "0.71.19",
     "react-native-web": "0.19.6"
   },
   "devDependencies": {
