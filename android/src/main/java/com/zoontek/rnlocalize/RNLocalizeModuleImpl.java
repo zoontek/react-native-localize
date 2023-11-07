@@ -4,13 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.res.Configuration;
 import android.os.Build;
-import android.os.LocaleList;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.core.os.LocaleListCompat;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -115,7 +115,7 @@ public class RNLocalizeModuleImpl {
       return locales;
     }
 
-    LocaleList list = config.getLocales();
+    LocaleListCompat list = LocaleListCompat.getDefault();
 
     for (int i = 0; i < list.size(); i++) {
       locales.add(list.get(i));
