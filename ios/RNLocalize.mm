@@ -1,9 +1,5 @@
 #import "RNLocalize.h"
 
-#ifdef RCT_NEW_ARCH_ENABLED
-#import "RNLocalizeSpec.h"
-#endif
-
 @implementation RNLocalize
 
 RCT_EXPORT_MODULE();
