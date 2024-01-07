@@ -27,6 +27,15 @@ android {
 
     if (project.android.hasProperty("namespace")) {
         namespace "com.zoontek.rnlocalize"
+
+        buildFeatures {
+            buildConfig true
+        }
+        sourceSets {
+            main {
+                manifest.srcFile "src/main/AndroidManifestNew.xml"
+            }
+        }
     }
     defaultConfig {
         buildConfigField("boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString())
