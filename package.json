@@ -1,6 +1,6 @@
 {
   "name": "react-native-localize",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "license": "MIT",
   "description": "A toolbox for your React Native app localization.",
   "author": "Mathieu Acthernoene <zoontek@gmail.com>",
@@ -30,11 +30,10 @@
     "l20n"
   ],
   "scripts": {
-    "build-mock": "tsc mock/index -d -m commonjs -t es2015 --skipLibCheck",
     "format": "prettier '**/*' -u -w",
-    "setup-hooks": "git config --local core.hooksPath .hooks",
-    "prepack": "bob build && yarn build-mock",
-    "typecheck": "tsc --project ./ --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build": "bob build && tsc mock/index -d -m commonjs -t es2015 --skipLibCheck",
+    "prepack": "prettier '**/*' -u -c && yarn typecheck && yarn build"
   },
   "react-native-builder-bob": {
     "source": "src",
@@ -45,11 +44,7 @@
       "typescript"
     ]
   },
-  "lint-staged": {
-    "*": "prettier -u -w"
-  },
   "prettier": {
-    "trailingComma": "all",
     "plugins": [
       "prettier-plugin-organize-imports"
     ]
@@ -66,15 +61,14 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@types/jest": "^29.5.10",
-    "@types/react": "^18.2.38",
-    "lint-staged": "^15.1.0",
-    "prettier": "^3.1.0",
+    "@types/jest": "^29.5.11",
+    "@types/react": "^18.2.47",
+    "prettier": "^3.1.1",
     "prettier-plugin-organize-imports": "^3.2.4",
     "react": "^18.2.0",
-    "react-native": "^0.72.7",
-    "react-native-builder-bob": "^0.23.1",
-    "typescript": "^5.3.2"
+    "react-native": "^0.73.1",
+    "react-native-builder-bob": "^0.23.2",
+    "typescript": "^5.3.3"
   },
   "codegenConfig": {
     "name": "RNLocalizeSpec",

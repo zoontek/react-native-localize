@@ -21,7 +21,7 @@ module.exports = {
       {
         test: /\.(js|jsx|ts|tsx)$/,
         use: { loader: "babel-loader" },
-        include: [fromRoot("index.js"), fromRoot("src")],
+        include: [fromRoot("index.js"), fromRoot("src"), fromRoot("../src")],
       },
     ],
   },

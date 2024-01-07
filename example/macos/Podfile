@@ -6,7 +6,6 @@ prepare_react_native_project!
 
 target 'RNLocalizeExample' do
   use_native_modules!
-  new_arch_enabled = ENV['RCT_NEW_ARCH_ENABLED'] == '1'
 
   # Flags change depending on the env values.
   flags = get_default_flags()
@@ -14,7 +13,7 @@ target 'RNLocalizeExample' do
   use_react_native!(
     :path => '../node_modules/react-native-macos',
     :hermes_enabled => false,
-    :fabric_enabled => new_arch_enabled,
+    :fabric_enabled => ENV['RCT_NEW_ARCH_ENABLED'] == '1',
     # Flipper is not compatible w/ macOS
     :flipper_configuration => FlipperConfiguration.disabled,
     # An absolute path to your application root.
@@ -23,6 +22,5 @@ target 'RNLocalizeExample' do
 
   post_install do |installer|
     react_native_post_install(installer)
-    __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
 end
