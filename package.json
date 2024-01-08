@@ -61,12 +61,13 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@babel/preset-env": "^7.20.0",
     "@types/jest": "^29.5.11",
     "@types/react": "^18.2.47",
     "prettier": "^3.1.1",
     "prettier-plugin-organize-imports": "^3.2.4",
-    "react": "^18.2.0",
-    "react-native": "^0.73.1",
+    "react": "18.2.0",
+    "react-native": "0.73.2",
     "react-native-builder-bob": "^0.23.2",
     "typescript": "^5.3.3"
   },
