@@ -9,7 +9,7 @@ import {
   Text,
   View,
 } from "react-native";
-import * as RNLocalize from "react-native-localize";
+import RNLocalize from "react-native-localize";
 
 const translations = {
   ar: require("./translations/ar.json"),
