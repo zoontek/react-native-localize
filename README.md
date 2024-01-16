@@ -345,12 +345,11 @@ You can add / remove supported localizations in your Xcode project infos:
 ## How to test your code
 
 Because it's a native module, you need to mock this package.<br />
-The package provides a default mock you may use in your \_\_mocks\_\_/react-native-localize.js or jest.setup.js.
+The package provides a default mock you may import in your `__mocks__` directory:
 
 ```ts
-import localizeMock from "react-native-localize/mock";
-
-jest.mock("react-native-localize", () => localizeMock);
+// __mocks__/react-native-localize.ts
+export * from "react-native-localize/mock";
 ```
 
 ## Sponsors
