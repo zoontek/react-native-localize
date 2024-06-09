@@ -3,6 +3,9 @@ package com.zoontek.rnlocalize;
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.res.Configuration;
+import android.icu.number.LocalizedNumberFormatter;
+import android.icu.number.NumberFormatter;
+import android.icu.util.MeasureUnit;
 import android.os.Build;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -229,6 +232,23 @@ public class RNLocalizeModuleImpl {
   }
 
   public static @NonNull String getTemperatureUnit(ReactApplicationContext reactContext) {
+    // https://github.com/androidx/androidx/blob/androidx-main/core/core/src/main/java/androidx/core/text/util/LocalePreferences.java
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      Locale systemLocale = getSystemLocale(reactContext);
+
+      LocalizedNumberFormatter formatter = NumberFormatter.with()
+        .usage("weather")
+        .unit(MeasureUnit.CELSIUS)
+        .locale(systemLocale);
+
+      String unit = formatter
+        .format(1)
+        .getOutputUnit()
+        .getIdentifier();
+
+      return unit.startsWith("fahrenhe") ? "fahrenheit" : "celsius";
+    }
+
     String currentCountryCode = getCountry(reactContext);
     return USES_FAHRENHEIT.contains(currentCountryCode) ? "fahrenheit" : "celsius";
   }

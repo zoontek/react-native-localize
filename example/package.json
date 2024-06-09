@@ -6,6 +6,7 @@
     "node": ">=18"
   },
   "scripts": {
+    "pod-install": "cd ios && bundle install && bundle exec pod install && cd ..",
     "clean": "rm -rf ./node_modules ./ios/Pods",
     "install-macos": "yarn add react-native-macos@0.73.2",
     "preinstall": "cd .. && yarn && yarn build && cd example",
@@ -31,7 +32,6 @@
     "@types/react": "^18.2.47",
     "babel-loader": "^9.1.3",
     "babel-plugin-module-resolver": "^5.0.0",
-    "pod-install": "^0.1.39",
     "typescript": "^5.3.3",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
