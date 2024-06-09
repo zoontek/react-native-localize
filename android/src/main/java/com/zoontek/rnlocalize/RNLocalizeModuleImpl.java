@@ -246,7 +246,7 @@ public class RNLocalizeModuleImpl {
         .getOutputUnit()
         .getIdentifier();
 
-      return unit.equals("fahrenheit") ? "fahrenheit" : "celsius";
+      return unit.startsWith("fahrenhe") ? "fahrenheit" : "celsius";
     }
 
     String currentCountryCode = getCountry(reactContext);
