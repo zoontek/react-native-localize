@@ -154,7 +154,7 @@ RCT_EXPORT_MODULE();
 
   [formatter setLocale:currentLocale];
 
-  NSMeasurement *temperature = [[NSMeasurement alloc] initWithDoubleValue:42.0 unit:[NSUnitTemperature celsius]];
+  NSMeasurement *temperature = [[NSMeasurement alloc] initWithDoubleValue:1.0 unit:[NSUnitTemperature celsius]];
   NSString *formatted = [formatter stringFromMeasurement:temperature];
   NSString *unitCharacter = [formatted substringFromIndex:[formatted length] - 1];
 
