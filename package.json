@@ -32,7 +32,7 @@
   "scripts": {
     "format": "prettier '**/*' -u -w",
     "typecheck": "tsc --noEmit",
-    "build": "bob build && tsc mock/index -d -m commonjs -t es2015 --skipLibCheck",
+    "build": "bob build && tsc mock/{index,jest}.ts -d -m commonjs -t es2015 --skipLibCheck",
     "prepack": "prettier '**/*' -u -c && yarn typecheck && yarn build"
   },
   "react-native-builder-bob": {
@@ -63,7 +63,6 @@
     "@babel/core": "^7.20.0",
     "@babel/preset-env": "^7.20.0",
     "@types/jest": "^29.5.11",
-    "jest": "^29.5.11",
     "@types/react": "^18.2.47",
     "prettier": "^3.1.1",
     "prettier-plugin-organize-imports": "^3.2.4",
