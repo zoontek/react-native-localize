@@ -50,6 +50,8 @@ dist/
 # mock
 mock/index.d.ts
 mock/index.js
+mock/jest.d.ts
+mock/jest.js
 
 # Bundle artifact
 *.jsbundle

@@ -32,7 +32,7 @@
   "scripts": {
     "format": "prettier '**/*' -u -w",
     "typecheck": "tsc --noEmit",
-    "build": "bob build && tsc mock/index -d -m commonjs -t es2015 --skipLibCheck",
+    "build": "bob build && tsc mock/{index,jest}.ts -d -m commonjs -t es2015 --skipLibCheck",
     "prepack": "prettier '**/*' -u -c && yarn typecheck && yarn build"
   },
   "react-native-builder-bob": {
