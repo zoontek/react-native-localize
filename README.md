@@ -349,7 +349,7 @@ The package provides a default mock you may import in your `__mocks__` directory
 
 ```ts
 // __mocks__/react-native-localize.ts
-export * from "react-native-localize/mock";
+export * from "react-native-localize/mock"; // or "react-native-localize/mock/jest"
 ```
 
 ## Sponsors
