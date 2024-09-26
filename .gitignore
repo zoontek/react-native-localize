@@ -20,7 +20,7 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
-.xcode.env.local
+**/.xcode.env.local
 
 # Android/IntelliJ
 #
@@ -48,18 +48,15 @@ yarn-error.log
 dist/
 
 # mock
-mock/index.d.ts
-mock/index.js
-mock/jest.d.ts
-mock/jest.js
+mock/*.d.ts
+mock/*.js
 
 # Bundle artifact
 *.jsbundle
 
 # Ruby / CocoaPods
-example/ios/Pods/
-example/macos/Pods/
-example/vendor/bundle/
+**/Pods/
+/example/vendor/bundle/
 
 # Temporary files created by Metro to check the health of the file watcher
 .metro-health-check*

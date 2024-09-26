@@ -30,9 +30,10 @@
     "l20n"
   ],
   "scripts": {
+    "clean": "rm -rf dist",
     "format": "prettier '**/*' -u -w",
     "typecheck": "tsc --noEmit",
-    "build": "bob build && tsc mock/{index,jest}.ts -d -m commonjs -t es2015 --skipLibCheck",
+    "build": "yarn clean && bob build && rm -rf dist/commonjs/package.json && tsc mock/{index,jest}.ts -d -m commonjs -t es2015 --skipLibCheck",
     "prepack": "prettier '**/*' -u -c && yarn typecheck && yarn build"
   },
   "react-native-builder-bob": {
@@ -62,14 +63,14 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@babel/preset-env": "^7.20.0",
-    "@types/jest": "^29.5.11",
-    "@types/react": "^18.2.47",
-    "prettier": "^3.1.1",
-    "prettier-plugin-organize-imports": "^3.2.4",
-    "react": "18.2.0",
-    "react-native": "0.73.2",
-    "react-native-builder-bob": "^0.23.2",
-    "typescript": "^5.3.3"
+    "@types/jest": "^29.5.13",
+    "@types/react": "^18.2.60",
+    "prettier": "^3.3.3",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "react": "18.3.1",
+    "react-native": "0.75.3",
+    "react-native-builder-bob": "^0.30.2",
+    "typescript": "^5.6.2"
   },
   "codegenConfig": {
     "name": "RNLocalizeSpec",
