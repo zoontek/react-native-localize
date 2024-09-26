@@ -6,35 +6,33 @@
     "node": ">=18"
   },
   "scripts": {
-    "pod-install": "cd ios && bundle install && bundle exec pod install && cd ..",
-    "clean": "rm -rf ./node_modules ./ios/Pods",
-    "install-macos": "yarn add react-native-macos@0.73.2",
+    "clean": "rm -rf ./node_modules",
     "preinstall": "cd .. && yarn && yarn build && cd example",
-    "postinstall": "yarn pod-install",
     "start": "react-native start",
-    "start-web": "webpack serve",
-    "reinstall": "yarn clean && yarn install"
+    "web": "webpack serve",
+    "reinstall": "yarn clean && yarn install",
+    "install-macos": "yarn add react-native-macos@0.75.4"
   },
   "dependencies": {
-    "@formatjs/intl": "2.9.9",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-native": "0.73.2",
+    "@formatjs/intl": "2.10.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-native": "0.75.3",
     "react-native-localize": "link:../",
-    "react-native-web": "0.19.10"
+    "react-native-web": "0.19.12"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
-    "@react-native/babel-preset": "0.73.19",
-    "@react-native/metro-config": "0.73.3",
-    "@types/react": "^18.2.47",
-    "babel-loader": "^9.1.3",
-    "babel-plugin-module-resolver": "^5.0.0",
-    "typescript": "^5.3.3",
-    "webpack": "^5.94.0",
+    "@react-native/babel-preset": "0.75.3",
+    "@react-native/metro-config": "0.75.3",
+    "@types/react": "^18.2.60",
+    "babel-loader": "^9.2.1",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "typescript": "^5.6.2",
+    "webpack": "^5.95.0",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-dev-server": "^5.1.0"
   }
 }
