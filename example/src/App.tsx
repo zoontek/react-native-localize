@@ -92,6 +92,10 @@ export const App = () => {
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
         <Line name="RNLocalize.getLocales()" value={RNLocalize.getLocales()} />
+        <Line
+          name="RNLocalize.getApplicationLocales()"
+          value={RNLocalize.getApplicationLocales()}
+        />
 
         <Line
           name="RNLocalize.getCurrencies()"
@@ -144,10 +148,6 @@ export const App = () => {
             <Button
               title="RNLocalize.setApplicationLocales()"
               onPress={() => RNLocalize.setApplicationLocales(["en", "ar"])}
-            />
-            <Button
-              title="RNLocalize.getApplicationLocales()"
-              onPress={() => console.log(RNLocalize.getApplicationLocales())}
             />
           </>
         )}

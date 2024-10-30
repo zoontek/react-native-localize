@@ -31,7 +31,52 @@ RCT_EXPORT_MODULE();
   return [languageTag stringByAppendingFormat:@"-%@", countryCode];
 }
 
+- (NSArray<id<NSObject>> *)getJsLocales:(NSArray<NSString *> *) localesArray {
+  NSMutableArray<NSString *> *languageTags = [NSMutableArray array];
+  NSMutableArray<NSDictionary *> *locales = [NSMutableArray array];
+
+  for (NSString *identifier in localesArray) {
+    NSLocale *systemLocale = [[NSLocale alloc] initWithLocaleIdentifier:identifier];
+    NSString *systemLanguageCode = [systemLocale objectForKey:NSLocaleLanguageCode];
+
+    NSString *languageCode = [systemLanguageCode lowercaseString];
+    NSString *scriptCode = [systemLocale objectForKey:NSLocaleScriptCode];
+    NSString *countryCode = [self getCountryCodeForLocale:systemLocale];
+    bool isRTL = [NSLocale characterDirectionForLanguage:languageCode] == NSLocaleLanguageDirectionRightToLeft;
+
+    if (countryCode == nil)
+      countryCode = [self getCountryImpl];
+
+    NSString *languageTag = [self getLanguageTagForLanguageCode:languageCode
+                                                     scriptCode:scriptCode
+                                                    countryCode:countryCode];
+
+    NSMutableDictionary *locale = [[NSMutableDictionary alloc] initWithDictionary:@{
+      @"languageCode": languageCode,
+      @"countryCode": countryCode,
+      @"languageTag": languageTag,
+      @"isRTL": @(isRTL),
+    }];
+
+    if (scriptCode != nil)
+      [locale setObject:scriptCode forKey:@"scriptCode"];
+
+    if (![languageTags containsObject:languageTag]) {
+      [locales addObject:locale];
+      [languageTags addObject:languageTag];
+    }
+  }
+
+  return locales;
+}
+
+
 // Implementation
+
+- (NSArray<id<NSObject>> *)getApplicationLocalesImpl {
+  return [self getJsLocales:[[NSBundle mainBundle] preferredLocalizations]];
+}
+
 
 - (NSString *)getCalendarImpl {
   NSLocale *currentLocale = [NSLocale currentLocale];
@@ -101,42 +146,7 @@ RCT_EXPORT_MODULE();
 }
 
 - (NSArray *)getLocalesImpl {
-  NSMutableArray<NSString *> *languageTags = [NSMutableArray array];
-  NSMutableArray<NSDictionary *> *locales = [NSMutableArray array];
-
-  for (NSString *identifier in [NSLocale preferredLanguages]) {
-    NSLocale *systemLocale = [[NSLocale alloc] initWithLocaleIdentifier:identifier];
-    NSString *systemLanguageCode = [systemLocale objectForKey:NSLocaleLanguageCode];
-
-    NSString *languageCode = [systemLanguageCode lowercaseString];
-    NSString *scriptCode = [systemLocale objectForKey:NSLocaleScriptCode];
-    NSString *countryCode = [self getCountryCodeForLocale:systemLocale];
-    bool isRTL = [NSLocale characterDirectionForLanguage:languageCode] == NSLocaleLanguageDirectionRightToLeft;
-
-    if (countryCode == nil)
-      countryCode = [self getCountryImpl];
-
-    NSString *languageTag = [self getLanguageTagForLanguageCode:languageCode
-                                                     scriptCode:scriptCode
-                                                    countryCode:countryCode];
-
-    NSMutableDictionary *locale = [[NSMutableDictionary alloc] initWithDictionary:@{
-      @"languageCode": languageCode,
-      @"countryCode": countryCode,
-      @"languageTag": languageTag,
-      @"isRTL": @(isRTL),
-    }];
-
-    if (scriptCode != nil)
-      [locale setObject:scriptCode forKey:@"scriptCode"];
-
-    if (![languageTags containsObject:languageTag]) {
-      [locales addObject:locale];
-      [languageTags addObject:languageTag];
-    }
-  }
-
-  return locales;
+  return [self getJsLocales:[NSLocale preferredLanguages]];
 }
 
 - (NSDictionary *)getNumberFormatSettingsImpl {
@@ -238,6 +248,9 @@ RCT_EXPORT_MODULE();
 #else
 
 // Old architecture
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getApplicationLocales) {
+  return [self getApplicationLocalesImpl];
+}
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getCalendar) {
   return [self getCalendarImpl];
@@ -280,6 +293,10 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(usesAutoDateAndTime) {
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(usesAutoTimeZone) {
+  return nil;
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(setApplicationLocales) {
   return nil;
 }
 

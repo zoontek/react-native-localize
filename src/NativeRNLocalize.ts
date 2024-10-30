@@ -6,7 +6,7 @@ export interface Spec extends TurboModule {
   getCalendar(): string;
   getCountry(): string;
   getCurrencies(): string[];
-  getLocales(): Object[];
+  getLocales(): Locale[];
   getNumberFormatSettings(): Object;
   getTemperatureUnit(): string;
   getTimeZone(): string;
@@ -16,6 +16,8 @@ export interface Spec extends TurboModule {
   usesAutoTimeZone(): boolean | null;
   setApplicationLocales(locales: string[]): void;
   getApplicationLocales(): Locale[];
+  addListener(eventName: string): void;
+  removeListeners(count: number): void;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>("RNLocalize");

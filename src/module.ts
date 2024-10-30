@@ -1,4 +1,4 @@
-import { NativeEventEmitter } from "react-native";
+import { NativeEventEmitter, Platform } from "react-native";
 import NativeModule from "./NativeRNLocalize";
 import type {
   Calendar,
@@ -20,7 +20,7 @@ export function getCurrencies(): string[] {
 }
 
 export function getLocales(): Locale[] {
-  return NativeModule.getLocales() as Locale[];
+  return NativeModule.getLocales();
 }
 
 export function getNumberFormatSettings(): NumberFormatSettings {
@@ -59,10 +59,13 @@ export function getApplicationLocales(): Locale[] {
   return NativeModule.getApplicationLocales();
 }
 
-const moduleEventEmitter = new NativeEventEmitter();
+const moduleEventEmitter =
+  Platform.OS === "android" ? new NativeEventEmitter() : undefined;
 
 export function addLocaleChangedListener(
   listener: (locales: Locale[]) => void,
 ) {
-  return moduleEventEmitter.addListener("localeChange", listener);
+  return moduleEventEmitter
+    ? moduleEventEmitter.addListener("localeChange", listener)
+    : { remove: () => {} };
 }
