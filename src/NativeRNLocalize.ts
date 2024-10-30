@@ -1,5 +1,6 @@
 import type { TurboModule } from "react-native";
 import { TurboModuleRegistry } from "react-native";
+import { Locale } from "./types";
 
 export interface Spec extends TurboModule {
   getCalendar(): string;
@@ -13,6 +14,8 @@ export interface Spec extends TurboModule {
   usesMetricSystem(): boolean;
   usesAutoDateAndTime(): boolean | null;
   usesAutoTimeZone(): boolean | null;
+  setApplicationLocales(locales: string[]): void;
+  getApplicationLocales(): Locale[];
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>("RNLocalize");

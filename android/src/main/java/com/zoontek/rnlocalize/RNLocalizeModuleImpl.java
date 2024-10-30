@@ -7,18 +7,24 @@ import android.icu.number.LocalizedNumberFormatter;
 import android.icu.number.NumberFormatter;
 import android.icu.util.MeasureUnit;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.os.LocaleListCompat;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import java.lang.reflect.Method;
 import java.text.DecimalFormatSymbols;
@@ -30,7 +36,16 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
 
-public class RNLocalizeModuleImpl {
+public class RNLocalizeModuleImpl  {
+  private final ReactApplicationContext reactContext;
+  private LocaleListCompat currentLocaleList;
+
+  public RNLocalizeModuleImpl(ReactApplicationContext reactContext) {
+    this.reactContext = reactContext;
+    this.currentLocaleList = AppCompatDelegate.getApplicationLocales();
+
+    RNLocalizeConfigManager.shared.delegate = this::onConfigurationChanged;
+  }
 
   public static final String NAME = "RNLocalize";
 
@@ -38,10 +53,17 @@ public class RNLocalizeModuleImpl {
     Arrays.asList("BS", "BZ", "KY", "PR", "PW", "US");
   private static final List<String> USES_IMPERIAL=
     Arrays.asList("LR", "MM", "US");
+  private static final String LOCALE_CHANGE_EVENT_NAME = "localeChange";
 
   // Internal
 
-  private static @NonNull String createLanguageTag(@NonNull String languageCode,
+  private void sendEvent(String eventName, WritableMap params) {
+    reactContext
+      .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+      .emit(eventName, params);
+  }
+
+  private @NonNull String createLanguageTag(@NonNull String languageCode,
                                                    @NonNull String scriptCode,
                                                    @NonNull String countryCode) {
     String languageTag = languageCode;
@@ -53,7 +75,7 @@ public class RNLocalizeModuleImpl {
     return languageTag + "-" + countryCode;
   }
 
-  private static @NonNull String getCountryCodeForLocale(Locale locale) {
+  private @NonNull String getCountryCodeForLocale(Locale locale) {
     try {
       String countryCode = locale.getCountry();
 
@@ -67,7 +89,7 @@ public class RNLocalizeModuleImpl {
     }
   }
 
-  private static @NonNull String getCurrencyCodeForLocale(@NonNull Locale locale) {
+  private @NonNull String getCurrencyCodeForLocale(@NonNull Locale locale) {
     try {
       Currency currency = Currency.getInstance(locale);
       return currency == null ? "" : currency.getCurrencyCode();
@@ -76,27 +98,23 @@ public class RNLocalizeModuleImpl {
     }
   }
 
-  private static @NonNull String getLanguageCodeForLocale(@NonNull Locale locale) {
+  private @NonNull String getLanguageCodeForLocale(@NonNull Locale locale) {
     String language = locale.getLanguage();
 
-    switch (language) {
-      case "iw":
-        return "he";
-      case "in":
-        return "id";
-      case "ji":
-        return "yi";
-    }
-
-    return language;
+    return switch (language) {
+      case "iw" -> "he";
+      case "in" -> "id";
+      case "ji" -> "yi";
+      default -> language;
+    };
   }
 
-  private static @NonNull String getScriptCodeForLocale(@NonNull Locale locale) {
+  private @NonNull String getScriptCodeForLocale(@NonNull Locale locale) {
     String script = locale.getScript();
     return TextUtils.isEmpty(script) ? "" : script;
   }
 
-  private static @NonNull Locale getSystemLocale(ReactApplicationContext reactContext) {
+  private @NonNull Locale getSystemLocale() {
     Configuration config = reactContext
       .getResources()
       .getConfiguration();
@@ -106,7 +124,7 @@ public class RNLocalizeModuleImpl {
       : config.locale;
   }
 
-  private static @NonNull List<Locale> getSystemLocales(ReactApplicationContext reactContext) {
+  private @NonNull List<Locale> getSystemLocales() {
     List<Locale> locales = new ArrayList<>();
 
     Configuration config = reactContext
@@ -127,7 +145,7 @@ public class RNLocalizeModuleImpl {
     return locales;
   }
 
-  private static @NonNull String getMiuiRegionCode() {
+  private @NonNull String getMiuiRegionCode() {
     try {
       @SuppressLint("PrivateApi")
       Class<?> systemProperties = Class.forName("android.os.SystemProperties");
@@ -139,20 +157,101 @@ public class RNLocalizeModuleImpl {
     }
   }
 
+  private @NonNull WritableArray getJsLocales(List<Locale> locales) {
+    List<String> languageTagsList = new ArrayList<>();
+    WritableArray jsLocales = Arguments.createArray();
+    String currentCountryCode = getCountry();
+
+    for (Locale locale: locales) {
+      String languageCode = getLanguageCodeForLocale(locale);
+      String scriptCode = getScriptCodeForLocale(locale);
+      String countryCode = getCountryCodeForLocale(locale);
+
+      if (TextUtils.isEmpty(countryCode)) {
+        countryCode = currentCountryCode;
+      }
+
+      String languageTag = createLanguageTag(languageCode, scriptCode, countryCode);
+      WritableMap jsLocale = Arguments.createMap();
+
+      jsLocale.putString("languageCode", languageCode);
+      jsLocale.putString("countryCode", countryCode);
+      jsLocale.putString("languageTag", languageTag);
+      jsLocale.putBoolean("isRTL",
+        TextUtils.getLayoutDirectionFromLocale(locale) == View.LAYOUT_DIRECTION_RTL);
+
+      if (!TextUtils.isEmpty(scriptCode)) {
+        jsLocale.putString("scriptCode", scriptCode);
+      }
+
+      if (!languageTagsList.contains(languageTag)) {
+        languageTagsList.add(languageTag);
+        jsLocales.pushMap(jsLocale);
+      }
+    }
+
+    return jsLocales;
+  }
+
+
+  private void onConfigurationChanged(Configuration newConfig) {
+    LocaleListCompat localeListCompat = AppCompatDelegate.getApplicationLocales();
+    if(!currentLocaleList.equals(localeListCompat)) {
+      // send event
+      WritableMap payload = Arguments.createMap();
+      payload.putArray("newLocales", getApplicationLocales());
+      sendEvent(LOCALE_CHANGE_EVENT_NAME, payload);
+
+      // update current locale list
+      this.currentLocaleList = localeListCompat;
+    }
+  }
+
   // Implementation
 
-  public static @NonNull String getCalendar() {
+  public @NonNull WritableArray getApplicationLocales() {
+    LocaleListCompat localeListCompat = AppCompatDelegate.getApplicationLocales();
+    Log.d(localeListCompat.toLanguageTags(), "rami");
+    Log.d(localeListCompat.toString(), "rami");
+    List<Locale> locales = new ArrayList<>();
+
+    for (int i = 0; i < localeListCompat.size(); i++) {
+      locales.add(localeListCompat.get(i));
+    }
+    return getJsLocales(locales);
+  }
+
+  public void setApplicationLocales(@NonNull ReadableArray languageTagsArray) {
+    List<String> languageTags = new ArrayList<>();
+    for (int i = 0; i < languageTagsArray.size(); i++) {
+      languageTags.add(languageTagsArray.getString(i));
+    }
+    // Get a handler that can be used to post to the main thread
+    Handler mainHandler = new Handler(Looper.getMainLooper());
+
+    Runnable myRunnable = new Runnable() {
+      @Override
+      public void run() {
+        AppCompatDelegate.setApplicationLocales(
+          LocaleListCompat.forLanguageTags(String.join(",", languageTags)))
+        ;
+      } // This is your code
+    };
+    mainHandler.post(myRunnable);
+  }
+
+  public @NonNull String getCalendar() {
     return "gregorian";
   }
 
-  public static @NonNull String getCountry(ReactApplicationContext reactContext) {
+  public @NonNull String getCountry() {
     String miuiRegionCode = getMiuiRegionCode();
 
     if (!TextUtils.isEmpty((miuiRegionCode))) {
       return miuiRegionCode;
     }
 
-    Locale systemLocale = getSystemLocale(reactContext);
+    Locale systemLocale = getSystemLocale();
     String countryCode = getCountryCodeForLocale(systemLocale);
 
     if (TextUtils.isEmpty(countryCode)) {
@@ -162,8 +261,8 @@ public class RNLocalizeModuleImpl {
     return countryCode;
   }
 
-  public static @NonNull WritableArray getCurrencies(ReactApplicationContext reactContext) {
-    List<Locale> systemLocales = getSystemLocales(reactContext);
+  public @NonNull WritableArray getCurrencies() {
+    List<Locale> systemLocales = getSystemLocales();
     List<String> currenciesList = new ArrayList<>();
     WritableArray currencies = Arguments.createArray();
 
@@ -183,45 +282,14 @@ public class RNLocalizeModuleImpl {
     return currencies;
   }
 
-  public static @NonNull WritableArray getLocales(ReactApplicationContext reactContext) {
-    List<Locale> systemLocales = getSystemLocales(reactContext);
-    List<String> languageTagsList = new ArrayList<>();
-    WritableArray locales = Arguments.createArray();
-    String currentCountryCode = getCountry(reactContext);
+  public @NonNull WritableArray getLocales() {
+    List<Locale> systemLocales = getSystemLocales();
 
-    for (Locale systemLocale: systemLocales) {
-      String languageCode = getLanguageCodeForLocale(systemLocale);
-      String scriptCode = getScriptCodeForLocale(systemLocale);
-      String countryCode = getCountryCodeForLocale(systemLocale);
-
-      if (TextUtils.isEmpty(countryCode)) {
-        countryCode = currentCountryCode;
-      }
-
-      String languageTag = createLanguageTag(languageCode, scriptCode, countryCode);
-      WritableMap locale = Arguments.createMap();
-
-      locale.putString("languageCode", languageCode);
-      locale.putString("countryCode", countryCode);
-      locale.putString("languageTag", languageTag);
-      locale.putBoolean("isRTL",
-        TextUtils.getLayoutDirectionFromLocale(systemLocale) == View.LAYOUT_DIRECTION_RTL);
-
-      if (!TextUtils.isEmpty(scriptCode)) {
-        locale.putString("scriptCode", scriptCode);
-      }
-
-      if (!languageTagsList.contains(languageTag)) {
-        languageTagsList.add(languageTag);
-        locales.pushMap(locale);
-      }
-    }
-
-    return locales;
+    return getJsLocales(systemLocales);
   }
 
-  public static @NonNull WritableMap getNumberFormatSettings(ReactApplicationContext reactContext) {
-    Locale systemLocale = getSystemLocale(reactContext);
+  public @NonNull WritableMap getNumberFormatSettings() {
+    Locale systemLocale = getSystemLocale();
     DecimalFormatSymbols symbols = new DecimalFormatSymbols(systemLocale);
     WritableMap settings = Arguments.createMap();
 
@@ -231,10 +299,10 @@ public class RNLocalizeModuleImpl {
     return settings;
   }
 
-  public static @NonNull String getTemperatureUnit(ReactApplicationContext reactContext) {
+  public @NonNull String getTemperatureUnit() {
     // https://github.com/androidx/androidx/blob/androidx-main/core/core/src/main/java/androidx/core/text/util/LocalePreferences.java
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-      Locale systemLocale = getSystemLocale(reactContext);
+      Locale systemLocale = getSystemLocale();
 
       LocalizedNumberFormatter formatter = NumberFormatter.with()
         .usage("weather")
@@ -249,29 +317,29 @@ public class RNLocalizeModuleImpl {
       return unit.startsWith("fahrenhe") ? "fahrenheit" : "celsius";
     }
 
-    String currentCountryCode = getCountry(reactContext);
+    String currentCountryCode = getCountry();
     return USES_FAHRENHEIT.contains(currentCountryCode) ? "fahrenheit" : "celsius";
   }
 
-  public static @NonNull String getTimeZone() {
+  public @NonNull String getTimeZone() {
     return TimeZone.getDefault().getID();
   }
 
-  public static boolean uses24HourClock(ReactApplicationContext reactContext) {
+  public boolean uses24HourClock() {
     return DateFormat.is24HourFormat(reactContext);
   }
 
-  public static boolean usesMetricSystem(ReactApplicationContext reactContext) {
-    String currentCountryCode = getCountry(reactContext);
+  public boolean usesMetricSystem() {
+    String currentCountryCode = getCountry();
     return !USES_IMPERIAL.contains(currentCountryCode);
   }
 
-  public static boolean usesAutoDateAndTime(ReactApplicationContext reactContext) {
+  public boolean usesAutoDateAndTime() {
     ContentResolver resolver = reactContext.getContentResolver();
     return Settings.Global.getInt(resolver, Settings.Global.AUTO_TIME, 0) != 0;
   }
 
-  public static boolean usesAutoTimeZone(ReactApplicationContext reactContext) {
+  public boolean usesAutoTimeZone() {
     ContentResolver resolver = reactContext.getContentResolver();
     return Settings.Global.getInt(resolver, Settings.Global.AUTO_TIME_ZONE, 0) != 0;
   }

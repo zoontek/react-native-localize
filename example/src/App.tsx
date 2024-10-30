@@ -1,6 +1,7 @@
 import { createIntl, createIntlCache } from "@formatjs/intl";
 import * as React from "react";
 import {
+  Button,
   I18nManager,
   Platform,
   SafeAreaView,
@@ -76,62 +77,88 @@ const Line = ({ name, value }: { name: string; value: unknown }) => (
   </View>
 );
 
-export const App = () => (
-  <SafeAreaView style={styles.safeArea}>
-    <ScrollView contentContainerStyle={styles.container}>
-      <Line name="RNLocalize.getLocales()" value={RNLocalize.getLocales()} />
+export const App = () => {
+  React.useEffect(() => {
+    const sub = RNLocalize.addLocaleChangedListener((locales) => {
+      console.log(locales);
+    });
 
-      <Line
-        name="RNLocalize.getCurrencies()"
-        value={RNLocalize.getCurrencies()}
-      />
+    return () => {
+      sub.remove();
+    };
+  }, []);
 
-      <Line name="RNLocalize.getCountry()" value={RNLocalize.getCountry()} />
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Line name="RNLocalize.getLocales()" value={RNLocalize.getLocales()} />
 
-      <Line name="RNLocalize.getCalendar()" value={RNLocalize.getCalendar()} />
+        <Line
+          name="RNLocalize.getCurrencies()"
+          value={RNLocalize.getCurrencies()}
+        />
 
-      <Line
-        name="RNLocalize.getNumberFormatSettings()"
-        value={RNLocalize.getNumberFormatSettings()}
-      />
+        <Line name="RNLocalize.getCountry()" value={RNLocalize.getCountry()} />
 
-      <Line
-        name="RNLocalize.getTemperatureUnit()"
-        value={RNLocalize.getTemperatureUnit()}
-      />
+        <Line
+          name="RNLocalize.getCalendar()"
+          value={RNLocalize.getCalendar()}
+        />
 
-      <Line name="RNLocalize.getTimeZone()" value={RNLocalize.getTimeZone()} />
+        <Line
+          name="RNLocalize.getNumberFormatSettings()"
+          value={RNLocalize.getNumberFormatSettings()}
+        />
 
-      <Line
-        name="RNLocalize.uses24HourClock()"
-        value={RNLocalize.uses24HourClock()}
-      />
+        <Line
+          name="RNLocalize.getTemperatureUnit()"
+          value={RNLocalize.getTemperatureUnit()}
+        />
 
-      <Line
-        name="RNLocalize.usesMetricSystem()"
-        value={RNLocalize.usesMetricSystem()}
-      />
+        <Line
+          name="RNLocalize.getTimeZone()"
+          value={RNLocalize.getTimeZone()}
+        />
 
-      {Platform.OS === "android" && (
-        <>
-          <Line
-            name="RNLocalize.usesAutoDateAndTime()"
-            value={RNLocalize.usesAutoDateAndTime()}
-          />
+        <Line
+          name="RNLocalize.uses24HourClock()"
+          value={RNLocalize.uses24HourClock()}
+        />
 
-          <Line
-            name="RNLocalize.usesAutoTimeZone()"
-            value={RNLocalize.usesAutoTimeZone()}
-          />
-        </>
-      )}
+        <Line
+          name="RNLocalize.usesMetricSystem()"
+          value={RNLocalize.usesMetricSystem()}
+        />
 
-      <Line
-        name="RNLocalize.findBestLanguageTag(['en-US', 'en', 'fr'])"
-        value={RNLocalize.findBestLanguageTag(["en-US", "en", "fr"])}
-      />
+        {Platform.OS === "android" && (
+          <>
+            <Line
+              name="RNLocalize.usesAutoDateAndTime()"
+              value={RNLocalize.usesAutoDateAndTime()}
+            />
 
-      <Line name="Translation example" value={translate("hello")} />
-    </ScrollView>
-  </SafeAreaView>
-);
+            <Line
+              name="RNLocalize.usesAutoTimeZone()"
+              value={RNLocalize.usesAutoTimeZone()}
+            />
+            <Button
+              title="RNLocalize.setApplicationLocales()"
+              onPress={() => RNLocalize.setApplicationLocales(["en", "ar"])}
+            />
+            <Button
+              title="RNLocalize.getApplicationLocales()"
+              onPress={() => console.log(RNLocalize.getApplicationLocales())}
+            />
+          </>
+        )}
+
+        <Line
+          name="RNLocalize.findBestLanguageTag(['en-US', 'en', 'fr'])"
+          value={RNLocalize.findBestLanguageTag(["en-US", "en", "fr"])}
+        />
+
+        <Line name="Translation example" value={translate("hello")} />
+      </ScrollView>
+    </SafeAreaView>
+  );
+};

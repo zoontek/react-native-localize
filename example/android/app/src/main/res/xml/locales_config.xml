@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="af"/> <!-- Afrikaans -->
+    <locale android:name="ar"/> <!-- Arabic -->
+    <locale android:name="en-AU"/> <!-- English (Australia) -->
+    <locale android:name="en-CA"/> <!-- English (Canada) -->
+</locale-config>

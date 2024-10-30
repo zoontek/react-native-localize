@@ -1,3 +1,4 @@
+import { NativeEventEmitter } from "react-native";
 import NativeModule from "./NativeRNLocalize";
 import type {
   Calendar,
@@ -48,4 +49,20 @@ export function usesAutoDateAndTime(): boolean | undefined {
 
 export function usesAutoTimeZone(): boolean | undefined {
   return NativeModule.usesAutoTimeZone() ?? undefined;
+}
+
+export function setApplicationLocales(languageTags: string[]) {
+  NativeModule.setApplicationLocales(languageTags);
+}
+
+export function getApplicationLocales(): Locale[] {
+  return NativeModule.getApplicationLocales();
+}
+
+const moduleEventEmitter = new NativeEventEmitter();
+
+export function addLocaleChangedListener(
+  listener: (locales: Locale[]) => void,
+) {
+  return moduleEventEmitter.addListener("localeChange", listener);
 }

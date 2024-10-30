@@ -41,6 +41,8 @@ export function findBestLanguageTag<T extends string>(
 }
 
 export {
+  addLocaleChangedListener,
+  getApplicationLocales,
   getCalendar,
   getCountry,
   getCurrencies,
@@ -48,6 +50,7 @@ export {
   getNumberFormatSettings,
   getTemperatureUnit,
   getTimeZone,
+  setApplicationLocales,
   uses24HourClock,
   usesAutoDateAndTime,
   usesAutoTimeZone,
