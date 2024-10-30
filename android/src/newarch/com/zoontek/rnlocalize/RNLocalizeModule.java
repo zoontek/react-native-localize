@@ -3,15 +3,18 @@ package com.zoontek.rnlocalize;
 import androidx.annotation.NonNull;
 
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
 
 @ReactModule(name = RNLocalizeModuleImpl.NAME)
 public class RNLocalizeModule extends NativeRNLocalizeSpec {
+  private final RNLocalizeModuleImpl moduleImpl;
 
   public RNLocalizeModule(ReactApplicationContext reactContext) {
     super(reactContext);
+    this.moduleImpl = new RNLocalizeModuleImpl(reactContext);
   }
 
   @Override
@@ -22,56 +25,73 @@ public class RNLocalizeModule extends NativeRNLocalizeSpec {
 
   @Override
   public String getCalendar() {
-    return RNLocalizeModuleImpl.getCalendar();
+    return moduleImpl.getCalendar();
   }
 
   @Override
   public String getCountry() {
-    return RNLocalizeModuleImpl.getCountry(getReactApplicationContext());
+    return moduleImpl.getCountry();
   }
 
   @Override
   public WritableArray getCurrencies() {
-    return RNLocalizeModuleImpl.getCurrencies(getReactApplicationContext());
+    return moduleImpl.getCurrencies();
   }
 
   @Override
   public WritableArray getLocales() {
-    return RNLocalizeModuleImpl.getLocales(getReactApplicationContext());
+    return moduleImpl.getLocales();
   }
 
   @Override
   public WritableMap getNumberFormatSettings() {
-    return RNLocalizeModuleImpl.getNumberFormatSettings(getReactApplicationContext());
+    return moduleImpl.getNumberFormatSettings();
   }
 
   @Override
   public String getTemperatureUnit() {
-    return RNLocalizeModuleImpl.getTemperatureUnit(getReactApplicationContext());
+    return moduleImpl.getTemperatureUnit();
   }
 
   @Override
   public String getTimeZone() {
-    return RNLocalizeModuleImpl.getTimeZone();
+    return moduleImpl.getTimeZone();
   }
 
   @Override
   public boolean uses24HourClock() {
-    return RNLocalizeModuleImpl.uses24HourClock(getReactApplicationContext());
+    return moduleImpl.uses24HourClock();
   }
 
   @Override
   public boolean usesMetricSystem() {
-    return RNLocalizeModuleImpl.usesMetricSystem(getReactApplicationContext());
+    return moduleImpl.usesMetricSystem();
   }
 
   @Override
   public Boolean usesAutoDateAndTime() {
-    return RNLocalizeModuleImpl.usesAutoDateAndTime(getReactApplicationContext());
+    return moduleImpl.usesAutoDateAndTime();
   }
 
   @Override
   public Boolean usesAutoTimeZone() {
-    return RNLocalizeModuleImpl.usesAutoTimeZone(getReactApplicationContext());
+    return moduleImpl.usesAutoTimeZone();
   }
+
+  @Override
+  public void setApplicationLocales(ReadableArray locales) {
+    moduleImpl.setApplicationLocales(locales);
+  }
+
+  @Override
+  public WritableArray getApplicationLocales() {
+    return moduleImpl.getApplicationLocales();
+  }
+
+  @Override
+  public void addListener(String eventName) {}
+
+  @Override
+  public void removeListeners(double count) {}
+
 }
