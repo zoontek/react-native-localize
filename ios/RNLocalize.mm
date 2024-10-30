@@ -245,6 +245,15 @@ RCT_EXPORT_MODULE();
   return nil;
 }
 
+- (NSArray<id<NSObject>> *)getApplicationLocales {
+  return [self getApplicationLocalesImpl];
+}
+
+
+- (void)setApplicationLocales:(NSArray *)locales {
+}
+
+
 #else
 
 // Old architecture
@@ -297,7 +306,6 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(usesAutoTimeZone) {
 }
 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(setApplicationLocales) {
-  return nil;
 }
 
 #endif
