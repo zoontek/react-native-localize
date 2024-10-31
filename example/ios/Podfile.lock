@@ -1509,7 +1509,7 @@ PODS:
     - React-logger (= 0.76.1)
     - React-perflogger (= 0.76.1)
     - React-utils (= 0.76.1)
-  - RNLocalize (3.2.1):
+  - RNLocalize (3.3.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1799,7 +1799,7 @@ SPEC CHECKSUMS:
   React-utils: 5362bd16a9563f9916e7a56c011ddc533507650f
   ReactCodegen: 865bafc5c17ec2181620ced1a32c39c38ab2951d
   ReactCommon: 422e364463f33e336fc4db196aeb50fd801d90d6
-  RNLocalize: e71144345f68c167d4cc4b41c8b0a6650f88e789
+  RNLocalize: c28a383fb73b1480d1117c3ca4402113e1772366
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: db69236006b8b1c6d55ab453390c882306cbf219
 
