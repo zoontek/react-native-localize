@@ -56,4 +56,8 @@ class RNLocalizeModule(reactContext: ReactApplicationContext) :
   override fun usesAutoTimeZone(): Boolean {
     return RNLocalizeModuleImpl.usesAutoTimeZone(reactApplicationContext)
   }
+
+  override fun openAppLanguageSettings() {
+    RNLocalizeModuleImpl.openAppLanguageSettings(reactApplicationContext)
+  }
 }

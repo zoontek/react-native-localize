@@ -48,6 +48,7 @@ export {
   getNumberFormatSettings,
   getTemperatureUnit,
   getTimeZone,
+  openAppLanguageSettings,
   uses24HourClock,
   usesAutoDateAndTime,
   usesAutoTimeZone,
