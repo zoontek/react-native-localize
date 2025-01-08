@@ -235,6 +235,11 @@ RCT_EXPORT_MODULE();
   return nil;
 }
 
+- (void)openAppLanguageSettings { 
+  return;
+}
+
+
 #else
 
 // Old architecture
