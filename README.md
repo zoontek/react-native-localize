@@ -315,7 +315,7 @@ console.log(usesAutoTimeZone());
 
 Returns the best language tag possible and its reading direction. Useful to pick the best translation available.
 
-> [!INFO]
+> [!NOTE]
 >
 > It respects the user preferred languages list order, see [explanations](https://github.com/zoontek/react-native-localize/issues/57#issuecomment-508456427)
 
@@ -344,7 +344,7 @@ Opens the app language settings.
 
 > [!WARNING]
 >
-> App language settings are available only on Android 13+ and require [configuring your app's supported locales](https://developer.android.com/guide/topics/resources/app-languages#use-localeconfig).
+> This feature is available only on Android 13+ and require [configuring your app's supported locales](https://developer.android.com/guide/topics/resources/app-languages#use-localeconfig).
 
 #### Method type
 
