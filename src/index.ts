@@ -2,10 +2,11 @@ import { Platform } from "react-native";
 import { getLocales } from "./module";
 
 function getUnsupportedError(
+  method: string,
   os: Platform["OS"],
   version: Platform["Version"],
 ): Error {
-  return new Error(`Only supported by ${os} ${version} and above`);
+  return new Error(`${method} is only supported by ${os} ${version} and above`);
 }
 
 export function findBestLanguageTag<T extends string>(
@@ -54,7 +55,7 @@ export async function openAppLanguageSettings(): Promise<void> {
   if (Platform.OS === "android" && Platform.Version >= 33) {
     openAppLanguageSettingsImpl();
   } else {
-    throw getUnsupportedError("android", 33);
+    throw getUnsupportedError("openAppLanguageSettings", "android", 33);
   }
 }
 
