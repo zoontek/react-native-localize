@@ -227,7 +227,7 @@ object RNLocalizeModuleImpl {
   fun openAppLanguageSettings(reactContext: ReactApplicationContext, promise: Promise) {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
       return promise.reject("unsupported",
-        "openAppLanguageSettings is only supported by Android 13 and above");
+        "openAppLanguageSettings is supported only on Android 13+");
     }
 
     try {

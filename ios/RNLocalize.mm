@@ -185,7 +185,7 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(openAppLanguageSettings:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject) {
-  reject(@"unsupported", @"openAppLanguageSettings is only supported by Android 13 and above", nil);
+  reject(@"unsupported", @"openAppLanguageSettings is supported only on Android 13+", nil);
 }
 
 #ifdef RCT_NEW_ARCH_ENABLED

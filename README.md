@@ -336,7 +336,11 @@ console.log(findBestLanguageTag(["en-US", "en", "fr"]));
 
 ### openAppLanguageSettings()
 
-Opens the app language settings. ⚠️ Only supported on Android API level 33 and above. Must configure supported locales in your Android project, [check here](https://developer.android.com/guide/topics/resources/app-languages#use-localeconfig).
+Opens the app language settings.
+
+> [!WARNING]
+>
+> App language settings are available only on Android 13+ and require [configuring your application's supported locales](https://developer.android.com/guide/topics/resources/app-languages#use-localeconfig).
 
 #### Method type
 
@@ -349,8 +353,8 @@ type openAppLanguageSettings = () => Promise<void>;
 ```ts
 import { openAppLanguageSettings } from "react-native-localize";
 
-openAppLanguageSettings().catch((e) => {
-  // handle error
+openAppLanguageSettings("application").catch((error) => {
+  console.warn("Cannot open app language settings", error);
 });
 ```
 

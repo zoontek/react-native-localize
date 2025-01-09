@@ -148,7 +148,5 @@ export function usesAutoTimeZone(): boolean | undefined {
 }
 
 export async function openAppLanguageSettings(): Promise<void> {
-  throw new Error(
-    "openAppLanguageSettings is only supported by Android 13 and above",
-  );
+  throw new Error("openAppLanguageSettings is supported only on Android 13+");
 }
