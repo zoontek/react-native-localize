@@ -183,6 +183,11 @@ RCT_EXPORT_MODULE();
   return [[currentLocale objectForKey:NSLocaleUsesMetricSystem] boolValue];
 }
 
+RCT_EXPORT_METHOD(openAppLanguageSettings:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject) {
+  reject(@"unsupported", @"openAppLanguageSettings is only supported by Android 13 and above", nil);
+}
+
 #ifdef RCT_NEW_ARCH_ENABLED
 
 // New architecture
@@ -234,11 +239,6 @@ RCT_EXPORT_MODULE();
 - (NSNumber * _Nullable)usesAutoTimeZone {
   return nil;
 }
-
-- (void)openAppLanguageSettings { 
-  return;
-}
-
 
 #else
 

@@ -14,6 +14,7 @@ import android.view.View
 import androidx.core.os.LocaleListCompat
 
 import com.facebook.react.bridge.Arguments
+import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.WritableArray
 import com.facebook.react.bridge.WritableMap
@@ -26,6 +27,8 @@ import java.util.TimeZone
 
 object RNLocalizeModuleImpl {
   const val NAME = "RNLocalize"
+
+  private const val ERROR_INVALID_ACTIVITY = "E_INVALID_ACTIVITY"
 
   private val USES_FAHRENHEIT = listOf("BS", "BZ", "KY", "PR", "PW", "US")
   private val USES_IMPERIAL = listOf("LR", "MM", "US")
@@ -221,11 +224,24 @@ object RNLocalizeModuleImpl {
   fun usesAutoTimeZone(reactContext: ReactApplicationContext) =
     Settings.Global.getInt(reactContext.contentResolver, Settings.Global.AUTO_TIME_ZONE, 0) != 0
 
-  fun openAppLanguageSettings(reactContext: ReactApplicationContext) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-      val intent = Intent(Settings.ACTION_APP_LOCALE_SETTINGS)
-      intent.data = Uri.fromParts("package", reactContext.packageName, null)
+  fun openAppLanguageSettings(reactContext: ReactApplicationContext, promise: Promise) {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+      return promise.reject("unsupported",
+        "openAppLanguageSettings is only supported by Android 13 and above");
+    }
+
+    try {
+      val packageName = reactContext.packageName
+
+      val intent = Intent().apply {
+        setAction(Settings.ACTION_APP_LOCALE_SETTINGS)
+        setData(Uri.fromParts("package", packageName, null))
+      }
+
       reactContext.currentActivity?.startActivity(intent)
+      promise.resolve(true)
+    } catch (exception: Exception) {
+      promise.reject(ERROR_INVALID_ACTIVITY, exception)
     }
   }
 }

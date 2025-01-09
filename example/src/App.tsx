@@ -124,10 +124,6 @@ export const App = () => (
             name="RNLocalize.usesAutoTimeZone()"
             value={RNLocalize.usesAutoTimeZone()}
           />
-          <Button
-            title="Open app language settings"
-            onPress={RNLocalize.openAppLanguageSettings}
-          />
         </>
       )}
 
@@ -137,6 +133,17 @@ export const App = () => (
       />
 
       <Line name="Translation example" value={translate("hello")} />
+
+      {Platform.OS === "android" && Platform.Version >= 33 && (
+        <Button
+          title="Open app language settings"
+          onPress={() => {
+            RNLocalize.openAppLanguageSettings().catch((error) => {
+              console.error(error);
+            });
+          }}
+        />
+      )}
     </ScrollView>
   </SafeAreaView>
 );

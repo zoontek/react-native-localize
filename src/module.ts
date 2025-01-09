@@ -50,6 +50,6 @@ export function usesAutoTimeZone(): boolean | undefined {
   return NativeModule.usesAutoTimeZone() ?? undefined;
 }
 
-export function openAppLanguageSettings(): void {
-  NativeModule.openAppLanguageSettings();
+export async function openAppLanguageSettings(): Promise<void> {
+  await NativeModule.openAppLanguageSettings();
 }

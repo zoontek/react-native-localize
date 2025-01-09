@@ -1,5 +1,6 @@
 package com.zoontek.rnlocalize
 
+import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.WritableArray
 import com.facebook.react.bridge.WritableMap
@@ -57,7 +58,7 @@ class RNLocalizeModule(reactContext: ReactApplicationContext) :
     return RNLocalizeModuleImpl.usesAutoTimeZone(reactApplicationContext)
   }
 
-  override fun openAppLanguageSettings() {
-    RNLocalizeModuleImpl.openAppLanguageSettings(reactApplicationContext)
+  override fun openAppLanguageSettings(promise: Promise) {
+    RNLocalizeModuleImpl.openAppLanguageSettings(reactApplicationContext, promise)
   }
 }

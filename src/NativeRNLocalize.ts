@@ -13,7 +13,7 @@ export interface Spec extends TurboModule {
   usesMetricSystem(): boolean;
   usesAutoDateAndTime(): boolean | null;
   usesAutoTimeZone(): boolean | null;
-  openAppLanguageSettings(): void;
+  openAppLanguageSettings(): Promise<boolean>;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>("RNLocalize");

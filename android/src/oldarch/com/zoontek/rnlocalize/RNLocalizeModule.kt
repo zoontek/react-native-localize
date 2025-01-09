@@ -1,5 +1,6 @@
 package com.zoontek.rnlocalize
 
+import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
@@ -70,9 +71,8 @@ class RNLocalizeModule(reactContext: ReactApplicationContext) :
     return RNLocalizeModuleImpl.usesAutoTimeZone(reactApplicationContext)
   }
 
-  @ReactMethod(isBlockingSynchronousMethod = true)
-  fun openAppLanguageSettings(): Unit {
-    return RNLocalizeModuleImpl.openAppLanguageSettings(reactApplicationContext)
+  @ReactMethod
+  fun openAppLanguageSettings(promise: Promise) {
+    RNLocalizeModuleImpl.openAppLanguageSettings(reactApplicationContext, promise)
   }
-
 }
