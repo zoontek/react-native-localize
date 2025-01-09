@@ -50,7 +50,7 @@ export function findBestLanguageTag<T extends string>(
 
 import { openAppLanguageSettings as openAppLanguageSettingsImpl } from "./module";
 
-export function openAppLanguageSettings(): void {
+export async function openAppLanguageSettings(): Promise<void> {
   if (Platform.OS === "android" && Platform.Version >= 33) {
     openAppLanguageSettingsImpl();
   } else {
