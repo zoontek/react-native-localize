@@ -146,3 +146,7 @@ export function usesAutoDateAndTime(): boolean | undefined {
 export function usesAutoTimeZone(): boolean | undefined {
   return;
 }
+
+export function openAppLanguageSettings(): void {
+  return;
+}

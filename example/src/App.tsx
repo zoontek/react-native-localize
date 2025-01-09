@@ -1,6 +1,7 @@
 import { createIntl, createIntlCache } from "@formatjs/intl";
 import * as React from "react";
 import {
+  Button,
   I18nManager,
   Platform,
   SafeAreaView,
@@ -122,6 +123,10 @@ export const App = () => (
           <Line
             name="RNLocalize.usesAutoTimeZone()"
             value={RNLocalize.usesAutoTimeZone()}
+          />
+          <Button
+            title="Open app language settings"
+            onPress={RNLocalize.openAppLanguageSettings}
           />
         </>
       )}

@@ -49,3 +49,7 @@ export function usesAutoDateAndTime(): boolean | undefined {
 export function usesAutoTimeZone(): boolean | undefined {
   return NativeModule.usesAutoTimeZone() ?? undefined;
 }
+
+export function openAppLanguageSettings(): void {
+  NativeModule.openAppLanguageSettings();
+}

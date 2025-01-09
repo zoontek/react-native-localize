@@ -69,4 +69,10 @@ class RNLocalizeModule(reactContext: ReactApplicationContext) :
   fun usesAutoTimeZone(): Boolean {
     return RNLocalizeModuleImpl.usesAutoTimeZone(reactApplicationContext)
   }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  fun openAppLanguageSettings(): Unit {
+    return RNLocalizeModuleImpl.openAppLanguageSettings(reactApplicationContext)
+  }
+
 }

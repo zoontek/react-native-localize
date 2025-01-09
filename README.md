@@ -332,6 +332,28 @@ console.log(findBestLanguageTag(["en-US", "en", "fr"]));
 // -> { languageTag: "en-US", isRTL: false }
 ```
 
+---
+
+### openAppLanguageSettings()
+
+Opens the app language settings. ⚠️ Only supported on Android API level 33 and above. Must configure supported locales in your Android project, [check here](https://developer.android.com/guide/topics/resources/app-languages#use-localeconfig).
+
+#### Method type
+
+```ts
+type openAppLanguageSettings = () => Promise<void>;
+```
+
+#### Usage example
+
+```ts
+import { openAppLanguageSettings } from "react-native-localize";
+
+openAppLanguageSettings().catch((e) => {
+  // handle error
+});
+```
+
 ## Examples with [@formatjs/intl](https://formatjs.io/docs/intl)
 
 Browse the files in the [/example](https://github.com/zoontek/react-native-localize/tree/master/example) directory.

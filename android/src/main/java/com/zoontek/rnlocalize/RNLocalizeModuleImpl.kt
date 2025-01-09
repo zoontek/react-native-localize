@@ -1,8 +1,10 @@
 package com.zoontek.rnlocalize
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.icu.number.NumberFormatter
 import android.icu.util.MeasureUnit
+import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.text.TextUtils
@@ -218,4 +220,12 @@ object RNLocalizeModuleImpl {
 
   fun usesAutoTimeZone(reactContext: ReactApplicationContext) =
     Settings.Global.getInt(reactContext.contentResolver, Settings.Global.AUTO_TIME_ZONE, 0) != 0
+
+  fun openAppLanguageSettings(reactContext: ReactApplicationContext) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      val intent = Intent(Settings.ACTION_APP_LOCALE_SETTINGS)
+      intent.data = Uri.fromParts("package", reactContext.packageName, null)
+      reactContext.currentActivity?.startActivity(intent)
+    }
+  }
 }
