@@ -12,3 +12,4 @@ export const uses24HourClock = jest.fn(mock.uses24HourClock);
 export const usesAutoDateAndTime = jest.fn(mock.usesAutoDateAndTime);
 export const usesAutoTimeZone = jest.fn(mock.usesAutoTimeZone);
 export const usesMetricSystem = jest.fn(mock.usesMetricSystem);
+export const openAppLanguageSettings = jest.fn(mock.openAppLanguageSettings);

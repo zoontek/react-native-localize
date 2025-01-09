@@ -25,3 +25,4 @@ export const uses24HourClock = () => true;
 export const usesAutoDateAndTime = () => true;
 export const usesAutoTimeZone = () => true;
 export const usesMetricSystem = () => true;
+export const openAppLanguageSettings = async () => {};
