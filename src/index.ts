@@ -1,4 +1,12 @@
+import { Platform } from "react-native";
 import { getLocales } from "./module";
+
+function getUnsupportedError(
+  os: Platform["OS"],
+  version: Platform["Version"],
+): Error {
+  return new Error(`Only supported by ${os} ${version} and above`);
+}
 
 export function findBestLanguageTag<T extends string>(
   languageTags: ReadonlyArray<T>,
@@ -40,6 +48,16 @@ export function findBestLanguageTag<T extends string>(
   }
 }
 
+import { openAppLanguageSettings as openAppLanguageSettingsImpl } from "./module";
+
+export function openAppLanguageSettings(): void {
+  if (Platform.OS === "android" && Platform.Version >= 33) {
+    openAppLanguageSettingsImpl();
+  } else {
+    throw getUnsupportedError("android", 33);
+  }
+}
+
 export {
   getCalendar,
   getCountry,
@@ -48,7 +66,6 @@ export {
   getNumberFormatSettings,
   getTemperatureUnit,
   getTimeZone,
-  openAppLanguageSettings,
   uses24HourClock,
   usesAutoDateAndTime,
   usesAutoTimeZone,
