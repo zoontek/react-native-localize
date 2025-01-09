@@ -317,7 +317,7 @@ Returns the best language tag possible and its reading direction. Useful to pick
 
 > [!NOTE]
 >
-> It respects the user preferred languages list order, see [explanations](https://github.com/zoontek/react-native-localize/issues/57#issuecomment-508456427)
+> It respects the user preferred languages list order (see [explanations](https://github.com/zoontek/react-native-localize/issues/57#issuecomment-508456427)).
 
 #### Method type
 
