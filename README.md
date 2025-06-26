@@ -32,11 +32,6 @@ _Don't forget to run `pod install` after that !_
 
 This package supports `react-native-web`. Follow their [official guide](https://necolas.github.io/react-native-web/docs/multi-platform/#compiling-and-bundling) to configure `webpack`.
 
-### Debugging
-
-As this library uses synchronous native methods, remote debugging (e.g. with Chrome) is no longer possible.<br />
-Instead, you should use [Flipper 🐬](https://fbflipper.com).
-
 ## Basic usage example
 
 ```ts
