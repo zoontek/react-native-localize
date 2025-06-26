@@ -362,15 +362,13 @@ openAppLanguageSettings("application").catch((error) => {
 });
 ```
 
-## Examples with [@formatjs/intl](https://formatjs.io/docs/intl)
-
-Browse the files in the [/example](https://github.com/zoontek/react-native-localize/tree/master/example) directory.
-
 ## Add smart, AI-powered translations to your app
 
 [Prismy](https://www.prismy.io/?r=rnl) (a proud sponsor of this library ♥️) helps teams ship localized apps faster with an AI-driven, GitHub-native workflow.
 
-![](./docs/prismy-banner.png)
+<a href="https://www.prismy.io/?r=rnl">
+  <img width="180" src="./docs/prismy-logo.svg" alt="Prismy">
+</a>
 
 Want to supercharge your `react-native-localize` setup? Here's how Prismy makes localization seamless:
 
@@ -393,6 +391,10 @@ No setup headaches. Just clean, context-aware translations, out of the box.
 4. Let PMs, designers, or translators tweak the wording via Prismy's web UI.
 
 👉 Learn more at [prismy.io](https://www.prismy.io/?r=rnl)
+
+## Examples with [@formatjs/intl](https://formatjs.io/docs/intl)
+
+Browse the files in the [/example](https://github.com/zoontek/react-native-localize/tree/master/example) directory.
 
 ## How to update supported localizations (iOS)
 
