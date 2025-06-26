@@ -366,6 +366,34 @@ openAppLanguageSettings("application").catch((error) => {
 
 Browse the files in the [/example](https://github.com/zoontek/react-native-localize/tree/master/example) directory.
 
+## Add smart, AI-powered translations to your app
+
+[Prismy](https://www.prismy.io/?r=rnl) (a proud sponsor of this library ♥️) helps teams ship localized apps faster with an AI-driven, GitHub-native workflow.
+
+![](./docs/prismy-banner.png)
+
+Want to supercharge your `react-native-localize` setup? Here's how Prismy makes localization seamless:
+
+### 🚀 Smart translations with zero fuss
+
+- Customize tone (formal, informal, playful) per language.
+- Automatically reuse existing translations.
+- Use glossaries to keep terminology consistent (Prismy even generates them the initial one for you!)
+
+No setup headaches. Just clean, context-aware translations, out of the box.
+
+### 🔁 Continuous localization, built for developers
+
+1. Keep editing your source locale files like you always do.
+2. When you open a PR, Prismy:
+   - Detects missing translations
+   - (Optionally) adds a "Missing Translations" CI check
+   - Comments with a link to generate them in one click
+3. Kick off translations from the PR comment itself.
+4. Let PMs, designers, or translators tweak the wording via Prismy's web UI.
+
+👉 Learn more at [prismy.io](https://www.prismy.io/?r=rnl)
+
 ## How to update supported localizations (iOS)
 
 You can add / remove supported localizations in your Xcode project infos:
