@@ -364,13 +364,11 @@ openAppLanguageSettings("application").catch((error) => {
 
 ## Add smart, AI-powered translations to your app
 
-[Prismy](https://www.prismy.io/?r=rnl) (a proud sponsor of this library ♥️) helps teams ship localized apps faster with an AI-driven, GitHub-native workflow.
-
 <a href="https://www.prismy.io/?r=rnl">
-  <img width="180" src="./docs/prismy-logo.svg" alt="Prismy">
+  <img width="200" src="./docs/prismy-logo.svg" alt="Prismy">
 </a>
 
-Want to supercharge your `react-native-localize` setup? Here's how Prismy makes localization seamless:
+[Prismy](https://www.prismy.io/?r=rnl) (a proud sponsor of this library ♥️) helps teams ship localized apps faster with an AI-driven, GitHub-native workflow. Want to supercharge your `react-native-localize` setup? Here's how Prismy makes localization seamless:
 
 ### 🚀 Smart translations with zero fuss
 
