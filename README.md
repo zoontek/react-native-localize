@@ -360,8 +360,10 @@ openAppLanguageSettings("application").catch((error) => {
 ## Add smart, AI-powered translations to your app
 
 <a href="https://www.prismy.io/?r=rnl">
-  <img width="200" src="./docs/prismy-logo.svg" alt="Prismy">
+  <img width="280" src="./docs/prismy-logo.svg" alt="Prismy">
 </a>
+
+<br />
 
 [Prismy](https://www.prismy.io/?r=rnl) (a proud sponsor of this library ♥️) helps teams ship localized apps faster with an AI-driven, GitHub-native workflow. Want to supercharge your `react-native-localize` setup? Here's how Prismy makes localization seamless:
 
