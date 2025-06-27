@@ -32,11 +32,6 @@ _Don't forget to run `pod install` after that !_
 
 This package supports `react-native-web`. Follow their [official guide](https://necolas.github.io/react-native-web/docs/multi-platform/#compiling-and-bundling) to configure `webpack`.
 
-### Debugging
-
-As this library uses synchronous native methods, remote debugging (e.g. with Chrome) is no longer possible.<br />
-Instead, you should use [Flipper 🐬](https://fbflipper.com).
-
 ## Basic usage example
 
 ```ts
@@ -361,6 +356,36 @@ openAppLanguageSettings("application").catch((error) => {
   console.warn("Cannot open app language settings", error);
 });
 ```
+
+## Add smart, AI-powered translations to your app
+
+<a href="https://www.prismy.io/?r=rnl">
+  <img width="280" src="./docs/prismy-logo.svg" alt="Prismy">
+</a>
+
+<br />
+
+[Prismy](https://www.prismy.io/?r=rnl) (a proud sponsor of this library ♥️) helps teams ship localized apps faster with an AI-driven, GitHub-native workflow. Want to supercharge your `react-native-localize` setup? Here's how Prismy makes localization seamless:
+
+### 🚀 Smart translations with zero fuss
+
+- Customize tone (formal, informal, playful) per language.
+- Automatically reuse existing translations.
+- Use glossaries to keep terminology consistent (Prismy even generates them the initial one for you!)
+
+No setup headaches. Just clean, context-aware translations, out of the box.
+
+### 🔁 Continuous localization, built for developers
+
+1. Keep editing your source locale files like you always do.
+2. When you open a PR, Prismy:
+   - Detects missing translations
+   - (Optionally) adds a "Missing Translations" CI check
+   - Comments with a link to generate them in one click
+3. Kick off translations from the PR comment itself.
+4. Let PMs, designers, or translators tweak the wording via Prismy's web UI.
+
+👉 Learn more at [prismy.io](https://www.prismy.io/?r=rnl)
 
 ## Examples with [@formatjs/intl](https://formatjs.io/docs/intl)
 
