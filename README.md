@@ -11,7 +11,7 @@ A toolbox for your React Native app localization.
 [![platform - macos](https://img.shields.io/badge/platform-macOS-000.svg?logo=apple&style=for-the-badge)](https://developer.apple.com/macos)
 [![platform - web](https://img.shields.io/badge/platform-Web-1977f2.svg?logo=html5&logoColor=fff&style=for-the-badge)](https://developer.mozilla.org)
 
-<img width="350" height="auto" center src="./docs/screenshot.png" />
+<img width="350" src="./docs/screenshot.png" />
 
 ## Support
 
