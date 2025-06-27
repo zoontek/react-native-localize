@@ -11,7 +11,7 @@ A toolbox for your React Native app localization.
 [![platform - macos](https://img.shields.io/badge/platform-macOS-000.svg?logo=apple&style=for-the-badge)](https://developer.apple.com/macos)
 [![platform - web](https://img.shields.io/badge/platform-Web-1977f2.svg?logo=html5&logoColor=fff&style=for-the-badge)](https://developer.mozilla.org)
 
-<img width="400" height="auto" center src="https://github.com/zoontek/react-native-localize/blob/master/docs/screenshot.png?raw=true" />
+<img width="350" height="auto" center src="./docs/screenshot.png" />
 
 ## Support
 
@@ -360,7 +360,7 @@ openAppLanguageSettings("application").catch((error) => {
 ## Add smart, AI-powered translations to your app
 
 <a href="https://www.prismy.io/?r=rnl">
-  <img width="280" src="./docs/prismy-logo.svg" alt="Prismy">
+  <img width="250" src="./docs/prismy-logo.svg" alt="Prismy">
 </a>
 
 <br />
@@ -395,7 +395,7 @@ Browse the files in the [/example](https://github.com/zoontek/react-native-local
 
 You can add / remove supported localizations in your Xcode project infos:
 
-![](https://github.com/zoontek/react-native-localize/blob/master/docs/xcode-adding-locales.png?raw=true)
+![](./docs/xcode-adding-locales.png)
 
 ## How to test your code
 
