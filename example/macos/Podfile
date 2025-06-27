@@ -1,10 +1,10 @@
 require_relative '../node_modules/react-native-macos/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :macos, '11.0'
 prepare_react_native_project!
 
 target 'RNLocalizeExample' do
+  platform :macos, '11.0'
   use_native_modules!
 
   # Flags change depending on the env values.
