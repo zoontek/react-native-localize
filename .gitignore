@@ -48,6 +48,9 @@ yarn-error.log
 # Bob
 dist/
 
+# Expo plugin
+!plugin/build
+
 # mock
 mock/*.d.ts
 mock/*.js

@@ -340,6 +340,7 @@ Opens the app language settings.
 > [!WARNING]
 >
 > This feature is available only on Android 13+ and require [configuring your app's supported locales](https://developer.android.com/guide/topics/resources/app-languages#use-localeconfig).
+> If you're using Expo, you can do this with [the config plugin](#usage-with-expo).
 
 #### Method type
 
@@ -397,6 +398,8 @@ You can add / remove supported localizations in your Xcode project infos:
 
 ![](./docs/xcode-adding-locales.png)
 
+If you're using Expo, you can do this with [the config plugin](#usage-with-expo).
+
 ## How to test your code
 
 Because it's a native module, you need to mock this package.<br />
@@ -405,6 +408,55 @@ The package provides a default mock you may import in your `__mocks__` directory
 ```ts
 // __mocks__/react-native-localize.ts
 export * from "react-native-localize/mock"; // or "react-native-localize/mock/jest"
+```
+
+## <a name="usage-with-expo"></a>Usage with Expo
+
+If you're using Expo, you can specify the supported locales in your app.json or app.config.js using the config plugin.
+This enables Android 13+ and iOS to display the available locales in the system settings, allowing users to select their preferred language for your app.
+
+```js
+{
+  "expo": {
+    "plugins": [
+      [
+        "react-native-localize",
+        {
+          "supportedLocales": [
+            "en",
+            "fr"
+          ]
+        }
+      ]
+    ]
+  }
+}
+```
+
+Alternatively, if you want to define different locales for iOS and Android, you can use:
+
+```js
+{
+  "expo": {
+    "plugins": [
+      [
+        "react-native-localize",
+        {
+          "supportedLocales": {
+            ios: [
+              "en",
+              "fr"
+            ],
+            android: [
+              "en",
+              "fr"
+            ]
+          }
+        }
+      ]
+    ]
+  }
+}
 ```
 
 ## Sponsors
