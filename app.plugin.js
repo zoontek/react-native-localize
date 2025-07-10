@@ -1,1 +1,2 @@
-module.exports = require('./plugin/build');
+const { withLocalize } = require("./dist/commonjs/expo");
+module.exports = withLocalize;
