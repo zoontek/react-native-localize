@@ -78,7 +78,10 @@ ${locales.map((locale) => `  <locale android:name="${locale}"/>`).join("\n")}
       newSrc: `        resourceConfigurations += ${modResults.language === "kt" ? `listOf(${list})` : `[${list}]`}`,
     });
 
-    return { ...config, modResults: { ...modResults, contents } };
+    return {
+      ...config,
+      modResults: { ...modResults, contents },
+    };
   });
 };
 

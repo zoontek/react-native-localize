@@ -41,6 +41,39 @@ console.log(getLocales());
 console.log(getCurrencies());
 ```
 
+## Expo plugin
+
+If you're using Expo, you can specify the supported locales in your `app.json` or `app.config.js` using the config plugin.
+This enables Android 13+ and iOS to display the available locales in the system settings, allowing users to select their preferred language for your app.
+
+```json
+{
+  "expo": {
+    "plugins": [["react-native-localize", { "locales": ["en", "fr"] }]]
+  }
+}
+```
+
+Alternatively, if you want to define different locales for iOS and Android, you can use:
+
+```json
+{
+  "expo": {
+    "plugins": [
+      [
+        "react-native-localize",
+        {
+          "locales": {
+            "android": ["en"],
+            "ios": ["en", "fr"]
+          }
+        }
+      ]
+    ]
+  }
+}
+```
+
 ## Add smart, AI-powered translations to your app
 
 <a href="https://www.prismy.io/?r=rnl">
