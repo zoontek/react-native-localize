@@ -1,6 +1,6 @@
 {
   "name": "react-native-localize",
-  "version": "3.5.0",
+  "version": "3.5.1",
   "license": "MIT",
   "description": "A toolbox for your React Native app localization.",
   "author": "Mathieu Acthernoene <zoontek@gmail.com>",
@@ -51,21 +51,23 @@
     ]
   },
   "peerDependencies": {
+    "@expo/config-plugins": "^9.0.0 || ^10.0.0",
     "react": "*",
     "react-native": "*",
     "react-native-macos": "*"
   },
   "peerDependenciesMeta": {
+    "@expo/config-plugins": {
+      "optional": true
+    },
     "react-native-macos": {
       "optional": true
     }
   },
-  "dependencies": {
-    "@expo/config-plugins": "^9.0.0 || ^10.0.0"
-  },
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",
+    "@expo/config-plugins": "^10.1.2",
     "@types/jest": "^29.5.13",
     "@types/react": "^19.1.0",
     "prettier": "^3.6.2",
