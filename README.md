@@ -28,20 +28,7 @@ $ yarn add react-native-localize
 
 _Don't forget to run `pod install` after that !_
 
-### Web support
-
-This package supports `react-native-web`. Follow their [official guide](https://necolas.github.io/react-native-web/docs/multi-platform/#compiling-and-bundling) to configure `webpack`.
-
-## Basic usage example
-
-```ts
-import { getCurrencies, getLocales } from "react-native-localize";
-
-console.log(getLocales());
-console.log(getCurrencies());
-```
-
-## Expo plugin
+### Expo plugin
 
 If you're using Expo, you can specify the supported locales in your `app.json` or `app.config.js` using the config plugin.
 This enables Android 13+ and iOS to display the available locales in the system settings, allowing users to select their preferred language for your app.
@@ -72,6 +59,19 @@ Alternatively, if you want to define different locales for iOS and Android, you 
     ]
   }
 }
+```
+
+### Web support
+
+This package supports `react-native-web`. Follow their [official guide](https://necolas.github.io/react-native-web/docs/multi-platform/#compiling-and-bundling) to configure `webpack`.
+
+## Basic usage example
+
+```ts
+import { getCurrencies, getLocales } from "react-native-localize";
+
+console.log(getLocales());
+console.log(getCurrencies());
 ```
 
 ## Add smart, AI-powered translations to your app
