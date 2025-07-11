@@ -1,137 +1,56 @@
 import * as Expo from "@expo/config-plugins";
+import { mergeContents } from "@expo/config-plugins/build/utils/generateCode";
 import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 
-const pkg = require("react-native-localize/package.json");
+const PACKAGE_NAME = "react-native-localize";
 
 type Props = {
-  supportedLocales?: string[] | { android?: string[]; ios?: string[] };
+  locales?: string[] | { android?: string[]; ios?: string[] };
 };
 
-type Bracket = "(" | "{" | ")" | "}";
+const withIosAppLocales: Expo.ConfigPlugin<string[]> = (
+  { ios = {}, ...config },
+  locales,
+) => ({
+  ...config,
+  ios: { ...ios, infoPlist: { CFBundleLocalizations: locales } },
+});
 
-const matchingBrackets: Record<Bracket, Bracket> = {
-  "(": ")",
-  ")": "(",
-  "{": "}",
-  "}": "{",
-};
-
-const findMatchingBracketPosition = (
-  contents: string,
-  bracket: Bracket,
-  offset: number = 0,
-): number => {
-  // search first occurrence of `bracket`
-  const firstBracketPos = contents.indexOf(bracket, offset);
-
-  if (firstBracketPos < 0) {
-    return -1;
-  }
-
-  let stackCounter = 0;
-  const matchingBracket = matchingBrackets[bracket];
-
-  if (bracket === "(" || bracket === "{") {
-    const contentsLength = contents.length;
-    // search forward
-    for (let i = firstBracketPos + 1; i < contentsLength; ++i) {
-      const c = contents[i];
-      if (c === bracket) {
-        stackCounter += 1;
-      } else if (c === matchingBracket) {
-        if (stackCounter === 0) {
-          return i;
-        }
-        stackCounter -= 1;
-      }
-    }
-  } else {
-    // search backward
-    for (let i = firstBracketPos - 1; i >= 0; --i) {
-      const c = contents[i];
-      if (c === bracket) {
-        stackCounter += 1;
-      } else if (c === matchingBracket) {
-        if (stackCounter === 0) {
-          return i;
-        }
-        stackCounter -= 1;
-      }
-    }
-  }
-
-  return -1;
-};
-
-const insertContentsAtOffset = (
-  srcContents: string,
-  insertion: string,
-  offset: number,
-): string => {
-  const srcContentsLength = srcContents.length;
-  if (offset < 0 || offset > srcContentsLength) {
-    throw new Error("Invalid parameters.");
-  }
-  if (offset === 0) {
-    return `${insertion}${srcContents}`;
-  } else if (offset === srcContentsLength) {
-    return `${srcContents}${insertion}`;
-  }
-
-  const prefix = srcContents.substring(0, offset);
-  const suffix = srcContents.substring(offset);
-  return `${prefix}${insertion}${suffix}`;
-};
-
-const appendContentsInsideDeclarationBlock = (
-  srcContents: string,
-  declaration: string,
-  insertion: string,
-): string => {
-  const start = srcContents.search(new RegExp(`\\s*${declaration}.*?[\\(\\{]`));
-  if (start < 0) {
-    throw new Error(`Unable to find code block - declaration[${declaration}]`);
-  }
-  const end = findMatchingBracketPosition(srcContents, "{", start);
-  return insertContentsAtOffset(srcContents, insertion, end);
-};
-
-const withAppLanguageSettingAndroid: Expo.ConfigPlugin<Props> = (
+const withAndroidAppLocales: Expo.ConfigPlugin<string[]> = (
   config,
-  props,
+  locales,
 ) => {
-  const { supportedLocales = [] } = props;
+  const withLocalesConfig = Expo.withDangerousMod(config, [
+    "android",
+    (config) => {
+      const xmlDir = join(
+        config.modRequest.platformProjectRoot,
+        "app",
+        "src",
+        "main",
+        "res",
+        "xml",
+      );
 
-  const androidLocales = Array.isArray(supportedLocales)
-    ? supportedLocales
-    : supportedLocales.android;
+      mkdirSync(xmlDir, { recursive: true });
 
-  if (androidLocales) {
-    config = Expo.withDangerousMod(config, [
-      "android",
-      (config) => {
-        const projectRootPath = join(config.modRequest.platformProjectRoot);
-        const folder = join(projectRootPath, "app/src/main/res/xml");
+      writeFileSync(
+        join(xmlDir, "locales_config.xml"),
+        `<?xml version="1.0" encoding="utf-8"?>
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+${locales.map((locale) => `  <locale android:name="${locale}"/>`).join("\n")}
+</locale-config>
+`,
+      );
 
-        mkdirSync(folder, { recursive: true });
+      return config;
+    },
+  ]);
 
-        writeFileSync(
-          join(folder, "locales_config.xml"),
-          [
-            '<?xml version="1.0" encoding="utf-8"?>',
-            '<locale-config xmlns:android="http://schemas.android.com/apk/res/android">',
-            ...androidLocales.map(
-              (locale) => `  <locale android:name="${locale}"/>`,
-            ),
-            "</locale-config>",
-          ].join("\n"),
-        );
-
-        return config;
-      },
-    ]);
-    config = Expo.withAndroidManifest(config, (config) => {
+  const withMainApplication = Expo.withAndroidManifest(
+    withLocalesConfig,
+    (config) => {
       const mainApplication =
         Expo.AndroidConfig.Manifest.getMainApplicationOrThrow(
           config.modResults,
@@ -143,68 +62,48 @@ const withAppLanguageSettingAndroid: Expo.ConfigPlugin<Props> = (
       };
 
       return config;
-    });
-    config = Expo.withAppBuildGradle(config, (config) => {
-      if (config.modResults.language === "groovy") {
-        config.modResults.contents = appendContentsInsideDeclarationBlock(
-          config.modResults.contents,
-          "defaultConfig",
-          `    resourceConfigurations += [${androidLocales.map((lang) => `"${lang}"`).join(", ")}]\n    `,
-        );
-      } else {
-        Expo.WarningAggregator.addWarningAndroid(
-          "react-native-localize languages",
-          `Cannot automatically configure app build.gradle if it's not groovy`,
-        );
-      }
+    },
+  );
 
-      return config;
-    });
-  }
+  return Expo.withAppBuildGradle(withMainApplication, (config) => {
+    const { modResults } = config;
+    const list = locales.map((lang) => `"${lang}"`).join(", ");
 
-  return config;
+    const { contents } = mergeContents({
+      src: modResults.contents,
+      comment: "//",
+      tag: PACKAGE_NAME,
+      offset: 1,
+      anchor: /versionName "[\d.]+"/,
+      newSrc:
+        `        resourceConfigurations += ` + modResults.language === "kt"
+          ? `listOf(${list})`
+          : `[${list}]`,
+    });
+
+    return { ...config, modResults: { ...modResults, contents } };
+  });
 };
 
-const withAppLanguageSettingIos: Expo.ConfigPlugin<Props> = (config, props) => {
-  if (!config.ios) {
-    config.ios = {};
-  }
-  if (!config.ios.infoPlist) {
-    config.ios.infoPlist = {};
-  }
-
-  const { supportedLocales = [] } = props;
-
-  const iosLocales = Array.isArray(supportedLocales)
-    ? supportedLocales
-    : supportedLocales.ios;
-
-  config.ios.infoPlist.CFBundleLocalizations = iosLocales;
-  return config;
-};
-
-const withAppLanguageSetting: Expo.ConfigPlugin<Props | undefined> = (
+const withAppLocales: Expo.ConfigPlugin<Props | undefined> = (
   config,
-  props = {},
+  { locales = [] } = {},
 ) => {
-  const plugins: Expo.ConfigPlugin<Props>[] = [];
+  const plugins: Array<[Expo.ConfigPlugin<string[]>, string[]]> = [];
   const { platforms = [] } = config;
 
-  if (platforms.includes("android")) {
-    plugins.push(withAppLanguageSettingAndroid);
+  const { android, ios } = Array.isArray(locales)
+    ? { android: locales, ios: locales }
+    : { android: locales.android ?? [], ios: locales.ios ?? [] };
+
+  if (platforms.includes("ios") && ios.length > 0) {
+    plugins.push([withIosAppLocales, ios]);
   }
-  if (platforms.includes("ios")) {
-    plugins.push(withAppLanguageSettingIos);
+  if (platforms.includes("android") && android.length > 0) {
+    plugins.push([withAndroidAppLocales, android]);
   }
 
-  return Expo.withPlugins(
-    config,
-    plugins.map((plugin) => [plugin, props]),
-  );
+  return Expo.withPlugins(config, plugins);
 };
 
-export const withLocalize = Expo.createRunOncePlugin(
-  withAppLanguageSetting,
-  pkg.name,
-  pkg.version,
-);
+export default Expo.createRunOncePlugin(withAppLocales, PACKAGE_NAME);
