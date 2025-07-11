@@ -75,10 +75,7 @@ ${locales.map((locale) => `  <locale android:name="${locale}"/>`).join("\n")}
       tag: PACKAGE_NAME,
       offset: 1,
       anchor: /versionName "[\d.]+"/,
-      newSrc:
-        `        resourceConfigurations += ` + modResults.language === "kt"
-          ? `listOf(${list})`
-          : `[${list}]`,
+      newSrc: `        resourceConfigurations += ${modResults.language === "kt" ? `listOf(${list})` : `[${list}]`}`,
     });
 
     return { ...config, modResults: { ...modResults, contents } };
