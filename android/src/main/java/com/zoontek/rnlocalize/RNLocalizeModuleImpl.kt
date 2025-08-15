@@ -32,6 +32,9 @@ object RNLocalizeModuleImpl {
 
   private val USES_FAHRENHEIT = listOf("BS", "BZ", "KY", "PR", "PW", "US")
   private val USES_IMPERIAL = listOf("LR", "MM", "US")
+  // Scripts that are RTL regardless of language default.
+  // needed for pre 21
+  private val RTL_SCRIPTS = setOf("Arab", "Hebr", "Syrc", "Thaa", "Nkoo", "Adlm", "Rohg")
 
   // Internal
 
@@ -158,6 +161,8 @@ object RNLocalizeModuleImpl {
       val countryCode = getCountryCodeForLocale(systemLocale).ifEmpty { currentCountryCode }
 
       val languageTag = createLanguageTag(languageCode, scriptCode, countryCode)
+      // needed for pre 21, post 21 TextUtils.getLayoutDirectionFromLocale should handle things.
+      val rtlByScript = scriptCode.isNotEmpty() && RTL_SCRIPTS.contains(scriptCode)
 
       val locale = Arguments.createMap().apply {
         putString("languageCode", languageCode)
@@ -165,7 +170,7 @@ object RNLocalizeModuleImpl {
         putString("languageTag", languageTag)
 
         val rtl = TextUtils.getLayoutDirectionFromLocale(systemLocale) == View.LAYOUT_DIRECTION_RTL
-        putBoolean("isRTL", rtl)
+        putBoolean("isRTL", rtl || rtlByScript)
 
         if (scriptCode.isNotEmpty()) {
           putString("scriptCode", scriptCode)
