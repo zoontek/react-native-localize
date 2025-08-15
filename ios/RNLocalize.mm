@@ -31,6 +31,17 @@ RCT_EXPORT_MODULE();
   return [languageTag stringByAppendingFormat:@"-%@", countryCode];
 }
 
+// Common right-to-left scripts you'll actually encounter in apps.
+NSSet<NSString *> *rtlScripts = [NSSet setWithArray:@[
+    @"Arab", // Arabic (incl. Jawi, Shahmukhi, Sorani, etc.)
+    @"Hebr", // Hebrew
+    @"Syrc", // Syriac
+    @"Thaa", // Thaana (Dhivehi)
+    @"Nkoo", // N’Ko
+    @"Adlm", // Adlam (Fula)
+    @"Rohg"  // Hanifi Rohingya
+]];
+
 // Implementation
 
 - (NSString *)getCalendarImpl {
@@ -112,6 +123,7 @@ RCT_EXPORT_MODULE();
     NSString *scriptCode = [systemLocale objectForKey:NSLocaleScriptCode];
     NSString *countryCode = [self getCountryCodeForLocale:systemLocale];
     bool isRTL = [NSLocale characterDirectionForLanguage:languageCode] == NSLocaleLanguageDirectionRightToLeft;
+    bool isRTLScript = (scriptCode && [rtlScripts containsObject:scriptCode]);
 
     if (countryCode == nil)
       countryCode = [self getCountryImpl];
@@ -124,7 +136,7 @@ RCT_EXPORT_MODULE();
       @"languageCode": languageCode,
       @"countryCode": countryCode,
       @"languageTag": languageTag,
-      @"isRTL": @(isRTL),
+      @"isRTL": @(isRTL || isRTLScript),
     }];
 
     if (scriptCode != nil)
