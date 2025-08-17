@@ -7,7 +7,7 @@ RCT_EXPORT_MODULE();
 // Internal
 
 - (NSString * _Nullable)getCountryCodeForLocale:(NSLocale *)locale {
-  NSString *countryCode = [locale objectForKey:NSLocaleCountryCode];
+  NSString *countryCode = [locale countryCode];
 
   if ([countryCode isEqualToString:@"419"])
     return @"UN";
@@ -16,7 +16,7 @@ RCT_EXPORT_MODULE();
 }
 
 - (NSString * _Nullable)getCurrencyCodeForLocale:(NSLocale *)locale {
-  NSString *currencyCode = [locale objectForKey:NSLocaleCurrencyCode];
+  NSString *currencyCode = [locale currencyCode];
   return currencyCode != nil ? [currencyCode uppercaseString] : nil;
 }
 
@@ -35,7 +35,7 @@ RCT_EXPORT_MODULE();
 
 - (NSString *)getCalendarImpl {
   NSLocale *currentLocale = [NSLocale currentLocale];
-  NSString *calendar = [[currentLocale objectForKey:NSLocaleCalendar] calendarIdentifier];
+  NSString *calendar = [currentLocale calendarIdentifier];
 
   if ([calendar isEqualToString:NSCalendarIdentifierGregorian])
     return @"gregorian";
@@ -142,8 +142,8 @@ RCT_EXPORT_MODULE();
   NSLocale *currentLocale = [NSLocale currentLocale];
 
   return @{
-    @"decimalSeparator": [currentLocale objectForKey:NSLocaleDecimalSeparator],
-    @"groupingSeparator": [currentLocale objectForKey:NSLocaleGroupingSeparator],
+    @"decimalSeparator": [currentLocale decimalSeparator],
+    @"groupingSeparator": [currentLocale groupingSeparator],
   };
 }
 
@@ -179,7 +179,7 @@ RCT_EXPORT_MODULE();
 
 - (bool)usesMetricSystemImpl {
   NSLocale *currentLocale = [NSLocale currentLocale];
-  return [[currentLocale objectForKey:NSLocaleUsesMetricSystem] boolValue];
+  return [currentLocale usesMetricSystem];
 }
 
 RCT_EXPORT_METHOD(openAppLanguageSettings:(RCTPromiseResolveBlock)resolve
