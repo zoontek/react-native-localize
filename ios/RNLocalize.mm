@@ -106,12 +106,11 @@ RCT_EXPORT_MODULE();
 
   for (NSString *identifier in [NSLocale preferredLanguages]) {
     NSLocale *systemLocale = [[NSLocale alloc] initWithLocaleIdentifier:identifier];
-    NSString *systemLanguageCode = [systemLocale objectForKey:NSLocaleLanguageCode];
 
-    NSString *languageCode = [systemLanguageCode lowercaseString];
-    NSString *scriptCode = [systemLocale objectForKey:NSLocaleScriptCode];
+    NSString *languageCode = [[systemLocale languageCode] lowercaseString];
+    NSString *scriptCode = [[systemLocale scriptCode] capitalizedString];
     NSString *countryCode = [self getCountryCodeForLocale:systemLocale];
-    bool isRTL = [NSLocale characterDirectionForLanguage:languageCode] == NSLocaleLanguageDirectionRightToLeft;
+    bool isRTL = [NSLocale characterDirectionForLanguage:[systemLocale localeIdentifier]] == NSLocaleLanguageDirectionRightToLeft;
 
     if (countryCode == nil)
       countryCode = [self getCountryImpl];
