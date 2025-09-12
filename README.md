@@ -376,21 +376,41 @@ Returns the best language tag possible and its reading direction. Useful to pick
 > [!NOTE]
 >
 > It respects the user preferred languages list order (see [explanations](https://github.com/zoontek/react-native-localize/issues/57#issuecomment-508456427)).
+>
+> If you care more about the language than the country, you can set the optional `preferFirstMatchingLanguage` parameter to `true`. In that case, if the user prefers "en-GB" but your app only supports "en-US", it will use the latter.
 
 #### Method type
 
 ```ts
 type findBestLanguageTag = (
   languageTags: string[],
-) => { languageTag: string; isRTL: boolean } | void;
+  preferFirstMatchingLanguage?: boolean,
+) => { languageTag: string; isRTL: boolean } | undefined;
 ```
 
-#### Usage example
+#### Usage examples
+
+Assuming the user preferred language list order is: `it-IT` > `en-GB` > `fr-FR`
 
 ```ts
 import { findBestLanguageTag } from "react-native-localize";
 
-console.log(findBestLanguageTag(["en-US", "en", "fr"]));
+console.log(findBestLanguageTag(["fr", "en"]));
+// -> { languageTag: "en", isRTL: false }
+
+console.log(findBestLanguageTag(["fr-FR", "en-US"]));
+// -> { languageTag: "fr-FR", isRTL: false }
+
+console.log(findBestLanguageTag(["fr-FR", "en-US"], true));
+// -> { languageTag: "en-US", isRTL: false }
+
+console.log(findBestLanguageTag(["fr-FR", "en-US", "en"]));
+// -> { languageTag: "en", isRTL: false }
+
+console.log(findBestLanguageTag(["de-DE", "en-US"]));
+// -> undefined
+
+console.log(findBestLanguageTag(["de-DE", "en-US"], true));
 // -> { languageTag: "en-US", isRTL: false }
 ```
 

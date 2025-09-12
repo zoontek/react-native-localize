@@ -1,10 +1,17 @@
 import { getLocales } from "./module";
 
+function isMatchingLanguage(languageTag: string, languageCode: string) {
+  return languageTag.toLowerCase().split("-")[0] === languageCode.toLowerCase();
+}
+
 export function findBestLanguageTag<T extends string>(
   languageTags: ReadonlyArray<T>,
+  preferFirstMatchingLanguage?: boolean,
 ): { languageTag: T; isRTL: boolean } | undefined {
   const locales = getLocales();
   const loweredLanguageTags = languageTags.map((tag) => tag.toLowerCase());
+
+  let firstMatch: ReturnType<typeof findBestLanguageTag<T>>;
 
   for (let i = 0; i < locales.length; i++) {
     const currentLocale = locales[i];
@@ -15,6 +22,10 @@ export function findBestLanguageTag<T extends string>(
 
     const { languageTag, languageCode, scriptCode, countryCode, isRTL } =
       currentLocale;
+
+    if (firstMatch !== undefined && !isMatchingLanguage(firstMatch.languageTag, languageCode)) {
+      continue; // when preferFirstMatchingLanguage is true and we already found a matching language, ignore any other languages
+    }
 
     const combinaisons = [
       languageTag,
@@ -37,6 +48,17 @@ export function findBestLanguageTag<T extends string>(
         return { languageTag, isRTL };
       }
     }
+
+    if (preferFirstMatchingLanguage === true && firstMatch === undefined) {
+      const languageTag = languageTags.find((tag) => isMatchingLanguage(tag, languageCode));
+      if (languageTag) {
+        firstMatch = { languageTag, isRTL };
+      }
+    }
+  }
+
+  if (firstMatch !== undefined) {
+    return firstMatch;
   }
 }
 
