@@ -15,6 +15,7 @@
     "/mock",
     "/src",
     "RNLocalize.podspec",
+    "app.plugin.js",
     "package.json"
   ],
   "repository": {
