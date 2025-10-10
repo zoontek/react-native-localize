@@ -14,12 +14,9 @@ const withIosAppLocales: Expo.ConfigPlugin<string[]> = (
   locales,
 ) => ({
   ...config,
-  ios: { 
-    ...ios, 
-    infoPlist: { 
-      ...ios.infoPlist, 
-      CFBundleLocalizations: locales 
-    } 
+  ios: {
+    ...ios,
+    infoPlist: { ...ios.infoPlist, CFBundleLocalizations: locales },
   },
 });
 
