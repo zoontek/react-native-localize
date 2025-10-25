@@ -35,7 +35,7 @@ function convertLanguageTagToLocale(
     languageCode,
     countryCode,
     languageTag: `${languageCode}-${countryCode}`,
-    isRTL: USES_RTL_LAYOUT.includes(languageCode),
+    isRTL: USES_RTL_LAYOUT.has(languageCode),
   };
 }
 
@@ -120,7 +120,7 @@ export function getNumberFormatSettings(): NumberFormatSettings {
 }
 
 export function getTemperatureUnit(): TemperatureUnit {
-  return USES_FAHRENHEIT.includes(getCountry()) ? "fahrenheit" : "celsius";
+  return USES_FAHRENHEIT.has(getCountry()) ? "fahrenheit" : "celsius";
 }
 
 export function getTimeZone(): string {
@@ -136,7 +136,7 @@ export function uses24HourClock(): boolean {
 }
 
 export function usesMetricSystem(): boolean {
-  return !USES_IMPERIAL.includes(getCountry());
+  return !USES_IMPERIAL.has(getCountry());
 }
 
 export function usesAutoDateAndTime(): boolean | undefined {

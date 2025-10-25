@@ -1,8 +1,15 @@
-export const USES_FAHRENHEIT: string[] = ["BS", "BZ", "KY", "PR", "PW", "US"];
+export const USES_FAHRENHEIT = new Set<string>([
+  "BS",
+  "BZ",
+  "KY",
+  "PR",
+  "PW",
+  "US",
+]);
 
-export const USES_IMPERIAL: string[] = ["LR", "MM", "US"];
+export const USES_IMPERIAL = new Set<string>(["LR", "MM", "US"]);
 
-export const USES_RTL_LAYOUT: string[] = [
+export const USES_RTL_LAYOUT = new Set<string>([
   "ar",
   "ckb",
   "fa",
@@ -14,7 +21,7 @@ export const USES_RTL_LAYOUT: string[] = [
   "ug",
   "ur",
   "yi",
-];
+]);
 
 export const CURRENCIES: Record<string, string> = {
   AD: "EUR",
