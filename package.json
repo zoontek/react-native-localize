@@ -52,7 +52,7 @@
     ]
   },
   "peerDependencies": {
-    "@expo/config-plugins": "^9.0.0 || ^10.0.0",
+    "@expo/config-plugins": "*",
     "react": "*",
     "react-native": "*",
     "react-native-macos": "*"
@@ -68,15 +68,15 @@
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",
-    "@expo/config-plugins": "^10.1.2",
-    "@types/jest": "^29.5.13",
-    "@types/react": "^19.1.0",
+    "@expo/config-plugins": "^54.0.2",
+    "@types/jest": "^29.5.14",
+    "@types/react": "^19.1.1",
     "prettier": "^3.6.2",
-    "prettier-plugin-organize-imports": "^4.1.0",
-    "react": "19.1.0",
-    "react-native": "0.80.0",
-    "react-native-builder-bob": "^0.40.12",
-    "typescript": "^5.8.3"
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "react": "19.1.1",
+    "react-native": "0.82.1",
+    "react-native-builder-bob": "^0.40.13",
+    "typescript": "^5.9.3"
   },
   "codegenConfig": {
     "name": "RNLocalizeSpec",
