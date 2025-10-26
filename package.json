@@ -81,7 +81,7 @@
   "codegenConfig": {
     "name": "RNLocalizeSpec",
     "type": "modules",
-    "jsSrcsDir": "./src",
+    "jsSrcsDir": "./src/specs",
     "android": {
       "javaPackageName": "com.zoontek.rnlocalize"
     }

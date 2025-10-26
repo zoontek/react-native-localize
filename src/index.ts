@@ -1,4 +1,4 @@
-import { getLocales } from "./module.native";
+import { getLocales } from "./module";
 
 export function findBestLanguageTag<T extends string>(
   languageTags: ReadonlyArray<T>,
@@ -42,5 +42,5 @@ export {
   usesAutoDateAndTime,
   usesAutoTimeZone,
   usesMetricSystem,
-} from "./module.native";
+} from "./module";
 export * from "./types";

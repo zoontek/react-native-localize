@@ -1,4 +1,4 @@
-import NativeModule from "./NativeRNLocalize";
+import NativeModule from "./specs/NativeRNLocalize";
 import type {
   Calendar,
   Locale,
