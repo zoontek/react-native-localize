@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "esnext",
     "lib": ["DOM", "DOM.Iterable", "ES2017"],
     "jsx": "react-native",
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
 
     "allowJs": false,
     "strict": true,
