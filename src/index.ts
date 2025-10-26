@@ -1,7 +1,7 @@
 import { getLocales } from "./module";
 
 export function findBestLanguageTag<T extends string>(
-  languageTags: ReadonlyArray<T>,
+  languageTags: readonly T[],
 ): { languageTag: T; isRTL: boolean } | undefined {
   const locales = getLocales();
   const loweredLanguageTags = languageTags.map((tag) => tag.toLowerCase());

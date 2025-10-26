@@ -11,25 +11,26 @@ import type {
   TemperatureUnit,
 } from "./types";
 
-function ensureCountryCode(countryCode: string): string {
-  return countryCode === "419" ? "UN" : countryCode.toUpperCase();
-}
-
 function splitLanguageTag(languageTag: string): {
   languageCode: string;
   countryCode?: string;
 } {
   const [languageCode = "en", countryCode] = languageTag.split("-");
-  return { languageCode, countryCode };
+
+  return {
+    languageCode: languageCode.toLowerCase(),
+    countryCode: countryCode
+      ? (countryCode === "419" ? "UN" : countryCode).toUpperCase()
+      : undefined,
+  };
 }
 
 function convertLanguageTagToLocale(
   languageTag: string,
   countryCodeFallback: string,
 ): Locale {
-  let { languageCode, countryCode } = splitLanguageTag(languageTag);
-  languageCode = languageCode.toLowerCase();
-  countryCode = ensureCountryCode(countryCode || countryCodeFallback);
+  const { languageCode, countryCode = countryCodeFallback } =
+    splitLanguageTag(languageTag);
 
   return {
     languageCode,
@@ -39,8 +40,8 @@ function convertLanguageTagToLocale(
   };
 }
 
-function getCurrentLocale(): Locale {
-  return convertLanguageTagToLocale(navigator.language, getCountry());
+function getNavigatorLanguages(): readonly string[] {
+  return navigator.languages ?? [navigator.language];
 }
 
 export function getCalendar(): Calendar {
@@ -48,13 +49,13 @@ export function getCalendar(): Calendar {
 }
 
 export function getCountry(): string {
-  const { languages = [navigator.language] } = navigator;
+  const languages = getNavigatorLanguages();
 
   for (const language of languages) {
     const { countryCode } = splitLanguageTag(language);
 
     if (countryCode) {
-      return ensureCountryCode(countryCode);
+      return countryCode;
     }
   }
 
@@ -62,14 +63,14 @@ export function getCountry(): string {
 }
 
 export function getCurrencies(): string[] {
-  const { languages = [navigator.language] } = navigator;
+  const languages = getNavigatorLanguages();
   const currencies: string[] = [];
 
   for (const language of languages) {
     const { countryCode } = splitLanguageTag(language);
 
     if (countryCode) {
-      const currency = CURRENCIES[ensureCountryCode(countryCode)];
+      const currency = CURRENCIES[countryCode];
 
       if (currency && currencies.indexOf(currency) === -1) {
         currencies.push(currency);
@@ -85,7 +86,7 @@ export function getCurrencies(): string[] {
 }
 
 export function getLocales(): Locale[] {
-  const { languages = [navigator.language] } = navigator;
+  const languages = getNavigatorLanguages();
   const countryCode = getCountry();
   const cache: string[] = [];
   const locales: Locale[] = [];
@@ -103,8 +104,7 @@ export function getLocales(): Locale[] {
 }
 
 export function getNumberFormatSettings(): NumberFormatSettings {
-  const { languageTag } = getCurrentLocale();
-  const formatter = new Intl.NumberFormat(languageTag);
+  const formatter = new Intl.NumberFormat(navigator.language);
   const separators = formatter.format(1000000.1).replace(/\d/g, "");
 
   return {
@@ -118,14 +118,18 @@ export function getTemperatureUnit(): TemperatureUnit {
 }
 
 export function getTimeZone(): string {
-  const { languageTag } = getCurrentLocale();
-  const formatter = new Intl.DateTimeFormat(languageTag, { hour: "numeric" });
+  const formatter = new Intl.DateTimeFormat(navigator.language, {
+    hour: "numeric",
+  });
+
   return formatter.resolvedOptions().timeZone || "Etc/UTC";
 }
 
 export function uses24HourClock(): boolean {
-  const { languageTag } = getCurrentLocale();
-  const formatter = new Intl.DateTimeFormat(languageTag, { hour: "numeric" });
+  const formatter = new Intl.DateTimeFormat(navigator.language, {
+    hour: "numeric",
+  });
+
   return !formatter.format(new Date(2000, 0, 1, 20)).match(/am|pm/i);
 }
 
