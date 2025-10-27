@@ -420,6 +420,41 @@ openAppLanguageSettings("application").catch((error) => {
 });
 ```
 
+## Server-side rendering
+
+On the client, `react-native-localize` uses `navigator.languages`. During SSR, it gets language preferences from the server via the parsed `Accept-Language` header.
+
+#### 1. Wrap your app with `ServerLanguagesProvider`
+
+On the server, wrap your app with `ServerLanguagesProvider` and pass the user's languages:
+
+```tsx
+import accepts from "accepts";
+import { ServerLanguagesProvider } from "react-native-localize";
+
+// parse the Accept-Language header; any approach returning string[] is fine
+const languages = accepts(request).languages();
+
+const html = renderToString(
+  <ServerLanguagesProvider value={languages}>
+    <App />
+  </ServerLanguagesProvider>,
+);
+```
+
+#### 2. Use the `useLocalize` hook in your components
+
+In your components, use the `useLocalize` hook instead of calling the API methods directly:
+
+```tsx
+import { useLocalize } from "react-native-localize";
+
+const App = () => {
+  const { getCountry } = useLocalize();
+  return <Text>Country: {getCountry()}</Text>;
+};
+```
+
 ## Examples with [@formatjs/intl](https://formatjs.io/docs/intl)
 
 Browse the files in the [/example](https://github.com/zoontek/react-native-localize/tree/master/example) directory.
