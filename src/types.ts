@@ -49,9 +49,10 @@ export type LocalizeApi = {
   usesMetricSystem: () => boolean;
   usesAutoDateAndTime: () => boolean | undefined;
   usesAutoTimeZone: () => boolean | undefined;
-  openAppLanguageSettings: () => Promise<void>;
 
   findBestLanguageTag: <T extends string>(
     languageTags: readonly T[],
   ) => { languageTag: T; isRTL: boolean } | undefined;
+
+  openAppLanguageSettings: () => Promise<void>;
 };
