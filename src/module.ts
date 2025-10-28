@@ -1,3 +1,4 @@
+import { createContext, createElement, useContext, useState } from "react";
 import {
   CURRENCIES,
   USES_FAHRENHEIT,
@@ -7,30 +8,35 @@ import {
 import type {
   Calendar,
   Locale,
+  LocalizeApi,
   NumberFormatSettings,
+  ServerLanguagesProviderProps,
   TemperatureUnit,
 } from "./types";
+import { getFindBestLanguageTag } from "./utils";
 
-function splitLanguageTag(languageTag: string): {
-  languageCode: string;
-  countryCode?: string;
-} {
-  const [languageCode = "en", countryCode] = languageTag.split("-");
+const dateTimeFormatters = new Map<string, Intl.DateTimeFormat>();
+const numberFormatters = new Map<string, Intl.NumberFormat>();
+
+const extractLanguageTag = (
+  languageTag: string,
+): { languageCode: string; countryCode?: string } => {
+  const [language = "en", country] = languageTag.split("-");
 
   return {
-    languageCode: languageCode.toLowerCase(),
-    countryCode: countryCode
-      ? (countryCode === "419" ? "UN" : countryCode).toUpperCase()
+    languageCode: language.toLowerCase(),
+    countryCode: country
+      ? (country === "419" ? "UN" : country).toUpperCase()
       : undefined,
   };
-}
+};
 
-function convertLanguageTagToLocale(
+const convertLanguageTagToLocale = (
   languageTag: string,
-  countryCodeFallback: string,
-): Locale {
-  const { languageCode, countryCode = countryCodeFallback } =
-    splitLanguageTag(languageTag);
+  countryFallback: string,
+): Locale => {
+  const { languageCode, countryCode = countryFallback } =
+    extractLanguageTag(languageTag);
 
   return {
     languageCode,
@@ -38,21 +44,11 @@ function convertLanguageTagToLocale(
     languageTag: `${languageCode}-${countryCode}`,
     isRTL: USES_RTL_LAYOUT.has(languageCode),
   };
-}
+};
 
-function getNavigatorLanguages(): readonly string[] {
-  return navigator.languages ?? [navigator.language];
-}
-
-export function getCalendar(): Calendar {
-  return "gregorian";
-}
-
-export function getCountry(): string {
-  const languages = getNavigatorLanguages();
-
+const getCountryImpl = (languages: readonly string[]): string => {
   for (const language of languages) {
-    const { countryCode } = splitLanguageTag(language);
+    const { countryCode } = extractLanguageTag(language);
 
     if (countryCode) {
       return countryCode;
@@ -60,19 +56,18 @@ export function getCountry(): string {
   }
 
   return "US";
-}
+};
 
-export function getCurrencies(): string[] {
-  const languages = getNavigatorLanguages();
+const getCurrenciesImpl = (languages: readonly string[]): string[] => {
   const currencies: string[] = [];
 
   for (const language of languages) {
-    const { countryCode } = splitLanguageTag(language);
+    const { countryCode } = extractLanguageTag(language);
 
     if (countryCode) {
       const currency = CURRENCIES[countryCode];
 
-      if (currency && currencies.indexOf(currency) === -1) {
+      if (currency && !currencies.includes(currency)) {
         currencies.push(currency);
       }
     }
@@ -83,68 +78,159 @@ export function getCurrencies(): string[] {
   }
 
   return currencies;
-}
+};
 
-export function getLocales(): Locale[] {
-  const languages = getNavigatorLanguages();
-  const countryCode = getCountry();
-  const cache: string[] = [];
+const getLocalesImpl = (
+  languages: readonly string[],
+  country: string,
+): Locale[] => {
+  const seen = new Set<string>();
   const locales: Locale[] = [];
 
   for (const language of languages) {
-    const locale = convertLanguageTagToLocale(language, countryCode);
+    const locale = convertLanguageTagToLocale(language, country);
 
-    if (cache.indexOf(locale.languageTag) === -1) {
+    if (!seen.has(locale.languageTag)) {
       locales.push(locale);
-      cache.push(locale.languageTag);
+      seen.add(locale.languageTag);
     }
   }
 
   return locales;
-}
+};
 
-export function getNumberFormatSettings(): NumberFormatSettings {
-  const formatter = new Intl.NumberFormat(navigator.language);
+const getNumberFormatSettingsImpl = (
+  language: string,
+): NumberFormatSettings => {
+  let formatter = numberFormatters.get(language);
+
+  if (formatter == null) {
+    formatter = new Intl.NumberFormat(language);
+    numberFormatters.set(language, formatter);
+  }
+
   const separators = formatter.format(1000000.1).replace(/\d/g, "");
 
   return {
     decimalSeparator: separators[separators.length - 1] || ".",
     groupingSeparator: separators[0] || ",",
   };
-}
+};
 
-export function getTemperatureUnit(): TemperatureUnit {
-  return USES_FAHRENHEIT.has(getCountry()) ? "fahrenheit" : "celsius";
-}
+const getTemperatureUnitImpl = (country: string): TemperatureUnit =>
+  USES_FAHRENHEIT.has(country) ? "fahrenheit" : "celsius";
 
-export function getTimeZone(): string {
-  const formatter = new Intl.DateTimeFormat(navigator.language, {
-    hour: "numeric",
-  });
+const getTimeZoneImpl = (language: string): string => {
+  let formatter = dateTimeFormatters.get(language);
+
+  if (formatter == null) {
+    formatter = new Intl.DateTimeFormat(language, { hour: "numeric" });
+    dateTimeFormatters.set(language, formatter);
+  }
 
   return formatter.resolvedOptions().timeZone || "Etc/UTC";
-}
+};
 
-export function uses24HourClock(): boolean {
-  const formatter = new Intl.DateTimeFormat(navigator.language, {
-    hour: "numeric",
-  });
+const uses24HourClockImpl = (language: string): boolean => {
+  let formatter = dateTimeFormatters.get(language);
+
+  if (formatter == null) {
+    formatter = new Intl.DateTimeFormat(language, { hour: "numeric" });
+    dateTimeFormatters.set(language, formatter);
+  }
 
   return !formatter.format(new Date(2000, 0, 1, 20)).match(/am|pm/i);
-}
+};
 
-export function usesMetricSystem(): boolean {
-  return !USES_IMPERIAL.has(getCountry());
-}
+const usesMetricSystemImpl = (country: string): boolean =>
+  !USES_IMPERIAL.has(country);
 
-export function usesAutoDateAndTime(): boolean | undefined {
-  return;
-}
+export const getCalendar = (): Calendar => "gregorian";
+export const getCountry = (): string => getCountryImpl(navigator.languages);
 
-export function usesAutoTimeZone(): boolean | undefined {
-  return;
-}
+export const getCurrencies = (): string[] =>
+  getCurrenciesImpl(navigator.languages);
 
-export async function openAppLanguageSettings(): Promise<void> {
+export const getLocales = (): Locale[] => {
+  const { languages } = navigator;
+  return getLocalesImpl(languages, getCountryImpl(languages));
+};
+
+export const getNumberFormatSettings = (): NumberFormatSettings =>
+  getNumberFormatSettingsImpl(navigator.language);
+
+export const getTemperatureUnit = (): TemperatureUnit =>
+  getTemperatureUnitImpl(getCountryImpl(navigator.languages));
+
+export const getTimeZone = (): string => getTimeZoneImpl(navigator.language);
+
+export const uses24HourClock = (): boolean =>
+  uses24HourClockImpl(navigator.language);
+
+export const usesMetricSystem = (): boolean =>
+  usesMetricSystemImpl(getCountryImpl(navigator.languages));
+
+export const usesAutoDateAndTime = (): boolean | undefined => undefined;
+export const usesAutoTimeZone = (): boolean | undefined => undefined;
+export const findBestLanguageTag = getFindBestLanguageTag(getLocales());
+
+export const openAppLanguageSettings = async (): Promise<void> => {
   throw new Error("openAppLanguageSettings is supported only on Android 13+");
-}
+};
+
+const ServerLanguagesContext = createContext<string[] | null>(null);
+
+export const ServerLanguagesProvider = ({
+  children,
+  value,
+}: ServerLanguagesProviderProps) =>
+  typeof window === "undefined"
+    ? createElement(ServerLanguagesContext.Provider, { children, value })
+    : children;
+
+const api: LocalizeApi = {
+  getCalendar,
+  getCountry,
+  getCurrencies,
+  getLocales,
+  getNumberFormatSettings,
+  getTemperatureUnit,
+  getTimeZone,
+  uses24HourClock,
+  usesMetricSystem,
+  usesAutoDateAndTime,
+  usesAutoTimeZone,
+  findBestLanguageTag,
+  openAppLanguageSettings,
+};
+
+export const useLocalize = (): LocalizeApi => {
+  const languages = useContext(ServerLanguagesContext);
+
+  return useState<LocalizeApi>(() => {
+    if (languages == null) {
+      return api;
+    }
+
+    const [language = "en"] = languages;
+
+    const country = getCountryImpl(languages);
+    const locales = getLocalesImpl(languages, country);
+
+    return {
+      getCalendar,
+      getCountry: () => country,
+      getCurrencies: () => getCurrenciesImpl(languages),
+      getLocales: () => locales,
+      getNumberFormatSettings: () => getNumberFormatSettingsImpl(language),
+      getTemperatureUnit: () => getTemperatureUnitImpl(country),
+      getTimeZone: () => getTimeZoneImpl(language),
+      uses24HourClock: () => uses24HourClockImpl(language),
+      usesMetricSystem: () => usesMetricSystemImpl(country),
+      usesAutoDateAndTime,
+      usesAutoTimeZone,
+      findBestLanguageTag: getFindBestLanguageTag(locales),
+      openAppLanguageSettings,
+    };
+  })[0];
+};

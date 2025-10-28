@@ -2,54 +2,60 @@ import NativeModule from "./specs/NativeRNLocalize";
 import type {
   Calendar,
   Locale,
+  LocalizeApi,
   NumberFormatSettings,
+  ServerLanguagesProviderProps,
   TemperatureUnit,
 } from "./types";
+import { getFindBestLanguageTag } from "./utils";
 
-export function getCalendar(): Calendar {
-  return NativeModule.getCalendar() as Calendar;
-}
+export const getCalendar = (): Calendar =>
+  NativeModule.getCalendar() as Calendar;
 
-export function getCountry(): string {
-  return NativeModule.getCountry();
-}
+export const getCountry = (): string => NativeModule.getCountry();
+export const getCurrencies = (): string[] => NativeModule.getCurrencies();
+export const getLocales = (): Locale[] => NativeModule.getLocales() as Locale[];
 
-export function getCurrencies(): string[] {
-  return NativeModule.getCurrencies();
-}
+export const getNumberFormatSettings = (): NumberFormatSettings =>
+  NativeModule.getNumberFormatSettings() as NumberFormatSettings;
 
-export function getLocales(): Locale[] {
-  return NativeModule.getLocales() as Locale[];
-}
+export const getTemperatureUnit = (): TemperatureUnit =>
+  NativeModule.getTemperatureUnit() as TemperatureUnit;
 
-export function getNumberFormatSettings(): NumberFormatSettings {
-  return NativeModule.getNumberFormatSettings() as NumberFormatSettings;
-}
+export const getTimeZone = (): string => NativeModule.getTimeZone();
+export const uses24HourClock = (): boolean => NativeModule.uses24HourClock();
+export const usesMetricSystem = (): boolean => NativeModule.usesMetricSystem();
 
-export function getTemperatureUnit(): TemperatureUnit {
-  return NativeModule.getTemperatureUnit() as TemperatureUnit;
-}
+export const usesAutoDateAndTime = (): boolean | undefined =>
+  NativeModule.usesAutoDateAndTime() ?? undefined;
 
-export function getTimeZone(): string {
-  return NativeModule.getTimeZone();
-}
+export const usesAutoTimeZone = (): boolean | undefined =>
+  NativeModule.usesAutoTimeZone() ?? undefined;
 
-export function uses24HourClock(): boolean {
-  return NativeModule.uses24HourClock();
-}
+export const findBestLanguageTag = getFindBestLanguageTag(getLocales());
 
-export function usesMetricSystem(): boolean {
-  return NativeModule.usesMetricSystem();
-}
-
-export function usesAutoDateAndTime(): boolean | undefined {
-  return NativeModule.usesAutoDateAndTime() ?? undefined;
-}
-
-export function usesAutoTimeZone(): boolean | undefined {
-  return NativeModule.usesAutoTimeZone() ?? undefined;
-}
-
-export async function openAppLanguageSettings(): Promise<void> {
+export const openAppLanguageSettings = async (): Promise<void> => {
   await NativeModule.openAppLanguageSettings();
-}
+};
+
+export const ServerLanguagesProvider = ({
+  children,
+}: ServerLanguagesProviderProps) => children;
+
+const api: LocalizeApi = {
+  getCalendar,
+  getCountry,
+  getCurrencies,
+  getLocales,
+  getNumberFormatSettings,
+  getTemperatureUnit,
+  getTimeZone,
+  uses24HourClock,
+  usesMetricSystem,
+  usesAutoDateAndTime,
+  usesAutoTimeZone,
+  findBestLanguageTag,
+  openAppLanguageSettings,
+};
+
+export const useLocalize = (): LocalizeApi => api;

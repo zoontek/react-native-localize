@@ -106,6 +106,87 @@ No setup headaches. Just clean, context-aware translations, out of the box.
 
 ## API
 
+### getCalendar()
+
+Returns the user preferred calendar format.
+
+#### Method type
+
+```ts
+type getCalendar = () =>
+  | "gregorian"
+  | "buddhist"
+  | "coptic"
+  | "ethiopic"
+  | "ethiopic-amete-alem"
+  | "hebrew"
+  | "indian"
+  | "islamic"
+  | "islamic-umm-al-qura"
+  | "islamic-civil"
+  | "islamic-tabular"
+  | "iso8601"
+  | "japanese"
+  | "persian";
+```
+
+#### Usage example
+
+```ts
+import { getCalendar } from "react-native-localize";
+
+console.log(getCalendar());
+// -> "gregorian"
+```
+
+---
+
+### getCountry()
+
+Returns the user current country code (based on its device locale, **not** on its position).
+
+#### Method type
+
+```ts
+type getCountry = () => string;
+```
+
+#### Usage example
+
+```ts
+import { getCountry } from "react-native-localize";
+
+console.log(getCountry());
+// -> "FR"
+```
+
+#### Note
+
+Devices using Latin American regional settings will return "UN" instead of "419", as the latter is not a standard country code.
+
+---
+
+### getCurrencies()
+
+Returns the user preferred currency codes, in order.
+
+#### Method type
+
+```ts
+type getCurrencies = () => string[];
+```
+
+#### Usage example
+
+```ts
+import { getCurrencies } from "react-native-localize";
+
+console.log(getCurrencies());
+// -> ["EUR", "GBP", "USD"]
+```
+
+---
+
 ### getLocales()
 
 Returns the user preferred locales, in order.
@@ -160,87 +241,6 @@ console.log(getNumberFormatSettings());
   decimalSeparator: ".",
   groupingSeparator: ",",
 } */
-```
-
----
-
-### getCurrencies()
-
-Returns the user preferred currency codes, in order.
-
-#### Method type
-
-```ts
-type getCurrencies = () => string[];
-```
-
-#### Usage example
-
-```ts
-import { getCurrencies } from "react-native-localize";
-
-console.log(getCurrencies());
-// -> ["EUR", "GBP", "USD"]
-```
-
----
-
-### getCountry()
-
-Returns the user current country code (based on its device locale, **not** on its position).
-
-#### Method type
-
-```ts
-type getCountry = () => string;
-```
-
-#### Usage example
-
-```ts
-import { getCountry } from "react-native-localize";
-
-console.log(getCountry());
-// -> "FR"
-```
-
-#### Note
-
-Devices using Latin American regional settings will return "UN" instead of "419", as the latter is not a standard country code.
-
----
-
-### getCalendar()
-
-Returns the user preferred calendar format.
-
-#### Method type
-
-```ts
-type getCalendar = () =>
-  | "gregorian"
-  | "buddhist"
-  | "coptic"
-  | "ethiopic"
-  | "ethiopic-amete-alem"
-  | "hebrew"
-  | "indian"
-  | "islamic"
-  | "islamic-umm-al-qura"
-  | "islamic-civil"
-  | "islamic-tabular"
-  | "iso8601"
-  | "japanese"
-  | "persian";
-```
-
-#### Usage example
-
-```ts
-import { getCalendar } from "react-native-localize";
-
-console.log(getCalendar());
-// -> "gregorian"
 ```
 
 ---
@@ -382,7 +382,7 @@ Returns the best language tag possible and its reading direction. Useful to pick
 ```ts
 type findBestLanguageTag = (
   languageTags: string[],
-) => { languageTag: string; isRTL: boolean } | void;
+) => { languageTag: string; isRTL: boolean } | undefined;
 ```
 
 #### Usage example
@@ -418,6 +418,41 @@ import { openAppLanguageSettings } from "react-native-localize";
 openAppLanguageSettings("application").catch((error) => {
   console.warn("Cannot open app language settings", error);
 });
+```
+
+## Server-side rendering
+
+On the client, `react-native-localize` uses `navigator.languages`. During SSR, it gets language preferences from the server via the parsed `Accept-Language` header.
+
+#### 1. Wrap your app with `ServerLanguagesProvider`
+
+On the server, wrap your app with `ServerLanguagesProvider` and pass the user's languages:
+
+```tsx
+import accepts from "accepts";
+import { ServerLanguagesProvider } from "react-native-localize";
+
+// parse the Accept-Language header; any approach returning string[] is fine
+const languages = accepts(request).languages();
+
+const html = renderToString(
+  <ServerLanguagesProvider value={languages}>
+    <App />
+  </ServerLanguagesProvider>,
+);
+```
+
+#### 2. Use the `useLocalize` hook in your components
+
+In your components, use the `useLocalize` hook instead of calling the API methods directly:
+
+```tsx
+import { useLocalize } from "react-native-localize";
+
+const App = () => {
+  const { getCountry } = useLocalize();
+  return <Text>Country: {getCountry()}</Text>;
+};
 ```
 
 ## Examples with [@formatjs/intl](https://formatjs.io/docs/intl)

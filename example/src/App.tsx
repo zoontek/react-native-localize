@@ -1,5 +1,4 @@
 import { createIntl, createIntlCache } from "@formatjs/intl";
-import * as React from "react";
 import {
   Button,
   I18nManager,
@@ -9,7 +8,21 @@ import {
   Text,
   View,
 } from "react-native";
-import * as Localize from "react-native-localize";
+import {
+  findBestLanguageTag,
+  getCalendar,
+  getCountry,
+  getCurrencies,
+  getLocales,
+  getNumberFormatSettings,
+  getTemperatureUnit,
+  getTimeZone,
+  openAppLanguageSettings,
+  uses24HourClock,
+  usesAutoDateAndTime,
+  usesAutoTimeZone,
+  usesMetricSystem,
+} from "react-native-localize";
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
@@ -27,7 +40,7 @@ type Translation = keyof typeof translations;
 const fallback = { languageTag: "en", isRTL: false };
 
 const { languageTag, isRTL } =
-  Localize.findBestLanguageTag(Object.keys(translations)) ?? fallback;
+  findBestLanguageTag(Object.keys(translations)) ?? fallback;
 
 // update layout direction
 I18nManager.forceRTL(isRTL);
@@ -93,53 +106,31 @@ const AppContent = () => {
         },
       ]}
     >
-      <Line name="Localize.getLocales()" value={Localize.getLocales()} />
-
-      <Line name="Localize.getCurrencies()" value={Localize.getCurrencies()} />
-
-      <Line name="Localize.getCountry()" value={Localize.getCountry()} />
-
-      <Line name="Localize.getCalendar()" value={Localize.getCalendar()} />
+      <Line name="getCalendar()" value={getCalendar()} />
+      <Line name="getCountry()" value={getCountry()} />
+      <Line name="getCurrencies()" value={getCurrencies()} />
+      <Line name="getLocales()" value={getLocales()} />
 
       <Line
-        name="Localize.getNumberFormatSettings()"
-        value={Localize.getNumberFormatSettings()}
+        name="getNumberFormatSettings()"
+        value={getNumberFormatSettings()}
       />
 
-      <Line
-        name="Localize.getTemperatureUnit()"
-        value={Localize.getTemperatureUnit()}
-      />
-
-      <Line name="Localize.getTimeZone()" value={Localize.getTimeZone()} />
-
-      <Line
-        name="Localize.uses24HourClock()"
-        value={Localize.uses24HourClock()}
-      />
-
-      <Line
-        name="Localize.usesMetricSystem()"
-        value={Localize.usesMetricSystem()}
-      />
+      <Line name="getTemperatureUnit()" value={getTemperatureUnit()} />
+      <Line name="getTimeZone()" value={getTimeZone()} />
+      <Line name="uses24HourClock()" value={uses24HourClock()} />
+      <Line name="usesMetricSystem()" value={usesMetricSystem()} />
 
       {Platform.OS === "android" && (
         <>
-          <Line
-            name="Localize.usesAutoDateAndTime()"
-            value={Localize.usesAutoDateAndTime()}
-          />
-
-          <Line
-            name="Localize.usesAutoTimeZone()"
-            value={Localize.usesAutoTimeZone()}
-          />
+          <Line name="usesAutoDateAndTime()" value={usesAutoDateAndTime()} />
+          <Line name="usesAutoTimeZone()" value={usesAutoTimeZone()} />
         </>
       )}
 
       <Line
-        name="Localize.findBestLanguageTag(['en-US', 'en', 'fr'])"
-        value={Localize.findBestLanguageTag(["en-US", "en", "fr"])}
+        name="findBestLanguageTag(['en-US', 'en', 'fr'])"
+        value={findBestLanguageTag(["en-US", "en", "fr"])}
       />
 
       <Line name="Translation example" value={translate("hello")} />
@@ -148,7 +139,7 @@ const AppContent = () => {
         <Button
           title="Open app language settings"
           onPress={() => {
-            Localize.openAppLanguageSettings().catch((error) => {
+            openAppLanguageSettings().catch((error) => {
               console.error(error);
             });
           }}
