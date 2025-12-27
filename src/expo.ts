@@ -70,7 +70,28 @@ ${locales.map((locale) => `  <locale android:name="${locale}"/>`).join("\n")}
 
   return Expo.withAppBuildGradle(withMainApplication, (config) => {
     const { modResults } = config;
-    const list = locales.map((lang) => `"${lang}"`).join(", ");
+
+    const list = locales
+      .reduce<string[]>((acc, item) => {
+        const [language, scriptOrRegion, region] = item.split("-");
+
+        if (language == null) {
+          return acc;
+        }
+
+        // https://developer.android.com/guide/topics/resources/app-languages#gradle-config
+        if (scriptOrRegion != null && region != null) {
+          return [...acc, `b+${language}+${scriptOrRegion}+${region}`];
+        }
+        if (scriptOrRegion != null) {
+          return [...acc, `${language}-r${scriptOrRegion}`];
+        }
+
+        return [...acc, language];
+      }, [])
+      .filter((item, index, array) => array.indexOf(item) === index)
+      .map((item) => `"${item}"`)
+      .join(", ");
 
     const { contents } = mergeContents({
       src: modResults.contents,
