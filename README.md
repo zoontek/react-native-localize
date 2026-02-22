@@ -43,7 +43,7 @@ import localize from "react-native-localize/expo"; // use `require` in app.confi
 export default ({ config }: ConfigContext): ExpoConfig => ({
   plugins: [
     localize({
-      locales: ["en", "fr"], // or { android: ["en"], ios: ["en", "fr"] } if you want to define different locales for iOS and Android
+      locales: ["en", "fr"], // or { android: ["en"], ios: ["en", "fr"] }
     }),
   ],
 });
@@ -61,7 +61,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       [
         "react-native-localize",
         {
-          "locales": ["en", "fr"], // or { android: ["en"], ios: ["en", "fr"] } if you want to define different locales for iOS and Android
+          "locales": ["en", "fr"], // or { android: ["en"], ios: ["en", "fr"] }
         },
       ],
     ],
