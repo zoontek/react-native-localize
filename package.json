@@ -68,14 +68,14 @@
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",
-    "@expo/config-plugins": "^54.0.2",
+    "@expo/config-plugins": "*",
     "@types/jest": "^29.5.14",
-    "@types/react": "^19.1.1",
-    "prettier": "^3.6.2",
+    "@types/react": "^19.2.0",
+    "prettier": "^3.8.1",
     "prettier-plugin-organize-imports": "^4.3.0",
-    "react": "19.1.1",
-    "react-native": "0.82.1",
-    "react-native-builder-bob": "^0.40.13",
+    "react": "19.2.3",
+    "react-native": "0.84.0",
+    "react-native-builder-bob": "^0.40.18",
     "typescript": "^5.9.3"
   },
   "codegenConfig": {
