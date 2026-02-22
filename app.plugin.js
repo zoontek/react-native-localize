@@ -1,1 +1,2 @@
-module.exports = require("./dist/commonjs/expo");
+const { withLocalize } = require("./dist/commonjs/extras/expo");
+module.exports = withLocalize;

@@ -1,15 +1,27 @@
-import * as Expo from "@expo/config-plugins";
+import {
+  AndroidConfig,
+  createRunOncePlugin,
+  withAndroidManifest,
+  withAppBuildGradle,
+  withDangerousMod,
+  withPlugins,
+  type ConfigPlugin,
+} from "@expo/config-plugins";
 import { mergeContents } from "@expo/config-plugins/build/utils/generateCode";
 import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 
 const PACKAGE_NAME = "react-native-localize";
 
-type Props = {
+type LocalizePluginConfig = {
+  /**
+   * List of supported locale codes (e.g. `["en", "fr", "zh-Hans-CN"]`).
+   * Can be a single array shared by both platforms, or platform-specific arrays.
+   */
   locales?: string[] | { android?: string[]; ios?: string[] };
 };
 
-const withIosAppLocales: Expo.ConfigPlugin<string[]> = (
+const withIosAppLocales: ConfigPlugin<string[]> = (
   { ios = {}, ...config },
   locales,
 ) => ({
@@ -20,11 +32,8 @@ const withIosAppLocales: Expo.ConfigPlugin<string[]> = (
   },
 });
 
-const withAndroidAppLocales: Expo.ConfigPlugin<string[]> = (
-  config,
-  locales,
-) => {
-  const withLocalesConfig = Expo.withDangerousMod(config, [
+const withAndroidAppLocales: ConfigPlugin<string[]> = (config, locales) => {
+  const withLocalesConfig = withDangerousMod(config, [
     "android",
     (config) => {
       const xmlDir = join(
@@ -51,13 +60,12 @@ ${locales.map((locale) => `  <locale android:name="${locale}"/>`).join("\n")}
     },
   ]);
 
-  const withMainApplication = Expo.withAndroidManifest(
+  const withMainApplication = withAndroidManifest(
     withLocalesConfig,
     (config) => {
-      const mainApplication =
-        Expo.AndroidConfig.Manifest.getMainApplicationOrThrow(
-          config.modResults,
-        );
+      const mainApplication = AndroidConfig.Manifest.getMainApplicationOrThrow(
+        config.modResults,
+      );
 
       mainApplication.$ = {
         ...mainApplication.$,
@@ -68,7 +76,7 @@ ${locales.map((locale) => `  <locale android:name="${locale}"/>`).join("\n")}
     },
   );
 
-  return Expo.withAppBuildGradle(withMainApplication, (config) => {
+  return withAppBuildGradle(withMainApplication, (config) => {
     const { modResults } = config;
 
     const list = locales
@@ -109,11 +117,11 @@ ${locales.map((locale) => `  <locale android:name="${locale}"/>`).join("\n")}
   });
 };
 
-const withAppLocales: Expo.ConfigPlugin<Props | undefined> = (
+const plugin: ConfigPlugin<LocalizePluginConfig | undefined> = (
   config,
   { locales = [] } = {},
 ) => {
-  const plugins: Array<[Expo.ConfigPlugin<string[]>, string[]]> = [];
+  const plugins: Array<[ConfigPlugin<string[]>, string[]]> = [];
   const { platforms = [] } = config;
 
   const { android, ios } = Array.isArray(locales)
@@ -127,7 +135,11 @@ const withAppLocales: Expo.ConfigPlugin<Props | undefined> = (
     plugins.push([withAndroidAppLocales, android]);
   }
 
-  return Expo.withPlugins(config, plugins);
+  return withPlugins(config, plugins);
 };
 
-export default Expo.createRunOncePlugin(withAppLocales, PACKAGE_NAME);
+export const withLocalize = createRunOncePlugin(plugin, PACKAGE_NAME);
+
+export default (
+  config: LocalizePluginConfig,
+): [typeof PACKAGE_NAME, LocalizePluginConfig] => [PACKAGE_NAME, config];

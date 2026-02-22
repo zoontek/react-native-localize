@@ -24,7 +24,6 @@ class RNLocalizePackage : TurboReactPackage() {
         RNLocalizeModuleImpl.NAME,
         RNLocalizeModuleImpl.NAME,
         false,
-        false,
         true,
         false,
         isTurboModule

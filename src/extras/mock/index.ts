@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export const getCalendar = () => "gregorian"; // the calendar identifier you want
 export const getCountry = () => "US"; // the country code you want
