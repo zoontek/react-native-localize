@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0FD50F2262CFCED2A3EA7798 /* libPods-RNLocalizeExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64D1E19F71A6BE06080E8DF6 /* libPods-RNLocalizeExample.a */; };
-		2803C148889C97CCC1005D97 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = BB7A980E0AD3B36BBADC3262 /* PrivacyInfo.xcprivacy */; };
-		47CC91FB0901E67E992311A6 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = BB7A980E0AD3B36BBADC3262 /* PrivacyInfo.xcprivacy */; };
+		0BDAF9AC6D76D420FBA6BF18 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 619F8C84F0CE3291CAA59A7A /* PrivacyInfo.xcprivacy */; };
+		0EAE791FA37506E86E59A47A /* libPods-RNLocalizeExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C40FD73135FA0D0558CEDCFC /* libPods-RNLocalizeExample.a */; };
+		303FF7201552116B26A3B96C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 619F8C84F0CE3291CAA59A7A /* PrivacyInfo.xcprivacy */; };
 		5142014D2437B4B30078DB4F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5142014C2437B4B30078DB4F /* AppDelegate.mm */; };
 		514201522437B4B40078DB4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 514201512437B4B40078DB4F /* Assets.xcassets */; };
 		514201552437B4B40078DB4F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 514201532437B4B40078DB4F /* Main.storyboard */; };
@@ -18,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		13B07F961A680F5B00A75B9A /* RNLocalizeExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RNLocalizeExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D2B1AC8E753A559249DBD4E /* Pods-RNLocalizeExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNLocalizeExample.debug.xcconfig"; path = "Target Support Files/Pods-RNLocalizeExample/Pods-RNLocalizeExample.debug.xcconfig"; sourceTree = "<group>"; };
 		514201492437B4B30078DB4F /* RNLocalizeExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RNLocalizeExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5142014B2437B4B30078DB4F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5142014C2437B4B30078DB4F /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
@@ -26,11 +27,10 @@
 		514201562437B4B40078DB4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		514201572437B4B40078DB4F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		514201592437B4B40078DB4F /* RNLocalizeExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RNLocalizeExample.entitlements; sourceTree = "<group>"; };
-		64D1E19F71A6BE06080E8DF6 /* libPods-RNLocalizeExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNLocalizeExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B71D3B4D65E1D9636C90F984 /* Pods-RNLocalizeExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNLocalizeExample.debug.xcconfig"; path = "Target Support Files/Pods-RNLocalizeExample/Pods-RNLocalizeExample.debug.xcconfig"; sourceTree = "<group>"; };
-		BB7A980E0AD3B36BBADC3262 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		C95CAA561DA9B640E8522A56 /* Pods-RNLocalizeExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNLocalizeExample.release.xcconfig"; path = "Target Support Files/Pods-RNLocalizeExample/Pods-RNLocalizeExample.release.xcconfig"; sourceTree = "<group>"; };
+		619F8C84F0CE3291CAA59A7A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		C40FD73135FA0D0558CEDCFC /* libPods-RNLocalizeExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNLocalizeExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F6B11B70351DD20AC2957F70 /* Pods-RNLocalizeExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNLocalizeExample.release.xcconfig"; path = "Target Support Files/Pods-RNLocalizeExample/Pods-RNLocalizeExample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,7 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0FD50F2262CFCED2A3EA7798 /* libPods-RNLocalizeExample.a in Frameworks */,
+				0EAE791FA37506E86E59A47A /* libPods-RNLocalizeExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,7 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				64D1E19F71A6BE06080E8DF6 /* libPods-RNLocalizeExample.a */,
+				C40FD73135FA0D0558CEDCFC /* libPods-RNLocalizeExample.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -89,8 +89,8 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				BB7A980E0AD3B36BBADC3262 /* PrivacyInfo.xcprivacy */,
-				AF74BB8A97DF698196CB4458 /* Pods */,
+				619F8C84F0CE3291CAA59A7A /* PrivacyInfo.xcprivacy */,
+				B19F2611204932C3954FD495 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -106,11 +106,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		AF74BB8A97DF698196CB4458 /* Pods */ = {
+		B19F2611204932C3954FD495 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B71D3B4D65E1D9636C90F984 /* Pods-RNLocalizeExample.debug.xcconfig */,
-				C95CAA561DA9B640E8522A56 /* Pods-RNLocalizeExample.release.xcconfig */,
+				1D2B1AC8E753A559249DBD4E /* Pods-RNLocalizeExample.debug.xcconfig */,
+				F6B11B70351DD20AC2957F70 /* Pods-RNLocalizeExample.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -146,7 +146,8 @@
 				514201462437B4B30078DB4F /* Frameworks */,
 				514201472437B4B30078DB4F /* Resources */,
 				381D8A6E24576A4E00465D17 /* Bundle React Native code and images */,
-				058AA260A6C3FA20302CF7A2 /* [CP] Copy Pods Resources */,
+				07D5D014784AE68E5A5AE664 /* [CP] Embed Pods Frameworks */,
+				970FF2144E73D80AD781EB4B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -198,7 +199,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47CC91FB0901E67E992311A6 /* PrivacyInfo.xcprivacy in Resources */,
+				0BDAF9AC6D76D420FBA6BF18 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,7 +209,7 @@
 			files = (
 				514201522437B4B40078DB4F /* Assets.xcassets in Resources */,
 				514201552437B4B40078DB4F /* Main.storyboard in Resources */,
-				2803C148889C97CCC1005D97 /* PrivacyInfo.xcprivacy in Resources */,
+				303FF7201552116B26A3B96C /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,30 +230,22 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native-macos/scripts/react-native-xcode.sh\n";
 		};
-		058AA260A6C3FA20302CF7A2 /* [CP] Copy Pods Resources */ = {
+		07D5D014784AE68E5A5AE664 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RNLocalizeExample/Pods-RNLocalizeExample-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/RCT-Folly/RCT-Folly_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/React-Core_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-cxxreact/React-cxxreact_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/boost/boost_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/glog/glog_privacy.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-RNLocalizeExample/Pods-RNLocalizeExample-frameworks.sh",
+				"${PODS_ROOT}/hermes-engine/destroot/Library/Frameworks/macosx/hermes.framework",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCT-Folly_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/React-Core_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/React-cxxreact_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/boost_privacy.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/glog_privacy.bundle",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RNLocalizeExample/Pods-RNLocalizeExample-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RNLocalizeExample/Pods-RNLocalizeExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		1A938104A937498D81B3BD3B /* [CP] Check Pods Manifest.lock */ = {
@@ -294,6 +287,32 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native-macos/scripts/react-native-xcode.sh\n";
+		};
+		970FF2144E73D80AD781EB4B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RNLocalizeExample/Pods-RNLocalizeExample-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/RCT-Folly/RCT-Folly_privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/React-Core_privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-cxxreact/React-cxxreact_privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/boost/boost_privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/glog/glog_privacy.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCT-Folly_privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/React-Core_privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/React-cxxreact_privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/boost_privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/glog_privacy.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RNLocalizeExample/Pods-RNLocalizeExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -372,7 +391,7 @@
 		};
 		5142015B2437B4B40078DB4F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B71D3B4D65E1D9636C90F984 /* Pods-RNLocalizeExample.debug.xcconfig */;
+			baseConfigurationReference = 1D2B1AC8E753A559249DBD4E /* Pods-RNLocalizeExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -380,7 +399,7 @@
 				DEAD_CODE_STRIPPING = NO;
 				INFOPLIST_FILE = RNLocalizeExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -396,14 +415,14 @@
 		};
 		5142015C2437B4B40078DB4F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C95CAA561DA9B640E8522A56 /* Pods-RNLocalizeExample.release.xcconfig */;
+			baseConfigurationReference = F6B11B70351DD20AC2957F70 /* Pods-RNLocalizeExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = RNLocalizeExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -472,14 +491,10 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
-				USE_HERMES = false;
+				USE_HERMES = true;
 			};
 			name = Debug;
 		};
@@ -531,13 +546,9 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
-				USE_HERMES = false;
+				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
