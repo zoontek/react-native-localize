@@ -33,33 +33,43 @@ _Don't forget to run `pod install` after that !_
 If you're using Expo, you can specify the supported locales in your `app.json` or `app.config.js` using the config plugin.
 This enables Android 13+ and iOS to display the available locales in the system settings, allowing users to select their preferred language for your app.
 
-```json
-{
-  "expo": {
-    "plugins": [["react-native-localize", { "locales": ["en", "fr"] }]]
-  }
-}
+<details open>
+<summary><strong>With dynamic configuration (app.config.js, app.config.ts)</strong></summary>
+
+```ts
+import type { ConfigContext, ExpoConfig } from "expo/config";
+import localize from "react-native-localize/expo"; // use `require` in app.config.js
+
+export default ({ config }: ConfigContext): ExpoConfig => ({
+  plugins: [
+    localize({
+      locales: ["en", "fr"], // or { android: ["en"], ios: ["en", "fr"] } if you want to define different locales for iOS and Android
+    }),
+  ],
+});
 ```
 
-Alternatively, if you want to define different locales for iOS and Android, you can use:
+</details>
 
-```json
+<details>
+<summary><strong>With static configuration (app.json)</strong></summary>
+
+```jsonc
 {
   "expo": {
     "plugins": [
       [
         "react-native-localize",
         {
-          "locales": {
-            "android": ["en"],
-            "ios": ["en", "fr"]
-          }
-        }
-      ]
-    ]
-  }
+          "locales": ["en", "fr"], // or { android: ["en"], ios: ["en", "fr"] } if you want to define different locales for iOS and Android
+        },
+      ],
+    ],
+  },
 }
 ```
+
+</details>
 
 ### Web support
 
