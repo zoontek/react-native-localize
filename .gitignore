@@ -48,10 +48,6 @@ yarn-error.log
 # Bob
 dist/
 
-# mock
-mock/*.d.ts
-mock/*.js
-
 # Bundle artifact
 *.jsbundle
 

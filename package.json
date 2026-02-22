@@ -12,7 +12,6 @@
     "/android",
     "/dist",
     "/ios",
-    "/mock",
     "/src",
     "RNLocalize.podspec",
     "app.plugin.js",
@@ -34,7 +33,7 @@
     "clean": "rm -rf dist",
     "format": "prettier '**/*' -u -w",
     "typecheck": "tsc --noEmit",
-    "build": "yarn clean && bob build && rm -rf dist/*/package.json && tsc mock/{index,jest}.ts -d -m commonjs -t es2017 --skipLibCheck",
+    "build": "yarn clean && bob build",
     "prepack": "prettier '**/*' -u -c && yarn typecheck && yarn build"
   },
   "react-native-builder-bob": {
