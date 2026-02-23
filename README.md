@@ -34,7 +34,7 @@ If you're using Expo, you can specify the supported locales in your `app.json` o
 This enables Android 13+ and iOS to display the available locales in the system settings, allowing users to select their preferred language for your app.
 
 <details open>
-<summary><strong>With dynamic configuration (app.config.js, app.config.ts)</strong></summary>
+<summary><strong>Dynamic configuration (app.config.js, app.config.ts)</strong></summary>
 
 ```ts
 import type { ConfigContext, ExpoConfig } from "expo/config";
@@ -52,7 +52,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 </details>
 
 <details>
-<summary><strong>With static configuration (app.json)</strong></summary>
+<summary><strong>Static configuration (app.json)</strong></summary>
 
 ```jsonc
 {
