@@ -105,15 +105,11 @@
     ]
   },
   "peerDependencies": {
-    "@expo/config-plugins": "*",
     "react": "*",
     "react-native": "*",
     "react-native-macos": "*"
   },
   "peerDependenciesMeta": {
-    "@expo/config-plugins": {
-      "optional": true
-    },
     "react-native-macos": {
       "optional": true
     }
