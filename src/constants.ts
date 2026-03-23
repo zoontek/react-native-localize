@@ -1,3 +1,9 @@
+/**
+ * ISO 3166-1 alpha-2 country codes that use Fahrenheit as the default temperature unit.
+ * Only five countries/territories use Fahrenheit: Bahamas (BS), Belize (BZ), 
+ * Cayman Islands (KY), Puerto Rico (PR), Palau (PW), and United States (US).
+ * @internal
+ */
 export const USES_FAHRENHEIT = new Set<string>([
   "BS",
   "BZ",
@@ -7,8 +13,19 @@ export const USES_FAHRENHEIT = new Set<string>([
   "US",
 ]);
 
+/**
+ * ISO 3166-1 alpha-2 country codes that use the imperial system (miles, pounds, gallons, etc.).
+ * Only three countries/territories use imperial: Liberia (LR), Myanmar (MM), and United States (US).
+ * @internal
+ */
 export const USES_IMPERIAL = new Set<string>(["LR", "MM", "US"]);
 
+/**
+ * Language codes that use right-to-left (RTL) text direction.
+ * Includes: Arabic (ar), Central Kurdish (ckb), Persian (fa), Hebrew (he), Kashmiri (ks),
+ * Luri (lrc), Mazanderani (mzn), Pashto (ps), Uyghur (ug), Urdu (ur), and Yiddish (yi).
+ * @internal
+ */
 export const USES_RTL_LAYOUT = new Set<string>([
   "ar",
   "ckb",
@@ -23,6 +40,11 @@ export const USES_RTL_LAYOUT = new Set<string>([
   "yi",
 ]);
 
+/**
+ * Mapping of ISO 3166-1 alpha-2 country codes to ISO 4217 currency codes.
+ * This comprehensive map is used to determine the default currency for each country/region.
+ * @internal
+ */
 export const CURRENCIES: Record<string, string> = {
   AD: "EUR",
   AE: "AED",

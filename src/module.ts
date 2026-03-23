@@ -145,35 +145,114 @@ const uses24HourClockImpl = (language: string): boolean => {
 const usesMetricSystemImpl = (country: string): boolean =>
   !USES_IMPERIAL.has(country);
 
+/**
+ * Returns the device's calendar system (e.g., "gregorian", "buddhist", "hebrew").
+ * @returns {Calendar} The calendar identifier
+ */
 export const getCalendar = (): Calendar => "gregorian";
+
+/**
+ * Returns the device's country/region code (e.g., "US", "FR", "JP").
+ * @returns {string} The ISO 3166-1 alpha-2 country code
+ */
 export const getCountry = (): string => getCountryImpl(navigator.languages);
 
+/**
+ * Returns an array of currency codes for the device's locales (e.g., ["USD", "EUR"]).
+ * The array is ordered by preference based on the device's language settings.
+ * @returns {string[]} Array of ISO 4217 currency codes
+ */
 export const getCurrencies = (): string[] =>
   getCurrenciesImpl(navigator.languages);
 
+/**
+ * Returns an array of device locales with language, script, and country information.
+ * Each locale includes the language code, country code, language tag, script (if applicable),
+ * and text direction (RTL or LTR).
+ * @returns {Locale[]} Array of locale objects
+ */
 export const getLocales = (): Locale[] => {
   const { languages } = navigator;
   return getLocalesImpl(languages, getCountryImpl(languages));
 };
 
+/**
+ * Returns the device's number format settings including decimal and grouping separators.
+ * This reflects the device's locale preferences for number formatting.
+ * @returns {NumberFormatSettings} Object with decimalSeparator and groupingSeparator
+ */
 export const getNumberFormatSettings = (): NumberFormatSettings =>
   getNumberFormatSettingsImpl(navigator.language);
 
+/**
+ * Returns the device's preferred temperature unit for weather and similar contexts.
+ * @returns {TemperatureUnit} Either "celsius" or "fahrenheit"
+ */
 export const getTemperatureUnit = (): TemperatureUnit =>
   getTemperatureUnitImpl(getCountryImpl(navigator.languages));
 
+/**
+ * Returns the device's time zone identifier (e.g., "America/New_York", "Europe/London").
+ * @returns {string} IANA time zone identifier
+ */
 export const getTimeZone = (): string => getTimeZoneImpl(navigator.language);
 
+/**
+ * Returns whether the device uses 24-hour time format (true) or 12-hour format (false).
+ * @returns {boolean} True if device uses 24-hour format
+ */
 export const uses24HourClock = (): boolean =>
   uses24HourClockImpl(navigator.language);
 
+/**
+ * Returns whether the device uses the metric system for measurements.
+ * @returns {boolean} True if metric system is used, false for imperial
+ */
 export const usesMetricSystem = (): boolean =>
   usesMetricSystemImpl(getCountryImpl(navigator.languages));
 
+/**
+ * Returns whether automatic date and time adjustment is enabled on the device.
+ * May return undefined on platforms where this setting is unavailable.
+ * @returns {boolean | undefined} True if auto-adjust is enabled, false if disabled, undefined if unavailable
+ */
 export const usesAutoDateAndTime = (): boolean | undefined => undefined;
+
+/**
+ * Returns whether automatic time zone adjustment is enabled on the device.
+ * May return undefined on platforms where this setting is unavailable.
+ * @returns {boolean | undefined} True if auto-adjust is enabled, false if disabled, undefined if unavailable
+ */
 export const usesAutoTimeZone = (): boolean | undefined => undefined;
+
+/**
+ * Finds the best matching language tag from a provided list based on device locales.
+ * Attempts to match language tags considering language code, script code, and country code.
+ * Falls back to more general matches (e.g., language-only) if exact matches aren't found.
+ * @param {readonly T[]} languageTags - Array of language tags to search (e.g., ["en-US", "fr-FR"])
+ * @returns {{ languageTag: T; isRTL: boolean } | undefined} The best matching tag and whether it uses RTL text direction, or undefined if no match is found
+ * @example
+ * const result = findBestLanguageTag(["en-US", "fr-FR"]);
+ * if (result) {
+ *   console.log(result.languageTag); // e.g., "en-US"
+ *   console.log(result.isRTL); // false
+ * }
+ */
 export const findBestLanguageTag = getFindBestLanguageTag(getLocales());
 
+/**
+ * Opens the app language settings on the device.
+ * On Android 13+: Opens the system app language settings.
+ * On other platforms: Throws an error as this feature is not supported.
+ * @returns {Promise<void>} Promise that resolves when settings are opened
+ * @throws {Error} On unsupported platforms (Web, iOS, macOS, Android < 13)
+ * @example
+ * try {
+ *   await openAppLanguageSettings();
+ * } catch (error) {
+ *   console.error("Cannot open settings", error);
+ * }
+ */
 export const openAppLanguageSettings = async (): Promise<void> => {
   throw new Error("openAppLanguageSettings is supported only on Android 13+");
 };
