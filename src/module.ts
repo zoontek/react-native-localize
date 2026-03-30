@@ -145,41 +145,108 @@ const uses24HourClockImpl = (language: string): boolean => {
 const usesMetricSystemImpl = (country: string): boolean =>
   !USES_IMPERIAL.has(country);
 
+/**
+ * Gets the device's calendar system.
+ * @returns A {@link Calendar} (e.g., `"gregorian"`)
+ */
 export const getCalendar = (): Calendar => "gregorian";
+
+/**
+ * Gets the device's country code.
+ * @returns An ISO 3166-1 alpha-2 country code (e.g., `"US"`, `"FR"`)
+ */
 export const getCountry = (): string => getCountryImpl(navigator.languages);
 
+/**
+ * Gets currency codes for the device's locales.
+ * @returns An array of ISO 4217 currency codes (e.g., `["USD", "EUR"]`)
+ */
 export const getCurrencies = (): string[] =>
   getCurrenciesImpl(navigator.languages);
 
+/**
+ * Gets the device's locales with language, country, and text direction info.
+ * @returns An array of {@link Locale} objects
+ */
 export const getLocales = (): Locale[] => {
   const { languages } = navigator;
   return getLocalesImpl(languages, getCountryImpl(languages));
 };
 
+/**
+ * Gets the device's decimal and grouping separators.
+ * @returns A {@link NumberFormatSettings} object
+ */
 export const getNumberFormatSettings = (): NumberFormatSettings =>
   getNumberFormatSettingsImpl(navigator.language);
 
+/**
+ * Gets the device's preferred temperature unit.
+ * @returns A {@link TemperatureUnit} (`"celsius"` or `"fahrenheit"`)
+ */
 export const getTemperatureUnit = (): TemperatureUnit =>
   getTemperatureUnitImpl(getCountryImpl(navigator.languages));
 
+/**
+ * Gets the device's IANA time zone.
+ * @returns An IANA time zone identifier (e.g., `"America/New_York"`)
+ */
 export const getTimeZone = (): string => getTimeZoneImpl(navigator.language);
 
+/**
+ * Gets whether the device uses 24-hour time format.
+ * @returns `true` if 24-hour, `false` if 12-hour
+ */
 export const uses24HourClock = (): boolean =>
   uses24HourClockImpl(navigator.language);
 
+/**
+ * Gets whether the device uses the metric system.
+ * @returns `true` for metric, `false` for imperial
+ */
 export const usesMetricSystem = (): boolean =>
   usesMetricSystemImpl(getCountryImpl(navigator.languages));
 
+/**
+ * Gets whether automatic date & time is enabled.
+ * @returns A `boolean`, or `undefined` if unsupported
+ */
 export const usesAutoDateAndTime = (): boolean | undefined => undefined;
+
+/**
+ * Gets whether automatic time zone is enabled.
+ * @returns A `boolean`, or `undefined` if unsupported
+ */
 export const usesAutoTimeZone = (): boolean | undefined => undefined;
+
+/**
+ * Finds the best matching language tag from the given list based on device locales.
+ * @param languageTags - An array of BCP 47 language tags to match against
+ * @returns The best match with its `isRTL` flag, or `undefined` if none found
+ */
 export const findBestLanguageTag = getFindBestLanguageTag(getLocales());
 
+/**
+ * Opens the system app language settings. Only supported on Android 13+.
+ * @throws On unsupported platforms
+ */
 export const openAppLanguageSettings = async (): Promise<void> => {
   throw new Error("openAppLanguageSettings is supported only on Android 13+");
 };
 
 const ServerLanguagesContext = createContext<string[] | null>(null);
 
+/**
+ * Provides custom language tags for SSR / testing.
+ * Only active server-side; on the client, renders children as-is.
+ *
+ * @example
+ * ```tsx
+ * <ServerLanguagesProvider value={["fr-FR", "en-US"]}>
+ *   <App />
+ * </ServerLanguagesProvider>
+ * ```
+ */
 export const ServerLanguagesProvider = ({
   children,
   value,
@@ -204,6 +271,15 @@ const api: LocalizeApi = {
   openAppLanguageSettings,
 };
 
+/**
+ * Returns the {@link LocalizeApi} localization API.
+ * Uses device languages on the client, or {@link ServerLanguagesProvider} values during SSR.
+ *
+ * @example
+ * ```tsx
+ * const { getLocales, getTemperatureUnit } = useLocalize();
+ * ```
+ */
 export const useLocalize = (): LocalizeApi => {
   const languages = useContext(ServerLanguagesContext);
 
