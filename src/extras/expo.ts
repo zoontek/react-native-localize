@@ -48,7 +48,7 @@ const withAndroidAppLocales: ConfigPlugin<string[]> = (config, locales) => {
       mkdirSync(xmlDir, { recursive: true });
 
       writeFileSync(
-        join(xmlDir, "locales_config.xml"),
+        join(xmlDir, "locale_config.xml"),
         `<?xml version="1.0" encoding="utf-8"?>
 <locale-config xmlns:android="http://schemas.android.com/apk/res/android">
 ${locales.map((locale) => `  <locale android:name="${locale}"/>`).join("\n")}
@@ -69,7 +69,7 @@ ${locales.map((locale) => `  <locale android:name="${locale}"/>`).join("\n")}
 
       mainApplication.$ = {
         ...mainApplication.$,
-        "android:localeConfig": "@xml/locales_config",
+        "android:localeConfig": "@xml/locale_config",
       };
 
       return config;
