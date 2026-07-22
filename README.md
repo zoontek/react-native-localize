@@ -28,10 +28,39 @@ $ yarn add react-native-localize
 
 _Don't forget to run `pod install` after that !_
 
-### Expo plugin
+### iOS
 
-If you're using Expo, you can specify the supported locales in your `app.json` or `app.config.js` using the config plugin.
-This enables Android 13+ and iOS to display the available locales in the system settings, allowing users to select their preferred language for your app.
+List your supported locales under `CFBundleLocalizations` in `ios/YourApp/Info.plist`:
+
+```xml
+<key>CFBundleLocalizations</key>
+<array>
+  <string>en</string>
+  <string>fr</string>
+</array>
+```
+
+### Android
+
+Set `android:localeConfig` on the `<application>` element in `android/app/src/main/AndroidManifest.xml`:
+
+```xml
+<application android:localeConfig="@xml/locale_config" />
+```
+
+Then list your supported locales in `android/app/src/main/res/xml/locale_config.xml`:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+  <locale android:name="en" />
+  <locale android:name="fr" />
+</locale-config>
+```
+
+### Expo
+
+Specify the supported locales in your `app.json` or `app.config.js` using the config plugin.
 
 <details open>
 <summary><strong>Dynamic configuration (app.config.js, app.config.ts)</strong></summary>
@@ -70,10 +99,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 ```
 
 </details>
-
-### Web support
-
-This package supports `react-native-web`. Follow their [official guide](https://necolas.github.io/react-native-web/docs/multi-platform/#compiling-and-bundling) to configure `webpack`.
 
 ## Basic usage example
 
@@ -438,12 +463,6 @@ const App = () => {
 ## Examples with [@formatjs/intl](https://formatjs.io/docs/intl)
 
 Browse the files in the [/example](https://github.com/zoontek/react-native-localize/tree/master/example) directory.
-
-## How to update supported localizations (iOS)
-
-You can add / remove supported localizations in your Xcode project infos:
-
-![](./docs/xcode-adding-locales.png)
 
 ## How to test your code
 
