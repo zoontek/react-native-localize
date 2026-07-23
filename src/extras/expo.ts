@@ -1,5 +1,6 @@
 import {
   AndroidConfig,
+  CodeGenerator,
   createRunOncePlugin,
   withAndroidManifest,
   withAppBuildGradle,
@@ -7,9 +8,8 @@ import {
   withPlugins,
   type ConfigPlugin,
 } from "@expo/config-plugins";
-import { mergeContents } from "@expo/config-plugins/build/utils/generateCode";
-import { mkdirSync, writeFileSync } from "fs";
-import { join } from "path";
+import { mkdirSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
 
 const PACKAGE_NAME = "react-native-localize";
 
@@ -101,7 +101,7 @@ ${locales.map((locale) => `  <locale android:name="${locale}"/>`).join("\n")}
       .map((item) => `"${item}"`)
       .join(", ");
 
-    const { contents } = mergeContents({
+    const { contents } = CodeGenerator.mergeContents({
       src: modResults.contents,
       comment: "//",
       tag: PACKAGE_NAME,
