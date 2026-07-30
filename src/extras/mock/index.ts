@@ -6,8 +6,20 @@ export const getCurrencies = () => ["USD", "EUR"]; // can be empty array
 
 export const getLocales = () => [
   // extend if needed, add the locales you want
-  { countryCode: "US", languageTag: "en-US", languageCode: "en", isRTL: false },
-  { countryCode: "FR", languageTag: "fr-FR", languageCode: "fr", isRTL: false },
+  {
+    countryCode: "US",
+    languageTag: "en-US",
+    languageTagWithExtensions: "en-US",
+    languageCode: "en",
+    isRTL: false,
+  },
+  {
+    countryCode: "FR",
+    languageTag: "fr-FR",
+    languageTagWithExtensions: "fr-FR",
+    languageCode: "fr",
+    isRTL: false,
+  },
 ];
 
 export const getNumberFormatSettings = () => ({
