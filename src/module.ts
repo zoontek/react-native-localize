@@ -13,7 +13,7 @@ import type {
   ServerLanguagesProviderProps,
   TemperatureUnit,
 } from "./types";
-import { getFindBestLanguageTag } from "./utils";
+import { findBestLanguageTagImpl } from "./utils";
 
 const dateTimeFormatters = new Map<string, Intl.DateTimeFormat>();
 const numberFormatters = new Map<string, Intl.NumberFormat>();
@@ -224,7 +224,10 @@ export const usesAutoTimeZone = (): boolean | undefined => undefined;
  * @param languageTags - An array of BCP 47 language tags to match against
  * @returns The best match with its `isRTL` flag, or `undefined` if none found
  */
-export const findBestLanguageTag = getFindBestLanguageTag(getLocales());
+export const findBestLanguageTag = <T extends string>(
+  languageTags: readonly T[],
+): { languageTag: T; isRTL: boolean } | undefined =>
+  findBestLanguageTagImpl(languageTags, getLocales());
 
 /**
  * Opens the system app language settings. Only supported on Android 13+.
@@ -305,7 +308,8 @@ export const useLocalize = (): LocalizeApi => {
       usesMetricSystem: () => usesMetricSystemImpl(country),
       usesAutoDateAndTime,
       usesAutoTimeZone,
-      findBestLanguageTag: getFindBestLanguageTag(locales),
+      findBestLanguageTag: (languageTags) =>
+        findBestLanguageTagImpl(languageTags, locales),
       openAppLanguageSettings,
     };
   })[0];

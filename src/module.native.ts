@@ -7,7 +7,7 @@ import type {
   ServerLanguagesProviderProps,
   TemperatureUnit,
 } from "./types";
-import { getFindBestLanguageTag } from "./utils";
+import { findBestLanguageTagImpl } from "./utils";
 
 export const getCalendar = (): Calendar =>
   NativeModule.getCalendar() as Calendar;
@@ -32,7 +32,10 @@ export const usesAutoDateAndTime = (): boolean | undefined =>
 export const usesAutoTimeZone = (): boolean | undefined =>
   NativeModule.usesAutoTimeZone() ?? undefined;
 
-export const findBestLanguageTag = getFindBestLanguageTag(getLocales());
+export const findBestLanguageTag = <T extends string>(
+  languageTags: readonly T[],
+): { languageTag: T; isRTL: boolean } | undefined =>
+  findBestLanguageTagImpl(languageTags, getLocales());
 
 export const openAppLanguageSettings = async (): Promise<void> => {
   await NativeModule.openAppLanguageSettings();
