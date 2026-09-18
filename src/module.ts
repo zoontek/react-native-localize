@@ -42,6 +42,7 @@ const convertLanguageTagToLocale = (
     languageCode,
     countryCode,
     languageTag: `${languageCode}-${countryCode}`,
+    languageTagWithExtensions: languageTag,
     isRTL: USES_RTL_LAYOUT.has(languageCode),
   };
 };
