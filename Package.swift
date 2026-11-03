@@ -32,7 +32,7 @@ let package = Package(
             ],
             path: ".",
             exclude: ["ios/RNLocalize.xcodeproj"] + unusedRootEntries,
-            sources: ["ios/RNLocalize.mm"],
+            sources: ["ios"],
             publicHeadersPath: "include",
             cSettings: [
                 .define("RCT_NEW_ARCH_ENABLED", to: "1"),
