@@ -123,6 +123,7 @@ RCT_EXPORT_MODULE();
       @"languageCode": languageCode,
       @"countryCode": countryCode,
       @"languageTag": languageTag,
+      @"languageTagWithExtensions": identifier,
       @"isRTL": @(isRTL),
     }];
 

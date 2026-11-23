@@ -30,6 +30,8 @@ export type Locale = Readonly<{
   countryCode: string;
   /** Full BCP 47 language tag (e.g., `"en-US"`, `"zh-Hans-CN"`) */
   languageTag: string;
+  /** Full BCP 47 language tag, including Unicode extensions when available (e.g., `"ar-SA-u-nu-latn"`) */
+  languageTagWithExtensions: string;
   /** Whether the locale uses right-to-left text direction */
   isRTL: boolean;
 }>;

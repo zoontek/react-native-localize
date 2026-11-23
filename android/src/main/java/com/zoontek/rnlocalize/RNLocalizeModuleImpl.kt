@@ -163,6 +163,7 @@ object RNLocalizeModuleImpl {
         putString("languageCode", languageCode)
         putString("countryCode", countryCode)
         putString("languageTag", languageTag)
+        putString("languageTagWithExtensions", systemLocale.toLanguageTag())
 
         val rtl = TextUtils.getLayoutDirectionFromLocale(systemLocale) == View.LAYOUT_DIRECTION_RTL
         putBoolean("isRTL", rtl)

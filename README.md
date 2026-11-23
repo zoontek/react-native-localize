@@ -204,6 +204,7 @@ type getLocales = () => Array<{
   scriptCode?: string;
   countryCode: string;
   languageTag: string;
+  languageTagWithExtensions: string;
   isRTL: boolean;
 }>;
 ```
@@ -215,9 +216,9 @@ import { getLocales } from "react-native-localize";
 
 console.log(getLocales());
 /* -> [
-  { countryCode: "GB", languageTag: "en-GB", languageCode: "en", isRTL: false },
-  { countryCode: "US", languageTag: "en-US", languageCode: "en", isRTL: false },
-  { countryCode: "FR", languageTag: "fr-FR", languageCode: "fr", isRTL: false },
+  { countryCode: "GB", languageTag: "en-GB", languageTagWithExtensions: "en-GB", languageCode: "en", isRTL: false },
+  { countryCode: "US", languageTag: "en-US", languageTagWithExtensions: "en-US", languageCode: "en", isRTL: false },
+  { countryCode: "SA", languageTag: "ar-SA", languageTagWithExtensions: "ar-SA-u-nu-latn", languageCode: "ar", isRTL: true },
 ] */
 ```
 
