@@ -1813,7 +1813,7 @@ PODS:
     - React-utils (= 0.88.1)
     - ReactNativeDependencies
   - ReactNativeDependencies (0.88.1)
-  - RNLocalize (3.7.2):
+  - RNLocalize (3.8.0):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2197,7 +2197,7 @@ SPEC CHECKSUMS:
   ReactCodegen: 3840312f5071bb6b953b35a029c5c6dcf06b435e
   ReactCommon: b63ce798b898ed77c6cfdeb80b18080161f52ed5
   ReactNativeDependencies: a5164c3ebbe90d992022b5d9cbabbf770a6d7d05
-  RNLocalize: 6b1ada941cb6116aace7d9f508a9fdd24d792ff8
+  RNLocalize: 2542cc9c916fa75364ad6e15741d008b785bc3bd
   SocketRocket: 37aec555668fb852ec12e3c0de59a86ca58f0871
   Yoga: d1c536142c5ff8ec8cd856ab2a7c227a1d875c8e
 
