@@ -1,0 +1,4 @@
+module RNLocalize {
+  header "RNLocalize.h"
+  export *
+}

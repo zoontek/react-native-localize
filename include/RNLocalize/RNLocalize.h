@@ -1,1 +1,0 @@
-#import "../../ios/RNLocalize.h"

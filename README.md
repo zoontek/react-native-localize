@@ -26,7 +26,7 @@ $ npm install --save react-native-localize
 $ yarn add react-native-localize
 ```
 
-_Don't forget to run `pod install` after that !_
+_Don't forget to run `pod install` (or `npx react-native spm update` if your app uses Swift Package Manager) after that !_
 
 ### iOS
 
