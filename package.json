@@ -59,7 +59,8 @@
     "/src",
     "RNLocalize.podspec",
     "app.plugin.js",
-    "package.json"
+    "package.json",
+    "Package.swift"
   ],
   "repository": {
     "type": "git",
@@ -135,5 +136,8 @@
     "android": {
       "javaPackageName": "com.zoontek.rnlocalize"
     }
+  },
+  "swiftpmConfig": {
+    "name": "RNLocalize"
   }
 }
