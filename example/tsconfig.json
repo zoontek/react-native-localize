@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "rootDir": "..",
+
     "module": "esnext",
     "lib": ["DOM", "DOM.Iterable", "ES2017"],
     "jsx": "react-native",
